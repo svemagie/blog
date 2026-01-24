@@ -29,11 +29,13 @@ permalink: /replies/
             {{ post.date | dateDisplay }}
           </time>
         </div>
-        {% if post.data.in_reply_to %}
+        {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+        {% set replyTo = post.data.inReplyTo or post.data.in_reply_to %}
+        {% if replyTo %}
         <p class="mb-3 text-sm">
           <span class="text-surface-500">In reply to:</span>
-          <a class="u-in-reply-to text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ post.data.in_reply_to }}">
-            {{ post.data.in_reply_to }}
+          <a class="u-in-reply-to text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ replyTo }}">
+            {{ replyTo }}
           </a>
         </p>
         {% endif %}

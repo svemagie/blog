@@ -29,11 +29,13 @@ permalink: /reposts/
             {{ post.date | dateDisplay }}
           </time>
         </div>
-        {% if post.data.repost_of %}
+        {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+        {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
+        {% if repostedUrl %}
         <p class="mb-3 text-sm">
           <span class="text-surface-500">Reposted:</span>
-          <a class="u-repost-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ post.data.repost_of }}">
-            {{ post.data.repost_of }}
+          <a class="u-repost-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ repostedUrl }}">
+            {{ repostedUrl }}
           </a>
         </p>
         {% endif %}

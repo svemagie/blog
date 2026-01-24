@@ -2,9 +2,15 @@
 {# Displays rich context for replies, likes, reposts, and bookmarks #}
 {# Uses h-cite microformat for citing external content #}
 
-{% if in_reply_to or like_of or repost_of or bookmark_of %}
+{# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+{% set replyTo = inReplyTo or in_reply_to %}
+{% set likedUrl = likeOf or like_of %}
+{% set repostedUrl = repostOf or repost_of %}
+{% set bookmarkedUrl = bookmarkOf or bookmark_of %}
+
+{% if replyTo or likedUrl or repostedUrl or bookmarkedUrl %}
 <aside class="reply-context p-4 mb-6 bg-surface-100 dark:bg-surface-800 rounded-lg border-l-4 border-primary-500">
-  {% if in_reply_to %}
+  {% if replyTo %}
   <div class="u-in-reply-to h-cite">
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-2 flex items-center gap-2">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -12,13 +18,13 @@
       </svg>
       <span>In reply to:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ in_reply_to }}">
-      {{ in_reply_to }}
+    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ replyTo }}">
+      {{ replyTo }}
     </a>
   </div>
   {% endif %}
 
-  {% if like_of %}
+  {% if likedUrl %}
   <div class="u-like-of h-cite">
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-2 flex items-center gap-2">
       <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -26,13 +32,13 @@
       </svg>
       <span>Liked:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ like_of }}">
-      {{ like_of }}
+    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ likedUrl }}">
+      {{ likedUrl }}
     </a>
   </div>
   {% endif %}
 
-  {% if repost_of %}
+  {% if repostedUrl %}
   <div class="u-repost-of h-cite">
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-2 flex items-center gap-2">
       <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -40,13 +46,13 @@
       </svg>
       <span>Reposted:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ repost_of }}">
-      {{ repost_of }}
+    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ repostedUrl }}">
+      {{ repostedUrl }}
     </a>
   </div>
   {% endif %}
 
-  {% if bookmark_of %}
+  {% if bookmarkedUrl %}
   <div class="u-bookmark-of h-cite">
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-2 flex items-center gap-2">
       <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -54,8 +60,8 @@
       </svg>
       <span>Bookmarked:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ bookmark_of }}">
-      {{ bookmark_of }}
+    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ bookmarkedUrl }}">
+      {{ bookmarkedUrl }}
     </a>
   </div>
   {% endif %}

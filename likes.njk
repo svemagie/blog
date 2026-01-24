@@ -24,10 +24,12 @@ permalink: /likes/
             {{ post.date | dateDisplay }}
           </time>
         </div>
-        {% if post.data.like_of %}
+        {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+        {% set likedUrl = post.data.likeOf or post.data.like_of %}
+        {% if likedUrl %}
         <p class="mb-2">
-          <a class="u-like-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ post.data.like_of }}">
-            {{ post.data.like_of }}
+          <a class="u-like-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ likedUrl }}">
+            {{ likedUrl }}
           </a>
         </p>
         {% endif %}

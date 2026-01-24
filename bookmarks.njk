@@ -20,8 +20,10 @@ permalink: /bookmarks/
         {{ post.date | dateDisplay }}
       </time>
     </div>
-    {% if post.data.bookmark_of %}
-    <p><a class="u-bookmark-of" href="{{ post.data.bookmark_of }}">{{ post.data.bookmark_of }}</a></p>
+    {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+    {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
+    {% if bookmarkedUrl %}
+    <p><a class="u-bookmark-of" href="{{ bookmarkedUrl }}">{{ bookmarkedUrl }}</a></p>
     {% endif %}
     <div class="e-content">{{ post.templateContent | safe }}</div>
   </li>

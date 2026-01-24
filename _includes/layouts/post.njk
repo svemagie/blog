@@ -26,10 +26,18 @@ withBlogSidebar: true
   </div>
 
   {# Bridgy syndication content - controls what gets posted to social networks #}
-  {# Uses description/summary if available, otherwise first 280 chars of content #}
+  {# For interaction types (bookmarks, likes, replies, reposts), include the target URL #}
+  {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+  {% set bookmarkedUrl = bookmarkOf or bookmark_of %}
+  {% set likedUrl = likeOf or like_of %}
+  {% set replyTo = inReplyTo or in_reply_to %}
+  {% set repostedUrl = repostOf or repost_of %}
+
   {% set bridgySummary = description or summary or (content | ogDescription(280)) %}
-  {% if bridgySummary %}
-  <p class="p-summary e-bridgy-mastodon-content e-bridgy-bluesky-content hidden">{{ bridgySummary }}</p>
+  {% set interactionUrl = bookmarkedUrl or likedUrl or replyTo or repostedUrl %}
+
+  {% if bridgySummary or interactionUrl %}
+  <p class="p-summary e-bridgy-mastodon-content e-bridgy-bluesky-content hidden">{% if bookmarkedUrl %}🔖 {{ bookmarkedUrl }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% elif likedUrl %}❤️ {{ likedUrl }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% elif replyTo %}↩️ {{ replyTo }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% elif repostedUrl %}🔁 {{ repostedUrl }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% else %}{{ bridgySummary }}{% endif %}</p>
   {% endif %}
 
   <div class="e-content prose prose-surface dark:prose-invert max-w-none">

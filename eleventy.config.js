@@ -316,19 +316,21 @@ export default function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
-  // Replies collection - posts with in_reply_to property
+  // Replies collection - posts with inReplyTo/in_reply_to property
+  // Supports both camelCase (Indiekit Eleventy preset) and underscore (legacy) names
   eleventyConfig.addCollection("replies", function (collectionApi) {
     return collectionApi
       .getAll()
-      .filter((item) => item.data.in_reply_to)
+      .filter((item) => item.data.inReplyTo || item.data.in_reply_to)
       .sort((a, b) => b.date - a.date);
   });
 
-  // Reposts collection - posts with repost_of property
+  // Reposts collection - posts with repostOf/repost_of property
+  // Supports both camelCase (Indiekit Eleventy preset) and underscore (legacy) names
   eleventyConfig.addCollection("reposts", function (collectionApi) {
     return collectionApi
       .getAll()
-      .filter((item) => item.data.repost_of)
+      .filter((item) => item.data.repostOf || item.data.repost_of)
       .sort((a, b) => b.date - a.date);
   });
 
