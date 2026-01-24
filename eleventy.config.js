@@ -14,9 +14,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = process.env.SITE_URL || "https://example.com";
 
 export default function (eleventyConfig) {
+  // Don't use .gitignore for determining what to process
+  // (content/ is in .gitignore because it's a symlink, but we need to process it)
+  eleventyConfig.setUseGitIgnore(false);
+
   // Ignore output directory (prevents re-processing generated files via symlink)
   eleventyConfig.ignores.add("_site");
   eleventyConfig.ignores.add("_site/**");
+  eleventyConfig.ignores.add("node_modules");
+  eleventyConfig.ignores.add("node_modules/**");
 
   // Configure markdown-it with linkify enabled (auto-convert URLs to links)
   const md = markdownIt({
