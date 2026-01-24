@@ -235,17 +235,33 @@ export default function (eleventyConfig) {
     return date.toLocaleDateString("en-US", options);
   });
 
-  // Webmention filters
-  eleventyConfig.addFilter("webmentionsForUrl", function (webmentions, url) {
+  // Webmention filters - with legacy URL support
+  // This filter checks both current URL and any legacy URLs from redirects
+  eleventyConfig.addFilter("webmentionsForUrl", function (webmentions, url, urlAliases) {
     if (!webmentions || !url) return [];
-    const absoluteUrl = url.startsWith("http")
-      ? url
-      : `${siteUrl}${url}`;
-    return webmentions.filter(
-      (wm) =>
-        wm["wm-target"] === absoluteUrl ||
-        wm["wm-target"] === absoluteUrl.replace(/\/$/, "")
-    );
+
+    // Build list of all URLs to check (current + legacy)
+    const urlsToCheck = new Set();
+
+    // Add current URL variations
+    const absoluteUrl = url.startsWith("http") ? url : `${siteUrl}${url}`;
+    urlsToCheck.add(absoluteUrl);
+    urlsToCheck.add(absoluteUrl.replace(/\/$/, ""));
+    urlsToCheck.add(absoluteUrl.endsWith("/") ? absoluteUrl : `${absoluteUrl}/`);
+
+    // Add legacy URLs from aliases (if provided)
+    if (urlAliases?.aliases) {
+      const normalizedUrl = url.replace(/\/$/, "");
+      const oldUrls = urlAliases.aliases[normalizedUrl] || [];
+      for (const oldUrl of oldUrls) {
+        urlsToCheck.add(`${siteUrl}${oldUrl}`);
+        urlsToCheck.add(`${siteUrl}${oldUrl}/`);
+        urlsToCheck.add(`${siteUrl}${oldUrl}`.replace(/\/$/, ""));
+      }
+    }
+
+    // Filter webmentions matching any of our URLs
+    return webmentions.filter((wm) => urlsToCheck.has(wm["wm-target"]));
   });
 
   eleventyConfig.addFilter("webmentionsByType", function (mentions, type) {
