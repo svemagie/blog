@@ -223,6 +223,9 @@ export default function (eleventyConfig) {
     }
   });
 
+  // Current timestamp filter (for client-side JS buildtime)
+  eleventyConfig.addFilter("timestamp", () => Date.now());
+
   // Date filter (for sidebar dates)
   eleventyConfig.addFilter("date", (dateObj, format) => {
     if (!dateObj) return "";
