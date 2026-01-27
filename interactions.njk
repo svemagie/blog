@@ -192,7 +192,7 @@ permalink: /interactions/
 
     {# Webmentions list #}
     <div x-show="!loading || webmentions.length" class="space-y-4">
-      <template x-for="wm in filteredWebmentions" :key="wm['wm-id']">
+      <template x-for="wm in paginatedWebmentions" :key="wm['wm-id']">
         <div class="p-4 bg-surface-100 dark:bg-surface-800 rounded-lg">
           <div class="flex gap-3">
             {# Author avatar #}
@@ -291,6 +291,7 @@ function interactionsApp() {
     page: 0,
     perPage: 50,
     hasMore: true,
+    refreshInterval: null,
 
     get likes() {
       return this.webmentions.filter(wm => wm['wm-property'] === 'like-of');
@@ -317,34 +318,51 @@ function interactionsApp() {
       return this.webmentions.filter(wm => wm['wm-property'] === this.filterType);
     },
 
-    async init() {
-      await this.fetchWebmentions();
+    get paginatedWebmentions() {
+      // Client-side pagination of filtered results
+      return this.filteredWebmentions;
     },
 
-    async fetchWebmentions(reset = true) {
-      if (reset) {
+    async init() {
+      await this.fetchWebmentions();
+      // Auto-refresh every 5 minutes
+      this.refreshInterval = setInterval(() => this.fetchWebmentions(true), 5 * 60 * 1000);
+    },
+
+    async fetchWebmentions(silent = false) {
+      if (!silent) {
+        this.loading = true;
         this.page = 0;
         this.webmentions = [];
         this.hasMore = true;
       }
-
-      this.loading = true;
       this.error = null;
 
       try {
-        const domain = '{{ site.webmentions.domain }}';
-        const url = `https://webmention.io/api/mentions.jf2?domain=${domain}&per-page=${this.perPage}&page=${this.page}&sort-by=published&sort-dir=down`;
+        // Use our server-side proxy which has the token
+        const url = `/webmentions-api/api/mentions?per-page=${this.perPage}&page=${this.page}`;
 
         const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}));
+          throw new Error(data.message || `HTTP ${response.status}`);
+        }
 
         const data = await response.json();
         const newMentions = data.children || [];
 
-        if (reset) {
+        // Sort by published date, newest first
+        newMentions.sort((a, b) => {
+          const dateA = new Date(a.published || a['wm-received'] || 0);
+          const dateB = new Date(b.published || b['wm-received'] || 0);
+          return dateB - dateA;
+        });
+
+        if (silent) {
+          // For silent refresh, replace all
           this.webmentions = newMentions;
         } else {
-          this.webmentions = [...this.webmentions, ...newMentions];
+          this.webmentions = newMentions;
         }
 
         this.hasMore = newMentions.length === this.perPage;
@@ -359,8 +377,22 @@ function interactionsApp() {
     async loadMore() {
       this.loadingMore = true;
       this.page++;
-      await this.fetchWebmentions(false);
-      this.loadingMore = false;
+
+      try {
+        const url = `/webmentions-api/api/mentions?per-page=${this.perPage}&page=${this.page}`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+        const newMentions = data.children || [];
+
+        this.webmentions = [...this.webmentions, ...newMentions];
+        this.hasMore = newMentions.length === this.perPage;
+      } catch (err) {
+        this.error = `Failed to load more: ${err.message}`;
+      } finally {
+        this.loadingMore = false;
+      }
     },
 
     formatDate(dateStr) {
