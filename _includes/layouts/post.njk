@@ -93,7 +93,17 @@ withBlogSidebar: true
   </span>
 
   {# JSON-LD Structured Data for SEO #}
-  {% set postImage = photo or image or (content | extractFirstImage) %}
+  {# Handle photo as potentially an array #}
+  {% set postImage = photo %}
+  {% if postImage %}
+    {# If photo is an array, use first element (check if first element looks like a URL) #}
+    {% if postImage[0] and (postImage[0] | length) > 10 %}
+      {% set postImage = postImage[0] %}
+    {% endif %}
+  {% endif %}
+  {% if not postImage or postImage == "" %}
+    {% set postImage = image or (content | extractFirstImage) %}
+  {% endif %}
   {% set postDesc = description | default(content | ogDescription(160)) %}
   <script type="application/ld+json">
   {
@@ -121,8 +131,8 @@ withBlogSidebar: true
         "url": "{{ site.url }}/images/og-default.png"
       }
     },
-    "description": {{ postDesc | dump | safe }}{% if postImage %},
-    "image": ["{{ site.url }}{% if postImage.startsWith('/') %}{{ postImage }}{% else %}/{{ postImage }}{% endif %}"]{% endif %}
+    "description": {{ postDesc | dump | safe }}{% if postImage and postImage != "" and (postImage | length) > 10 %},
+    "image": ["{{ site.url }}{% if '/' in postImage and postImage[0] == '/' %}{{ postImage }}{% else %}/{{ postImage }}{% endif %}"]{% endif %}
   }
   </script>
 </article>
