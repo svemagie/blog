@@ -255,6 +255,40 @@
     @apply pt-3 border-t border-surface-100 dark:border-surface-700;
   }
 
+  /* Photo gallery on listing pages */
+  .photo-list li {
+    @apply pb-8;
+  }
+
+  .photo-gallery {
+    @apply my-4 grid gap-2;
+  }
+
+  .photo-gallery img {
+    @apply w-full max-h-[500px] object-cover rounded-lg;
+  }
+
+  .photo-link {
+    @apply block;
+  }
+
+  .photo-caption {
+    @apply mt-3 text-surface-600 dark:text-surface-400;
+  }
+
+  /* Multi-photo grid */
+  .photo-gallery:has(img:nth-child(2)) {
+    @apply grid-cols-2;
+  }
+
+  .photo-gallery:has(img:nth-child(3)) {
+    @apply grid-cols-2;
+  }
+
+  .photo-gallery:has(img:nth-child(4)) {
+    @apply grid-cols-2;
+  }
+
   /* Pagination */
   .pagination {
     @apply mt-12 pt-8 border-t border-surface-200 dark:border-surface-700 flex flex-col sm:flex-row items-center justify-between gap-4;
