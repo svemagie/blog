@@ -74,7 +74,7 @@
       }
 
       // Update total count in main header
-      updateTotalCount(newMentions.length);
+      updateTotalCount(mentionsToShow.length);
     })
     .catch((err) => {
       console.debug('[Webmentions] Error fetching:', err.message);
