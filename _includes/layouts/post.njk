@@ -40,6 +40,19 @@ withBlogSidebar: true
   <p class="p-summary e-bridgy-mastodon-content e-bridgy-bluesky-content hidden">{% if bookmarkedUrl %}🔖 {{ bookmarkedUrl }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% elif likedUrl %}❤️ {{ likedUrl }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% elif replyTo %}↩️ {{ replyTo }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% elif repostedUrl %}🔁 {{ repostedUrl }}{% if bridgySummary %} - {{ bridgySummary }}{% endif %}{% else %}{{ bridgySummary }}{% endif %}</p>
   {% endif %}
 
+  {# Render photo(s) from frontmatter for photo posts - use eleventy:ignore to skip image transform #}
+  {% if photo %}
+  <div class="photo-gallery mb-6">
+    {% for img in photo %}
+      {% set photoUrl = img.url %}
+      {% if photoUrl and photoUrl[0] != '/' and 'http' not in photoUrl %}
+        {% set photoUrl = '/' + photoUrl %}
+      {% endif %}
+      <img src="{{ photoUrl }}" alt="{{ img.alt | default('Photo') }}" class="u-photo rounded-lg max-w-full" loading="lazy" eleventy:ignore>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   <div class="e-content prose prose-surface dark:prose-invert max-w-none">
     {{ content | safe }}
   </div>
