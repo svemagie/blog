@@ -100,7 +100,7 @@
       link.dataset.new = 'true';
 
       const img = document.createElement('img');
-      img.src = author.photo || '/images/default-avatar.png';
+      img.src = author.photo || '/images/default-avatar.svg';
       img.alt = author.name || 'Anonymous';
       img.className = 'w-8 h-8 rounded-full ring-2 ring-primary-500';
       img.loading = 'lazy';
@@ -148,7 +148,7 @@
       avatarLink.rel = 'noopener';
 
       const avatarImg = document.createElement('img');
-      avatarImg.src = author.photo || '/images/default-avatar.png';
+      avatarImg.src = author.photo || '/images/default-avatar.svg';
       avatarImg.alt = author.name || 'Anonymous';
       avatarImg.className = 'w-10 h-10 rounded-full';
       avatarImg.loading = 'lazy';

@@ -198,11 +198,11 @@ permalink: /interactions/
             {# Author avatar #}
             <a :href="wm.author?.url || '#'" target="_blank" rel="noopener" class="flex-shrink-0">
               <img
-                :src="wm.author?.photo || '/images/default-avatar.png'"
+                :src="wm.author?.photo || '/images/default-avatar.svg'"
                 :alt="wm.author?.name || 'Anonymous'"
                 class="w-10 h-10 rounded-full"
                 loading="lazy"
-                onerror="this.src='/images/default-avatar.png'"
+                onerror="this.src='/images/default-avatar.svg'"
               >
             </a>
 

@@ -35,7 +35,7 @@
          target="_blank"
          rel="noopener">
         <img
-          src="{{ like.author.photo or '/images/default-avatar.png' }}"
+          src="{{ like.author.photo or '/images/default-avatar.svg' }}"
           alt="{{ like.author.name }}"
           class="w-8 h-8 rounded-full"
           loading="lazy"
@@ -61,7 +61,7 @@
          target="_blank"
          rel="noopener">
         <img
-          src="{{ repost.author.photo or '/images/default-avatar.png' }}"
+          src="{{ repost.author.photo or '/images/default-avatar.svg' }}"
           alt="{{ repost.author.name }}"
           class="w-8 h-8 rounded-full"
           loading="lazy"
@@ -85,7 +85,7 @@
         <div class="flex gap-3">
           <a href="{{ reply.author.url }}" target="_blank" rel="noopener">
             <img
-              src="{{ reply.author.photo or '/images/default-avatar.png' }}"
+              src="{{ reply.author.photo or '/images/default-avatar.svg' }}"
               alt="{{ reply.author.name }}"
               class="w-10 h-10 rounded-full"
               loading="lazy"

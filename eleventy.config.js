@@ -122,6 +122,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("js");
+  eleventyConfig.addPassthroughCopy("favicon.ico");
 
   // Watch for content changes
   eleventyConfig.addWatchTarget("./content/");
