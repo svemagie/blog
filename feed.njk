@@ -13,14 +13,23 @@ eleventyExcludeFromCollections: true
     <lastBuildDate>{{ collections.feed | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
     {%- for post in collections.feed %}
     {%- set absolutePostUrl = site.url + post.url %}
-    {%- set postImage = post.data.photo or post.data.image or (post.content | extractFirstImage) %}
+    {%- set postImage = post.data.photo %}
+    {%- if postImage %}
+      {# If photo is an array, use first element (check if first element looks like a URL) #}
+      {%- if postImage[0] and (postImage[0] | length) > 10 %}
+        {%- set postImage = postImage[0] %}
+      {%- endif %}
+    {%- endif %}
+    {%- if not postImage or postImage == "" %}
+      {%- set postImage = post.data.image or (post.content | extractFirstImage) %}
+    {%- endif %}
     <item>
       <title>{{ post.data.title | default(post.content | striptags | truncate(80)) | escape }}</title>
       <link>{{ absolutePostUrl }}</link>
       <guid isPermaLink="true">{{ absolutePostUrl }}</guid>
       <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
       <description>{{ post.content | htmlToAbsoluteUrls(absolutePostUrl) | escape }}</description>
-      {%- if postImage and postImage != "" %}
+      {%- if postImage and postImage != "" and (postImage | length) > 10 %}
       {%- set imageUrl = postImage | url | absoluteUrl(site.url) %}
       <enclosure url="{{ imageUrl }}" type="image/jpeg" length="0"/>
       <media:content url="{{ imageUrl }}" medium="image"/>
