@@ -10,8 +10,20 @@ function parseSocialLinks(envVar) {
   if (!envVar) return [];
   return envVar.split(",").map((link) => {
     const [name, url, icon] = link.split("|").map((s) => s.trim());
-    return { name, url, rel: "me", icon: icon || name.toLowerCase() };
+    // Bluesky requires "me atproto" for verification
+    const rel = url.includes("bsky.app") ? "me atproto" : "me";
+    return { name, url, rel, icon: icon || name.toLowerCase() };
   });
+}
+
+// Get Mastodon handle for fediverse:creator meta tag
+function getMastodonHandle() {
+  const instance = process.env.MASTODON_INSTANCE?.replace("https://", "") || "";
+  const user = process.env.MASTODON_USER || "";
+  if (instance && user) {
+    return `@${user}@${instance}`;
+  }
+  return "";
 }
 
 // Default social links if none configured
@@ -63,4 +75,7 @@ export default {
   webmentions: {
     domain: process.env.SITE_URL?.replace("https://", "").replace("http://", "") || "example.com",
   },
+
+  // Fediverse creator for meta tag (e.g., @rmdes@mstdn.social)
+  fediverseCreator: getMastodonHandle(),
 };
