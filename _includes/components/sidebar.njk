@@ -1,24 +1,72 @@
 {# Sidebar Components #}
 {# Contains: Author card, Bluesky feed, GitHub repos, RSS feed #}
 
-{# Author Card Widget #}
+{# Author Card Widget - Full h-card microformat #}
 <div class="widget">
-  <div class="h-card flex items-center gap-4">
-    <img
-      src="{{ site.author.avatar }}"
-      alt="{{ site.author.name }}"
-      class="u-photo w-16 h-16 rounded-full object-cover"
-      loading="lazy"
-    >
-    <div>
-      <a href="{{ site.author.url }}" class="u-url p-name font-bold text-lg block hover:text-primary-600 dark:hover:text-primary-400">
-        {{ site.author.name }}
+  <div class="h-card p-author" itemscope itemtype="http://schema.org/Person">
+    <div class="flex items-center gap-4">
+      <a href="{{ site.author.url }}" class="u-url u-uid" rel="me">
+        <img
+          src="{{ site.author.avatar }}"
+          alt="{{ site.author.name }}"
+          class="u-photo w-16 h-16 rounded-full object-cover"
+          loading="lazy"
+          itemprop="image"
+        >
       </a>
-      <p class="p-job-title text-sm text-surface-600 dark:text-surface-400">{{ site.author.title }}</p>
-      <p class="p-locality text-sm text-surface-500 dark:text-surface-500">{{ site.author.location }}</p>
+      <div>
+        <a href="{{ site.author.url }}" class="u-url p-name font-bold text-lg block hover:text-primary-600 dark:hover:text-primary-400" itemprop="name">
+          {{ site.author.name }}
+        </a>
+        {% if site.author.pronoun %}
+        <span class="p-pronoun text-xs text-surface-500">({{ site.author.pronoun }})</span>
+        {% endif %}
+        <p class="p-job-title text-sm text-surface-600 dark:text-surface-400" itemprop="jobTitle">{{ site.author.title }}</p>
+        {# Structured address #}
+        <p class="p-adr h-adr text-sm text-surface-500 dark:text-surface-500" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+          {% if site.author.locality %}
+          <span class="p-locality" itemprop="addressLocality">{{ site.author.locality }}</span>{% if site.author.country %}, {% endif %}
+          {% endif %}
+          {% if site.author.country %}
+          <span class="p-country-name" itemprop="addressCountry">{{ site.author.country }}</span>
+          {% endif %}
+          {# Fallback to legacy location #}
+          {% if not site.author.locality and site.author.location %}
+          <span class="p-locality">{{ site.author.location }}</span>
+          {% endif %}
+        </p>
+      </div>
     </div>
+    {# Bio #}
+    <p class="p-note mt-3 text-sm text-surface-700 dark:text-surface-300" itemprop="description">{{ site.author.bio }}</p>
+    {# Organization #}
+    {% if site.author.org %}
+    <p class="mt-2 text-sm text-surface-600 dark:text-surface-400">
+      <span class="p-org" itemprop="worksFor">{{ site.author.org }}</span>
+    </p>
+    {% endif %}
+    {# Email and PGP Key #}
+    <div class="mt-2 flex flex-wrap gap-3 text-sm">
+      {% if site.author.email %}
+      <a href="mailto:{{ site.author.email }}" class="u-email text-primary-600 dark:text-primary-400 hover:underline" itemprop="email">
+        ✉️ {{ site.author.email }}
+      </a>
+      {% endif %}
+      {% if site.author.keyUrl %}
+      <a href="{{ site.author.keyUrl }}" class="u-key text-surface-500 dark:text-surface-400 hover:underline" rel="pgpkey">
+        🔐 PGP Key
+      </a>
+      {% endif %}
+    </div>
+    {# Categories / Skills #}
+    {% if site.author.categories and site.author.categories.length %}
+    <div class="mt-3 flex flex-wrap gap-1">
+      {% for category in site.author.categories %}
+      <span class="p-category text-xs px-2 py-0.5 bg-surface-100 dark:bg-surface-800 rounded">{{ category }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
-  <p class="p-note mt-3 text-sm text-surface-700 dark:text-surface-300">{{ site.author.bio }}</p>
 </div>
 
 {# Social Feed Widget - Tabbed Bluesky/Mastodon #}
