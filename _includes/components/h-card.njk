@@ -10,6 +10,9 @@
 {% set variant = hcardVariant | default("full") %}
 
 <div class="h-card p-author" itemscope itemtype="http://schema.org/Person">
+  {# Hidden u-photo for reliable microformat parsing (some parsers struggle with img inside links) #}
+  <data class="u-photo hidden" value="{{ site.author.avatar }}"></data>
+
   {% if variant == "full" %}
   {# ===== FULL VARIANT - Homepage sidebar ===== #}
   <div class="flex items-center gap-4">
@@ -17,7 +20,7 @@
       <img
         src="{{ site.author.avatar }}"
         alt="{{ site.author.name }}"
-        class="u-photo w-16 h-16 rounded-full object-cover"
+        class="w-16 h-16 rounded-full object-cover"
         loading="lazy"
         itemprop="image"
       >
@@ -82,7 +85,7 @@
       <img
         src="{{ site.author.avatar }}"
         alt="{{ site.author.name }}"
-        class="u-photo w-12 h-12 rounded-full object-cover"
+        class="w-12 h-12 rounded-full object-cover"
         loading="lazy"
       >
     </a>
