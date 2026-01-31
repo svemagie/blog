@@ -60,6 +60,17 @@ withBlogSidebar: true
   {# Rich reply context with h-cite microformat #}
   {% include "components/reply-context.njk" %}
 
+  {# Pending syndication targets (for services like IndieNews that require u-syndication before webmention) #}
+  {% if mpSyndicateTo %}
+  <div class="hidden">
+    {% for url in mpSyndicateTo %}
+      {% if "news.indieweb.org" in url %}
+      <a href="{{ url }}" class="u-syndication" rel="syndication">IndieNews</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
   {# Syndication Footer - shows where this post was also published #}
   {% if syndication %}
   <footer class="post-footer mt-8 pt-6 border-t border-surface-200 dark:border-surface-700">
