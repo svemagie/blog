@@ -1,0 +1,107 @@
+---
+layout: layouts/base.njk
+title: Slash Pages
+withSidebar: true
+permalink: /slashes/
+---
+<div class="h-feed">
+  <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">Slash Pages</h1>
+  <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
+    Root-level pages on this site. Inspired by <a href="https://slashpages.net" class="text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener">slashpages.net</a>.
+    <span class="text-sm">({{ collections.pages.length }} total)</span>
+  </p>
+
+  {# Static pages (hardcoded in theme) #}
+  <div class="mb-8">
+    <h2 class="text-lg font-semibold text-surface-800 dark:text-surface-200 mb-4">Site Pages</h2>
+    <ul class="post-list">
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/about/" class="text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">/about</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">About me and this site</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/listening/" class="text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">/listening</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">What I'm listening to</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/funkwhale/" class="text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">/funkwhale</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">My Funkwhale activity</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/github/" class="text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">/github</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">My GitHub activity</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/youtube/" class="text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">/youtube</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">My YouTube channel</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/news/" class="text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">/news</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">RSS feed aggregator</p>
+      </li>
+    </ul>
+  </div>
+
+  {# Dynamic pages (created via Indiekit) #}
+  {% if collections.pages.length > 0 %}
+  <div>
+    <h2 class="text-lg font-semibold text-surface-800 dark:text-surface-200 mb-4">Dynamic Pages</h2>
+    <ul class="post-list">
+      {% for page in collections.pages %}
+      <li class="h-entry post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="{{ page.url }}" class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">
+              /{{ page.fileSlug }}
+            </a>
+          </h3>
+        </div>
+        {% if page.data.summary %}
+        <p class="p-summary text-surface-600 dark:text-surface-400 mt-2">{{ page.data.summary }}</p>
+        {% elif page.data.title %}
+        <p class="text-surface-600 dark:text-surface-400 mt-2">{{ page.data.title }}</p>
+        {% endif %}
+        {% if page.data.updated %}
+        <p class="text-sm text-surface-500 mt-2">
+          Updated: <time datetime="{{ page.data.updated | isoDate }}">{{ page.data.updated | dateDisplay }}</time>
+        </p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {# Inspiration section #}
+  <div class="mt-8 p-4 bg-surface-100 dark:bg-surface-800 rounded-lg">
+    <h2 class="text-lg font-semibold text-surface-800 dark:text-surface-200 mb-2">Want more slash pages?</h2>
+    <p class="text-surface-600 dark:text-surface-400 text-sm">
+      Check out <a href="https://slashpages.net" class="text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener">slashpages.net</a>
+      for inspiration on pages like <code>/now</code>, <code>/uses</code>, <code>/colophon</code>, <code>/blogroll</code>, and more.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+---
+layout: layouts/base.njk
+withSidebar: true
+---
+{# Layout for slash pages (/about, /now, /uses, etc.) #}
+{# These are root-level pages created via Indiekit's page post type #}
+
+<article class="h-entry">
+  <header class="mb-6 sm:mb-8">
+    <h1 class="p-name text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">
+      {{ title }}
+    </h1>
+    {% if summary %}
+    <p class="p-summary text-lg text-surface-600 dark:text-surface-400">
+      {{ summary }}
+    </p>
+    {% endif %}
+    {% if updated %}
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-2">
+      Last updated: <time class="dt-updated" datetime="{{ updated | isoDate }}">{{ updated | dateDisplay }}</time>
+    </p>
+    {% endif %}
+  </header>
+
+  <div class="e-content prose dark:prose-invert prose-lg max-w-none">
+    {{ content | safe }}
+  </div>
+
+  {# Categories/tags if present #}
+  {% if category %}
+  <footer class="mt-8 pt-6 border-t border-surface-200 dark:border-surface-700">
+    <div class="flex flex-wrap gap-2">
+      {% if category is string %}
+      <a href="/categories/{{ category | slugify }}/" class="p-category text-sm px-3 py-1 bg-surface-100 dark:bg-surface-800 rounded-full hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors">
+        {{ category }}
+      </a>
+      {% else %}
+      {% for cat in category %}
+      <a href="/categories/{{ cat | slugify }}/" class="p-category text-sm px-3 py-1 bg-surface-100 dark:bg-surface-800 rounded-full hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors">
+        {{ cat }}
+      </a>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </footer>
+  {% endif %}
+
+  {# Hidden metadata for microformats #}
+  <a class="u-url hidden" href="{{ page.url }}"></a>
+  <data class="p-author h-card hidden" value="{{ site.author.name }}"></data>
+</article>

@@ -339,6 +339,14 @@ export default function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  // Pages collection - root-level slash pages (about, now, uses, etc.)
+  // These are stored in content/pages/ and output to /{slug}/
+  eleventyConfig.addCollection("pages", function (collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("content/pages/**/*.md")
+      .sort((a, b) => (a.data.title || "").localeCompare(b.data.title || ""));
+  });
+
   // All content combined for homepage feed
   eleventyConfig.addCollection("feed", function (collectionApi) {
     return collectionApi
