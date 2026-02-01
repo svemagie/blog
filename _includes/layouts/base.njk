@@ -111,6 +111,7 @@
         <nav class="site-nav" id="site-nav">
           <a href="/">Home</a>
           <a href="/about/">About</a>
+          <a href="/now/">Now</a>
           {# Blog dropdown #}
           <div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
             <a href="/blog/" class="nav-dropdown-trigger">
@@ -164,6 +165,7 @@
     <nav class="mobile-nav hidden" id="mobile-nav" x-data="{ blogOpen: false, activityOpen: false }">
       <a href="/">Home</a>
       <a href="/about/">About</a>
+      <a href="/now/">Now</a>
       {# Blog section #}
       <div class="mobile-nav-section">
         <button type="button" class="mobile-nav-toggle" @click="blogOpen = !blogOpen">
