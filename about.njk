@@ -1,8 +1,6 @@
 ---
 layout: layouts/base.njk
 title: About
-eleventyComputed:
-  permalink: "{% set aboutPageExists = false %}{% for page in collections.pages %}{% if page.fileSlug == 'about' %}{% set aboutPageExists = true %}{% endif %}{% endfor %}{% if aboutPageExists %}false{% else %}/about/{% endif %}"
 ---
 <article class="h-card">
   <header class="mb-6 sm:mb-8 flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
