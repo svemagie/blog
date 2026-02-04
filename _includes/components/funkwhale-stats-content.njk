@@ -44,7 +44,7 @@
     {% for album in topAlbums | head(5) %}
     <div class="text-center">
       {% if album.coverUrl %}
-      <img src="{{ album.coverUrl }}" alt="" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy">
+      <img src="{{ album.coverUrl }}" alt="" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy" eleventy:ignore>
       {% else %}
       <div class="w-full aspect-square bg-surface-200 dark:bg-surface-700 rounded-lg mb-2 flex items-center justify-center">
         <svg class="w-8 h-8 text-surface-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

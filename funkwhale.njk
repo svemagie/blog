@@ -26,6 +26,7 @@ withSidebar: true
           alt=""
           class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg shadow-lg object-cover flex-shrink-0"
           loading="lazy"
+          eleventy:ignore
         >
         {% else %}
         <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg bg-surface-200 dark:bg-surface-700 flex items-center justify-center flex-shrink-0">
@@ -186,7 +187,7 @@ withSidebar: true
       {% for listening in funkwhaleActivity.listenings | head(15) %}
       <div class="flex items-center gap-4 p-3 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-primary-400 dark:hover:border-primary-600 transition-colors">
         {% if listening.coverUrl %}
-        <img src="{{ listening.coverUrl }}" alt="" class="w-12 h-12 rounded object-cover flex-shrink-0" loading="lazy">
+        <img src="{{ listening.coverUrl }}" alt="" class="w-12 h-12 rounded object-cover flex-shrink-0" loading="lazy" eleventy:ignore>
         {% else %}
         <div class="w-12 h-12 rounded bg-surface-200 dark:bg-surface-700 flex items-center justify-center flex-shrink-0">
           <svg class="w-6 h-6 text-surface-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +237,7 @@ withSidebar: true
       {% for favorite in funkwhaleActivity.favorites | head(10) %}
       <div class="flex items-center gap-3 p-3 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
         {% if favorite.coverUrl %}
-        <img src="{{ favorite.coverUrl }}" alt="" class="w-14 h-14 rounded object-cover flex-shrink-0" loading="lazy">
+        <img src="{{ favorite.coverUrl }}" alt="" class="w-14 h-14 rounded object-cover flex-shrink-0" loading="lazy" eleventy:ignore>
         {% else %}
         <div class="w-14 h-14 rounded bg-surface-200 dark:bg-surface-700 flex items-center justify-center flex-shrink-0">
           <svg class="w-6 h-6 text-surface-400" fill="currentColor" viewBox="0 0 24 24">
