@@ -7,17 +7,18 @@ This file provides guidance to Claude Code when working with the Indiekit Eleven
 This is an Eleventy theme designed for use with Indiekit, supporting IndieWeb post types (notes, articles, bookmarks, likes, replies, reposts, photos). It's used as a **Git submodule** in the `indiekit-cloudron` deployment repository.
 
 **Live Site:** https://rmendes.net
-**Parent Repo:** `/home/rick/code/indiekit-cloudron` (Cloudron deployment)
+**Parent Repo:** `/home/rick/code/indiekit-dev/indiekit-cloudron` (Cloudron deployment)
 
 ## Submodule Relationship
 
 ```
-indiekit-cloudron/                    # Cloudron deployment repo
-└── eleventy-site/                    # THIS REPO as submodule
-    ├── _includes/
-    ├── _data/
-    ├── content -> /app/data/content  # Symlink at runtime
-    └── ...
+indiekit-dev/                             # Workspace root
+└── indiekit-cloudron/                    # Cloudron deployment repo
+    └── eleventy-site/                    # THIS REPO as submodule
+        ├── _includes/
+        ├── _data/
+        ├── content -> /app/data/content  # Symlink at runtime
+        └── ...
 ```
 
 ## CRITICAL: Submodule Sync Workflow
@@ -32,7 +33,7 @@ indiekit-cloudron/                    # Cloudron deployment repo
 
 ```bash
 # After pushing changes to this theme repo:
-cd /home/rick/code/indiekit-cloudron
+cd /home/rick/code/indiekit-dev/indiekit-cloudron
 git submodule update --remote eleventy-site
 git add eleventy-site
 git commit -m "chore: update eleventy-site submodule"
@@ -144,10 +145,14 @@ The `post.njk` layout includes syndication content for Bridgy (Bluesky/Mastodon)
 3. Test locally with `npm run dev`
 4. **Commit, push, and update submodule in indiekit-cloudron**
 
-## Related Repositories
+## Workspace Context
 
-- **indiekit-cloudron** (`/home/rick/code/indiekit-cloudron`) - Cloudron deployment, contains this as submodule
-- **indiekit** (`/home/rick/code/indiekit`) - Indiekit core (upstream reference)
+This repo is part of the Indiekit development workspace at `/home/rick/code/indiekit-dev/`. See the workspace CLAUDE.md for the full repository map.
+
+## Related Repositories (all under `/home/rick/code/indiekit-dev/`)
+
+- **indiekit-cloudron/** - Cloudron deployment, contains this as submodule at `eleventy-site/`
+- **indiekit/** - Upstream Indiekit fork (Lerna monorepo)
 
 ## Anti-Patterns
 
