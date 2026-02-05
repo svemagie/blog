@@ -83,7 +83,9 @@
   }
 
   .nav-dropdown-menu {
-    @apply absolute top-full left-0 mt-1 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg min-w-[160px] z-50;
+    @apply absolute top-full left-0 mt-1 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg min-w-[160px] z-50 overflow-y-auto;
+    max-height: calc(100vh - 5rem);
+    max-height: calc(100dvh - 5rem);
   }
 
   .nav-dropdown-menu a {
@@ -101,7 +103,9 @@
 
   /* Mobile navigation dropdown */
   .mobile-nav {
-    @apply md:hidden border-t border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900;
+    @apply md:hidden border-t border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900 overflow-y-auto;
+    max-height: calc(100vh - 4rem);
+    max-height: calc(100dvh - 4rem);
   }
 
   .mobile-nav a {
