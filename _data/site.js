@@ -26,15 +26,28 @@ function getMastodonHandle() {
   return "";
 }
 
-// Default social links if none configured
-const defaultSocial = [
-  {
-    name: "GitHub",
-    url: "https://github.com/",
-    rel: "me",
-    icon: "github",
-  },
-];
+// Auto-generate social links from feed config when SITE_SOCIAL is not set
+function buildSocialFromFeeds() {
+  const links = [];
+  const github = process.env.GITHUB_USERNAME;
+  if (github) {
+    links.push({ name: "GitHub", url: `https://github.com/${github}`, rel: "me", icon: "github" });
+  }
+  const bskyHandle = process.env.BLUESKY_HANDLE;
+  if (bskyHandle) {
+    links.push({ name: "Bluesky", url: `https://bsky.app/profile/${bskyHandle}`, rel: "me atproto", icon: "bluesky" });
+  }
+  const mastoInstance = process.env.MASTODON_INSTANCE?.replace("https://", "");
+  const mastoUser = process.env.MASTODON_USER;
+  if (mastoInstance && mastoUser) {
+    links.push({ name: "Mastodon", url: `https://${mastoInstance}/@${mastoUser}`, rel: "me", icon: "mastodon" });
+  }
+  const linkedin = process.env.LINKEDIN_USERNAME;
+  if (linkedin) {
+    links.push({ name: "LinkedIn", url: `https://linkedin.com/in/${linkedin}`, rel: "me", icon: "linkedin" });
+  }
+  return links;
+}
 
 export default {
   // Basic site info
@@ -64,9 +77,12 @@ export default {
     email: process.env.AUTHOR_EMAIL || "",
   },
 
-  // Social links (for rel="me" and footer)
+  // Social links (for rel="me" and h-card)
   // Set SITE_SOCIAL env var as: "GitHub|https://github.com/user|github,Mastodon|https://mastodon.social/@user|mastodon"
-  social: parseSocialLinks(process.env.SITE_SOCIAL) || defaultSocial,
+  // Falls back to auto-generating from feed config (GITHUB_USERNAME, BLUESKY_HANDLE, etc.)
+  social: parseSocialLinks(process.env.SITE_SOCIAL).length > 0
+    ? parseSocialLinks(process.env.SITE_SOCIAL)
+    : buildSocialFromFeeds(),
 
   // Feed integrations (usernames for data fetching)
   feeds: {
