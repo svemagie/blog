@@ -333,6 +333,6 @@
     document.documentElement.addEventListener('touchstart', prefetch, { capture: true, passive: true });
   </script>
   {# Client-side webmention fetcher - supplements build-time cache with real-time data #}
-  <script src="/js/webmentions.js" defer></script>
+  <script src="/js/webmentions.js?v={{ '/js/webmentions.js' | hash }}" defer></script>
 </body>
 </html>
