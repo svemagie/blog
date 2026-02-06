@@ -58,7 +58,7 @@
     {% if site.author.email %}
     {# Display text obfuscated to deter spam harvesters; href kept plain for browser compatibility #}
     <a href="mailto:{{ site.author.email }}" class="u-email text-primary-600 dark:text-primary-400 hover:underline" itemprop="email">
-      ✉️ {{ site.author.email | obfuscateEmail }}
+      ✉️ {{ site.author.email | obfuscateEmail | safe }}
     </a>
     {% endif %}
     {% if site.author.keyUrl %}
