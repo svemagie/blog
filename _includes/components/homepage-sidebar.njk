@@ -19,7 +19,14 @@
       {# Pagefind search widget #}
       <div class="sidebar-widget">
         <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">Search</h3>
-        <div id="search"></div>
+        <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+        <div id="sidebar-search"></div>
+        <script src="/pagefind/pagefind-ui.js"></script>
+        <script>
+          window.addEventListener("DOMContentLoaded", function() {
+            new PagefindUI({ element: "#sidebar-search", showSubResults: false, showImages: false });
+          });
+        </script>
       </div>
     {% else %}
       <!-- Unknown widget type: {{ widget.type }} -->
