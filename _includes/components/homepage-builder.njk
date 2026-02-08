@@ -21,6 +21,10 @@
       {% include "components/sections/cv-projects.njk" ignore missing %}
     {% elif section.type == "cv-skills" %}
       {% include "components/sections/cv-skills.njk" ignore missing %}
+    {% elif section.type == "cv-education" %}
+      {% include "components/sections/cv-education.njk" ignore missing %}
+    {% elif section.type == "cv-interests" %}
+      {% include "components/sections/cv-interests.njk" ignore missing %}
     {% elif section.type == "blogroll" %}
       {% include "components/sections/blogroll.njk" ignore missing %}
     {% elif section.type == "podroll" %}

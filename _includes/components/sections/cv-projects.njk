@@ -1,0 +1,55 @@
+{#
+  CV Projects Section - project cards
+  Data fetched from /cv/data.json via homepage plugin
+#}
+
+{% set sectionConfig = section.config or {} %}
+{% set maxItems = sectionConfig.maxItems or 10 %}
+{% set showTechnologies = sectionConfig.showTechnologies if sectionConfig.showTechnologies is defined else true %}
+
+{% if cv and cv.projects and cv.projects.length %}
+<section class="mb-8 sm:mb-12" id="projects">
+  <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4 sm:mb-6">
+    {{ sectionConfig.title or "Projects" }}
+  </h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    {% for item in cv.projects | head(maxItems) %}
+    <div class="p-4 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-primary-400 dark:hover:border-primary-600 transition-colors">
+      <div class="flex items-start justify-between gap-2 mb-1">
+        <h3 class="font-semibold text-surface-900 dark:text-surface-100">
+          {% if item.url %}
+          <a href="{{ item.url }}" class="hover:text-primary-600 dark:hover:text-primary-400">{{ item.name }}</a>
+          {% else %}
+          {{ item.name }}
+          {% endif %}
+        </h3>
+        {% if item.status %}
+        <span class="shrink-0 text-xs px-2 py-0.5 rounded-full capitalize
+          {% if item.status == 'active' %}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300
+          {% elif item.status == 'maintained' %}bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300
+          {% elif item.status == 'archived' %}bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400
+          {% else %}bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400{% endif %}">
+          {{ item.status }}
+        </span>
+        {% endif %}
+      </div>
+
+      {% if item.description %}
+      <p class="text-sm text-surface-600 dark:text-surface-400 mb-2">{{ item.description }}</p>
+      {% endif %}
+
+      {% if showTechnologies and item.technologies and item.technologies.length %}
+      <div class="flex flex-wrap gap-1">
+        {% for tech in item.technologies %}
+        <span class="text-xs px-2 py-0.5 bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400 rounded">
+          {{ tech }}
+        </span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
