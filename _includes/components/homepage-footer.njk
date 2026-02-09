@@ -1,23 +1,26 @@
-{# Homepage Builder Footer — renders footer items from homepageConfig.footer #}
+{# Homepage Builder Footer — renders footer items in a responsive 3-column grid #}
 {% if homepageConfig.footer and homepageConfig.footer.length %}
 <footer class="homepage-footer mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-surface-200 dark:border-surface-700">
-  {% for section in homepageConfig.footer %}
-    {% if section.type == "custom-html" %}
-      {% set sectionConfig = section.config or {} %}
-      <div class="mb-6">
-        {% if sectionConfig.title %}
-        <h3 class="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">{{ sectionConfig.title }}</h3>
-        {% endif %}
-        {% if sectionConfig.content %}
-        <div class="prose dark:prose-invert max-w-none">
-          {{ sectionConfig.content | safe }}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for section in homepageConfig.footer %}
+      {% if section.type == "custom-html" %}
+        {% set sectionConfig = section.config or {} %}
+        <div>
+          {% if sectionConfig.title %}
+          <h3 class="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">{{ sectionConfig.title }}</h3>
+          {% endif %}
+          {% if sectionConfig.content %}
+          <div class="prose dark:prose-invert prose-sm max-w-none">
+            {{ sectionConfig.content | safe }}
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
-      </div>
-    {% else %}
-      {# For non-custom sections, use the section dispatcher #}
-      {% include "components/homepage-section.njk" %}
-    {% endif %}
-  {% endfor %}
+      {% else %}
+        <div>
+          {% include "components/homepage-section.njk" %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 </footer>
 {% endif %}
