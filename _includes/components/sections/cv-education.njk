@@ -18,7 +18,8 @@
     <div class="p-4 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
       <h3 class="font-semibold text-surface-900 dark:text-surface-100">{{ item.degree }}</h3>
       <p class="text-sm text-surface-600 dark:text-surface-400">
-        {{ item.institution }}{% if item.location %} &middot; {{ item.location }}{% endif %}{% if item.year %} &middot; {{ item.year }}{% endif %}
+        {{ item.institution }}{% if item.location %} &middot; {{ item.location }}{% endif %}
+        {% if item.startDate %} &middot; {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}{% elif item.year %} &middot; {{ item.year }}{% endif %}
       </p>
       {% if item.description %}
       <p class="text-sm text-surface-700 dark:text-surface-300 mt-1">{{ item.description }}</p>

@@ -35,6 +35,12 @@
         {% endif %}
       </div>
 
+      {% if item.startDate %}
+      <p class="text-xs text-surface-500 mb-1">
+        {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
+      </p>
+      {% endif %}
+
       {% if item.description %}
       <p class="text-sm text-surface-600 dark:text-surface-400 mb-2">{{ item.description }}</p>
       {% endif %}
