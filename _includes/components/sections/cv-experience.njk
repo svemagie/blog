@@ -31,14 +31,13 @@
       <p class="text-sm text-surface-700 dark:text-surface-300 mt-2">{{ item.description }}</p>
       {% endif %}
       {% if showHighlights and item.highlights and item.highlights.length %}
-      <ul class="mt-2 space-y-1">
+      <div class="flex flex-wrap gap-1.5 mt-2">
         {% for h in item.highlights %}
-        <li class="text-sm text-surface-600 dark:text-surface-400 flex items-start gap-1.5">
-          <span class="text-primary-500 mt-1 shrink-0">&#8226;</span>
+        <span class="px-2.5 py-1 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-full text-xs text-surface-700 dark:text-surface-300">
           {{ h }}
-        </li>
+        </span>
         {% endfor %}
-      </ul>
+      </div>
       {% endif %}
     </div>
     {% endfor %}
