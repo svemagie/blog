@@ -4,6 +4,7 @@ import embedEverything from "eleventy-plugin-embed-everything";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
 import markdownIt from "markdown-it";
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
 import { createHash } from "crypto";
 import { execFileSync } from "child_process";
@@ -48,6 +49,9 @@ export default function (eleventyConfig) {
     typographer: true,
   });
   eleventyConfig.setLibrary("md", md);
+
+  // Syntax highlighting for fenced code blocks (```lang)
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   // RSS plugin for feed filters (dateToRfc822, absoluteUrl, etc.)
   // Custom feed templates in feed.njk and feed-json.njk use these filters

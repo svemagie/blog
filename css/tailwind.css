@@ -441,6 +441,11 @@
     @apply break-words;
   }
 
+  pre code {
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
   /* Links in content - break long URLs */
   .e-content a,
   .prose a {
@@ -448,10 +453,10 @@
     word-break: break-word;
   }
 
-  /* Content containers - prevent horizontal overflow */
+  /* Content containers - clip horizontal overflow but allow pre blocks to scroll */
   .e-content,
   .prose {
-    @apply overflow-x-hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
 
