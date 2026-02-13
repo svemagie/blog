@@ -8,8 +8,6 @@
       {% include "components/widgets/author-card-compact.njk" %}
     {% elif widget.type == "author-card" %}
       {% include "components/widgets/author-card.njk" %}
-    {% elif widget.type == "post-navigation" %}
-      {% include "components/widgets/post-navigation.njk" %}
     {% elif widget.type == "toc" %}
       {% include "components/widgets/toc.njk" %}
     {% elif widget.type == "post-categories" %}
@@ -63,7 +61,6 @@
 {% else %}
   {# === Fallback: default blog post sidebar (backward compatibility) === #}
   {% include "components/widgets/author-card-compact.njk" %}
-  {% include "components/widgets/post-navigation.njk" %}
   {% include "components/widgets/toc.njk" %}
   {% include "components/widgets/post-categories.njk" %}
   {% include "components/widgets/recent-posts-blog.njk" %}
