@@ -28,6 +28,8 @@
           });
         </script>
       </div>
+    {% elif widget.type == "webmentions" %}
+      {% include "components/widgets/webmentions.njk" %}
     {% elif widget.type == "custom-html" %}
       {# Custom content widget #}
       {% set wConfig = widget.config or {} %}

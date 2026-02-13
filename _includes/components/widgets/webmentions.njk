@@ -1,33 +1,150 @@
-{# Webmentions Sidebar Widget (compact counts for this post) #}
-{% set _mentions = webmentions | webmentionsForUrl(page.url, urlAliases) %}
-{% if _mentions and _mentions.length %}
-<div class="widget">
+{# Recent Webmentions Widget - site-wide inbound/outbound activity #}
+{# Uses client-side fetch from /webmentions/api/mentions (same as /interactions page) #}
+{# Outbound tab uses Eleventy collections (likes, replies, bookmarks, reposts) #}
+<div class="widget" x-data="webmentionsWidget()" x-init="init()">
   <h3 class="widget-title flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
     </svg>
-    Interactions
+    Webmentions
   </h3>
-  <div class="space-y-2">
-    {% set likes = _mentions | webmentionsByType("likes") %}
-    {% set reposts = _mentions | webmentionsByType("reposts") %}
-    {% set replies = _mentions | webmentionsByType("replies") %}
 
-    {% if likes.length %}
-    <p class="text-sm text-surface-600 dark:text-surface-400">
-      <span class="font-medium text-surface-900 dark:text-surface-100">{{ likes.length }}</span> likes
-    </p>
-    {% endif %}
-    {% if reposts.length %}
-    <p class="text-sm text-surface-600 dark:text-surface-400">
-      <span class="font-medium text-surface-900 dark:text-surface-100">{{ reposts.length }}</span> reposts
-    </p>
-    {% endif %}
-    {% if replies.length %}
-    <p class="text-sm text-surface-600 dark:text-surface-400">
-      <span class="font-medium text-surface-900 dark:text-surface-100">{{ replies.length }}</span> replies
-    </p>
-    {% endif %}
+  {# Tab buttons #}
+  <div class="flex border-b border-surface-200 dark:border-surface-700 mb-3">
+    <button
+      @click="tab = 'inbound'"
+      :class="tab === 'inbound' ? 'border-primary-500 text-primary-600 dark:text-primary-400' : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+      class="px-2 py-1.5 text-xs font-medium border-b-2 -mb-px transition-colors">
+      Received
+      <span x-show="mentions.length" x-text="mentions.length" class="ml-0.5 text-xs opacity-75"></span>
+    </button>
+    <button
+      @click="tab = 'outbound'"
+      :class="tab === 'outbound' ? 'border-primary-500 text-primary-600 dark:text-primary-400' : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+      class="px-2 py-1.5 text-xs font-medium border-b-2 -mb-px transition-colors">
+      Sent
+    </button>
+  </div>
+
+  {# === Inbound tab (client-side fetched) === #}
+  <div x-show="tab === 'inbound'" x-transition>
+    {# Loading #}
+    <div x-show="loading" class="text-center py-3">
+      <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
+    </div>
+
+    {# Mentions list #}
+    <div x-show="!loading && mentions.length" class="space-y-2">
+      <template x-for="wm in mentions.slice(0, 8)" :key="wm['wm-id']">
+        <div class="flex items-start gap-2 text-xs">
+          <img
+            :src="wm.author?.photo || '/images/default-avatar.svg'"
+            :alt="wm.author?.name || 'Anonymous'"
+            class="w-5 h-5 rounded-full flex-shrink-0 mt-0.5"
+            loading="lazy"
+            onerror="this.src='/images/default-avatar.svg'"
+          >
+          <div class="min-w-0">
+            <span class="font-medium text-surface-900 dark:text-surface-100" x-text="wm.author?.name || 'Anonymous'"></span>
+            <span x-show="wm['wm-property'] === 'like-of'" class="text-red-500"> liked</span>
+            <span x-show="wm['wm-property'] === 'repost-of'" class="text-green-500"> reposted</span>
+            <span x-show="wm['wm-property'] === 'in-reply-to'" class="text-primary-500"> replied to</span>
+            <span x-show="wm['wm-property'] === 'mention-of'" class="text-amber-500"> mentioned</span>
+            <span x-show="wm['wm-property'] === 'bookmark-of'" class="text-purple-500"> bookmarked</span>
+            <a :href="wm['wm-target']" class="text-surface-500 hover:underline block truncate" x-text="formatPath(wm['wm-target'])"></a>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    {# Empty #}
+    <p x-show="!loading && !mentions.length && !error" class="text-xs text-surface-500 py-2">No webmentions received yet.</p>
+
+    {# Error #}
+    <p x-show="error" class="text-xs text-red-500 py-2" x-text="error"></p>
+
+    {# Link to full interactions page #}
+    <div x-show="mentions.length > 0" class="mt-2 pt-2 border-t border-surface-200 dark:border-surface-700">
+      <a href="/interactions/" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+        View all &rarr;
+      </a>
+    </div>
+  </div>
+
+  {# === Outbound tab (from Eleventy collections) === #}
+  <div x-show="tab === 'outbound'" x-transition>
+    <div class="space-y-2">
+      {% set _recentOutbound = [] %}
+      {% for item in collections.likes | head(3) %}
+      <div class="flex items-start gap-2 text-xs">
+        <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <div class="min-w-0">
+          <a href="{{ item.url }}" class="text-surface-900 dark:text-surface-100 hover:underline block truncate">
+            {% set _likedUrl = item.data.likeOf or item.data.like_of %}
+            Liked {{ _likedUrl | replace("https://", "") | truncate(30) }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+      {% for item in collections.replies | head(2) %}
+      <div class="flex items-start gap-2 text-xs">
+        <svg class="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+        <div class="min-w-0">
+          <a href="{{ item.url }}" class="text-surface-900 dark:text-surface-100 hover:underline block truncate">
+            {% set _replyToUrl = item.data.inReplyTo or item.data.in_reply_to %}
+            Reply to {{ _replyToUrl | replace("https://", "") | truncate(30) }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+      {% for item in collections.reposts | head(2) %}
+      <div class="flex items-start gap-2 text-xs">
+        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        <div class="min-w-0">
+          <a href="{{ item.url }}" class="text-surface-900 dark:text-surface-100 hover:underline block truncate">
+            {% set _repostedUrl = item.data.repostOf or item.data.repost_of %}
+            Reposted {{ _repostedUrl | replace("https://", "") | truncate(30) }}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="mt-2 pt-2 border-t border-surface-200 dark:border-surface-700">
+      <a href="/interactions/" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+        View all &rarr;
+      </a>
+    </div>
   </div>
 </div>
-{% endif %}
+
+<script>
+function webmentionsWidget() {
+  return {
+    tab: 'inbound',
+    loading: false,
+    error: null,
+    mentions: [],
+    async init() {
+      this.loading = true;
+      try {
+        const res = await fetch('/webmentions/api/mentions?per-page=50&page=0');
+        if (!res.ok) {
+          if (res.status === 404) { this.error = null; return; }
+          throw new Error('HTTP ' + res.status);
+        }
+        const data = await res.json();
+        this.mentions = (data.children || []).sort((a, b) => {
+          return new Date(b.published || b['wm-received'] || 0) - new Date(a.published || a['wm-received'] || 0);
+        });
+      } catch (e) {
+        this.error = 'Could not load';
+      } finally {
+        this.loading = false;
+      }
+    },
+    formatPath(url) {
+      try { return new URL(url).pathname; } catch { return url; }
+    }
+  };
+}
+</script>

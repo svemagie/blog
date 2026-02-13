@@ -36,6 +36,8 @@
           });
         </script>
       </div>
+    {% elif widget.type == "webmentions" %}
+      {% include "components/widgets/webmentions.njk" %}
     {% elif widget.type == "custom-html" %}
       {% set wConfig = widget.config or {} %}
       <div class="sidebar-widget">
