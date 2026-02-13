@@ -61,9 +61,9 @@ pagefindIgnore: true
 {% set section = { type: "cv-skills", config: {} } %}
 {% include "components/sections/cv-skills.njk" ignore missing %}
 
-{# Projects #}
-{% set section = { type: "cv-projects", config: {} } %}
-{% include "components/sections/cv-projects.njk" ignore missing %}
+{# Work Projects (only work-related projects on the CV page) #}
+{% set section = { type: "cv-projects-work", config: {} } %}
+{% include "components/sections/cv-projects-work.njk" ignore missing %}
 
 {# Education & Languages #}
 {% set section = { type: "cv-education", config: {} } %}
