@@ -4,6 +4,7 @@ import embedEverything from "eleventy-plugin-embed-everything";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
 import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
 import { createHash } from "crypto";
@@ -47,6 +48,11 @@ export default function (eleventyConfig) {
     html: true,
     linkify: true,  // Auto-convert URLs to clickable links
     typographer: true,
+  });
+  md.use(markdownItAnchor, {
+    permalink: markdownItAnchor.permalink.headerLink(),
+    slugify: (s) => s.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, ""),
+    level: [2, 3, 4],
   });
   eleventyConfig.setLibrary("md", md);
 
