@@ -1,0 +1,292 @@
+{# FeedLand Widget - Matches Dave Winer's blogroll.js visual rendering #}
+{# Uses Alpine.js + blogroll API instead of jQuery + external blogroll.js #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rancho&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+.divBlogrollContainer {
+  display: block;
+  vertical-align: top;
+  width: 240px;
+  border: 1px solid gainsboro;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-family: Ubuntu, sans-serif;
+  font-size: 15px;
+  box-sizing: content-box;
+}
+.divBlogrollContainer:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  background-color: white;
+}
+.divBlogroll {
+  width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.divBlogrollTable {
+  width: 100%;
+  margin-right: 0;
+  border: 0;
+  min-width: 0;
+}
+.divBlogrollTable td {
+  border: 0;
+}
+.divBlogrollTitle {
+  display: block;
+  width: 100%;
+  font-family: "Rancho", cursive;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 1.1em;
+}
+.divBlogrollTitle a {
+  color: inherit;
+  text-decoration: none;
+}
+.divBlogrollTitle a:hover {
+  text-decoration: underline;
+}
+.divBlogrollSortLinks {
+  font-size: 12px;
+  line-height: 14px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.divBlogrollSortLinks .spTitleLink {
+  margin-left: 16px;
+  cursor: pointer;
+}
+.divBlogrollSortLinks .spWhenLink {
+  float: right;
+  padding-right: 2px;
+  cursor: pointer;
+}
+.divBlogrollSortLinks .selected {
+  font-weight: bold;
+}
+.trBlogrollFeed {
+  line-height: normal;
+}
+.trBlogrollFeed td {
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 0;
+}
+.trBlogrollFeed .tdBlogrollWedge {
+  padding-left: 4px;
+  padding-right: 0;
+  vertical-align: top;
+  width: 12px;
+}
+.trBlogrollFeed .tdBlogrollFeedTitle {
+  font-size: 15px;
+  color: inherit;
+  cursor: pointer;
+  padding-left: 0;
+}
+.trBlogrollFeed .tdBlogrollFeedTitle a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+.trBlogrollFeed .tdBlogrollFeedTitle a:hover {
+  text-decoration: underline;
+}
+.trBlogrollFeed .tdBlogrollFeedTitle .spWhenUpdated {
+  float: right;
+  font-size: 12px;
+  margin-top: 2px;
+  padding-right: 2px;
+}
+.trBlogrollFeed .tdBlogrollFeedTitle .spTitleString {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 155px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trBlogrollFeed:hover {
+  background-color: whitesmoke;
+}
+.darkCaretColor {
+  opacity: .9;
+}
+.lightCaretColor {
+  opacity: .2;
+}
+.divBlogrollFooter {
+  text-align: center;
+  font-size: 13px;
+  border-top: 1px solid gainsboro;
+  margin-top: 13px;
+  padding-top: 4px;
+  opacity: 0.5;
+}
+.divBlogrollFooter a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+.divBlogrollFooter a:hover {
+  text-decoration: underline;
+}
+@media screen and (max-width: 576px) {
+  .divBlogrollContainer {
+    width: 180px;
+    margin-right: 0;
+  }
+  .divBlogroll {
+    width: 100%;
+  }
+  .divBlogrollTitle {
+    display: none;
+  }
+  .trBlogrollFeed .tdBlogrollFeedTitle {
+    font-size: 14px;
+  }
+  .trBlogrollFeed .tdBlogrollWedge {
+    width: 12px;
+    padding-left: 4px;
+    padding-right: 0;
+  }
+  .trBlogrollFeed .tdBlogrollFeedTitle .spTitleString {
+    max-width: 115px;
+  }
+}
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .dark .divBlogrollContainer {
+    border-color: #444;
+    color: #e0e0e0;
+  }
+  .dark .divBlogrollContainer:focus {
+    background-color: #1a1a1a;
+  }
+  .dark .trBlogrollFeed:hover {
+    background-color: #2a2a2a;
+  }
+  .dark .divBlogrollFooter {
+    border-top-color: #444;
+  }
+}
+.dark .divBlogrollContainer {
+  border-color: #444;
+  color: #e0e0e0;
+}
+.dark .divBlogrollContainer:focus {
+  background-color: #1a1a1a;
+}
+.dark .trBlogrollFeed:hover {
+  background-color: #2a2a2a;
+}
+.dark .divBlogrollFooter {
+  border-top-color: #444;
+}
+</style>
+
+<div class="widget" x-data="feedlandWidget()" x-init="init()">
+  <div class="divBlogrollContainer" tabindex="0">
+    <div class="divBlogroll">
+      {# Title in Rancho font — matches blogroll.js #}
+      <div class="divBlogrollTitle">
+        <a :href="riverUrl" target="_blank" rel="noopener" x-text="title"></a>
+      </div>
+
+      {# Sort links: Title / When #}
+      <div class="divBlogrollSortLinks">
+        <span
+          class="spTitleLink"
+          :class="sortBy === 'title' ? 'selected' : ''"
+          @click="sortBy = 'title'"
+        >Title</span>
+        <span
+          class="spWhenLink"
+          :class="sortBy === 'when' ? 'selected' : ''"
+          @click="sortBy = 'when'"
+        >When</span>
+      </div>
+
+      {# Feed table #}
+      <table class="divBlogrollTable">
+        <tbody>
+          <template x-for="blog in sortedBlogs" :key="blog.id">
+            <tr class="trBlogrollFeed">
+              <td class="tdBlogrollWedge">
+                <span class="darkCaretColor">&#9654;</span>
+              </td>
+              <td class="tdBlogrollFeedTitle">
+                <span class="spWhenUpdated" x-text="relativeTime(blog.lastFetchAt)"></span>
+                <span class="spTitleString">
+                  <a :href="blog.siteUrl || blog.feedUrl" target="_blank" rel="noopener" x-text="blog.title"></a>
+                </span>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+
+      {# Footer — Powered by FeedLand #}
+      <div class="divBlogrollFooter">
+        <a :href="riverUrl" target="_blank" rel="noopener">Powered by FeedLand</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function feedlandWidget() {
+  return {
+    blogs: [],
+    sortBy: 'when',
+    title: 'FeedLand',
+    riverUrl: 'https://feedland.com',
+    loading: true,
+
+    get sortedBlogs() {
+      const sorted = [...this.blogs];
+      if (this.sortBy === 'title') {
+        sorted.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+      } else {
+        sorted.sort((a, b) => {
+          const da = a.lastFetchAt ? new Date(a.lastFetchAt) : new Date(0);
+          const db = b.lastFetchAt ? new Date(b.lastFetchAt) : new Date(0);
+          return db - da;
+        });
+      }
+      return sorted;
+    },
+
+    relativeTime(iso) {
+      if (!iso) return '';
+      const diff = Date.now() - new Date(iso).getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 60) return mins + 'm';
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return hrs + 'h';
+      const days = Math.floor(hrs / 24);
+      return days + 'd';
+    },
+
+    async init() {
+      try {
+        const res = await fetch('/blogrollapi/api/blogs?source=feedland&sort=recent&limit=100');
+        const data = await res.json();
+        this.blogs = data.items || [];
+      } catch (err) {
+        console.error('FeedLand widget error:', err);
+      } finally {
+        this.loading = false;
+      }
+    }
+  };
+}
+</script>

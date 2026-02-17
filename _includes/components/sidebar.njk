@@ -20,6 +20,8 @@
       {% if blogrollStatus and blogrollStatus.source == "indiekit" %}
       {% include "components/widgets/blogroll.njk" %}
       {% endif %}
+    {% elif widget.type == "feedland" %}
+      {% include "components/widgets/feedland.njk" %}
     {% elif widget.type == "categories" %}
       {% include "components/widgets/categories.njk" %}
     {% elif widget.type == "subscribe" %}
@@ -68,6 +70,11 @@
   {# Blogroll — only when backend is available #}
   {% if blogrollStatus and blogrollStatus.source == "indiekit" %}
   {% include "components/widgets/blogroll.njk" %}
+  {% endif %}
+
+  {# FeedLand — only when backend is available #}
+  {% if blogrollStatus and blogrollStatus.source == "indiekit" %}
+  {% include "components/widgets/feedland.njk" %}
   {% endif %}
 
   {# Categories/Tags #}
