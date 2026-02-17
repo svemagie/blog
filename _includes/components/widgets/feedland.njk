@@ -249,11 +249,11 @@
                   </div>
                   <div class="tdBlogrollFeedTitle" style="flex:1; min-width:0;"
                        @click="handleRowClick(blog)">
-                    <span class="spWhenUpdated" x-text="relativeTime(blog.lastFetchAt)"></span>
                     <span class="spTitleString">
                       <a :href="blog.siteUrl || blog.feedUrl" target="_blank" rel="noopener"
                          x-text="blog.title" @click.stop></a>
                     </span>
+                    <span class="spWhenUpdated" x-text="relativeTime(blog.lastFetchAt)"></span>
                   </div>
                 </div>
                 {# Expanded items #}
