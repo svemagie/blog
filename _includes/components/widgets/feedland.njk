@@ -4,168 +4,124 @@
 <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-.divBlogrollContainer {
-  display: block;
-  width: 100%;
+.fl-wrap {
   border: 1px solid gainsboro;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 10px;
   font-family: Ubuntu, sans-serif;
   font-size: 15px;
   box-sizing: border-box;
-  overflow: hidden;
 }
-.divBlogrollContainer:focus {
+.fl-wrap:focus {
   border-color: rgba(82, 168, 236, 0.8);
   outline: 0;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   background-color: white;
 }
-.divBlogroll {
-  width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-.divBlogrollTable {
-  width: 100%;
-  margin-right: 0;
-  border: 0;
-  min-width: 0;
-  table-layout: fixed;
-}
-.divBlogrollTable td {
-  border: 0;
-}
-.divBlogrollTitle {
-  display: block;
-  width: 100%;
+.fl-title {
   font-family: "Rancho", cursive;
   font-size: 36px;
   font-weight: bold;
   letter-spacing: -1px;
   text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  line-height: 1.1em;
+  margin: 5px 0;
+  line-height: 1.1;
 }
-.divBlogrollTitle a {
+.fl-title a {
   color: inherit;
   text-decoration: none;
 }
-.divBlogrollTitle a:hover {
+.fl-title a:hover {
   text-decoration: underline;
 }
-.divBlogrollSortLinks {
+.fl-sort {
+  display: flex;
+  justify-content: space-between;
   font-size: 12px;
   line-height: 14px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding: 3px 0;
 }
-.divBlogrollSortLinks .spTitleLink {
-  margin-left: 16px;
+.fl-sort span {
   cursor: pointer;
 }
-.divBlogrollSortLinks .spWhenLink {
-  float: right;
-  padding-right: 2px;
-  cursor: pointer;
-}
-.divBlogrollSortLinks .selected {
+.fl-sort .selected {
   font-weight: bold;
 }
-.trBlogrollFeed {
-  line-height: normal;
-}
-.trBlogrollFeed td {
-  padding-left: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-right: 0;
-}
-.trBlogrollFeed .tdBlogrollWedge {
-  padding-left: 4px;
-  padding-right: 0;
-  vertical-align: top;
-  width: 12px;
-  cursor: pointer;
-}
-.trBlogrollFeed .tdBlogrollFeedTitle {
-  font-size: 15px;
-  color: inherit;
-  cursor: pointer;
-  padding-left: 0;
-}
-.trBlogrollFeed .tdBlogrollFeedTitle a {
-  color: inherit;
-  cursor: pointer;
-  text-decoration: none;
-}
-.trBlogrollFeed .tdBlogrollFeedTitle a:hover {
-  text-decoration: underline;
-}
-.trBlogrollFeed .tdBlogrollFeedTitle {
+.fl-row {
   display: flex;
   align-items: baseline;
+  padding: 4px 0;
+  line-height: normal;
+  cursor: pointer;
 }
-.trBlogrollFeed .tdBlogrollFeedTitle .spTitleString {
+.fl-row:hover {
+  background-color: whitesmoke;
+}
+.fl-row.fl-selected {
+  background-color: #e8f0fe;
+}
+.fl-caret {
+  width: 14px;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+.fl-caret-dark { opacity: .9; }
+.fl-caret-light { opacity: .2; }
+.fl-name {
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex: 1;
-  min-width: 0;
 }
-.trBlogrollFeed .tdBlogrollFeedTitle .spWhenUpdated {
+.fl-name a {
+  color: inherit;
+  text-decoration: none;
+}
+.fl-name a:hover {
+  text-decoration: underline;
+}
+.fl-when {
+  flex-shrink: 0;
   font-size: 12px;
   padding-left: 6px;
   white-space: nowrap;
-  flex-shrink: 0;
+  opacity: 0.7;
 }
-.trBlogrollFeed:hover {
-  background-color: whitesmoke;
+/* Expanded items */
+.fl-items {
+  padding: 2px 0 4px 18px;
 }
-.trBlogrollFeed.selectedFeed {
-  background-color: #e8f0fe;
-}
-.darkCaretColor {
-  opacity: .9;
-}
-.lightCaretColor {
-  opacity: .2;
-}
-/* Expanded items (newspod) */
-.divNewsPod {
-  padding: 2px 0 4px 16px;
-}
-.divNewsPod ul {
+.fl-items ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.divNewsPod li {
+.fl-items li {
   padding: 2px 0;
   font-size: 13px;
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.divNewsPod li a {
+.fl-items li a {
   color: #1a73e8;
   text-decoration: none;
 }
-.divNewsPod li a:hover {
+.fl-items li a:hover {
   text-decoration: underline;
 }
-.divNewsPod li .spItemWhen {
+.fl-items .fl-item-when {
   font-size: 11px;
   opacity: 0.6;
   margin-left: 4px;
 }
-.divNewsPod .feedLoading {
+.fl-items .fl-loading {
   font-size: 12px;
   opacity: 0.5;
   padding: 4px 0;
 }
-.divBlogrollFooter {
+.fl-footer {
   text-align: center;
   font-size: 13px;
   border-top: 1px solid gainsboro;
@@ -173,120 +129,94 @@
   padding-top: 4px;
   opacity: 0.5;
 }
-.divBlogrollFooter a {
+.fl-footer a {
   color: inherit;
-  cursor: pointer;
   text-decoration: none;
 }
-.divBlogrollFooter a:hover {
+.fl-footer a:hover {
   text-decoration: underline;
 }
 @media screen and (max-width: 576px) {
-  .divBlogrollTitle {
-    display: none;
-  }
-  .trBlogrollFeed .tdBlogrollFeedTitle {
-    font-size: 14px;
-  }
+  .fl-title { display: none; }
+  .fl-name { font-size: 14px; }
 }
-/* Dark mode adjustments */
-.dark .divBlogrollContainer {
+/* Dark mode */
+.dark .fl-wrap {
   border-color: #444;
   color: #e0e0e0;
 }
-.dark .divBlogrollContainer:focus {
+.dark .fl-wrap:focus {
   background-color: #1a1a1a;
 }
-.dark .trBlogrollFeed:hover {
+.dark .fl-row:hover {
   background-color: #2a2a2a;
 }
-.dark .trBlogrollFeed.selectedFeed {
+.dark .fl-row.fl-selected {
   background-color: #1e3a5f;
 }
-.dark .divNewsPod li a {
+.dark .fl-items li a {
   color: #8ab4f8;
 }
-.dark .divBlogrollFooter {
+.dark .fl-footer {
   border-top-color: #444;
 }
 </style>
 
 <div class="widget" x-data="feedlandWidget()" x-init="init()">
-  <div class="divBlogrollContainer" tabindex="0">
-    <div class="divBlogroll">
-      {# Title in Rancho font — matches blogroll.js #}
-      <div class="divBlogrollTitle">
-        <a :href="riverUrl" target="_blank" rel="noopener" x-text="title"></a>
-      </div>
+  <div class="fl-wrap" tabindex="0">
+    {# Title #}
+    <div class="fl-title">
+      <a :href="riverUrl" target="_blank" rel="noopener" x-text="title"></a>
+    </div>
 
-      {# Sort links: Title / When #}
-      <div class="divBlogrollSortLinks">
-        <span
-          class="spTitleLink"
-          :class="sortBy === 'title' ? 'selected' : ''"
-          @click="sortBy = 'title'"
-        >Title</span>
-        <span
-          class="spWhenLink"
-          :class="sortBy === 'when' ? 'selected' : ''"
-          @click="sortBy = 'when'"
-        >When</span>
-      </div>
+    {# Sort links #}
+    <div class="fl-sort">
+      <span :class="sortBy === 'title' ? 'selected' : ''" @click="sortBy = 'title'">Title</span>
+      <span :class="sortBy === 'when' ? 'selected' : ''" @click="sortBy = 'when'">When</span>
+    </div>
 
-      {# Feed table #}
-      <table class="divBlogrollTable">
-        <tbody>
-          <template x-for="blog in sortedBlogs" :key="blog.id">
-            <tr>
-              {# Feed row #}
-              <td colspan="2" style="padding:0; border:0;">
-                <div class="trBlogrollFeed"
-                     :class="selectedId === blog.id ? 'selectedFeed' : ''"
-                     style="display:flex; align-items:flex-start;">
-                  <div class="tdBlogrollWedge"
-                       @click="toggleExpand(blog)">
-                    <span :class="expandedId === blog.id ? 'darkCaretColor' : (selectedId === blog.id ? 'darkCaretColor' : 'lightCaretColor')"
-                          x-text="expandedId === blog.id ? '\u25BC' : '\u25B6'"></span>
-                  </div>
-                  <div class="tdBlogrollFeedTitle" style="flex:1; min-width:0;"
-                       @click="handleRowClick(blog)">
-                    <span class="spTitleString">
-                      <a :href="blog.siteUrl || blog.feedUrl" target="_blank" rel="noopener"
-                         x-text="blog.title" @click.stop></a>
-                    </span>
-                    <span class="spWhenUpdated" x-text="relativeTime(blog.lastFetchAt)"></span>
-                  </div>
-                </div>
-                {# Expanded items #}
-                <div class="divNewsPod" x-show="expandedId === blog.id" x-collapse>
-                  <template x-if="blog._loadingItems">
-                    <div class="feedLoading">Loading…</div>
-                  </template>
-                  <template x-if="!blog._loadingItems && blog._items && blog._items.length > 0">
-                    <ul>
-                      <template x-for="item in blog._items" :key="item.id">
-                        <li>
-                          <a :href="item.url" target="_blank" rel="noopener"
-                             x-text="truncate(item.title || item.summary || item.url, 100)"></a>
-                          <span class="spItemWhen" x-text="relativeTime(item.published)"></span>
-                        </li>
-                      </template>
-                    </ul>
-                  </template>
-                  <template x-if="!blog._loadingItems && (!blog._items || blog._items.length === 0)">
-                    <div class="feedLoading">No recent items</div>
-                  </template>
-                </div>
-              </td>
-            </tr>
+    {# Feed list — pure divs, no table #}
+    <template x-for="blog in sortedBlogs" :key="blog.id">
+      <div>
+        <div class="fl-row"
+             :class="selectedId === blog.id ? 'fl-selected' : ''"
+             @click="handleRowClick(blog)">
+          <span class="fl-caret"
+                :class="expandedId === blog.id ? 'fl-caret-dark' : (selectedId === blog.id ? 'fl-caret-dark' : 'fl-caret-light')"
+                x-text="expandedId === blog.id ? '\u25BC' : '\u25B6'"
+                @click.stop="toggleExpand(blog)"></span>
+          <span class="fl-name">
+            <a :href="blog.siteUrl || blog.feedUrl" target="_blank" rel="noopener"
+               x-text="blog.title" @click.stop></a>
+          </span>
+          <span class="fl-when" x-text="relativeTime(blog.lastFetchAt)"></span>
+        </div>
+        {# Expanded items #}
+        <div class="fl-items" x-show="expandedId === blog.id" x-collapse>
+          <template x-if="blog._loadingItems">
+            <div class="fl-loading">Loading…</div>
           </template>
-        </tbody>
-      </table>
-
-      {# Footer — Powered by FeedLand #}
-      <div class="divBlogrollFooter">
-        <a :href="riverUrl" target="_blank" rel="noopener">Powered by FeedLand</a>
+          <template x-if="!blog._loadingItems && blog._items && blog._items.length > 0">
+            <ul>
+              <template x-for="item in blog._items" :key="item.id">
+                <li>
+                  <a :href="item.url" target="_blank" rel="noopener"
+                     x-text="truncate(item.title || item.summary || item.url, 80)"></a>
+                  <span class="fl-item-when" x-text="relativeTime(item.published)"></span>
+                </li>
+              </template>
+            </ul>
+          </template>
+          <template x-if="!blog._loadingItems && (!blog._items || blog._items.length === 0)">
+            <div class="fl-loading">No recent items</div>
+          </template>
+        </div>
       </div>
+    </template>
+
+    {# Footer #}
+    <div class="fl-footer">
+      <a :href="riverUrl" target="_blank" rel="noopener">Powered by FeedLand</a>
     </div>
   </div>
 </div>
@@ -318,10 +248,8 @@ function feedlandWidget() {
 
     handleRowClick(blog) {
       if (this.selectedId !== blog.id) {
-        // First click: select
         this.selectedId = blog.id;
       } else {
-        // Second click: toggle expand
         this.toggleExpand(blog);
       }
     },
@@ -329,11 +257,9 @@ function feedlandWidget() {
     async toggleExpand(blog) {
       this.selectedId = blog.id;
       if (this.expandedId === blog.id) {
-        // Collapse
         this.expandedId = null;
         return;
       }
-      // Expand — fetch items if not cached
       this.expandedId = blog.id;
       if (!blog._items) {
         blog._loadingItems = true;
