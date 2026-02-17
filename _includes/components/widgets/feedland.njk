@@ -189,7 +189,7 @@
             <a :href="blog.siteUrl || blog.feedUrl" target="_blank" rel="noopener"
                x-text="blog.title" @click.stop></a>
           </span>
-          <span class="fl-when" x-text="relativeTime(blog.lastFetchAt)"></span>
+          <span class="fl-when" x-text="relativeTime(blog.lastItemAt || blog.lastFetchAt)"></span>
         </div>
         {# Expanded items #}
         <div class="fl-items" x-show="expandedId === blog.id" x-collapse>
@@ -238,8 +238,8 @@ function feedlandWidget() {
         sorted.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
       } else {
         sorted.sort((a, b) => {
-          const da = a.lastFetchAt ? new Date(a.lastFetchAt) : new Date(0);
-          const db = b.lastFetchAt ? new Date(b.lastFetchAt) : new Date(0);
+          const da = new Date(a.lastItemAt || a.lastFetchAt || 0);
+          const db = new Date(b.lastItemAt || b.lastFetchAt || 0);
           return db - da;
         });
       }
