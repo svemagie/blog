@@ -27,22 +27,24 @@
     <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">
       {{ likes.length }} Like{% if likes.length != 1 %}s{% endif %}
     </h3>
-    <div class="avatar-row">
+    <is-land on:visible>
+    <div class="facepile">
       {% for like in likes %}
       <a href="{{ like.author.url }}"
-         class="inline-block"
+         class="facepile-avatar"
          title="{{ like.author.name }}"
          target="_blank"
          rel="noopener">
         <img
           src="{{ like.author.photo or '/images/default-avatar.svg' }}"
           alt="{{ like.author.name }}"
-          class="w-8 h-8 rounded-full"
+          class="w-8 h-8 rounded-full ring-2 ring-white dark:ring-surface-900"
           loading="lazy"
         >
       </a>
       {% endfor %}
     </div>
+    </is-land>
   </div>
   {% endif %}
 
@@ -53,22 +55,52 @@
     <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">
       {{ reposts.length }} Repost{% if reposts.length != 1 %}s{% endif %}
     </h3>
-    <div class="avatar-row">
+    <is-land on:visible>
+    <div class="facepile">
       {% for repost in reposts %}
       <a href="{{ repost.author.url }}"
-         class="inline-block"
+         class="facepile-avatar"
          title="{{ repost.author.name }}"
          target="_blank"
          rel="noopener">
         <img
           src="{{ repost.author.photo or '/images/default-avatar.svg' }}"
           alt="{{ repost.author.name }}"
-          class="w-8 h-8 rounded-full"
+          class="w-8 h-8 rounded-full ring-2 ring-white dark:ring-surface-900"
           loading="lazy"
         >
       </a>
       {% endfor %}
     </div>
+    </is-land>
+  </div>
+  {% endif %}
+
+  {# Bookmarks #}
+  {% set bookmarks = mentions | webmentionsByType('bookmarks') %}
+  {% if bookmarks.length %}
+  <div class="webmention-bookmarks mb-6">
+    <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">
+      {{ bookmarks.length }} Bookmark{% if bookmarks.length != 1 %}s{% endif %}
+    </h3>
+    <is-land on:visible>
+    <div class="facepile">
+      {% for bookmark in bookmarks %}
+      <a href="{{ bookmark.author.url }}"
+         class="facepile-avatar"
+         title="{{ bookmark.author.name }}"
+         target="_blank"
+         rel="noopener">
+        <img
+          src="{{ bookmark.author.photo or '/images/default-avatar.svg' }}"
+          alt="{{ bookmark.author.name }}"
+          class="w-8 h-8 rounded-full ring-2 ring-white dark:ring-surface-900"
+          loading="lazy"
+        >
+      </a>
+      {% endfor %}
+    </div>
+    </is-land>
   </div>
   {% endif %}
 

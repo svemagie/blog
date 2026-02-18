@@ -237,12 +237,16 @@
     @apply inline-block px-2 py-0.5 text-xs bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded;
   }
 
-  /* Webmention styles */
-  .webmention-likes .avatar-row {
-    @apply flex flex-wrap gap-1;
+  /* Webmention facepile - overlapping avatar display */
+  .facepile {
+    @apply flex flex-wrap items-center;
   }
 
-  .webmention-likes img {
+  .facepile-avatar {
+    @apply inline-block -ml-2 first:ml-0 transition-transform hover:z-10 hover:scale-110;
+  }
+
+  .facepile-avatar img {
     @apply w-8 h-8 rounded-full;
   }
 

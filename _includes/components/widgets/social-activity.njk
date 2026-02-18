@@ -1,5 +1,6 @@
 {# Social Feed Widget - Tabbed Bluesky/Mastodon #}
 {% if (blueskyFeed and blueskyFeed.length) or (mastodonFeed and mastodonFeed.length) %}
+<is-land on:visible>
 <div class="widget" x-data="{ activeTab: 'bluesky' }">
   <h3 class="widget-title">Social Activity</h3>
 
@@ -91,4 +92,5 @@
   </div>
   {% endif %}
 </div>
+</is-land>
 {% endif %}

@@ -9,22 +9,43 @@ pagination:
 permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
 <div class="h-feed">
-  <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">Blog</h1>
+  <div class="flex flex-wrap items-center gap-4 mb-2">
+    <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Blog</h1>
+    {% set sparklineData = collections.posts | postingFrequency %}
+    {% if sparklineData %}
+    <img src="https://v1.sparkline.11ty.dev/{{ sparklineData }}/" alt="Posting frequency over the last 12 months" width="200" height="30" class="opacity-60 dark:invert dark:opacity-40" loading="lazy">
+    {% endif %}
+  </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
     All posts including articles and notes.
     <span class="text-sm">({{ collections.posts.length }} total)</span>
   </p>
 
   {% if paginatedPosts.length > 0 %}
+  <filter-container oninit leave-url-alone>
+    <div class="flex flex-wrap gap-3 mb-6">
+      <select data-filter-key="type" class="px-3 py-1.5 text-sm bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg">
+        <option value="">All Types</option>
+        <option value="article">Articles</option>
+        <option value="note">Notes</option>
+        <option value="photo">Photos</option>
+        <option value="bookmark">Bookmarks</option>
+        <option value="like">Likes</option>
+        <option value="reply">Replies</option>
+        <option value="repost">Reposts</option>
+      </select>
+      <span data-filter-results class="text-sm text-surface-500 dark:text-surface-400 self-center"></span>
+    </div>
   <ul class="post-list">
     {% for post in paginatedPosts %}
-    <li class="h-entry post-card">
-      {# Detect post type from frontmatter properties #}
-      {% set likedUrl = post.data.likeOf or post.data.like_of %}
-      {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
-      {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
-      {% set replyToUrl = post.data.inReplyTo or post.data.in_reply_to %}
-      {% set hasPhotos = post.data.photo and post.data.photo.length %}
+    {# Detect post type from frontmatter properties #}
+    {% set likedUrl = post.data.likeOf or post.data.like_of %}
+    {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
+    {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
+    {% set replyToUrl = post.data.inReplyTo or post.data.in_reply_to %}
+    {% set hasPhotos = post.data.photo and post.data.photo.length %}
+    {% set _postType %}{% if likedUrl %}like{% elif bookmarkedUrl %}bookmark{% elif repostedUrl %}repost{% elif replyToUrl %}reply{% elif hasPhotos %}photo{% elif post.data.title %}article{% else %}note{% endif %}{% endset %}
+    <li class="h-entry post-card" data-filter-type="{{ _postType | trim }}">
 
       {% if likedUrl %}
       {# ── Like card ── #}
@@ -37,9 +58,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-red-600 dark:text-red-400">Liked</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
-            </time>
+            </time></time-difference>
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
@@ -77,9 +98,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-amber-600 dark:text-amber-400">Bookmarked</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
-            </time>
+            </time></time-difference>
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
@@ -122,9 +143,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-green-600 dark:text-green-400">Reposted</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
-            </time>
+            </time></time-difference>
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
@@ -162,9 +183,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-primary-600 dark:text-primary-400">In reply to</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
-            </time>
+            </time></time-difference>
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
@@ -201,9 +222,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-purple-600 dark:text-purple-400">Photo</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
-            </time>
+            </time></time-difference>
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
@@ -272,9 +293,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Note card (unchanged) ── #}
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
-          <time class="dt-published text-sm text-primary-600 dark:text-primary-400 font-medium" datetime="{{ post.date | isoDate }}">
+          <time-difference><time class="dt-published text-sm text-primary-600 dark:text-primary-400 font-medium" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
-          </time>
+          </time></time-difference>
         </a>
         {% if post.data.category %}
         <span class="post-categories ml-2">
@@ -300,6 +321,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     </li>
     {% endfor %}
   </ul>
+  </filter-container>
 
   {# Pagination controls #}
   {% if pagination.pages.length > 1 %}

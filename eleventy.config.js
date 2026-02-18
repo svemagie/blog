@@ -244,6 +244,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy({ ".cache/og": "og" });
 
+  // Copy vendor web components from node_modules
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@zachleat/table-saw/table-saw.js": "js/table-saw.js",
+    "node_modules/@11ty/is-land/is-land.js": "js/is-land.js",
+    "node_modules/@zachleat/filter-container/filter-container.js": "js/filter-container.js",
+  });
+
   // Watch for content changes
   eleventyConfig.addWatchTarget("./content/");
   eleventyConfig.addWatchTarget("./css/");
@@ -352,6 +359,16 @@ export default function (eleventyConfig) {
     return existsSync(ogPath);
   });
 
+  // Inline file contents (for critical CSS inlining)
+  eleventyConfig.addFilter("inlineFile", (filePath) => {
+    try {
+      const fullPath = resolve(__dirname, filePath.startsWith("/") ? `.${filePath}` : filePath);
+      return readFileSync(fullPath, "utf-8");
+    } catch {
+      return "";
+    }
+  });
+
   // Current timestamp filter (for client-side JS buildtime)
   eleventyConfig.addFilter("timestamp", () => Date.now());
 
@@ -424,6 +441,22 @@ export default function (eleventyConfig) {
     return index >= 0 && index < collection.length - 1
       ? collection[index + 1]
       : null;
+  });
+
+  // Posting frequency — compute posts-per-month for last 12 months (for sparkline)
+  eleventyConfig.addFilter("postingFrequency", (posts) => {
+    if (!Array.isArray(posts) || posts.length === 0) return "";
+    const now = new Date();
+    const counts = new Array(12).fill(0);
+    for (const post of posts) {
+      const postDate = new Date(post.date || post.data?.date);
+      if (isNaN(postDate.getTime())) continue;
+      const monthsAgo = (now.getFullYear() - postDate.getFullYear()) * 12 + (now.getMonth() - postDate.getMonth());
+      if (monthsAgo >= 0 && monthsAgo < 12) {
+        counts[11 - monthsAgo]++;
+      }
+    }
+    return counts.join(",");
   });
 
   // Collections for different post types

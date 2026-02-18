@@ -1,4 +1,5 @@
 {# GitHub Activity Widget - Tabbed Commits/Repos/Featured/PRs with live API data #}
+<is-land on:visible>
 <div class="widget" x-data="githubWidget('{{ site.feeds.github }}')" x-init="init()">
   <h3 class="widget-title flex items-center gap-2">
     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -209,3 +210,4 @@ function githubWidget(username) {
   };
 }
 </script>
+</is-land>
