@@ -343,7 +343,12 @@ export default function (eleventyConfig) {
   // Check if a generated OG image exists for this page slug
   eleventyConfig.addFilter("hasOgImage", (fileSlug) => {
     if (!fileSlug) return false;
-    return existsSync(resolve(__dirname, ".cache", "og", `${fileSlug}.png`));
+    const ogPath = resolve(__dirname, ".cache", "og", `${fileSlug}.png`);
+    const exists = existsSync(ogPath);
+    if (!exists && fileSlug.includes("quand-un-oui")) {
+      console.log(`[og-debug] fileSlug=${fileSlug}, path=${ogPath}, exists=${exists}`);
+    }
+    return exists;
   });
 
   // Current timestamp filter (for client-side JS buildtime)
