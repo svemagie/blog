@@ -363,11 +363,11 @@ export default function (eleventyConfig) {
   });
 
   // Derive OG slug from page.url (reliable) instead of page.fileSlug
-  // (which suffers from Nunjucks race conditions in Eleventy 3.x parallel rendering)
+  // (which suffers from Nunjucks race conditions in Eleventy 3.x parallel rendering).
+  // OG images are named with the full date prefix to match URL segments exactly.
   eleventyConfig.addFilter("ogSlug", (url) => {
     if (!url) return "";
-    const last = url.replace(/\/$/, "").split("/").pop();
-    return last.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+    return url.replace(/\/$/, "").split("/").pop();
   });
 
   // Check if a generated OG image exists for this slug
