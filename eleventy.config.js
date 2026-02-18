@@ -217,6 +217,14 @@ export default function (eleventyConfig) {
     },
   });
 
+  // Wrap <table> elements in <table-saw> for responsive tables
+  eleventyConfig.addTransform("table-saw-wrap", function (content, outputPath) {
+    if (outputPath && outputPath.endsWith(".html")) {
+      return content.replace(/<table(\s|>)/g, "<table-saw><table$1").replace(/<\/table>/g, "</table></table-saw>");
+    }
+    return content;
+  });
+
   // HTML minification — only during initial build, skip during watch rebuilds
   eleventyConfig.addTransform("htmlmin", async function (content, outputPath) {
     if (outputPath && outputPath.endsWith(".html") && process.env.ELEVENTY_RUN_MODE === "build") {
