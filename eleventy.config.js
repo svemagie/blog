@@ -582,9 +582,10 @@ export default function (eleventyConfig) {
       .slice(0, 5);
   });
 
-  // Generate OpenGraph images for posts without photos (skip on incremental rebuilds)
-  eleventyConfig.on("eleventy.before", ({ incremental }) => {
-    if (incremental) return;
+  // Generate OpenGraph images for posts without photos
+  // Runs on every build (including watcher rebuilds) — manifest caching makes it fast
+  // for incremental: only new posts without an OG image get generated (~200ms each)
+  eleventyConfig.on("eleventy.before", () => {
     const contentDir = resolve(__dirname, "content");
     const cacheDir = resolve(__dirname, ".cache");
     const siteName = process.env.SITE_NAME || "My IndieWeb Blog";
