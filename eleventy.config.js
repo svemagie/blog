@@ -456,7 +456,17 @@ export default function (eleventyConfig) {
         counts[11 - monthsAgo]++;
       }
     }
-    return counts.join(",");
+    const max = Math.max(...counts, 1);
+    const w = 200;
+    const h = 30;
+    const pad = 2;
+    const step = w / (counts.length - 1);
+    const points = counts.map((v, i) => {
+      const x = i * step;
+      const y = h - pad - ((v / max) * (h - pad * 2));
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(" ");
+    return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posting frequency over the last 12 months"><polyline fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="${points}"/></svg>`;
   });
 
   // Collections for different post types
