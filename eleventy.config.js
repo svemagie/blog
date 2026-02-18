@@ -32,16 +32,16 @@ export default function (eleventyConfig) {
   eleventyConfig.ignores.add("README.md");
 
   // Ignore Pagefind output directory
-  eleventyConfig.ignores.add("_pagefind");
-  eleventyConfig.ignores.add("_pagefind/**");
+  eleventyConfig.ignores.add("pagefind");
+  eleventyConfig.ignores.add("pagefind/**");
 
   // Configure watch targets to exclude output directory
   eleventyConfig.watchIgnores.add("_site");
   eleventyConfig.watchIgnores.add("_site/**");
   eleventyConfig.watchIgnores.add("/app/data/site");
   eleventyConfig.watchIgnores.add("/app/data/site/**");
-  eleventyConfig.watchIgnores.add("_pagefind");
-  eleventyConfig.watchIgnores.add("_pagefind/**");
+  eleventyConfig.watchIgnores.add("pagefind");
+  eleventyConfig.watchIgnores.add("pagefind/**");
   eleventyConfig.watchIgnores.add(".cache/og");
   eleventyConfig.watchIgnores.add(".cache/og/**");
 
@@ -621,7 +621,7 @@ export default function (eleventyConfig) {
     // Pagefind indexing
     try {
       console.log(`[pagefind] Indexing ${dir.output} (${runMode})...`);
-      execFileSync("npx", ["pagefind", "--site", dir.output, "--glob", "**/*.html"], {
+      execFileSync("npx", ["pagefind", "--site", dir.output, "--output-subdir", "pagefind", "--glob", "**/*.html"], {
         stdio: "inherit",
         timeout: 60000,
       });
