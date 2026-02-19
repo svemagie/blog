@@ -11,6 +11,12 @@ pagefindIgnore: true
 </div>
 
 <div id="search"></div>
+<noscript>
+  <div class="p-6 bg-surface-100 dark:bg-surface-800 rounded-lg mt-4">
+    <p class="text-surface-700 dark:text-surface-300">Search requires JavaScript to be enabled. Please enable JavaScript in your browser settings to use the search feature.</p>
+    <p class="text-surface-500 text-sm mt-2">Alternatively, you can browse content via the <a href="/blog/" class="text-primary-600 dark:text-primary-400 hover:underline">blog archive</a> or <a href="/categories/" class="text-primary-600 dark:text-primary-400 hover:underline">categories</a>.</p>
+  </div>
+</noscript>
 
 <script>
   initPagefind("#search", { showSubResults: true });

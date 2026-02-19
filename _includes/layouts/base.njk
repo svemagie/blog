@@ -76,6 +76,21 @@
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <style>[x-cloak] { display: none !important; }</style>
+  {# Graceful no-JS fallback: show content that Alpine would normally control #}
+  <noscript>
+    <style>
+      /* Override x-cloak so hidden content is visible without Alpine */
+      [x-cloak] { display: block !important; }
+      /* Show all tab panels stacked (Alpine x-show tabs) */
+      [x-show] { display: block !important; }
+      /* Hide JS-only interactive controls */
+      .fab-container, .fab-button, .fab-backdrop, .fab-menu { display: none !important; }
+      /* Hide tab button rows - content shows stacked instead */
+      [x-data] > .flex.border-b { display: none !important; }
+      /* Hide loading spinners and JS-only buttons */
+      [x-show*="loading"], button[\\@click*="fetch"], button[\\@click*="loadMore"] { display: none !important; }
+    </style>
+  </noscript>
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="RSS Feed">
   <link rel="alternate" type="application/json" href="/feed.json" title="JSON Feed">
