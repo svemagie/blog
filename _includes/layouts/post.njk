@@ -72,12 +72,21 @@ withBlogSidebar: true
   {% endif %}
 
   {# Syndication Footer - shows where this post was also published #}
+  {# Skip syndication URLs that point back to our own site (self-hosted AP) #}
+  {% set externalSyndication = [] %}
   {% if syndication %}
+    {% for url in syndication %}
+      {% if url.indexOf(site.url) != 0 %}
+        {% set externalSyndication = (externalSyndication.push(url), externalSyndication) %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if externalSyndication.length %}
   <footer class="post-footer mt-8 pt-6 border-t border-surface-200 dark:border-surface-700">
     <div class="flex flex-wrap items-center gap-4">
       <span class="text-sm text-surface-500 dark:text-surface-400">Also on:</span>
       <div class="flex flex-wrap gap-3">
-        {% for url in syndication %}
+        {% for url in externalSyndication %}
           {% if "bsky.app" in url or "bluesky" in url %}
           <a class="u-syndication inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0085ff]/10 text-[#0085ff] hover:bg-[#0085ff]/20 transition-colors text-sm font-medium" href="{{ url }}" target="_blank" rel="noopener syndication" title="View on Bluesky">
             <svg class="w-4 h-4" viewBox="0 0 568 501" fill="currentColor" aria-hidden="true">
