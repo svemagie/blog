@@ -1,6 +1,7 @@
 {# Reply Context Component #}
 {# Displays rich context for replies, likes, reposts, and bookmarks #}
 {# Uses h-cite microformat for citing external content #}
+{# Includes unfurl card for rich link preview (OpenGraph metadata) #}
 
 {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
 {% set replyTo = inReplyTo or in_reply_to %}
@@ -9,7 +10,7 @@
 {% set bookmarkedUrl = bookmarkOf or bookmark_of %}
 
 {% if replyTo or likedUrl or repostedUrl or bookmarkedUrl %}
-<aside class="reply-context p-4 mb-6 bg-surface-100 dark:bg-surface-800 rounded-lg border-l-4 border-primary-500">
+<aside class="reply-context mb-6">
   {% if replyTo %}
   <div class="u-in-reply-to h-cite">
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-2 flex items-center gap-2">
@@ -18,7 +19,8 @@
       </svg>
       <span>In reply to:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ replyTo }}">
+    {% unfurl replyTo %}
+    <a class="u-url text-xs text-surface-400 dark:text-surface-500 hover:underline break-all" href="{{ replyTo }}">
       {{ replyTo }}
     </a>
   </div>
@@ -32,7 +34,8 @@
       </svg>
       <span>Liked:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ likedUrl }}">
+    {% unfurl likedUrl %}
+    <a class="u-url text-xs text-surface-400 dark:text-surface-500 hover:underline break-all" href="{{ likedUrl }}">
       {{ likedUrl }}
     </a>
   </div>
@@ -46,7 +49,8 @@
       </svg>
       <span>Reposted:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ repostedUrl }}">
+    {% unfurl repostedUrl %}
+    <a class="u-url text-xs text-surface-400 dark:text-surface-500 hover:underline break-all" href="{{ repostedUrl }}">
       {{ repostedUrl }}
     </a>
   </div>
@@ -60,7 +64,8 @@
       </svg>
       <span>Bookmarked:</span>
     </p>
-    <a class="u-url font-medium text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ bookmarkedUrl }}">
+    {% unfurl bookmarkedUrl %}
+    <a class="u-url text-xs text-surface-400 dark:text-surface-500 hover:underline break-all" href="{{ bookmarkedUrl }}">
       {{ bookmarkedUrl }}
     </a>
   </div>
