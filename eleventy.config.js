@@ -7,6 +7,7 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
+import registerUnfurlShortcode from "./lib/unfurl-shortcode.js";
 import { createHash } from "crypto";
 import { execFileSync } from "child_process";
 import { readFileSync, existsSync } from "fs";
@@ -44,6 +45,8 @@ export default function (eleventyConfig) {
   eleventyConfig.watchIgnores.add("pagefind/**");
   eleventyConfig.watchIgnores.add(".cache/og");
   eleventyConfig.watchIgnores.add(".cache/og/**");
+  eleventyConfig.watchIgnores.add(".cache/unfurl");
+  eleventyConfig.watchIgnores.add(".cache/unfurl/**");
 
   // Configure markdown-it with linkify enabled (auto-convert URLs to links)
   const md = markdownIt({
@@ -173,10 +176,14 @@ export default function (eleventyConfig) {
     },
     mastodon: {
       options: {
-        server: "mstdn.social",
+        server: "indieweb.social",
       },
     },
   });
+
+  // Unfurl shortcode — renders any URL as a rich card (OpenGraph/Twitter Card metadata)
+  // Usage in templates: {% unfurl "https://example.com/article" %}
+  registerUnfurlShortcode(eleventyConfig);
 
   // Custom transform to convert YouTube links to embeds
   eleventyConfig.addTransform("youtube-link-to-embed", function (content, outputPath) {

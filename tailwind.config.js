@@ -7,6 +7,7 @@ export default {
     "./**/*.md",
     "./_includes/**/*.njk",
     "./content/**/*.md",
+    "./lib/**/*.js",
   ],
   darkMode: "class",
   theme: {
