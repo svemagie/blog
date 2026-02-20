@@ -73,11 +73,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             </span>
             {% endif %}
           </div>
-          <p class="mt-2">
-            <a class="u-like-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ likedUrl }}">
-              {{ likedUrl }}
-            </a>
-          </p>
+          {% unfurl likedUrl %}
+          <a class="u-like-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
+            {{ likedUrl }}
+          </a>
           {% if post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
@@ -118,11 +117,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             <a class="hover:text-primary-600 dark:hover:text-primary-400" href="{{ post.url }}">{{ post.data.title }}</a>
           </h2>
           {% endif %}
-          <p class="mt-2 text-sm">
-            <a class="u-bookmark-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ bookmarkedUrl }}">
-              {{ bookmarkedUrl }}
-            </a>
-          </p>
+          {% unfurl bookmarkedUrl %}
+          <a class="u-bookmark-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ bookmarkedUrl }}">
+            {{ bookmarkedUrl }}
+          </a>
           {% if post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
@@ -158,11 +156,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             </span>
             {% endif %}
           </div>
-          <p class="mt-2 text-sm">
-            <a class="u-repost-of text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ repostedUrl }}">
-              {{ repostedUrl }}
-            </a>
-          </p>
+          {% unfurl repostedUrl %}
+          <a class="u-repost-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ repostedUrl }}">
+            {{ repostedUrl }}
+          </a>
           {% if post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
@@ -198,11 +195,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             </span>
             {% endif %}
           </div>
-          <p class="mt-2 text-sm">
-            <a class="u-in-reply-to text-primary-600 dark:text-primary-400 hover:underline break-all" href="{{ replyToUrl }}">
-              {{ replyToUrl }}
-            </a>
-          </p>
+          {% unfurl replyToUrl %}
+          <a class="u-in-reply-to text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ replyToUrl }}">
+            {{ replyToUrl }}
+          </a>
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>

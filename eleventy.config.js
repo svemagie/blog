@@ -7,10 +7,11 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
-import registerUnfurlShortcode from "./lib/unfurl-shortcode.js";
+import registerUnfurlShortcode, { getCachedCard, prefetchUrl } from "./lib/unfurl-shortcode.js";
+import matter from "gray-matter";
 import { createHash } from "crypto";
 import { execFileSync } from "child_process";
-import { readFileSync, existsSync } from "fs";
+import { readFileSync, readdirSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -184,6 +185,11 @@ export default function (eleventyConfig) {
   // Unfurl shortcode — renders any URL as a rich card (OpenGraph/Twitter Card metadata)
   // Usage in templates: {% unfurl "https://example.com/article" %}
   registerUnfurlShortcode(eleventyConfig);
+
+  // Synchronous unfurl filter — reads from pre-populated disk cache.
+  // Safe for deeply nested includes where async shortcodes fail silently.
+  // Usage: {{ url | unfurlCard | safe }}
+  eleventyConfig.addFilter("unfurlCard", getCachedCard);
 
   // Custom transform to convert YouTube links to embeds
   eleventyConfig.addTransform("youtube-link-to-embed", function (content, outputPath) {
@@ -620,6 +626,40 @@ export default function (eleventyConfig) {
     } catch (err) {
       console.error("[og] Image generation failed:", err.message);
     }
+  });
+
+  // Pre-fetch unfurl metadata for all interaction URLs in content files.
+  // Populates the disk cache BEFORE templates render, so the synchronous
+  // unfurlCard filter (used in nested includes like recent-posts) has data.
+  eleventyConfig.on("eleventy.before", async () => {
+    const contentDir = resolve(__dirname, "content");
+    if (!existsSync(contentDir)) return;
+
+    const urls = new Set();
+    const interactionProps = [
+      "likeOf", "like_of", "bookmarkOf", "bookmark_of",
+      "repostOf", "repost_of", "inReplyTo", "in_reply_to",
+    ];
+
+    const walk = (dir) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const full = resolve(dir, entry.name);
+        if (entry.isDirectory()) { walk(full); continue; }
+        if (!entry.name.endsWith(".md")) continue;
+        try {
+          const { data } = matter(readFileSync(full, "utf-8"));
+          for (const prop of interactionProps) {
+            if (data[prop]) urls.add(data[prop]);
+          }
+        } catch { /* skip unparseable files */ }
+      }
+    };
+    walk(contentDir);
+
+    if (urls.size === 0) return;
+    console.log(`[unfurl] Pre-fetching ${urls.size} interaction URLs...`);
+    await Promise.all([...urls].map((url) => prefetchUrl(url)));
+    console.log(`[unfurl] Pre-fetch complete.`);
   });
 
   // WebSub hub notification after each full build (skip on incremental rebuilds)
