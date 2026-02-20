@@ -1,19 +1,17 @@
 {#
-  CV Education & Languages Section
+  CV Education Section
   Data fetched from /cv/data.json via homepage plugin
 #}
 
 {% set hasEducation = cv and cv.education and cv.education.length %}
-{% set hasLanguages = cv and cv.languages and cv.languages.length %}
 
-{% if hasEducation or hasLanguages %}
+{% if hasEducation %}
 <section class="mb-8 sm:mb-12" id="education">
   <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4 sm:mb-6">
-    {{ section.config.title or "Education & Languages" }}
+    {{ section.config.title or "Education" }}
   </h2>
 
-  {% if hasEducation %}
-  <div class="space-y-3 mb-6">
+  <div class="space-y-3">
     {% for item in cv.education %}
     {% if not filterType or item.educationType == filterType or not item.educationType %}
     <div class="p-4 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
@@ -29,17 +27,5 @@
     {% endif %}
     {% endfor %}
   </div>
-  {% endif %}
-
-  {% if hasLanguages and not filterType %}
-  <div class="flex flex-wrap gap-3">
-    {% for lang in cv.languages %}
-    <div class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-surface-800 rounded-full border border-surface-200 dark:border-surface-700">
-      <span class="font-medium text-sm text-surface-900 dark:text-surface-100">{{ lang.name }}</span>
-      <span class="text-xs text-surface-500 capitalize">{{ lang.level }}</span>
-    </div>
-    {% endfor %}
-  </div>
-  {% endif %}
 </section>
 {% endif %}
