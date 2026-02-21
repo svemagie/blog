@@ -440,6 +440,8 @@
   <script type="module" src="/js/filter-container.js"></script>
   {# Client-side webmention fetcher - supplements build-time cache with real-time data #}
   <script src="/js/webmentions.js?v={{ '/js/webmentions.js' | hash }}" defer></script>
+  {# Client-side comments - IndieAuth login + comment submission #}
+  <script src="/js/comments.js?v={{ '/js/comments.js' | hash }}" defer></script>
   {# Admin auth detection - shows dashboard link + FAB when logged in #}
   <script src="/js/admin.js?v={{ '/js/admin.js' | hash }}" defer></script>
 
