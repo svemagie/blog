@@ -26,6 +26,8 @@
       {% include "components/widgets/categories.njk" %}
     {% elif widget.type == "subscribe" %}
       {% include "components/widgets/subscribe.njk" %}
+    {% elif widget.type == "recent-comments" %}
+      {% include "components/widgets/recent-comments.njk" %}
     {% elif widget.type == "search" %}
       <div class="sidebar-widget">
         <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">Search</h3>
@@ -76,6 +78,9 @@
   {% if blogrollStatus and blogrollStatus.source == "indiekit" %}
   {% include "components/widgets/feedland.njk" %}
   {% endif %}
+
+  {# Recent Comments #}
+  {% include "components/widgets/recent-comments.njk" %}
 
   {# Categories/Tags #}
   {% include "components/widgets/categories.njk" %}
