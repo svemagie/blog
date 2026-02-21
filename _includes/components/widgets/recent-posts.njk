@@ -1,5 +1,6 @@
 {# Recent Posts Widget (sidebar) - compact type-aware list #}
 {% if recentPosts and recentPosts.length %}
+<is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Recent Posts</h3>
   <ul class="space-y-3">
@@ -87,4 +88,5 @@
     View all posts
   </a>
 </div>
+</is-land>
 {% endif %}

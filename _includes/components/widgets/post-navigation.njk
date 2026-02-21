@@ -4,6 +4,7 @@
 {% set _nextPost = collections.posts | nextInCollection(page) %}
 
 {% if _prevPost or _nextPost %}
+<is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">More Posts</h3>
   <div class="space-y-3">
@@ -61,4 +62,5 @@
     {% endif %}
   </div>
 </div>
+</is-land>
 {% endif %}

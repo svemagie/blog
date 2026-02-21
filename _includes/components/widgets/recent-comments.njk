@@ -1,5 +1,6 @@
 {# Recent Comments Widget — sidebar #}
 {% if recentComments and recentComments.length %}
+<is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Recent Comments</h3>
   <ul class="space-y-3">
@@ -22,4 +23,5 @@
     {% endfor %}
   </ul>
 </div>
+</is-land>
 {% endif %}

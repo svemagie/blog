@@ -1,6 +1,7 @@
 {# Recent Posts Widget — type-aware, for blog/post sidebars #}
 {# Uses collections.posts directly (all post types, not just recentPosts collection) #}
 {% if collections.posts %}
+<is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Recent Posts</h3>
   <ul class="space-y-3">
@@ -80,4 +81,5 @@
     View all posts
   </a>
 </div>
+</is-land>
 {% endif %}

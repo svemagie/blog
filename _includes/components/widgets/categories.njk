@@ -1,5 +1,6 @@
 {# Categories/Tags Widget #}
 {% if categories and categories.length %}
+<is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Categories</h3>
   <div class="flex flex-wrap gap-2">
@@ -10,4 +11,5 @@
     {% endfor %}
   </div>
 </div>
+</is-land>
 {% endif %}

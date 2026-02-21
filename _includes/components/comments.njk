@@ -1,6 +1,7 @@
 {# Comments section — shown on post pages before webmentions #}
 {% set absoluteUrl = site.url + page.url %}
 
+<is-land on:visible>
 <section class="comments mt-8 pt-8 border-t border-surface-200 dark:border-surface-700" id="comments"
          x-data="commentsSection('{{ absoluteUrl }}')"
          x-init="init()">
@@ -92,3 +93,4 @@
     </template>
   </div>
 </section>
+</is-land>

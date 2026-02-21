@@ -1,5 +1,6 @@
 {# Table of Contents Widget (for articles with headings) #}
 {% if toc and toc.length %}
+<is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Contents</h3>
   <nav class="toc">
@@ -14,4 +15,5 @@
     </ul>
   </nav>
 </div>
+</is-land>
 {% endif %}

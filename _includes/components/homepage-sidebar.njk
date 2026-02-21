@@ -18,11 +18,13 @@
     {% elif widget.type == "categories" %}
       {% include "components/widgets/categories.njk" %}
     {% elif widget.type == "search" %}
+      <is-land on:visible>
       <div class="widget">
         <h3 class="widget-title">Search</h3>
         <div id="sidebar-search"></div>
         <script>initPagefind("#sidebar-search");</script>
       </div>
+      </is-land>
     {% elif widget.type == "webmentions" %}
       {% include "components/widgets/webmentions.njk" %}
     {% elif widget.type == "recent-comments" %}
@@ -30,6 +32,7 @@
     {% elif widget.type == "custom-html" %}
       {# Custom content widget #}
       {% set wConfig = widget.config or {} %}
+      <is-land on:visible>
       <div class="widget">
         {% if wConfig.title %}
         <h3 class="widget-title">{{ wConfig.title }}</h3>
@@ -40,6 +43,7 @@
         </div>
         {% endif %}
       </div>
+      </is-land>
     {% else %}
       <!-- Unknown widget type: {{ widget.type }} -->
     {% endif %}
