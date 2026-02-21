@@ -35,16 +35,16 @@
     {% elif widget.type == "recent-comments" %}
       {% include "components/widgets/recent-comments.njk" %}
     {% elif widget.type == "search" %}
-      <div class="sidebar-widget">
-        <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">Search</h3>
+      <div class="widget">
+        <h3 class="widget-title">Search</h3>
         <div id="blog-sidebar-search"></div>
         <script>initPagefind("#blog-sidebar-search");</script>
       </div>
     {% elif widget.type == "custom-html" %}
       {% set wConfig = widget.config or {} %}
-      <div class="sidebar-widget">
+      <div class="widget">
         {% if wConfig.title %}
-        <h3 class="text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3">{{ wConfig.title }}</h3>
+        <h3 class="widget-title">{{ wConfig.title }}</h3>
         {% endif %}
         {% if wConfig.content %}
         <div class="prose dark:prose-invert prose-sm max-w-none">
