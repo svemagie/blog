@@ -46,6 +46,11 @@ function buildSocialFromFeeds() {
   if (linkedin) {
     links.push({ name: "LinkedIn", url: `https://linkedin.com/in/${linkedin}`, rel: "me", icon: "linkedin" });
   }
+  const apHandle = process.env.ACTIVITYPUB_HANDLE;
+  if (apHandle) {
+    const siteUrl = process.env.SITE_URL || "https://example.com";
+    links.push({ name: "ActivityPub", url: `${siteUrl}/activitypub/users/${apHandle}`, rel: "me", icon: "activitypub" });
+  }
   return links;
 }
 
