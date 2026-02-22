@@ -91,9 +91,9 @@ withBlogSidebar: true
       <div class="flex flex-wrap gap-3">
         {# Fediverse remote interaction button (self-hosted ActivityPub) #}
         {% if selfHostedApUrl %}
-        <span x-data="fediverseInteract('{{ site.url }}{{ page.url }}')" class="inline-flex">
+        <span x-data="fediverseInteract('{{ selfHostedApUrl }}')" class="inline-flex">
           <a class="u-syndication inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#a730b8]/10 text-[#a730b8] hover:bg-[#a730b8]/20 transition-colors text-sm font-medium cursor-pointer"
-             href="{{ site.url }}{{ page.url }}"
+             href="{{ selfHostedApUrl }}"
              rel="syndication"
              title="Interact from your fediverse instance (Shift+click to change)"
              @click="handleClick($event)">
