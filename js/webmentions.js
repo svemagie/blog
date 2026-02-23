@@ -58,10 +58,9 @@
     let mentionsToShow;
     if (hasBuildTimeSection) {
       // Build-time section exists - only show NEW webmentions to avoid duplicates.
-      // Conversations items (which have a 'platform' field) are never included
-      // in the build-time cache, so always show them regardless of timestamp.
+      // Both webmention.io and conversations items are included at build time,
+      // so filter all by timestamp (only show items received after the build).
       mentionsToShow = allChildren.filter((wm) => {
-        if (wm.platform) return true;
         const wmTime = new Date(wm['wm-received']).getTime();
         return wmTime > buildTime;
       });
