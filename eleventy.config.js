@@ -240,6 +240,55 @@ export default function (eleventyConfig) {
     return content;
   });
 
+  // Fix OG image meta tags post-rendering — bypasses Eleventy 3.x race condition (#3183).
+  // page.url is unreliable during parallel rendering, but outputPath IS correct
+  // since files are written to the correct location. Derives the OG slug from
+  // outputPath and replaces placeholders emitted by base.njk.
+  eleventyConfig.addTransform("og-fix", function (content, outputPath) {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+
+    // Derive correct page URL and OG slug from outputPath (immune to race condition)
+    // Content pages match: .../type/yyyy/MM/dd/slug/index.html
+    const dateMatch = outputPath.match(
+      /\/([\w-]+)\/(\d{4})\/(\d{2})\/(\d{2})\/([\w-]+)\/index\.html$/
+    );
+
+    if (dateMatch) {
+      const [, type, year, month, day, slug] = dateMatch;
+      const pageUrlPath = `/${type}/${year}/${month}/${day}/${slug}/`;
+      const correctFullUrl = `${siteUrl}${pageUrlPath}`;
+      const ogSlug = `${year}-${month}-${day}-${slug}`;
+      const hasOg = existsSync(resolve(__dirname, ".cache", "og", `${ogSlug}.png`));
+      const ogImageUrl = hasOg
+        ? `${siteUrl}/og/${ogSlug}.png`
+        : `${siteUrl}/images/og-default.png`;
+      const twitterCard = hasOg ? "summary_large_image" : "summary";
+
+      // Fix og:url and canonical (also affected by race condition)
+      content = content.replace(
+        /(<meta property="og:url" content=")[^"]*(")/,
+        `$1${correctFullUrl}$2`
+      );
+      content = content.replace(
+        /(<link rel="canonical" href=")[^"]*(")/,
+        `$1${correctFullUrl}$2`
+      );
+
+      // Replace OG image and twitter card placeholders
+      content = content.replace(/__OG_IMAGE_PLACEHOLDER__/g, ogImageUrl);
+      content = content.replace(/__TWITTER_CARD_PLACEHOLDER__/g, twitterCard);
+    } else {
+      // Non-date pages (homepage, about, etc.): use defaults
+      content = content.replace(
+        /__OG_IMAGE_PLACEHOLDER__/g,
+        `${siteUrl}/images/og-default.png`
+      );
+      content = content.replace(/__TWITTER_CARD_PLACEHOLDER__/g, "summary");
+    }
+
+    return content;
+  });
+
   // HTML minification — only during initial build, skip during watch rebuilds
   eleventyConfig.addTransform("htmlmin", async function (content, outputPath) {
     if (outputPath && outputPath.endsWith(".html") && process.env.ELEVENTY_RUN_MODE === "build") {
