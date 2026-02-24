@@ -16,14 +16,30 @@
 
   <div class="space-y-4">
     {% for post in collections.posts | head(maxItems) %}
-    <article class="h-entry p-4 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-primary-400 dark:hover:border-primary-600 transition-colors">
-
       {# Detect post type from frontmatter properties #}
       {% set likedUrl = post.data.likeOf or post.data.like_of %}
       {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
       {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
       {% set replyToUrl = post.data.inReplyTo or post.data.in_reply_to %}
       {% set hasPhotos = post.data.photo and post.data.photo.length %}
+
+      {# Determine border color by post type #}
+      {% set borderClass = "" %}
+      {% if likedUrl %}
+        {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
+      {% elif bookmarkedUrl %}
+        {% set borderClass = "border-l-[3px] border-l-amber-400 dark:border-l-amber-500" %}
+      {% elif repostedUrl %}
+        {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
+      {% elif replyToUrl %}
+        {% set borderClass = "border-l-[3px] border-l-primary-400 dark:border-l-primary-500" %}
+      {% elif hasPhotos %}
+        {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
+      {% else %}
+        {% set borderClass = "border-l-[3px] border-l-surface-300 dark:border-l-surface-600" %}
+      {% endif %}
+
+    <article class="h-entry p-4 bg-white dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-primary-400 dark:hover:border-primary-600 transition-colors {{ borderClass }}">
 
       {% if likedUrl %}
       {# ── Like card ── #}
