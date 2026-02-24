@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ site.locale | default('en') }}">
 <head>
+  {# CRITICAL: Capture page.url IMMEDIATELY — Eleventy 3.x race condition (#3183)
+     causes page.url to change mid-render during parallel processing.
+     Nunjucks {% set %} captures the VALUE (not a reference), making it immune
+     to later mutations of the shared page object. This MUST be the first
+     statement in the template, before any filter calls that could yield. #}
+  {% set _pageUrl = page.url %}
+  {% set _ogSlug = (_pageUrl or "") | ogSlug %}
+  {% set _hasOg = _ogSlug | hasOgImage %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy">
@@ -17,17 +25,13 @@
       {% set ogPhoto = ogPhoto[0] %}
     {% endif %}
   {% endif %}
+  <!-- debug:og _pageUrl={{ _pageUrl }} ogSlug={{ _ogSlug }} hasOg={{ _hasOg }} -->
   <meta property="og:title" content="{{ ogTitle }}">
   <meta property="og:site_name" content="{{ site.name }}">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
+  <meta property="og:url" content="{{ site.url }}{{ _pageUrl }}">
+  <meta property="og:type" content="{% if _pageUrl == '/' %}website{% else %}article{% endif %}">
   <meta property="og:description" content="{{ ogDesc }}">
   <meta name="description" content="{{ ogDesc }}">
-  {# Compute OG slug from page.url — NOT permalink or eleventyComputed values.
-     page.url may be false for pages with permalink:false (e.g., about.njk),
-     so guard with (page.url or ""). The ogSlug filter handles empty strings. #}
-  {% set _ogSlug = (page.url or "") | ogSlug %}
-  {% set _hasOg = _ogSlug | hasOgImage %}
   {% if ogPhoto and ogPhoto != "" and (ogPhoto | length) > 10 %}
   <meta property="og:image" content="{% if 'http' in ogPhoto %}{{ ogPhoto }}{% else %}{{ site.url }}{% if ogPhoto[0] != '/' %}/{% endif %}{{ ogPhoto }}{% endif %}">
   {% elif image and image != "" and (image | length) > 10 %}
@@ -98,14 +102,17 @@
       [x-show*="loading"], button[\\@click*="fetch"], button[\\@click*="loadMore"] { display: none !important; }
     </style>
   </noscript>
-  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="canonical" href="{{ site.url }}{{ _pageUrl }}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="RSS Feed">
   <link rel="alternate" type="application/json" href="/feed.json" title="JSON Feed">
+  {% if site.markdownAgents.enabled and _pageUrl and _pageUrl.startsWith('/articles/') %}
+  <link rel="alternate" type="text/markdown" href="{{ _pageUrl }}index.md" title="Markdown version">
+  {% endif %}
   <link rel="authorization_endpoint" href="{{ site.url }}/auth">
   <link rel="token_endpoint" href="{{ site.url }}/auth/token">
   <link rel="micropub" href="{{ site.url }}/micropub">
   <link rel="microsub" href="{{ site.url }}/microsub">
-  <link rel="self" href="{{ site.url }}{{ page.url }}">
+  <link rel="self" href="{{ site.url }}{{ _pageUrl }}">
   <link rel="hub" href="https://websubhub.com/hub">
   <link rel="webmention" href="https://webmention.io/{{ site.webmentions.domain }}/webmention">
   <link rel="pingback" href="https://webmention.io/{{ site.webmentions.domain }}/xmlrpc">

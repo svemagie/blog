@@ -127,4 +127,13 @@ export default {
     lightning: process.env.SUPPORT_LIGHTNING_ADDRESS || null,
     paymentPointer: process.env.SUPPORT_PAYMENT_POINTER || null,
   },
+
+  // Markdown for Agents — serve clean Markdown to AI agents
+  // Set MARKDOWN_AGENTS_ENABLED to "false" to disable entirely
+  markdownAgents: {
+    enabled: (process.env.MARKDOWN_AGENTS_ENABLED || "true").toLowerCase() === "true",
+    aiTrain: process.env.MARKDOWN_AGENTS_AI_TRAIN || "yes",
+    search: process.env.MARKDOWN_AGENTS_SEARCH || "yes",
+    aiInput: process.env.MARKDOWN_AGENTS_AI_INPUT || "yes",
+  },
 };
