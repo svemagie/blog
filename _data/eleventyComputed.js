@@ -1,22 +1,19 @@
 /**
  * Computed data resolved during the data cascade.
  *
- * Eleventy 3.x parallel rendering causes `page.url` and `page.fileSlug`
- * to return values from OTHER pages being processed concurrently.
- * This affects both templates and eleventyComputed functions.
+ * Eleventy 3.x parallel rendering causes `page.url`, `page.fileSlug`,
+ * and `page.inputPath` to return values from OTHER pages being processed
+ * concurrently. This affects both templates and eleventyComputed functions.
  *
- * Fix: ALL computed values derive from `page.inputPath` (the physical file
- * path on disk), which is always correct regardless of parallel rendering.
- * NEVER use `page.url` or `page.fileSlug` here.
+ * IMPORTANT: Only `permalink` is computed here, because it reads from the
+ * file's own frontmatter data (per-file, immune to race conditions).
+ * OG image lookups are done in templates using the `permalink` data value
+ * and Nunjucks filters (see base.njk).
+ *
+ * NEVER use `page.url`, `page.fileSlug`, or `page.inputPath` here.
  *
  * See: https://github.com/11ty/eleventy/issues/3183
  */
-
-import { existsSync } from "node:fs";
-import { resolve, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
   eleventyComputed: {
@@ -37,6 +34,8 @@ export default {
       }
 
       // No frontmatter permalink — compute from file path
+      // NOTE: data.page.inputPath may be wrong due to parallel rendering,
+      // but posts without frontmatter permalink are rare (only pre-beta.37 edge cases)
       const inputPath = data.page?.inputPath || "";
       const match = inputPath.match(
         /content\/([^/]+)\/(\d{4})-(\d{2})-(\d{2})-(.+)\.md$/
@@ -48,45 +47,6 @@ export default {
 
       // For non-matching files (pages, root files), let Eleventy decide
       return data.permalink;
-    },
-
-    // OG image slug — derive from inputPath (physical file), NOT page.url.
-    // page.url suffers from Eleventy 3.x parallel rendering race conditions
-    // where it can return the URL of a DIFFERENT page being processed concurrently.
-    // inputPath is the physical file path, which is always correct.
-    // OG images are generated as {yyyy}-{MM}-{dd}-{slug}.png by lib/og.js.
-    ogSlug: (data) => {
-      const inputPath = data.page?.inputPath || "";
-      const match = inputPath.match(
-        /content\/([^/]+)\/(\d{4})-(\d{2})-(\d{2})-(.+)\.md$/,
-      );
-      if (match) {
-        const [, , year, month, day, slug] = match;
-        return `${year}-${month}-${day}-${slug}`;
-      }
-      // Fallback for pages/root files: use last path segment
-      const segments = inputPath.split("/").filter(Boolean);
-      const last = segments[segments.length - 1] || "";
-      return last.replace(/\.md$/, "");
-    },
-
-    hasOgImage: (data) => {
-      const inputPath = data.page?.inputPath || "";
-      const match = inputPath.match(
-        /content\/([^/]+)\/(\d{4})-(\d{2})-(\d{2})-(.+)\.md$/,
-      );
-      let slug;
-      if (match) {
-        const [, , year, month, day, s] = match;
-        slug = `${year}-${month}-${day}-${s}`;
-      } else {
-        const segments = inputPath.split("/").filter(Boolean);
-        const last = segments[segments.length - 1] || "";
-        slug = last.replace(/\.md$/, "");
-      }
-      if (!slug) return false;
-      const ogPath = resolve(__dirname, "..", ".cache", "og", `${slug}.png`);
-      return existsSync(ogPath);
     },
   },
 };
