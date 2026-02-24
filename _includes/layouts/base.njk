@@ -13,7 +13,6 @@
   {# OpenGraph meta tags #}
   {% set ogTitle = title | default(site.name) %}
   {% set ogDesc = description | default(content | ogDescription(200)) | default(site.description) %}
-  {% set contentImage = content | extractFirstImage %}
   {# Normalize photo - could be array for multi-photo posts #}
   {% set ogPhoto = photo %}
   {% if ogPhoto %}
@@ -31,8 +30,6 @@
   <meta property="og:image" content="{% if 'http' in ogPhoto %}{{ ogPhoto }}{% else %}{{ site.url }}{% if ogPhoto[0] != '/' %}/{% endif %}{{ ogPhoto }}{% endif %}">
   {% elif image and image != "" and (image | length) > 10 %}
   <meta property="og:image" content="{% if 'http' in image %}{{ image }}{% else %}{{ site.url }}{% if image[0] != '/' %}/{% endif %}{{ image }}{% endif %}">
-  {% elif contentImage and contentImage != "" and (contentImage | length) > 10 %}
-  <meta property="og:image" content="{% if 'http' in contentImage %}{{ contentImage }}{% else %}{{ site.url }}{% if contentImage[0] != '/' %}/{% endif %}{{ contentImage }}{% endif %}">
   {% else %}
   <meta property="og:image" content="__OG_IMAGE_PLACEHOLDER__">
   {% endif %}
@@ -41,7 +38,7 @@
   <meta property="og:locale" content="{{ site.locale | default('en_US') }}">
 
   {# Twitter Card meta tags #}
-  {% set hasExplicitImage = (ogPhoto and ogPhoto != "" and (ogPhoto | length) > 10) or (image and image != "" and (image | length) > 10) or (contentImage and contentImage != "" and (contentImage | length) > 10) %}
+  {% set hasExplicitImage = (ogPhoto and ogPhoto != "" and (ogPhoto | length) > 10) or (image and image != "" and (image | length) > 10) %}
   <meta name="twitter:card" content="{% if hasExplicitImage %}summary_large_image{% else %}__TWITTER_CARD_PLACEHOLDER__{% endif %}">
   <meta name="twitter:title" content="{{ ogTitle }}">
   <meta name="twitter:description" content="{{ ogDesc }}">
@@ -49,8 +46,6 @@
   <meta name="twitter:image" content="{% if 'http' in ogPhoto %}{{ ogPhoto }}{% else %}{{ site.url }}{% if ogPhoto[0] != '/' %}/{% endif %}{{ ogPhoto }}{% endif %}">
   {% elif image and image != "" and (image | length) > 10 %}
   <meta name="twitter:image" content="{% if 'http' in image %}{{ image }}{% else %}{{ site.url }}{% if image[0] != '/' %}/{% endif %}{{ image }}{% endif %}">
-  {% elif contentImage and contentImage != "" and (contentImage | length) > 10 %}
-  <meta name="twitter:image" content="{% if 'http' in contentImage %}{{ contentImage }}{% else %}{{ site.url }}{% if contentImage[0] != '/' %}/{% endif %}{{ contentImage }}{% endif %}">
   {% else %}
   <meta name="twitter:image" content="__OG_IMAGE_PLACEHOLDER__">
   {% endif %}
@@ -98,8 +93,8 @@
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="RSS Feed">
   <link rel="alternate" type="application/json" href="/feed.json" title="JSON Feed">
-  {% if site.markdownAgents.enabled and page.url and page.url.startsWith('/articles/') %}
-  <link rel="alternate" type="text/markdown" href="{{ page.url }}index.md" title="Markdown version">
+  {% if site.markdownAgents.enabled and page.url and page.url.startsWith('/articles/') and page.url != '/articles/' %}
+  <link rel="alternate" type="text/markdown" href="{{ page.url | stripTrailingSlash }}.md" title="Markdown version">
   {% endif %}
   <link rel="authorization_endpoint" href="{{ site.url }}/auth">
   <link rel="token_endpoint" href="{{ site.url }}/auth/token">
