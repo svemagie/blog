@@ -1,4 +1,5 @@
 {# Recent Posts Widget (sidebar) - compact type-aware list #}
+{% set recentPosts = recentPosts or collections.recentPosts %}
 {% if recentPosts and recentPosts.length %}
 <is-land on:visible>
 <div class="widget">
