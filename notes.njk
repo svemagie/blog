@@ -25,7 +25,7 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
   {% if paginatedNotes.length > 0 %}
   <ul class="post-list">
     {% for post in paginatedNotes %}
-    <li class="h-entry post-card">
+    <li class="h-entry post-card border-l-[3px] border-l-surface-300 dark:border-l-surface-600">
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
           <time class="dt-published text-sm text-primary-600 dark:text-primary-400 font-medium" datetime="{{ post.date | isoDate }}">

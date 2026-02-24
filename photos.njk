@@ -25,7 +25,7 @@ permalink: "photos/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumb
   {% if paginatedPhotos.length > 0 %}
   <ul class="post-list photo-list">
     {% for post in paginatedPhotos %}
-    <li class="h-entry post-card">
+    <li class="h-entry post-card border-l-[3px] border-l-purple-400 dark:border-l-purple-500">
       <div class="post-meta">
         <time class="dt-published" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}

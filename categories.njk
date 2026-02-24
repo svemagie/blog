@@ -34,7 +34,23 @@ eleventyComputed:
   <p class="text-sm text-surface-500 dark:text-surface-400 mb-4">{{ categoryPosts.length }} post{% if categoryPosts.length != 1 %}s{% endif %}</p>
   <ul class="post-list">
     {% for post in categoryPosts %}
-    <li class="h-entry post-card">
+    {% set postType = post.inputPath | replace("./content/", "") %}
+    {% set postType = postType.split("/")[0] %}
+    {% set borderClass = "" %}
+    {% if postType == "likes" %}
+      {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
+    {% elif postType == "bookmarks" %}
+      {% set borderClass = "border-l-[3px] border-l-amber-400 dark:border-l-amber-500" %}
+    {% elif postType == "reposts" %}
+      {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
+    {% elif postType == "replies" %}
+      {% set borderClass = "border-l-[3px] border-l-primary-400 dark:border-l-primary-500" %}
+    {% elif postType == "photos" %}
+      {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
+    {% else %}
+      {% set borderClass = "border-l-[3px] border-l-surface-300 dark:border-l-surface-600" %}
+    {% endif %}
+    <li class="h-entry post-card {{ borderClass }}">
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1 flex-1">
           <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400" href="{{ post.url }}">
@@ -46,8 +62,6 @@ eleventyComputed:
         <time class="dt-published" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}
         </time>
-        {% set postType = post.inputPath | replace("./content/", "") %}
-        {% set postType = postType.split("/")[0] %}
         <span class="post-type">{{ postType }}</span>
       </div>
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">

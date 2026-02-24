@@ -25,7 +25,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
   {% if paginatedLikes.length > 0 %}
   <ul class="post-list">
     {% for post in paginatedLikes %}
-    <li class="h-entry post-card">
+    <li class="h-entry post-card border-l-[3px] border-l-red-400 dark:border-l-red-500">
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
           <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

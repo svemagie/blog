@@ -45,7 +45,21 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     {% set replyToUrl = post.data.inReplyTo or post.data.in_reply_to %}
     {% set hasPhotos = post.data.photo and post.data.photo.length %}
     {% set _postType %}{% if likedUrl %}like{% elif bookmarkedUrl %}bookmark{% elif repostedUrl %}repost{% elif replyToUrl %}reply{% elif hasPhotos %}photo{% elif post.data.title %}article{% else %}note{% endif %}{% endset %}
-    <li class="h-entry post-card" data-filter-type="{{ _postType | trim }}">
+    {% set borderClass = "" %}
+    {% if likedUrl %}
+      {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
+    {% elif bookmarkedUrl %}
+      {% set borderClass = "border-l-[3px] border-l-amber-400 dark:border-l-amber-500" %}
+    {% elif repostedUrl %}
+      {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
+    {% elif replyToUrl %}
+      {% set borderClass = "border-l-[3px] border-l-primary-400 dark:border-l-primary-500" %}
+    {% elif hasPhotos %}
+      {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
+    {% else %}
+      {% set borderClass = "border-l-[3px] border-l-surface-300 dark:border-l-surface-600" %}
+    {% endif %}
+    <li class="h-entry post-card {{ borderClass }}" data-filter-type="{{ _postType | trim }}">
 
       {% if likedUrl %}
       {# ── Like card ── #}

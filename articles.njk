@@ -25,7 +25,7 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
   {% if paginatedArticles.length > 0 %}
   <ul class="post-list">
     {% for post in paginatedArticles %}
-    <li class="h-entry post-card">
+    <li class="h-entry post-card border-l-[3px] border-l-surface-300 dark:border-l-surface-600">
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1 flex-1">
           <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400" href="{{ post.url }}">
