@@ -1,0 +1,25 @@
+---
+layout: layouts/base.njk
+---
+{# Full-width layout for rich HTML pages (interactive guides, architecture diagrams, etc.)
+   Inherits site header + footer from base.njk but renders content at full container width
+   with no sidebar, no post metadata, and no prose constraints. #}
+
+<article>
+  {% if title %}
+  <header class="mb-6 sm:mb-8">
+    <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">
+      {{ title }}
+    </h1>
+    {% if description %}
+    <p class="text-lg text-surface-600 dark:text-surface-400">
+      {{ description }}
+    </p>
+    {% endif %}
+  </header>
+  {% endif %}
+
+  <div class="fullwidth-content">
+    {{ content | safe }}
+  </div>
+</article>
