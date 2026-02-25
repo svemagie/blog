@@ -1,0 +1,168 @@
+---
+layout: layouts/base.njk
+withSidebar: true
+eleventyExcludeFromCollections: true
+eleventyImport:
+  collections:
+    - weeklyDigests
+pagination:
+  data: collections.weeklyDigests
+  size: 1
+  alias: digest
+eleventyComputed:
+  title: "{{ digest.label }}"
+permalink: "digest/{{ digest.slug }}/"
+---
+<article class="h-feed">
+  <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">
+    {{ digest.label }}
+  </h1>
+  <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
+    {{ digest.startDate | dateDisplay }} &ndash; {{ digest.endDate | dateDisplay }}
+    <span class="text-sm">({{ digest.posts.length }} post{% if digest.posts.length != 1 %}s{% endif %})</span>
+  </p>
+
+  {# Type display order #}
+  {% set typeOrder = [
+    { key: "articles", label: "Articles" },
+    { key: "notes", label: "Notes" },
+    { key: "photos", label: "Photos" },
+    { key: "bookmarks", label: "Bookmarks" },
+    { key: "likes", label: "Likes" },
+    { key: "reposts", label: "Reposts" }
+  ] %}
+
+  {% for typeInfo in typeOrder %}
+    {% set typePosts = digest.byType[typeInfo.key] %}
+    {% if typePosts and typePosts.length %}
+    <section class="mb-8">
+      <h2 class="text-lg sm:text-xl font-semibold text-surface-800 dark:text-surface-200 mb-4 border-b border-surface-200 dark:border-surface-700 pb-2">
+        {{ typeInfo.label }}
+        <span class="text-sm font-normal text-surface-500 dark:text-surface-400">({{ typePosts.length }})</span>
+      </h2>
+      <ul class="space-y-4">
+        {% for post in typePosts %}
+        <li class="h-entry">
+          {% if typeInfo.key == "likes" %}
+            {% set targetUrl = post.data.likeOf or post.data.like_of %}
+            <div class="flex items-start gap-2">
+              <span class="text-red-500 flex-shrink-0">&#x2764;</span>
+              <div>
+                <a href="{{ targetUrl }}" class="text-primary-600 dark:text-primary-400 hover:underline break-all">{{ targetUrl }}</a>
+                <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                  <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                  &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
+                </div>
+              </div>
+            </div>
+
+          {% elif typeInfo.key == "bookmarks" %}
+            {% set targetUrl = post.data.bookmarkOf or post.data.bookmark_of %}
+            <div class="flex items-start gap-2">
+              <span class="text-amber-500 flex-shrink-0">&#x1F516;</span>
+              <div>
+                {% if post.data.title %}
+                  <a href="{{ post.url }}" class="font-medium text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">{{ post.data.title }}</a>
+                {% else %}
+                  <a href="{{ targetUrl }}" class="text-primary-600 dark:text-primary-400 hover:underline break-all">{{ targetUrl }}</a>
+                {% endif %}
+                <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                  <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                  &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
+                </div>
+              </div>
+            </div>
+
+          {% elif typeInfo.key == "reposts" %}
+            {% set targetUrl = post.data.repostOf or post.data.repost_of %}
+            <div class="flex items-start gap-2">
+              <span class="text-green-500 flex-shrink-0">&#x1F501;</span>
+              <div>
+                <a href="{{ targetUrl }}" class="text-primary-600 dark:text-primary-400 hover:underline break-all">{{ targetUrl }}</a>
+                <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                  <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                  &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
+                </div>
+              </div>
+            </div>
+
+          {% elif typeInfo.key == "photos" %}
+            <div>
+              {% if post.data.photo and post.data.photo[0] %}
+                {% set photoUrl = post.data.photo[0].url or post.data.photo[0] %}
+                {% if photoUrl and photoUrl[0] != '/' and 'http' not in photoUrl %}
+                  {% set photoUrl = '/' + photoUrl %}
+                {% endif %}
+                <a href="{{ post.url }}" class="block mb-2">
+                  <img src="{{ photoUrl }}" alt="{{ post.data.photo[0].alt | default('Photo') }}" class="rounded max-h-48 object-cover" loading="lazy" eleventy:ignore>
+                </a>
+              {% endif %}
+              {% if post.data.title %}
+                <a href="{{ post.url }}" class="font-medium text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">{{ post.data.title }}</a>
+              {% elif post.templateContent %}
+                <p class="text-surface-700 dark:text-surface-300 text-sm">{{ post.templateContent | striptags | truncate(120) }}</p>
+              {% endif %}
+              <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
+              </div>
+            </div>
+
+          {% elif typeInfo.key == "articles" %}
+            <div>
+              <a href="{{ post.url }}" class="font-medium text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400">
+                {{ post.data.title | default("Untitled") }}
+              </a>
+              {% if post.templateContent %}
+              <p class="text-surface-700 dark:text-surface-300 text-sm mt-1">{{ post.templateContent | striptags | truncate(200) }}</p>
+              {% endif %}
+              <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
+              </div>
+            </div>
+
+          {% else %}
+            <div>
+              <p class="text-surface-700 dark:text-surface-300">{{ post.templateContent | striptags | truncate(200) }}</p>
+              <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
+              </div>
+            </div>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  {% endfor %}
+
+  {# Previous/Next digest navigation #}
+  {% set allDigests = collections.weeklyDigests %}
+  {% set currentIndex = -1 %}
+  {% for d in allDigests %}
+    {% if d.slug == digest.slug %}
+      {% set currentIndex = loop.index0 %}
+    {% endif %}
+  {% endfor %}
+
+  <nav class="flex justify-between items-center mt-8 pt-6 border-t border-surface-200 dark:border-surface-700" aria-label="Digest navigation">
+    {% if currentIndex > 0 %}
+      {% set newer = allDigests[currentIndex - 1] %}
+      <a href="/digest/{{ newer.slug }}/" class="text-primary-600 dark:text-primary-400 hover:underline">
+        &larr; {{ newer.label }}
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+    {% if currentIndex < allDigests.length - 1 %}
+      {% set older = allDigests[currentIndex + 1] %}
+      <a href="/digest/{{ older.slug }}/" class="text-primary-600 dark:text-primary-400 hover:underline">
+        {{ older.label }} &rarr;
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+  </nav>
+</article>
