@@ -767,6 +767,92 @@ export default function (eleventyConfig) {
       .slice(0, 5);
   });
 
+  // Weekly digests — posts grouped by ISO week for digest pages and RSS feed
+  eleventyConfig.addCollection("weeklyDigests", function (collectionApi) {
+    const allPosts = collectionApi
+      .getFilteredByGlob("content/**/*.md")
+      .filter(isPublished)
+      .filter((item) => {
+        // Exclude replies
+        return !(item.data.inReplyTo || item.data.in_reply_to);
+      })
+      .sort((a, b) => b.date - a.date);
+
+    // ISO week helpers
+    const getISOWeek = (date) => {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+    };
+    const getISOYear = (date) => {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+      return d.getUTCFullYear();
+    };
+
+    // Group by ISO week
+    const weekMap = new Map();
+
+    for (const post of allPosts) {
+      const d = new Date(post.date);
+      const week = getISOWeek(d);
+      const year = getISOYear(d);
+      const key = `${year}-W${String(week).padStart(2, "0")}`;
+
+      if (!weekMap.has(key)) {
+        // Calculate Monday (start) and Sunday (end) of ISO week
+        const jan4 = new Date(Date.UTC(year, 0, 4));
+        const dayOfWeek = jan4.getUTCDay() || 7;
+        const monday = new Date(jan4);
+        monday.setUTCDate(jan4.getUTCDate() - dayOfWeek + 1 + (week - 1) * 7);
+        const sunday = new Date(monday);
+        sunday.setUTCDate(monday.getUTCDate() + 6);
+
+        weekMap.set(key, {
+          year,
+          week,
+          slug: `${year}/W${String(week).padStart(2, "0")}`,
+          label: `Week ${week}, ${year}`,
+          startDate: monday.toISOString().slice(0, 10),
+          endDate: sunday.toISOString().slice(0, 10),
+          posts: [],
+        });
+      }
+
+      weekMap.get(key).posts.push(post);
+    }
+
+    // Post type detection (matches blog.njk logic)
+    const typeDetect = (post) => {
+      if (post.data.likeOf || post.data.like_of) return "likes";
+      if (post.data.bookmarkOf || post.data.bookmark_of) return "bookmarks";
+      if (post.data.repostOf || post.data.repost_of) return "reposts";
+      if (post.data.photo && post.data.photo.length) return "photos";
+      if (post.data.title) return "articles";
+      return "notes";
+    };
+
+    // Build byType for each week and convert to array
+    const digests = [...weekMap.values()].map((entry) => {
+      const byType = {};
+      for (const post of entry.posts) {
+        const type = typeDetect(post);
+        if (!byType[type]) byType[type] = [];
+        byType[type].push(post);
+      }
+      return { ...entry, byType };
+    });
+
+    // Sort newest-week-first
+    digests.sort((a, b) => {
+      if (a.year !== b.year) return b.year - a.year;
+      return b.week - a.week;
+    });
+
+    return digests;
+  });
+
   // Generate OpenGraph images for posts without photos
   // Runs on every build (including watcher rebuilds) — manifest caching makes it fast
   // for incremental: only new posts without an OG image get generated (~200ms each)
