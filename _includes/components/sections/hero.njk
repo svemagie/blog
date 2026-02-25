@@ -4,14 +4,21 @@
 #}
 
 {% set heroConfig = homepageConfig.hero or {} %}
+{% set id = homepageConfig.identity if (homepageConfig and homepageConfig.identity) else {} %}
+{% set authorName = id.name or site.author.name %}
+{% set authorAvatar = id.avatar or site.author.avatar %}
+{% set authorTitle = id.title or site.author.title %}
+{% set authorBio = id.bio or site.author.bio %}
+{% set siteDescription = id.description or site.description %}
+{% set socialLinks = id.social if (id.social and id.social.length) else site.social %}
 
 <section class="mb-8 sm:mb-12">
   <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
     {# Avatar #}
     {% if heroConfig.showAvatar != false %}
     <img
-      src="{{ site.author.avatar }}"
-      alt="{{ site.author.name }}"
+      src="{{ authorAvatar }}"
+      alt="{{ authorName }}"
       class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg flex-shrink-0"
       loading="eager"
     >
@@ -20,27 +27,27 @@
     {# Introduction #}
     <div class="flex-1 min-w-0">
       <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">
-        {{ site.author.name }}
+        {{ authorName }}
       </h1>
       <p class="text-lg sm:text-xl text-primary-600 dark:text-primary-400 mb-3 sm:mb-4">
-        {{ site.author.title }}
+        {{ authorTitle }}
       </p>
-      {% if site.author.bio %}
+      {% if authorBio %}
       <p class="text-base sm:text-lg text-surface-700 dark:text-surface-300 mb-4">
-        {{ site.author.bio }}
+        {{ authorBio }}
       </p>
       {% endif %}
-      {% if site.description %}
+      {% if siteDescription %}
       <p class="text-base sm:text-lg text-surface-700 dark:text-surface-300 mb-4 sm:mb-6">
-        {{ site.description }}
+        {{ siteDescription }}
         <a href="/about/" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Read more &rarr;</a>
       </p>
       {% endif %}
 
       {# Social Links #}
-      {% if heroConfig.showSocial != false and site.social %}
+      {% if heroConfig.showSocial != false and socialLinks %}
       <div class="flex flex-wrap gap-3">
-        {% for link in site.social %}
+        {% for link in socialLinks %}
         <a
           href="{{ link.url }}"
           rel="{{ link.rel }} noopener"
