@@ -37,6 +37,10 @@ export default function (eleventyConfig) {
   eleventyConfig.ignores.add("pagefind");
   eleventyConfig.ignores.add("pagefind/**");
 
+  // Ignore interactive assets (served via passthrough copy, not processed as templates)
+  eleventyConfig.ignores.add("interactive");
+  eleventyConfig.ignores.add("interactive/**");
+
   // Configure watch targets to exclude output directory
   eleventyConfig.watchIgnores.add("_site");
   eleventyConfig.watchIgnores.add("_site/**");
@@ -351,6 +355,50 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("isoDate", (dateObj) => {
     if (!dateObj) return "";
     return new Date(dateObj).toISOString();
+  });
+
+  // Digest-to-HTML filter for RSS feed descriptions
+  eleventyConfig.addFilter("digestToHtml", (digest, siteUrl) => {
+    const typeLabels = {
+      articles: "Articles",
+      notes: "Notes",
+      photos: "Photos",
+      bookmarks: "Bookmarks",
+      likes: "Likes",
+      reposts: "Reposts",
+    };
+    const typeOrder = ["articles", "notes", "photos", "bookmarks", "likes", "reposts"];
+    let html = "";
+
+    for (const type of typeOrder) {
+      const posts = digest.byType[type];
+      if (!posts || !posts.length) continue;
+
+      html += `<h3>${typeLabels[type]}</h3><ul>`;
+      for (const post of posts) {
+        const postUrl = siteUrl + post.url;
+        let label;
+        if (type === "likes") {
+          const target = post.data.likeOf || post.data.like_of;
+          label = `Liked: ${target}`;
+        } else if (type === "bookmarks") {
+          const target = post.data.bookmarkOf || post.data.bookmark_of;
+          label = post.data.title || `Bookmarked: ${target}`;
+        } else if (type === "reposts") {
+          const target = post.data.repostOf || post.data.repost_of;
+          label = `Reposted: ${target}`;
+        } else if (post.data.title) {
+          label = post.data.title;
+        } else {
+          const content = post.templateContent || "";
+          label = content.replace(/<[^>]*>/g, "").slice(0, 120).trim() || "Untitled";
+        }
+        html += `<li><a href="${postUrl}">${label}</a></li>`;
+      }
+      html += `</ul>`;
+    }
+
+    return html;
   });
 
   // Truncate filter
