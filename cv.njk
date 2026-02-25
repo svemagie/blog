@@ -21,41 +21,53 @@ pagefindIgnore: true
   {# Fallback — hardcoded layout for backward compatibility #}
   {% else %}
 
+    {# CV identity — check cvPageConfig.identity first, fall back to site.author #}
+    {% set cvId = cvPageConfig.identity if (cvPageConfig and cvPageConfig.identity) else {} %}
+    {% set authorName = cvId.name or site.author.name %}
+    {% set authorAvatar = cvId.avatar or site.author.avatar %}
+    {% set authorTitle = cvId.title or site.author.title %}
+    {% set authorBio = cvId.bio or site.author.bio %}
+    {% set socialLinks = cvId.social if (cvId.social and cvId.social.length) else site.social %}
+
     {# Hero / intro #}
     <section class="mb-8 sm:mb-12">
       <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
         <img
-          src="{{ site.author.avatar }}"
-          alt="{{ site.author.name }}"
+          src="{{ authorAvatar }}"
+          alt="{{ authorName }}"
           class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg flex-shrink-0"
           loading="eager"
         >
         <div class="flex-1 min-w-0">
           <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">
-            {{ site.author.name }}
+            {{ authorName }}
           </h1>
-          {% if site.author.title %}
+          {% if authorTitle %}
           <p class="text-lg sm:text-xl text-primary-600 dark:text-primary-400 mb-3 sm:mb-4">
-            {{ site.author.title }}
+            {{ authorTitle }}
           </p>
           {% endif %}
-          {% if site.author.bio %}
+          {% if authorBio %}
           <p class="text-base sm:text-lg text-surface-700 dark:text-surface-300 mb-4">
-            {{ site.author.bio }}
+            {{ authorBio }}
           </p>
           {% endif %}
+          {% from "components/social-icon.njk" import socialIcon %}
+          {% if socialLinks %}
           <div class="flex flex-wrap gap-3">
-            {% for link in site.social %}
+            {% for link in socialLinks %}
             <a
               href="{{ link.url }}"
               rel="{{ link.rel }} noopener"
               class="inline-flex items-center gap-2 px-3 py-2 text-sm bg-surface-100 dark:bg-surface-800 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
               target="_blank"
             >
+              {{ socialIcon(link.icon, "w-5 h-5") }}
               <span class="text-sm font-medium">{{ link.name }}</span>
             </a>
             {% endfor %}
           </div>
+          {% endif %}
         </div>
       </div>
     </section>
