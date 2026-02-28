@@ -145,6 +145,17 @@ permalink: /podroll/
                 RSS
               </a>
               <button
+                class="share-post-btn"
+                :data-share-url="episode.url"
+                :data-share-title="episode.title"
+                data-share-type="note"
+                title="Create post"
+                aria-label="Create post"
+              >
+                <span class="share-post-icon">✏️</span>
+                <span class="share-post-label">Post</span>
+              </button>
+              <button
                 class="save-later-btn"
                 :data-save-url="episode.url"
                 :data-save-title="episode.title"
