@@ -1,12 +1,32 @@
 /**
  * GitHub Starred Repos Metadata
- * Provides build timestamp only — the starred page fetches all data
- * client-side via Alpine.js to avoid loading 5000+ objects into
- * Eleventy's memory during build (causes OOM on constrained containers).
+ * Fetches the starred API response (cached 15min) to extract totalCount.
+ * Only totalCount is passed to Eleventy's data cascade — the full star
+ * list is discarded after parsing, keeping build memory low.
+ * The starred page fetches all data client-side via Alpine.js.
  */
 
-export default function () {
-  return {
-    buildDate: new Date().toISOString(),
-  };
+import EleventyFetch from "@11ty/eleventy-fetch";
+
+const INDIEKIT_URL = process.env.SITE_URL || "https://example.com";
+
+export default async function () {
+  try {
+    const url = `${INDIEKIT_URL}/githubapi/api/starred/all`;
+    const response = await EleventyFetch(url, {
+      duration: "15m",
+      type: "json",
+    });
+
+    return {
+      totalCount: response.totalCount || 0,
+      buildDate: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.log(`[githubStarred] Could not fetch starred count: ${error.message}`);
+    return {
+      totalCount: 0,
+      buildDate: new Date().toISOString(),
+    };
+  }
 }
