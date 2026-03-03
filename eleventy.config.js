@@ -229,11 +229,21 @@ export default function (eleventyConfig) {
   });
 
   // Image optimization - transforms <img> tags automatically
+  // transformOnRequest: in watch/serve mode, process images on-demand instead of all
+  // at once during rebuild — prevents Sharp from saturating memory with parallel decodes.
+  // cacheOptions: cache remote image fetches to disk so restarts don't re-download everything.
+  // concurrency: limit parallel Sharp operations (default scales to CPU count, ~10 on this
+  // server). Each large remote image can consume 20-50MB of native memory outside V8 heap.
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
     formats: ["webp", "jpeg"],
     widths: ["auto"],
     failOnError: false,
+    transformOnRequest: process.env.ELEVENTY_RUN_MODE !== "build",
+    cacheOptions: {
+      duration: process.env.ELEVENTY_RUN_MODE === "build" ? "1d" : "30d",
+    },
+    concurrency: 4,
     defaultAttributes: {
       loading: "lazy",
       decoding: "async",
