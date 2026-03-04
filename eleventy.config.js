@@ -9,7 +9,7 @@ import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
 import registerUnfurlShortcode, { getCachedCard, prefetchUrl } from "./lib/unfurl-shortcode.js";
 import matter from "gray-matter";
-import { createHash } from "crypto";
+import { createHash, createHmac } from "crypto";
 import { execFileSync } from "child_process";
 import { readFileSync, readdirSync, existsSync, mkdirSync, writeFileSync, copyFileSync } from "fs";
 import { resolve, dirname } from "path";
@@ -1094,6 +1094,41 @@ export default function (eleventyConfig) {
         console.error("[pagefind] Indexing failed:", err.message);
       }
 
+    }
+
+    // Syndication webhook — trigger after incremental rebuilds (new posts are now live)
+    // Cuts syndication latency from ~2 min (poller) to ~5 sec (immediate trigger)
+    if (incremental) {
+      const syndicateUrl = process.env.SYNDICATE_WEBHOOK_URL;
+      if (syndicateUrl) {
+        try {
+          const secretFile = process.env.SYNDICATE_SECRET_FILE || "/app/data/config/.secret";
+          const secret = readFileSync(secretFile, "utf-8").trim();
+
+          // Build a minimal HS256 JWT using built-in crypto (no jsonwebtoken dependency)
+          const header = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url");
+          const now = Math.floor(Date.now() / 1000);
+          const payload = Buffer.from(JSON.stringify({
+            me: siteUrl,
+            scope: "update",
+            iat: now,
+            exp: now + 300, // 5 minutes
+          })).toString("base64url");
+          const signature = createHmac("sha256", secret)
+            .update(`${header}.${payload}`)
+            .digest("base64url");
+          const token = `${header}.${payload}.${signature}`;
+
+          const res = await fetch(`${syndicateUrl}?token=${token}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: AbortSignal.timeout(30000),
+          });
+          console.log(`[syndicate-hook] Triggered syndication: ${res.status}`);
+        } catch (err) {
+          console.error(`[syndicate-hook] Failed:`, err.message);
+        }
+      }
     }
 
     // WebSub hub notification — skip on incremental rebuilds
