@@ -856,6 +856,15 @@ export default function (eleventyConfig) {
       .slice(0, 5);
   });
 
+  // Featured posts — curated selection via `featured: true` frontmatter
+  eleventyConfig.addCollection("featuredPosts", function (collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("content/**/*.md")
+      .filter(isPublished)
+      .filter((item) => item.data.featured === true)
+      .sort((a, b) => b.date - a.date);
+  });
+
   // Weekly digests — posts grouped by ISO week for digest pages and RSS feed
   eleventyConfig.addCollection("weeklyDigests", function (collectionApi) {
     const allPosts = collectionApi

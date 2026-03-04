@@ -1,5 +1,7 @@
 {# Homepage Section Dispatcher — maps section.type to the right partial #}
-{% if section.type == "recent-posts" %}
+{% if section.type == "featured-posts" %}
+  {% include "components/sections/featured-posts.njk" %}
+{% elif section.type == "recent-posts" %}
   {% include "components/sections/recent-posts.njk" %}
 {% elif section.type == "custom-html" %}
   {% include "components/sections/custom-html.njk" %}
