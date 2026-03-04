@@ -363,6 +363,12 @@ export default function (eleventyConfig) {
     "node_modules/@zachleat/filter-container/filter-container.js": "js/filter-container.js",
   });
 
+  // Copy Inter font files (latin + latin-ext subsets, woff2 only for modern browsers)
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@fontsource/inter/files/inter-latin-*-normal.woff2": "fonts",
+    "node_modules/@fontsource/inter/files/inter-latin-ext-*-normal.woff2": "fonts",
+  });
+
   // Watch for content changes
   eleventyConfig.addWatchTarget("./content/");
   eleventyConfig.addWatchTarget("./css/");

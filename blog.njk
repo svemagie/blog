@@ -53,7 +53,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     {% elif repostedUrl %}
       {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
     {% elif replyToUrl %}
-      {% set borderClass = "border-l-[3px] border-l-primary-400 dark:border-l-primary-500" %}
+      {% set borderClass = "border-l-[3px] border-l-sky-400 dark:border-l-sky-500" %}
     {% elif hasPhotos %}
       {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
     {% else %}
@@ -187,13 +187,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Reply card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-primary-600 dark:text-primary-400">In reply to</span>
+            <span class="font-medium text-sky-600 dark:text-sky-400">In reply to</span>
             <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>

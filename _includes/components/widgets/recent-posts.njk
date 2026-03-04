@@ -60,11 +60,11 @@
 
       {% elif replyToUrl %}
       <div class="flex items-start gap-2">
-        <svg class="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
         </svg>
         <div class="min-w-0">
-          <a href="{{ post.url }}" class="text-sm text-primary-600 dark:text-primary-400 hover:underline break-all line-clamp-1">
+          <a href="{{ post.url }}" class="text-sm text-sky-600 dark:text-sky-400 hover:underline break-all line-clamp-1">
             Reply to {{ replyToUrl | replace("https://", "") | truncate(40) }}
           </a>
           <time class="text-xs text-surface-500 block" datetime="{{ post.data.published }}">
