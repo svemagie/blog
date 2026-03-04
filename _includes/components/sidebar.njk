@@ -120,12 +120,7 @@
           {% elif widget.type == "recent-comments" %}
             {% include "components/widgets/recent-comments.njk" %}
           {% elif widget.type == "search" %}
-            <is-land on:visible>
-            <div class="widget">
-              <div id="listing-sidebar-search"></div>
-              <script>initPagefind("#listing-sidebar-search");</script>
-            </div>
-            </is-land>
+            {% include "components/widgets/search.njk" %}
           {% elif widget.type == "webmentions" %}
             {% include "components/widgets/webmentions.njk" %}
           {% elif widget.type == "fediverse-follow" %}
