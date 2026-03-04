@@ -65,7 +65,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
         </div>
       </div>
 
@@ -86,7 +86,7 @@
           </div>
           {% if post.data.title %}
           <h3 class="p-name font-semibold text-surface-900 dark:text-surface-100 mt-1">
-            <a class="hover:text-primary-600 dark:hover:text-primary-400" href="{{ post.url }}">{{ post.data.title }}</a>
+            <a class="hover:text-accent-600 dark:hover:text-accent-400" href="{{ post.url }}">{{ post.data.title }}</a>
           </h3>
           {% endif %}
           {{ bookmarkedUrl | unfurlCard | safe }}
@@ -98,7 +98,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
         </div>
       </div>
 
@@ -154,7 +154,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
         </div>
       </div>
 
@@ -190,14 +190,14 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}">Permalink</a>
         </div>
       </div>
 
       {% elif post.data.title %}
       {# ── Article card ── #}
       <h3 class="p-name font-semibold text-surface-900 dark:text-surface-100 mb-1">
-        <a href="{{ post.url }}" class="u-url hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="{{ post.url }}" class="u-url hover:text-accent-600 dark:hover:text-accent-400">
           {{ post.data.title }}
         </a>
       </h3>
@@ -221,7 +221,7 @@
       {# ── Note card ── #}
       <div class="flex items-center gap-3 text-xs text-surface-500 mb-2">
         <a class="u-url" href="{{ post.url }}">
-          <time class="dt-published font-medium text-primary-600 dark:text-primary-400" datetime="{{ post.date | isoDate }}">
+          <time class="dt-published font-medium text-surface-500 dark:text-surface-400" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time>
         </a>
@@ -236,7 +236,7 @@
         {{ post.templateContent | safe }}
       </div>
       {% endif %}
-      <a href="{{ post.url }}" class="text-xs text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block">
+      <a href="{{ post.url }}" class="text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block">
         Permalink
       </a>
       {% endif %}
@@ -246,7 +246,7 @@
   </div>
 
   {% if sectionConfig.showViewAll != false %}
-  <a href="{{ sectionConfig.viewAllUrl or '/blog/' }}" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-4 inline-flex items-center gap-1">
+  <a href="{{ sectionConfig.viewAllUrl or '/blog/' }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline mt-4 inline-flex items-center gap-1">
     {{ sectionConfig.viewAllText or "View all posts" }}
     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

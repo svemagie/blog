@@ -14,14 +14,14 @@
   <div class="flex border-b border-surface-200 dark:border-surface-700 mb-3">
     <button
       @click="tab = 'inbound'"
-      :class="tab === 'inbound' ? 'border-primary-500 text-primary-600 dark:text-primary-400' : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="tab === 'inbound' ? 'border-accent-500 text-accent-600 dark:text-accent-400' : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
       class="px-2 py-1.5 text-xs font-medium border-b-2 -mb-px transition-colors">
       Received
       <span x-show="mentions.length" x-text="mentions.length" class="ml-0.5 text-xs opacity-75"></span>
     </button>
     <button
       @click="tab = 'outbound'"
-      :class="tab === 'outbound' ? 'border-primary-500 text-primary-600 dark:text-primary-400' : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="tab === 'outbound' ? 'border-accent-500 text-accent-600 dark:text-accent-400' : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
       class="px-2 py-1.5 text-xs font-medium border-b-2 -mb-px transition-colors">
       Sent
     </button>
@@ -31,7 +31,7 @@
   <div x-show="tab === 'inbound'" x-transition>
     {# Loading #}
     <div x-show="loading" class="text-center py-3">
-      <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
+      <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-accent-500"></div>
     </div>
 
     {# Mentions list #}
@@ -49,7 +49,7 @@
             <span class="font-medium text-surface-900 dark:text-surface-100" x-text="wm.author?.name || 'Anonymous'"></span>
             <span x-show="wm['wm-property'] === 'like-of'" class="text-red-500"> liked</span>
             <span x-show="wm['wm-property'] === 'repost-of'" class="text-green-500"> reposted</span>
-            <span x-show="wm['wm-property'] === 'in-reply-to'" class="text-primary-500"> replied to</span>
+            <span x-show="wm['wm-property'] === 'in-reply-to'" class="text-sky-500"> replied to</span>
             <span x-show="wm['wm-property'] === 'mention-of'" class="text-amber-500"> mentioned</span>
             <span x-show="wm['wm-property'] === 'bookmark-of'" class="text-purple-500"> bookmarked</span>
             <a :href="wm['wm-target']" class="text-surface-500 hover:underline block truncate" x-text="formatPath(wm['wm-target'])"></a>
@@ -66,7 +66,7 @@
 
     {# Link to full interactions page #}
     <div x-show="mentions.length > 0" class="mt-2 pt-2 border-t border-surface-200 dark:border-surface-700">
-      <a href="/interactions/" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+      <a href="/interactions/" class="text-xs text-accent-600 dark:text-accent-400 hover:underline">
         View all &rarr;
       </a>
     </div>
@@ -89,7 +89,7 @@
       {% endfor %}
       {% for item in collections.replies | head(2) %}
       <div class="flex items-start gap-2 text-xs">
-        <svg class="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+        <svg class="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
         <div class="min-w-0">
           <a href="{{ item.url }}" class="text-surface-900 dark:text-surface-100 hover:underline block truncate">
             {% set _replyToUrl = item.data.inReplyTo or item.data.in_reply_to %}
@@ -111,7 +111,7 @@
       {% endfor %}
     </div>
     <div class="mt-2 pt-2 border-t border-surface-200 dark:border-surface-700">
-      <a href="/interactions/" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+      <a href="/interactions/" class="text-xs text-accent-600 dark:text-accent-400 hover:underline">
         View all &rarr;
       </a>
     </div>

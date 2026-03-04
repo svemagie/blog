@@ -9,7 +9,7 @@
     {% if blueskyFeed and blueskyFeed.length %}
     <button
       @click="activeTab = 'bluesky'"
-      :class="activeTab === 'bluesky' ? 'border-b-2 border-primary-500 text-primary-600 dark:text-primary-400' : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="activeTab === 'bluesky' ? 'border-b-2 border-[#0085ff] text-[#0085ff]' : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
       class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors -mb-px"
     >
       <svg class="w-4 h-4 text-[#0085ff]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -21,7 +21,7 @@
     {% if mastodonFeed and mastodonFeed.length %}
     <button
       @click="activeTab = 'mastodon'"
-      :class="activeTab === 'mastodon' ? 'border-b-2 border-primary-500 text-primary-600 dark:text-primary-400' : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="activeTab === 'mastodon' ? 'border-b-2 border-[#a730b8] text-[#a730b8]' : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
       class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors -mb-px"
     >
       <svg class="w-4 h-4 text-[#6364ff]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -39,7 +39,7 @@
       {% for post in blueskyFeed | head(5) %}
       <li class="border-b border-surface-200 dark:border-surface-700 pb-3 last:border-0">
         <a href="{{ post.url }}" target="_blank" rel="noopener" class="block group">
-          <p class="text-sm text-surface-700 dark:text-surface-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+          <p class="text-sm text-surface-700 dark:text-surface-300 group-hover:text-[#0085ff] transition-colors">
             {{ post.text | truncate(140) }}
           </p>
           <div class="flex items-center gap-3 mt-2 text-xs text-surface-500">
@@ -55,7 +55,7 @@
       </li>
       {% endfor %}
     </ul>
-    <a href="https://bsky.app/profile/{{ site.feeds.bluesky }}" target="_blank" rel="noopener" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-3 inline-flex items-center gap-1">
+    <a href="https://bsky.app/profile/{{ site.feeds.bluesky }}" target="_blank" rel="noopener" class="text-sm text-[#0085ff] hover:underline mt-3 inline-flex items-center gap-1">
       View on Bluesky
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
     </a>
@@ -69,7 +69,7 @@
       {% for post in mastodonFeed | head(5) %}
       <li class="border-b border-surface-200 dark:border-surface-700 pb-3 last:border-0">
         <a href="{{ post.url }}" target="_blank" rel="noopener" class="block group">
-          <p class="text-sm text-surface-700 dark:text-surface-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+          <p class="text-sm text-surface-700 dark:text-surface-300 group-hover:text-[#a730b8] transition-colors">
             {{ post.text | truncate(140) }}
           </p>
           <div class="flex items-center gap-3 mt-2 text-xs text-surface-500">
@@ -85,7 +85,7 @@
       </li>
       {% endfor %}
     </ul>
-    <a href="https://{{ site.feeds.mastodon.instance }}/@{{ site.feeds.mastodon.username }}" target="_blank" rel="noopener" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-3 inline-flex items-center gap-1">
+    <a href="https://{{ site.feeds.mastodon.instance }}/@{{ site.feeds.mastodon.username }}" target="_blank" rel="noopener" class="text-sm text-[#a730b8] hover:underline mt-3 inline-flex items-center gap-1">
       View on Mastodon
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
     </a>

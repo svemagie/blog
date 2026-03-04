@@ -10,7 +10,7 @@ withSidebar: true
     <p class="text-surface-600 dark:text-surface-400">
       What I've been listening to on
       {% if funkwhaleActivity.instanceUrl %}
-      <a href="{{ funkwhaleActivity.instanceUrl }}" class="text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener">Funkwhale</a>
+      <a href="{{ funkwhaleActivity.instanceUrl }}" class="text-purple-600 dark:text-purple-400 hover:underline" target="_blank" rel="noopener">Funkwhale</a>
       {% endif %}
       {% if funkwhaleActivity.instanceUrl and lastfmActivity.profileUrl %} and {% endif %}
       {% if lastfmActivity.profileUrl %}
@@ -23,7 +23,7 @@ withSidebar: true
   <div class="flex gap-2 mb-8 flex-wrap">
     <button
       @click="activeSource = 'all'"
-      :class="activeSource === 'all' ? 'bg-primary-600 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
+      :class="activeSource === 'all' ? 'bg-accent-600 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
       class="px-4 py-2 rounded-full text-sm font-medium transition-colors"
     >
       All Sources
@@ -84,7 +84,7 @@ withSidebar: true
                 Now Playing
               </span>
               {% else %}
-              <span class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium bg-primary-500/20 text-primary-700 dark:text-primary-400 rounded-full">
+              <span class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium bg-purple-500/20 text-purple-700 dark:text-purple-400 rounded-full">
                 Recently Played
               </span>
               {% endif %}
@@ -92,7 +92,7 @@ withSidebar: true
 
             <h2 class="text-lg sm:text-xl font-bold text-surface-900 dark:text-surface-100 truncate">
               {% if fwNowPlaying.trackUrl %}
-              <a href="{{ fwNowPlaying.trackUrl }}" class="hover:text-primary-600 dark:hover:text-primary-400" target="_blank" rel="noopener">{{ fwNowPlaying.track }}</a>
+              <a href="{{ fwNowPlaying.trackUrl }}" class="hover:text-purple-600 dark:hover:text-purple-400" target="_blank" rel="noopener">{{ fwNowPlaying.track }}</a>
               {% else %}
               {{ fwNowPlaying.track }}
               {% endif %}
@@ -136,7 +136,7 @@ withSidebar: true
                 Now Playing
               </span>
               {% else %}
-              <span class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium bg-primary-500/20 text-primary-700 dark:text-primary-400 rounded-full">
+              <span class="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium bg-purple-500/20 text-purple-700 dark:text-purple-400 rounded-full">
                 Recently Played
               </span>
               {% endif %}
@@ -169,7 +169,7 @@ withSidebar: true
   {% if funkwhaleActivity.stats or lastfmActivity.stats %}
   <section class="mb-12">
     <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4 sm:mb-6 flex items-center gap-2">
-      <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-6 h-6 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
       </svg>
       Listening Statistics

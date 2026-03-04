@@ -83,7 +83,7 @@
   }
 
   .skip-link {
-    @apply absolute -top-full left-0 z-50 bg-primary-600 text-white px-4 py-2;
+    @apply absolute -top-full left-0 z-50 bg-accent-600 text-white px-4 py-2;
   }
 
   .skip-link:focus {
@@ -260,7 +260,7 @@
   }
 
   .site-footer a {
-    @apply text-primary-600 dark:text-primary-400 hover:underline;
+    @apply text-accent-600 dark:text-accent-400 hover:underline;
   }
 
   /* Layout with sidebar - mobile-first with responsive grid */
@@ -462,7 +462,7 @@
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary-500;
+    @apply outline-2 outline-offset-2 outline-accent-500;
   }
 }
 
@@ -625,7 +625,7 @@
 /* Pagefind UI theme overrides — outside @layer for higher specificity over Pagefind's :root defaults */
 #search .pagefind-ui {
   --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: #2563eb;
+  --pagefind-ui-primary: #0d9488;
   --pagefind-ui-text: #18181b;
   --pagefind-ui-background: #ffffff;
   --pagefind-ui-border: #e4e4e7;
@@ -637,7 +637,7 @@
 }
 
 .dark #search .pagefind-ui {
-  --pagefind-ui-primary: #60a5fa;
+  --pagefind-ui-primary: #2dd4bf;
   --pagefind-ui-text: #f4f4f5;
   --pagefind-ui-background: #09090b;
   --pagefind-ui-border: #3f3f46;

@@ -44,7 +44,7 @@ eleventyComputed:
     {% elif postType == "reposts" %}
       {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
     {% elif postType == "replies" %}
-      {% set borderClass = "border-l-[3px] border-l-primary-400 dark:border-l-primary-500" %}
+      {% set borderClass = "border-l-[3px] border-l-accent-400 dark:border-l-accent-500" %}
     {% elif postType == "photos" %}
       {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
     {% else %}
@@ -53,7 +53,7 @@ eleventyComputed:
     <li class="h-entry post-card {{ borderClass }}">
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1 flex-1">
-          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-primary-600 dark:hover:text-primary-400" href="{{ post.url }}">
+          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400" href="{{ post.url }}">
             {{ post.data.title or post.templateContent | striptags | truncate(60) or "Untitled" }}
           </a>
         </h2>
@@ -67,7 +67,7 @@ eleventyComputed:
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
       </p>
-      <a href="{{ post.url }}" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-3 inline-block">
+      <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block">
         View &rarr;
       </a>
     </li>
@@ -78,6 +78,6 @@ eleventyComputed:
   {% endif %}
 
   <div class="mt-8">
-    <a href="/categories/" class="text-primary-600 dark:text-primary-400 hover:underline">&larr; All categories</a>
+    <a href="/categories/" class="text-accent-600 dark:text-accent-400 hover:underline">&larr; All categories</a>
   </div>
 </div>
