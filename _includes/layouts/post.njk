@@ -65,7 +65,10 @@ withBlogSidebar: true
     {{ content | safe }}
   </div>
 
-  {# AI usage disclosure — collapsed by default #}
+  {# Rich reply context with h-cite microformat #}
+  {% include "components/reply-context.njk" %}
+
+  {# AI usage disclosure — collapsed by default, placed after reply context #}
   {% set aiTextLevel = aiTextLevel or ai_text_level %}
   {% set aiCodeLevel = aiCodeLevel or ai_code_level %}
   {% set aiTools = aiTools or ai_tools %}
@@ -85,9 +88,6 @@ withBlogSidebar: true
     {% endif %}
   </details>
   {% endif %}
-
-  {# Rich reply context with h-cite microformat #}
-  {% include "components/reply-context.njk" %}
 
   {# Pending syndication targets (for services like IndieNews that require u-syndication before webmention) #}
   {% if mpSyndicateTo %}
