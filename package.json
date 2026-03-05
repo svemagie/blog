@@ -21,6 +21,7 @@
     "@fontsource/inter": "^5.2.8",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
     "@resvg/resvg-js": "^2.6.2",
+    "@rknightuk/eleventy-plugin-post-graph": "^1.0.8",
     "@zachleat/filter-container": "^4.0.0",
     "@zachleat/table-saw": "^1.0.7",
     "alpinejs": "^3.15.8",

@@ -10,10 +10,14 @@ import { minify } from "html-minifier-terser";
 import registerUnfurlShortcode, { getCachedCard, prefetchUrl } from "./lib/unfurl-shortcode.js";
 import matter from "gray-matter";
 import { createHash, createHmac } from "crypto";
+import { createRequire } from "module";
 import { execFileSync } from "child_process";
 import { readFileSync, readdirSync, existsSync, mkdirSync, writeFileSync, copyFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+
+const esmRequire = createRequire(import.meta.url);
+const postGraph = esmRequire("@rknightuk/eleventy-plugin-post-graph");
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = process.env.SITE_URL || "https://example.com";
@@ -124,6 +128,21 @@ export default function (eleventyConfig) {
   // RSS plugin for feed filters (dateToRfc822, absoluteUrl, etc.)
   // Custom feed templates in feed.njk and feed-json.njk use these filters
   eleventyConfig.addPlugin(pluginRss);
+
+  // Post graph — GitHub-style contribution grid for posting frequency
+  eleventyConfig.addPlugin(postGraph, {
+    sort: "desc",
+    limit: 2,
+    dayBoxTitle: true,
+    selectorLight: ":root",
+    selectorDark: ".dark",
+    boxColorLight: "#e7e5e4",      // surface-200 (warm stone)
+    highlightColorLight: "#d97706", // amber-600 (accent)
+    textColorLight: "#1c1917",      // surface-900
+    boxColorDark: "#292524",        // surface-800
+    highlightColorDark: "#fbbf24",  // amber-400
+    textColorDark: "#fafaf9",       // surface-50
+  });
 
   // JSON encode filter for JSON feed
   eleventyConfig.addFilter("jsonEncode", (value) => {
@@ -724,7 +743,9 @@ export default function (eleventyConfig) {
       : null;
   });
 
-  // Posting frequency — compute posts-per-month for last 12 months (for sparkline)
+  // Posting frequency — compute posts-per-month for last 12 months (for sparkline).
+  // Returns an inline SVG that uses currentColor for stroke and a semi-transparent
+  // gradient fill. Wrap in a colored span to set the domain color via Tailwind.
   eleventyConfig.addFilter("postingFrequency", (posts) => {
     if (!Array.isArray(posts) || posts.length === 0) return "";
     const now = new Date();
@@ -737,9 +758,18 @@ export default function (eleventyConfig) {
         counts[11 - monthsAgo]++;
       }
     }
+
+    // Extrapolate the current (partial) month to avoid false downward trend.
+    // e.g. 51 posts in 5 days of a 31-day month projects to ~316.
+    const dayOfMonth = now.getDate();
+    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    if (dayOfMonth < daysInMonth && counts[11] > 0) {
+      counts[11] = Math.round(counts[11] / dayOfMonth * daysInMonth);
+    }
+
     const max = Math.max(...counts, 1);
     const w = 200;
-    const h = 30;
+    const h = 32;
     const pad = 2;
     const step = w / (counts.length - 1);
     const points = counts.map((v, i) => {
@@ -747,7 +777,45 @@ export default function (eleventyConfig) {
       const y = h - pad - ((v / max) * (h - pad * 2));
       return `${x.toFixed(1)},${y.toFixed(1)}`;
     }).join(" ");
-    return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posting frequency over the last 12 months"><polyline fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="${points}"/></svg>`;
+    // Closed polygon for gradient fill (line path + bottom corners)
+    const fillPoints = `${points} ${w},${h} 0,${h}`;
+    return [
+      `<svg viewBox="0 0 ${w} ${h}" class="sparkline" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posting frequency over the last 12 months">`,
+      `<defs><linearGradient id="spk-fill" x1="0" y1="0" x2="0" y2="1">`,
+      `<stop offset="0%" stop-color="currentColor" stop-opacity="0.25"/>`,
+      `<stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>`,
+      `</linearGradient></defs>`,
+      `<polygon fill="url(#spk-fill)" points="${fillPoints}"/>`,
+      `<polyline fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="${points}"/>`,
+      `</svg>`,
+    ].join("");
+  });
+
+  // Filter AI-involved posts (ai-text-level > "0" or aiTextLevel > "0")
+  eleventyConfig.addFilter("aiPosts", (posts) => {
+    if (!Array.isArray(posts)) return [];
+    return posts.filter((post) => {
+      const level = post.data?.aiTextLevel || post.data?.["ai-text-level"] || "0";
+      return level !== "0" && level !== 0;
+    });
+  });
+
+  // AI stats — returns { total, aiCount, percentage, byLevel }
+  eleventyConfig.addFilter("aiStats", (posts) => {
+    if (!Array.isArray(posts)) return { total: 0, aiCount: 0, percentage: 0, byLevel: {} };
+    const total = posts.length;
+    const byLevel = { 0: 0, 1: 0, 2: 0, 3: 0 };
+    for (const post of posts) {
+      const level = parseInt(post.data?.aiTextLevel || post.data?.["ai-text-level"] || "0", 10);
+      byLevel[level] = (byLevel[level] || 0) + 1;
+    }
+    const aiCount = total - byLevel[0];
+    return {
+      total,
+      aiCount,
+      percentage: total > 0 ? ((aiCount / total) * 100).toFixed(1) : "0",
+      byLevel,
+    };
   });
 
   // Helper: exclude drafts from collections

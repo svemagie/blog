@@ -863,6 +863,20 @@
   }
 }
 
+/* Sparkline — inline SVG posting frequency chart */
+.sparkline {
+  width: 120px;
+  height: 28px;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .sparkline {
+    width: 180px;
+    height: 32px;
+  }
+}
+
 /* Save for Later buttons — hidden until auth confirmed */
 .save-later-btn {
   display: none;
