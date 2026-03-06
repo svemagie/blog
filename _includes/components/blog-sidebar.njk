@@ -25,6 +25,7 @@
     {% elif widget.type == "toc" %}{% set widgetTitle = "Table of Contents" %}
     {% elif widget.type == "post-categories" %}{% set widgetTitle = "Categories" %}
     {% elif widget.type == "share" %}{% set widgetTitle = "Share" %}
+    {% elif widget.type == "ai-usage" %}{% set widgetTitle = "AI Transparency" %}
     {% elif widget.type == "custom-html" %}{% set widgetTitle = (widget.config.title if widget.config and widget.config.title) or "Custom" %}
     {% else %}{% set widgetTitle = widget.type %}
     {% endif %}
@@ -56,6 +57,8 @@
       {% set widgetIcon = "search" %}{% set widgetIconClass = "w-5 h-5 text-surface-500" %}{% set widgetBorder = "" %}
     {% elif widget.type == "webmentions" %}
       {% set widgetIcon = "share" %}{% set widgetIconClass = "w-5 h-5 text-surface-500" %}{% set widgetBorder = "" %}
+    {% elif widget.type == "ai-usage" %}
+      {% set widgetIcon = "zap" %}{% set widgetIconClass = "w-5 h-5 text-amber-500" %}{% set widgetBorder = "border-l-[3px] border-l-amber-400 dark:border-l-amber-500" %}
     {% elif widget.type == "toc" %}
       {% set widgetIcon = "list" %}{% set widgetIconClass = "w-5 h-5 text-surface-500" %}{% set widgetBorder = "" %}
     {% elif widget.type == "share" %}
@@ -136,6 +139,8 @@
             {% include "components/widgets/search.njk" %}
           {% elif widget.type == "fediverse-follow" %}
             {% include "components/widgets/fediverse-follow.njk" %}
+          {% elif widget.type == "ai-usage" %}
+            {% include "components/widgets/ai-usage.njk" ignore missing %}
           {% elif widget.type == "custom-html" %}
             {% set wConfig = widget.config or {} %}
             <is-land on:visible>
