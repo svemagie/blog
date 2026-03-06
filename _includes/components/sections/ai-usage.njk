@@ -52,7 +52,7 @@
     <h3 class="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">AI-Involved Posts Over Time</h3>
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-4">Highlighted days had posts with AI involvement (level 1+). Empty boxes represent days with no AI-involved posts.</p>
     {% set graphLimit = sectionConfig.limit or 1 %}
-    {% postGraph aiPostsList, { prefix: "ai-section", limit: graphLimit, highlightColorLight: "#d97706", highlightColorDark: "#fbbf24" } %}
+    {% postGraph aiPostsList, { prefix: "ai-section", limit: graphLimit, boxColorDark: "#44403c", highlightColorLight: "#d97706", highlightColorDark: "#fbbf24" } %}
     {% endif %}
   </div>
 

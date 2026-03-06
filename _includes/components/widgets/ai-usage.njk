@@ -50,7 +50,7 @@
   {# Compact post-graph — current year only, AI posts highlighted #}
   {% if aiPostsList and aiPostsList.length %}
   <div class="text-[10px] text-surface-500 dark:text-surface-400 mb-2">AI-involved posts this year</div>
-  {% postGraph aiPostsList, { prefix: "ai-widget", limit: 1, highlightColorLight: "#d97706", highlightColorDark: "#fbbf24" } %}
+  {% postGraph aiPostsList, { prefix: "ai-widget", limit: 1, noLabels: true, boxColorDark: "#44403c", highlightColorLight: "#d97706", highlightColorDark: "#fbbf24" } %}
   {% endif %}
 
   <a href="/ai/" class="text-sm text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 mt-3">
