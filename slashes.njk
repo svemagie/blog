@@ -142,6 +142,96 @@ eleventyImport:
   </div>
   {% endif %}
 
+  {# Site pages — theme-provided .njk pages not in collections.pages or activity feeds #}
+  <div class="mb-8">
+    <h2 class="text-lg font-semibold text-surface-800 dark:text-surface-200 mb-4">Site Pages</h2>
+    <p class="text-surface-600 dark:text-surface-400 text-sm mb-4">
+      Theme-provided pages for content aggregation, search, and site info.
+    </p>
+    <ul class="post-list">
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/blog/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/blog</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">All posts chronologically</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/cv/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/cv</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Curriculum vitae</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/changelog/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/changelog</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Site changes and updates</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/digest/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/digest</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Content digest</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/featured/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/featured</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Featured posts</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/graph/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/graph</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Content graph visualization</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/interactions/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/interactions</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Social interactions (likes, reposts, replies)</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/readlater/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/readlater</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Read later queue</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/search/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/search</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Full-text search</p>
+      </li>
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/starred/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/starred</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Starred GitHub repositories</p>
+      </li>
+    </ul>
+  </div>
+
   {# Inspiration section #}
   <div class="mt-8 p-4 bg-surface-100 dark:bg-surface-800 rounded-lg">
     <h2 class="text-lg font-semibold text-surface-800 dark:text-surface-200 mb-2">Want more slash pages?</h2>
