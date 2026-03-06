@@ -9,6 +9,10 @@ css/style.css
 # Cache
 .cache/
 
+# Environment variables (never commit!)
+.env
+.env.local
+
 # Content (symlinked at runtime)
 content/
 uploads/

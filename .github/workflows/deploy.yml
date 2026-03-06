@@ -18,10 +18,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build CSS
+        run: npm run build:css
 
-      - name: Deploy via SSH
+      - name: Build site
+        run: npm run build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          SITE_NAME: ${{ secrets.SITE_NAME }}
+          SITE_DESCRIPTION: ${{ secrets.SITE_DESCRIPTION }}
+          AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+          AUTHOR_BIO: ${{ secrets.AUTHOR_BIO }}
+          AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_USER: ${{ secrets.MASTODON_USER }}
+
+      - name: Deploy via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
