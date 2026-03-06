@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale | default('en') }}">
+<head>
+  {# OG image resolution handled by og-fix transform in eleventy.config.js
+     to bypass Eleventy 3.x parallel rendering race condition (#3183).
+     Template outputs __OG_IMAGE_PLACEHOLDER__ and __TWITTER_CARD_PLACEHOLDER__
+     which the transform replaces using the correct slug derived from outputPath. #}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy">
+  <title>{% if title %}{{ title }} - {% endif %}{{ site.name }}</title>
+
+  {# OpenGraph meta tags #}
+  {% set ogTitle = title | default(site.name) %}
+  {% set ogDesc = description | default(content | ogDescription(200)) | default(site.description) %}
+  {# Normalize photo - could be array for multi-photo posts #}
+  {% set ogPhoto = photo %}
+  {% if ogPhoto %}
+    {% if ogPhoto[0] and (ogPhoto[0] | length) > 10 %}
+      {% set ogPhoto = ogPhoto[0] %}
+    {% endif %}
+  {% endif %}
+  <meta property="og:title" content="{{ ogTitle }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
+  <meta property="og:description" content="{{ ogDesc }}">
+  <meta name="description" content="{{ ogDesc }}">
+  {% if ogPhoto and ogPhoto != "" and (ogPhoto | length) > 10 %}
+  <meta property="og:image" content="{% if 'http' in ogPhoto %}{{ ogPhoto }}{% else %}{{ site.url }}{% if ogPhoto[0] != '/' %}/{% endif %}{{ ogPhoto }}{% endif %}">
+  {% elif image and image != "" and (image | length) > 10 %}
+  <meta property="og:image" content="{% if 'http' in image %}{{ image }}{% else %}{{ site.url }}{% if image[0] != '/' %}/{% endif %}{{ image }}{% endif %}">
+  {% else %}
+  <meta property="og:image" content="__OG_IMAGE_PLACEHOLDER__">
+  {% endif %}
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="{{ site.locale | default('en_US') }}">
+
+  {# Twitter Card meta tags #}
+  {% set hasExplicitImage = (ogPhoto and ogPhoto != "" and (ogPhoto | length) > 10) or (image and image != "" and (image | length) > 10) %}
+  <meta name="twitter:card" content="{% if hasExplicitImage %}summary_large_image{% else %}__TWITTER_CARD_PLACEHOLDER__{% endif %}">
+  <meta name="twitter:title" content="{{ ogTitle }}">
+  <meta name="twitter:description" content="{{ ogDesc }}">
+  {% if ogPhoto and ogPhoto != "" and (ogPhoto | length) > 10 %}
+  <meta name="twitter:image" content="{% if 'http' in ogPhoto %}{{ ogPhoto }}{% else %}{{ site.url }}{% if ogPhoto[0] != '/' %}/{% endif %}{{ ogPhoto }}{% endif %}">
+  {% elif image and image != "" and (image | length) > 10 %}
+  <meta name="twitter:image" content="{% if 'http' in image %}{{ image }}{% else %}{{ site.url }}{% if image[0] != '/' %}/{% endif %}{{ image }}{% endif %}">
+  {% else %}
+  <meta name="twitter:image" content="__OG_IMAGE_PLACEHOLDER__">
+  {% endif %}
+
+  {# Favicon #}
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  {# Critical CSS — inlined for fast first paint #}
+  <style>{{ "css/critical.css" | inlineFile | safe }}</style>
+  {# Defer full stylesheet — loads after first paint #}
+  <link rel="stylesheet" href="/css/style.css?v={{ '/css/style.css' | hash }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/style.css?v={{ '/css/style.css' | hash }}"></noscript>
+  <link rel="stylesheet" href="/css/prism-theme.css?v={{ '/css/prism-theme.css' | hash }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/prism-theme.css?v={{ '/css/prism-theme.css' | hash }}"></noscript>
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/pagefind/pagefind-ui.css"></noscript>
+  <script>
+    var _pfQueue = [];
+    function initPagefind(sel, opts) { _pfQueue.push([sel, opts]); }
+  </script>
+  <link rel="stylesheet" href="/css/lite-yt-embed.css?v={{ '/css/lite-yt-embed.css' | hash }}">
+  <script src="/js/vendor/lite-yt-embed.js?v={{ '/js/vendor/lite-yt-embed.js' | hash }}" defer></script>
+  {# Alpine.js components — MUST load before Alpine core (Alpine.data() registration via alpine:init) #}
+  <script src="/js/comments.js?v={{ '/js/comments.js' | hash }}" defer></script>
+  <script src="/js/fediverse-interact.js?v={{ '/js/fediverse-interact.js' | hash }}" defer></script>
+  <script src="/js/lightbox.js?v={{ '/js/lightbox.js' | hash }}" defer></script>
+  <script defer src="/js/vendor/alpine-collapse.min.js?v={{ '/js/vendor/alpine-collapse.min.js' | hash }}"></script>
+  <script defer src="/js/vendor/alpine.min.js?v={{ '/js/vendor/alpine.min.js' | hash }}"></script>
+  <style>[x-cloak] { display: none !important; }</style>
+  {# Graceful no-JS fallback: show content that Alpine would normally control #}
+  <noscript>
+    <style>
+      /* Override x-cloak so hidden content is visible without Alpine */
+      [x-cloak] { display: block !important; }
+      /* Show all tab panels stacked (Alpine x-show tabs) */
+      [x-show] { display: block !important; }
+      /* Hide JS-only interactive controls */
+      .fab-container, .fab-button, .fab-backdrop, .fab-menu { display: none !important; }
+      /* Hide tab button rows - content shows stacked instead */
+      [x-data] > .flex.border-b { display: none !important; }
+      /* Hide loading spinners and JS-only buttons */
+      [x-show*="loading"], button[\\@click*="fetch"], button[\\@click*="loadMore"] { display: none !important; }
+    </style>
+  </noscript>
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="RSS Feed">
+  <link rel="alternate" type="application/json" href="/feed.json" title="JSON Feed">
+  <link rel="alternate" type="application/rss+xml" href="/digest/feed.xml" title="Weekly Digest — RSS Feed">
+  {% if site.markdownAgents.enabled and page.url and page.url.startsWith('/articles/') and page.url != '/articles/' %}
+  <link rel="alternate" type="text/markdown" href="{{ page.url | stripTrailingSlash }}.md" title="Markdown version">
+  {% endif %}
+  {% if category and page.url and page.url.startsWith('/categories/') and page.url != '/categories/' %}
+  <link rel="alternate" type="application/rss+xml" href="/categories/{{ category | slugify }}/feed.xml" title="{{ category }} — RSS Feed">
+  <link rel="alternate" type="application/json" href="/categories/{{ category | slugify }}/feed.json" title="{{ category }} — JSON Feed">
+  {% endif %}
+  <link rel="authorization_endpoint" href="{{ site.url }}/auth">
+  <link rel="token_endpoint" href="{{ site.url }}/auth/token">
+  <link rel="micropub" href="{{ site.url }}/micropub">
+  <link rel="microsub" href="{{ site.url }}/microsub">
+  <link rel="self" href="{{ site.url }}{{ page.url }}">
+  <link rel="hub" href="https://websubhub.com/hub">
+  <link rel="webmention" href="https://webmention.io/{{ site.webmentions.domain }}/webmention">
+  <link rel="pingback" href="https://webmention.io/{{ site.webmentions.domain }}/xmlrpc">
+
+  {# Fediverse creator meta tag for Mastodon verification #}
+  {% if site.fediverseCreator %}
+  <meta name="fediverse:creator" content="{{ site.fediverseCreator }}">
+  {% endif %}
+
+  {# IndieAuth rel="me" links for identity verification #}
+  {# Note: Bluesky links use "me atproto" for verification #}
+  {% for social in site.social %}
+  <link rel="{{ social.rel }}" href="{{ social.url }}">
+  {% endfor %}
+</head>
+<body{% if pagefindIgnore %} data-pagefind-ignore="all"{% endif %}>
+  <script>
+    // Apply theme immediately to prevent flash
+    (function() {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="/" class="site-title">{{ site.name }}</a>
+
+      {# Mobile menu button #}
+      <button id="menu-toggle" type="button" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg class="close-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      {# Desktop nav + Theme toggle (visible on desktop) #}
+      <div class="header-actions">
+        <nav class="site-nav" id="site-nav">
+          <a href="/">Home</a>
+          <a href="/about/">About</a>
+          <a href="/cv/">CV</a>
+          {# Slash pages dropdown - all root pages in one menu #}
+          <div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+            <a href="/slashes/" class="nav-dropdown-trigger">
+              /
+              <svg class="w-3 h-3 ml-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </a>
+            <div class="nav-dropdown-menu" x-show="open" x-transition x-cloak>
+              <a href="/slashes/">All Pages</a>
+              <a href="/cv/">/cv</a>
+              {% for item in collections.pages %}
+              <a href="{{ item.url }}">/{{ item.fileSlug }}</a>
+              {% endfor %}
+              {# Plugin pages — only show when their data source is configured #}
+              {% set hasPluginPages = (funkwhaleActivity and funkwhaleActivity.source == "indiekit") or
+                    (githubActivity and githubActivity.source != "error") or
+                    (lastfmActivity and lastfmActivity.source == "indiekit") or
+                    (newsActivity and newsActivity.source == "indiekit") or
+                    (youtubeChannel and youtubeChannel.source == "indiekit") or
+                    (blogrollStatus and blogrollStatus.source == "indiekit") or
+                    (podrollStatus and podrollStatus.source == "indiekit") %}
+              {% if hasPluginPages %}
+              <div class="nav-dropdown-divider"></div>
+              {% if blogrollStatus and blogrollStatus.source == "indiekit" %}<a href="/blogroll/">/blogroll</a>{% endif %}
+              {% if funkwhaleActivity and funkwhaleActivity.source == "indiekit" %}<a href="/funkwhale/">/funkwhale</a>{% endif %}
+              {% if githubActivity and githubActivity.source != "error" %}<a href="/github/">/github</a>{% endif %}
+              {% if lastfmActivity and lastfmActivity.source == "indiekit" %}<a href="/listening/">/listening</a>{% endif %}
+              {% if newsActivity and newsActivity.source == "indiekit" %}<a href="/news/">/news</a>{% endif %}
+              {% if podrollStatus and podrollStatus.source == "indiekit" %}<a href="/podroll/">/podroll</a>{% endif %}
+              {% if youtubeChannel and youtubeChannel.source == "indiekit" %}<a href="/youtube/">/youtube</a>{% endif %}
+              {% endif %}
+            </div>
+          </div>
+          {# Blog dropdown #}
+          <div class="nav-dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+            <a href="/blog/" class="nav-dropdown-trigger">
+              Blog
+              <svg class="w-3 h-3 ml-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </a>
+            <div class="nav-dropdown-menu" x-show="open" x-transition x-cloak>
+              <a href="/blog/">All Posts</a>
+              {% for pt in enabledPostTypes %}
+              <a href="{{ pt.path }}">{{ pt.label }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <a href="/interactions/">Interactions</a>
+          <a href="/digest/">Digest</a>
+          <a href="/dashboard"
+             x-data="{ show: false }"
+             x-show="show"
+             x-cloak
+             x-transition
+             @indiekit:auth.window="show = $event.detail.loggedIn"
+             class="admin-nav-link">
+            <svg class="w-4 h-4 inline -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+            Dashboard
+          </a>
+        </nav>
+        <a href="/search/" aria-label="Search" title="Search" class="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </a>
+        <button id="theme-toggle" type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    {# Mobile nav dropdown #}
+    <nav class="mobile-nav hidden" id="mobile-nav" x-data="{ blogOpen: false, slashOpen: false }">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/cv/">CV</a>
+      {# Slash pages section - all root pages in one menu #}
+      <div class="mobile-nav-section">
+        <button type="button" class="mobile-nav-toggle" @click="slashOpen = !slashOpen">
+          /
+          <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': slashOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="mobile-nav-submenu" x-show="slashOpen" x-collapse>
+          <a href="/slashes/">All Pages</a>
+          <a href="/cv/">/cv</a>
+          {% for item in collections.pages %}
+          <a href="{{ item.url }}">/{{ item.fileSlug }}</a>
+          {% endfor %}
+          {# Plugin pages — only show when configured #}
+          {% if hasPluginPages %}
+          <div class="mobile-nav-divider"></div>
+          {% if blogrollStatus and blogrollStatus.source == "indiekit" %}<a href="/blogroll/">/blogroll</a>{% endif %}
+          {% if funkwhaleActivity and funkwhaleActivity.source == "indiekit" %}<a href="/funkwhale/">/funkwhale</a>{% endif %}
+          {% if githubActivity and githubActivity.source != "error" %}<a href="/github/">/github</a>{% endif %}
+          {% if lastfmActivity and lastfmActivity.source == "indiekit" %}<a href="/listening/">/listening</a>{% endif %}
+          {% if newsActivity and newsActivity.source == "indiekit" %}<a href="/news/">/news</a>{% endif %}
+          {% if podrollStatus and podrollStatus.source == "indiekit" %}<a href="/podroll/">/podroll</a>{% endif %}
+          {% if youtubeChannel and youtubeChannel.source == "indiekit" %}<a href="/youtube/">/youtube</a>{% endif %}
+          {% endif %}
+        </div>
+      </div>
+      {# Blog section #}
+      <div class="mobile-nav-section">
+        <button type="button" class="mobile-nav-toggle" @click="blogOpen = !blogOpen">
+          Blog
+          <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': blogOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="mobile-nav-submenu" x-show="blogOpen" x-collapse>
+          <a href="/blog/">All Posts</a>
+          {% for pt in enabledPostTypes %}
+          <a href="{{ pt.path }}">{{ pt.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="/interactions/">Interactions</a>
+      <a href="/digest/">Digest</a>
+      <a href="/search/">Search</a>
+      <a href="/dashboard"
+         x-data="{ show: false }"
+         x-show="show"
+         x-cloak
+         @indiekit:auth.window="show = $event.detail.loggedIn">
+        Dashboard
+      </a>
+      {# Mobile theme toggle #}
+      <button type="button" class="mobile-theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-label">Theme</span>
+        <span class="theme-icons">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="container py-8" data-pagefind-body>
+    {% if withSidebar and page.url == "/" and homepageConfig and homepageConfig.sections %}
+    {# Homepage: builder controls its own layout and sidebar #}
+    {{ content | safe }}
+    {% elif withSidebar %}
+    <div class="layout-with-sidebar">
+      <div class="main-content">
+        {{ content | safe }}
+      </div>
+      <aside class="sidebar" data-pagefind-ignore>
+        {% include "components/sidebar.njk" %}
+      </aside>
+    </div>
+    {% elif withBlogSidebar %}
+    <div class="layout-with-sidebar">
+      <div class="main-content">
+        {{ content | safe }}
+      </div>
+      <aside class="sidebar blog-sidebar" data-pagefind-ignore>
+        {% include "components/blog-sidebar.njk" %}
+      </aside>
+    </div>
+    {% else %}
+    {{ content | safe }}
+    {% endif %}
+  </main>
+
+  <footer class="border-t border-surface-200 dark:border-surface-700 mt-12 pt-8 pb-6">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        {# Navigate #}
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-3">Navigate</h4>
+          <ul class="space-y-2">
+            <li><a href="/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Home</a></li>
+            <li><a href="/about/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">About</a></li>
+            <li><a href="/cv/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">CV</a></li>
+            <li><a href="/changelog/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Changelog</a></li>
+            <li><a href="/search/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Search</a></li>
+          </ul>
+        </div>
+        {# Content #}
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-3">Content</h4>
+          <ul class="space-y-2">
+            <li><a href="/blog/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Blog</a></li>
+            {% for pt in enabledPostTypes %}
+            <li><a href="{{ pt.path }}" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">{{ pt.label }}</a></li>
+            {% endfor %}
+            <li><a href="/interactions/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Interactions</a></li>
+            <li><a href="/digest/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Digest</a></li>
+          </ul>
+        </div>
+        {# Connect #}
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-3">Connect</h4>
+          <ul class="space-y-2">
+            {% for social in site.social %}
+            <li><a href="{{ social.url }}" rel="{{ social.rel }}" target="_blank" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">{{ social.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {# Meta #}
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-3">Meta</h4>
+          <ul class="space-y-2">
+            <li><a href="/feed.xml" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">RSS Feed</a></li>
+            <li><a href="/feed.json" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">JSON Feed</a></li>
+            <li><a href="/changelog/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Changelog</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-center text-sm text-surface-500 dark:text-surface-400">Powered by <a href="https://getindiekit.com" class="hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Indiekit</a> + <a href="https://11ty.dev" class="hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Eleventy</a></p>
+    </div>
+  </footer>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const menuIcon = menuToggle?.querySelector('.menu-icon');
+    const closeIcon = menuToggle?.querySelector('.close-icon');
+
+    if (menuToggle && mobileNav) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = !mobileNav.classList.contains('hidden');
+        mobileNav.classList.toggle('hidden');
+        menuIcon?.classList.toggle('hidden');
+        closeIcon?.classList.toggle('hidden');
+        menuToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      // Close menu when clicking a link
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.add('hidden');
+          menuIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Theme toggle functionality (desktop and mobile)
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
+    if (mobileThemeToggle) {
+      mobileThemeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Link prefetching on mouseover/touchstart for faster navigation
+    function prefetch(e) {
+      if (e.target.tagName !== 'A') return;
+      if (e.target.origin !== location.origin) return;
+      const removeFragment = (url) => url.split('#')[0];
+      if (removeFragment(location.href) === removeFragment(e.target.href)) return;
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = e.target.href;
+      document.head.appendChild(link);
+    }
+    document.documentElement.addEventListener('mouseover', prefetch, { capture: true, passive: true });
+    document.documentElement.addEventListener('touchstart', prefetch, { capture: true, passive: true });
+  </script>
+  {# Island architecture - lazy hydration for widgets #}
+  <script type="module" src="/js/is-land.js"></script>
+  {# Relative date display - progressively enhances <time> elements #}
+  <script src="/js/time-difference.js?v={{ '/js/time-difference.js' | hash }}" defer></script>
+  {# Responsive tables - auto-enhances <table> on narrow screens #}
+  <script type="module" src="/js/table-saw.js"></script>
+  {# Client-side filtering for archive pages #}
+  <script type="module" src="/js/filter-container.js"></script>
+  {# Client-side webmention fetcher - supplements build-time cache with real-time data #}
+  <script src="/js/webmentions.js?v={{ '/js/webmentions.js' | hash }}" defer></script>
+  {# Admin auth detection - shows dashboard link + FAB when logged in #}
+  <script src="/js/admin.js?v={{ '/js/admin.js' | hash }}" defer></script>
+  {# Save for Later buttons — active when logged in #}
+  <script src="/js/save-later.js?v={{ '/js/save-later.js' | hash }}" defer></script>
+  {# Share Post buttons — opens share form popup when logged in #}
+  <script src="/js/share-post.js?v={{ '/js/share-post.js' | hash }}" defer></script>
+
+  {# Floating Action Button - visible only when logged in #}
+  <div x-data="{ show: false, open: false }"
+       x-show="show"
+       x-cloak
+       @indiekit:auth.window="show = $event.detail.loggedIn"
+       @keydown.escape.window="open = false"
+       class="fab-container">
+    {# Backdrop #}
+    <div x-show="open"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="open = false"
+         class="fab-backdrop"></div>
+    {# Menu items #}
+    <div x-show="open"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-4"
+         class="fab-menu">
+      {% if mpUrl %}
+      <a href="/posts/edit?url={{ mpUrl | urlencode }}" @click="open = false" class="fab-menu-item" rel="nofollow">
+        <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+        <span>Edit this post</span>
+      </a>
+      <div class="fab-menu-divider"></div>
+      {% endif %}
+      <a href="/posts/create?type=page" @click="open = false" class="fab-menu-item" rel="nofollow">
+        <svg class="w-5 h-5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <span>Page</span>
+      </a>
+      <a href="/posts/create?type=bookmark" @click="open = false" class="fab-menu-item" rel="nofollow">
+        <svg class="w-5 h-5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span>Bookmark</span>
+      </a>
+      <a href="/posts/create?type=photo" @click="open = false" class="fab-menu-item" rel="nofollow">
+        <svg class="w-5 h-5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>Photo</span>
+      </a>
+      <a href="/posts/create?type=article" @click="open = false" class="fab-menu-item" rel="nofollow">
+        <svg class="w-5 h-5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span>Article</span>
+      </a>
+      <a href="/posts/create?type=note" @click="open = false" class="fab-menu-item" rel="nofollow">
+        <svg class="w-5 h-5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <span>Note</span>
+      </a>
+    </div>
+    {# FAB button #}
+    <button @click="open = !open"
+            class="fab-button"
+            :aria-expanded="open"
+            aria-label="Create new post">
+      <svg class="w-7 h-7 transition-transform duration-200" :class="{ 'rotate-45': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+  </div>
+  {# Pagefind — load at end of body so all DOM elements exist, then process queue #}
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script>
+    (function() {
+      if (typeof PagefindUI === "undefined") { console.warn("[pagefind] PagefindUI not loaded"); return; }
+      for (var i = 0; i < _pfQueue.length; i++) {
+        new PagefindUI(Object.assign({ element: _pfQueue[i][0], showSubResults: false, showImages: false }, _pfQueue[i][1] || {}));
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+---
+layout: layouts/base.njk
+title: Likes
+withSidebar: true
+pagination:
+  data: collections.likes
+  size: 20
+  alias: paginatedLikes
+  generatePageOnEmptyData: true
+permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+<div class="h-feed">
+  <div class="flex flex-wrap items-center gap-4 mb-2">
+    <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Likes</h1>
+    {% set sparklineSvg = collections.likes | postingFrequency %}
+    {% if sparklineSvg %}
+    <span class="text-rose-600 dark:text-rose-400">{{ sparklineSvg | safe }}</span>
+    {% endif %}
+  </div>
+  <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
+    Content I've liked across the web.
+    <span class="text-sm">({{ collections.likes.length }} total)</span>
+  </p>
+
+  {% if paginatedLikes.length > 0 %}
+  <ul class="post-list">
+    {% for post in paginatedLikes %}
+    <li class="h-entry post-card border-l-[3px] border-l-rose-400 dark:border-l-rose-500">
+      <div class="post-header flex items-start gap-3">
+        <div class="flex-shrink-0 mt-1">
+          <svg class="w-5 h-5 text-rose-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="post-meta">
+            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+              {{ post.date | dateDisplay }}
+            </time>
+            {% if post.data.category %}
+            <span class="post-categories">
+              {% if post.data.category is string %}
+              <span class="p-category">{{ post.data.category }}</span>
+              {% else %}
+              {% for cat in post.data.category %}
+              <span class="p-category">{{ cat }}</span>
+              {% endfor %}
+              {% endif %}
+            </span>
+            {% endif %}
+          </div>
+          {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
+          {% set likedUrl = post.data.likeOf or post.data.like_of %}
+          {% if likedUrl %}
+          {% unfurl likedUrl %}
+          <a class="u-like-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
+            {{ likedUrl }}
+          </a>
+          {% endif %}
+          {% if post.templateContent %}
+          <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
+            {{ post.templateContent | safe }}
+          </div>
+          {% endif %}
+          <a class="u-url text-sm text-rose-600 dark:text-rose-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {# Pagination controls #}
+  {% if pagination.pages.length > 1 %}
+  <nav class="pagination" aria-label="Likes pagination">
+    <div class="pagination-info">
+      Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}
+    </div>
+    <div class="pagination-links">
+      {% if pagination.href.previous %}
+      <a href="{{ pagination.href.previous }}" class="pagination-link" aria-label="Previous page">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        Previous
+      </a>
+      {% else %}
+      <span class="pagination-link disabled">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        Previous
+      </span>
+      {% endif %}
+
+      {% if pagination.href.next %}
+      <a href="{{ pagination.href.next }}" class="pagination-link" aria-label="Next page">
+        Next
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </a>
+      {% else %}
+      <span class="pagination-link disabled">
+        Next
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </span>
+      {% endif %}
+    </div>
+  </nav>
+  {% endif %}
+
+  {% else %}
+  {% set postType = "like" %}
+  {% include "components/empty-collection.njk" %}
+  {% endif %}
+</div>

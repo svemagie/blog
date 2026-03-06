@@ -1,0 +1,124 @@
+{#
+  CV Personal Projects Section - collapsible project cards (accordion)
+  Filters projects by projectType == "personal" (or unset)
+  Data fetched from /cv/data.json via homepage plugin
+#}
+
+{% set sectionConfig = section.config or {} %}
+{% set maxItems = sectionConfig.maxItems or 10 %}
+{% set showTechnologies = sectionConfig.showTechnologies if sectionConfig.showTechnologies is defined else true %}
+
+{% set personalProjects = [] %}
+{% if cv and cv.projects %}
+  {% for item in cv.projects %}
+    {% if item.projectType == "personal" or not item.projectType %}
+      {% set personalProjects = (personalProjects.push(item), personalProjects) %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if personalProjects.length %}
+<section class="mb-8 sm:mb-12" id="personal-projects" x-data="{ expanded: {} }">
+  <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4 sm:mb-6">
+    {{ sectionConfig.title or "Personal Projects" }}
+  </h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+    {% for item in personalProjects | head(maxItems) %}
+    {% set ci = loop.index0 % 8 %}
+    <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 transition-colors overflow-hidden border-l-[3px]
+      {% if ci == 0 %}border-l-amber-400 dark:border-l-amber-500
+      {% elif ci == 1 %}border-l-emerald-400 dark:border-l-emerald-500
+      {% elif ci == 2 %}border-l-sky-400 dark:border-l-sky-500
+      {% elif ci == 3 %}border-l-rose-400 dark:border-l-rose-500
+      {% elif ci == 4 %}border-l-purple-400 dark:border-l-purple-500
+      {% elif ci == 5 %}border-l-orange-400 dark:border-l-orange-500
+      {% elif ci == 6 %}border-l-teal-400 dark:border-l-teal-500
+      {% elif ci == 7 %}border-l-indigo-400 dark:border-l-indigo-500
+      {% endif %}">
+      {# Summary row — always visible, clickable #}
+      <button
+        class="w-full p-4 flex items-center justify-between gap-2 cursor-pointer text-left hover:bg-surface-50 dark:hover:bg-surface-700/50 transition-colors"
+        @click="expanded[{{ loop.index0 }}] = !expanded[{{ loop.index0 }}]"
+        :aria-expanded="expanded[{{ loop.index0 }}] ? 'true' : 'false'"
+      >
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+          <h3 class="font-semibold text-surface-900 dark:text-surface-100 truncate">
+            {% if item.url %}
+            <a href="{{ item.url }}" class="hover:underline" @click.stop>{{ item.name }}</a>
+            {% else %}
+            {{ item.name }}
+            {% endif %}
+          </h3>
+          {% if item.status %}
+          <span class="shrink-0 text-xs px-2 py-0.5 rounded-full capitalize
+            {% if item.status == 'active' %}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300
+            {% elif item.status == 'maintained' %}bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300
+            {% elif item.status == 'archived' %}bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400
+            {% else %}bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400{% endif %}">
+            {{ item.status }}
+          </span>
+          {% endif %}
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          {% if item.startDate %}
+          <span class="text-xs text-surface-500 hidden sm:inline">
+            {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
+          </span>
+          {% endif %}
+          <svg
+            class="w-4 h-4 text-surface-400 transition-transform duration-200"
+            :class="expanded[{{ loop.index0 }}] && 'rotate-180'"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+      </button>
+
+      {# Detail section — collapsible #}
+      <div
+        x-show="expanded[{{ loop.index0 }}]"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-1"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-1"
+        x-cloak
+        class="px-4 pb-4"
+      >
+        {% if item.startDate %}
+        <p class="text-xs text-surface-500 mb-1 sm:hidden">
+          {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
+        </p>
+        {% endif %}
+
+        {% if item.description %}
+        <p class="text-sm text-surface-600 dark:text-surface-400 mb-2">{{ item.description }}</p>
+        {% endif %}
+
+        {% if showTechnologies and item.technologies and item.technologies.length %}
+        <div class="flex flex-wrap gap-1">
+          {% for tech in item.technologies %}
+          <span class="text-xs px-2 py-0.5 rounded
+            {% if ci == 0 %}bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300
+            {% elif ci == 1 %}bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300
+            {% elif ci == 2 %}bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300
+            {% elif ci == 3 %}bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300
+            {% elif ci == 4 %}bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300
+            {% elif ci == 5 %}bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300
+            {% elif ci == 6 %}bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300
+            {% elif ci == 7 %}bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300
+            {% endif %}">
+            {{ tech }}
+          </span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,467 @@
+/**
+ * Client-side webmention fetcher
+ * Supplements build-time cached webmentions with real-time data from proxy API
+ */
+
+(function () {
+  const container = document.querySelector('[data-webmentions]');
+  if (!container) return;
+
+  const target = container.dataset.target;
+  const domain = container.dataset.domain;
+  const buildTime = parseInt(container.dataset.buildtime, 10) || 0;
+
+  if (!target || !domain) return;
+
+  // Use server-side proxy to keep webmention.io token secure
+  // Fetch both with and without trailing slash since webmention.io
+  // stores targets inconsistently (Bridgy sends different formats)
+  const targetWithSlash = target.endsWith('/') ? target : target + '/';
+  const targetWithoutSlash = target.endsWith('/') ? target.slice(0, -1) : target;
+  const apiUrl1 = `/webmentions/api/mentions?target=${encodeURIComponent(targetWithSlash)}&per-page=100`;
+  const apiUrl2 = `/webmentions/api/mentions?target=${encodeURIComponent(targetWithoutSlash)}&per-page=100`;
+
+  // Check if build-time webmentions section exists
+  const hasBuildTimeSection = document.getElementById('webmentions') !== null;
+
+  // Cache API responses in sessionStorage (5 min TTL) so webmentions
+  // persist across page refreshes without re-fetching every time
+  const cacheKey = `wm-data-${target}`;
+  const cacheTTL = 5 * 60 * 1000; // 5 minutes
+
+  function getCachedData() {
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (!cached) return null;
+      const parsed = JSON.parse(cached);
+      if (Date.now() - parsed.ts > cacheTTL) {
+        sessionStorage.removeItem(cacheKey);
+        return null;
+      }
+      return parsed.children;
+    } catch {
+      return null;
+    }
+  }
+
+  function setCachedData(children) {
+    try {
+      sessionStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), children: children }));
+    } catch {
+      // sessionStorage full or unavailable - no problem
+    }
+  }
+
+  function processWebmentions(allChildren) {
+    if (!allChildren || !allChildren.length) return;
+
+    let mentionsToShow;
+    if (hasBuildTimeSection) {
+      // Build-time section exists - only show NEW webmentions to avoid duplicates.
+      // Both webmention.io and conversations items are included at build time,
+      // so filter all by timestamp (only show items received after the build).
+      mentionsToShow = allChildren.filter((wm) => {
+        const wmTime = new Date(wm['wm-received']).getTime();
+        return wmTime > buildTime;
+      });
+    } else {
+      // No build-time section - show ALL webmentions from API
+      mentionsToShow = allChildren;
+    }
+
+    if (!mentionsToShow.length) return;
+
+    // Group by type
+    const likes = mentionsToShow.filter((m) => m['wm-property'] === 'like-of');
+    const reposts = mentionsToShow.filter((m) => m['wm-property'] === 'repost-of');
+    const replies = mentionsToShow.filter((m) => m['wm-property'] === 'in-reply-to');
+    const mentions = mentionsToShow.filter((m) => m['wm-property'] === 'mention-of');
+
+    // Append new likes
+    if (likes.length) {
+      appendAvatars('.webmention-likes .facepile, .webmention-likes .avatar-row', likes, 'likes');
+      updateCount('.webmention-likes h3', likes.length, 'Like');
+    }
+
+    // Append new reposts
+    if (reposts.length) {
+      appendAvatars('.webmention-reposts .facepile, .webmention-reposts .avatar-row', reposts, 'reposts');
+      updateCount('.webmention-reposts h3', reposts.length, 'Repost');
+    }
+
+    // Append new replies
+    if (replies.length) {
+      appendReplies('.webmention-replies ul', replies);
+      updateCount('.webmention-replies h3', replies.length, 'Repl', 'ies', 'y');
+    }
+
+    // Append new mentions
+    if (mentions.length) {
+      appendMentions('.webmention-mentions ul', mentions);
+      updateCount('.webmention-mentions h3', mentions.length, 'Mention');
+    }
+
+    // Update total count in main header
+    updateTotalCount(mentionsToShow.length);
+  }
+
+  // Try cached data first (renders instantly on refresh)
+  const cached = getCachedData();
+  if (cached) {
+    processWebmentions(cached);
+  }
+
+  // Conversations API URLs (dual-fetch for enriched data)
+  const convApiUrl1 = `/conversations/api/mentions?target=${encodeURIComponent(targetWithSlash)}&per-page=100`;
+  const convApiUrl2 = `/conversations/api/mentions?target=${encodeURIComponent(targetWithoutSlash)}&per-page=100`;
+
+  // Always fetch fresh data from both APIs (updates cache for next refresh)
+  Promise.all([
+    fetch(apiUrl1).then((res) => res.json()).catch(() => ({ children: [] })),
+    fetch(apiUrl2).then((res) => res.json()).catch(() => ({ children: [] })),
+    fetch(convApiUrl1).then((res) => res.ok ? res.json() : { children: [] }).catch(() => ({ children: [] })),
+    fetch(convApiUrl2).then((res) => res.ok ? res.json() : { children: [] }).catch(() => ({ children: [] })),
+  ])
+    .then(([wmData1, wmData2, convData1, convData2]) => {
+      // Collect all items from both APIs
+      const wmItems = [...(wmData1.children || []), ...(wmData2.children || [])];
+      const convItems = [...(convData1.children || []), ...(convData2.children || [])];
+
+      // Build dedup sets from conversations items (richer metadata, take priority)
+      const convUrls = new Set(convItems.map(c => c.url).filter(Boolean));
+      const seen = new Set();
+      const allChildren = [];
+
+      // Add conversations items first (they have platform provenance)
+      for (const wm of convItems) {
+        const key = wm['wm-id'] || wm.url;
+        if (key && !seen.has(key)) {
+          seen.add(key);
+          allChildren.push(wm);
+        }
+      }
+
+      // Build set of author+action keys from conversations for cross-source dedup
+      const authorActions = new Set();
+      for (const wm of convItems) {
+        const authorUrl = (wm.author && wm.author.url) || wm.url || '';
+        const action = wm['wm-property'] || 'mention';
+        if (authorUrl) authorActions.add(authorUrl + '::' + action);
+      }
+
+      // Add webmention-io items, skipping duplicates
+      for (const wm of wmItems) {
+        const key = wm['wm-id'];
+        if (seen.has(key)) continue;
+        // Also skip if same source URL exists in conversations
+        if (wm.url && convUrls.has(wm.url)) continue;
+        // Skip if same author + same action type already from conversations
+        const authorUrl = (wm.author && wm.author.url) || wm.url || '';
+        const action = wm['wm-property'] || 'mention';
+        if (authorUrl && authorActions.has(authorUrl + '::' + action)) continue;
+        seen.add(key);
+        allChildren.push(wm);
+      }
+
+      // Cache the merged results
+      setCachedData(allChildren);
+
+      // Only render if we didn't already render from cache
+      if (!cached) {
+        processWebmentions(allChildren);
+      }
+    })
+    .catch((err) => {
+      console.debug('[Webmentions] Error fetching:', err.message);
+    });
+
+  function appendAvatars(selector, items, type) {
+    let row = document.querySelector(selector);
+
+    // Create section if it doesn't exist
+    if (!row) {
+      const section = createAvatarSection(type);
+      let webmentionsSection = document.getElementById('webmentions');
+      if (!webmentionsSection) {
+        createWebmentionsSection();
+        webmentionsSection = document.getElementById('webmentions');
+      }
+      if (webmentionsSection) {
+        webmentionsSection.appendChild(section);
+        row = section.querySelector('.facepile');
+      }
+    }
+
+    if (!row) return;
+
+    items.forEach((item) => {
+      const author = item.author || {};
+
+      const link = document.createElement('a');
+      link.href = author.url || '#';
+      link.className = 'facepile-avatar';
+      link.title = author.name || 'Anonymous';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.dataset.new = 'true';
+
+      const img = document.createElement('img');
+      img.src = author.photo || '/images/default-avatar.svg';
+      img.alt = author.name || 'Anonymous';
+      img.className = 'w-8 h-8 rounded-full ring-2 ring-white dark:ring-surface-900';
+      img.loading = 'lazy';
+
+      link.appendChild(img);
+      row.appendChild(link);
+    });
+  }
+
+  function appendReplies(selector, items) {
+    let list = document.querySelector(selector);
+
+    // Create section if it doesn't exist
+    if (!list) {
+      const section = createReplySection();
+      let webmentionsSection = document.getElementById('webmentions');
+      if (!webmentionsSection) {
+        createWebmentionsSection();
+        webmentionsSection = document.getElementById('webmentions');
+      }
+      if (webmentionsSection) {
+        webmentionsSection.appendChild(section);
+        list = section.querySelector('ul');
+      }
+    }
+
+    if (!list) return;
+
+    items.forEach((item) => {
+      const author = item.author || {};
+      const content = item.content || {};
+      const published = item.published || item['wm-received'];
+
+      const li = document.createElement('li');
+      li.className = 'p-4 bg-surface-100 dark:bg-surface-800 rounded-lg ring-2 ring-accent-500';
+      li.dataset.new = 'true';
+
+      // Build reply card using DOM methods
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex gap-3';
+
+      // Avatar link
+      const avatarLink = document.createElement('a');
+      avatarLink.href = author.url || '#';
+      avatarLink.target = '_blank';
+      avatarLink.rel = 'noopener';
+
+      const avatarImg = document.createElement('img');
+      avatarImg.src = author.photo || '/images/default-avatar.svg';
+      avatarImg.alt = author.name || 'Anonymous';
+      avatarImg.className = 'w-10 h-10 rounded-full';
+      avatarImg.loading = 'lazy';
+      avatarLink.appendChild(avatarImg);
+
+      // Content area
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'flex-1 min-w-0';
+
+      // Header row
+      const headerDiv = document.createElement('div');
+      headerDiv.className = 'flex items-baseline gap-2 mb-1';
+
+      const authorLink = document.createElement('a');
+      authorLink.href = author.url || '#';
+      authorLink.className = 'font-semibold text-surface-900 dark:text-surface-100 hover:underline';
+      authorLink.target = '_blank';
+      authorLink.rel = 'noopener';
+      authorLink.textContent = author.name || 'Anonymous';
+
+      const dateLink = document.createElement('a');
+      dateLink.href = item.url || '#';
+      dateLink.className = 'text-xs text-surface-500 hover:underline';
+      dateLink.target = '_blank';
+      dateLink.rel = 'noopener';
+
+      const timeEl = document.createElement('time');
+      timeEl.dateTime = published;
+      timeEl.textContent = formatDate(published);
+      dateLink.appendChild(timeEl);
+
+      const newBadge = document.createElement('span');
+      newBadge.className = 'text-xs text-accent-600 dark:text-accent-400 font-medium';
+      newBadge.textContent = 'NEW';
+
+      headerDiv.appendChild(authorLink);
+      headerDiv.appendChild(dateLink);
+      headerDiv.appendChild(newBadge);
+
+      // Reply content - use textContent for safety
+      const replyDiv = document.createElement('div');
+      replyDiv.className = 'text-surface-700 dark:text-surface-300 prose dark:prose-invert prose-sm max-w-none';
+      replyDiv.textContent = content.text || '';
+
+      contentDiv.appendChild(headerDiv);
+      contentDiv.appendChild(replyDiv);
+
+      wrapper.appendChild(avatarLink);
+      wrapper.appendChild(contentDiv);
+      li.appendChild(wrapper);
+
+      // Prepend to show newest first
+      list.insertBefore(li, list.firstChild);
+    });
+  }
+
+  function appendMentions(selector, items) {
+    let list = document.querySelector(selector);
+
+    if (!list) {
+      const section = createMentionSection();
+      let webmentionsSection = document.getElementById('webmentions');
+      if (!webmentionsSection) {
+        createWebmentionsSection();
+        webmentionsSection = document.getElementById('webmentions');
+      }
+      if (webmentionsSection) {
+        webmentionsSection.appendChild(section);
+        list = section.querySelector('ul');
+      }
+    }
+
+    if (!list) return;
+
+    items.forEach((item) => {
+      const author = item.author || {};
+      const published = item.published || item['wm-received'];
+
+      const li = document.createElement('li');
+      li.dataset.new = 'true';
+
+      const link = document.createElement('a');
+      link.href = item.url || '#';
+      link.className = 'text-accent-600 dark:text-accent-400 hover:underline';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = `${author.name || 'Someone'} mentioned this on ${formatDate(published)}`;
+
+      const badge = document.createElement('span');
+      badge.className = 'text-xs text-accent-600 dark:text-accent-400 font-medium ml-1';
+      badge.textContent = 'NEW';
+
+      li.appendChild(link);
+      li.appendChild(badge);
+
+      list.insertBefore(li, list.firstChild);
+    });
+  }
+
+  function updateCount(selector, additionalCount, noun, pluralSuffix, singularSuffix) {
+    const header = document.querySelector(selector);
+    if (!header) return;
+
+    const text = header.textContent;
+    const match = text.match(/(\d+)/);
+    if (match) {
+      const currentCount = parseInt(match[1], 10);
+      const newCount = currentCount + additionalCount;
+      if (noun) {
+        // Rebuild the header text with correct pluralization
+        var suffix = pluralSuffix || 's';
+        var singSuffix = singularSuffix || '';
+        header.textContent = newCount + ' ' + noun + (newCount !== 1 ? suffix : singSuffix);
+      } else {
+        header.textContent = text.replace(/\d+/, newCount);
+      }
+    }
+  }
+
+  function updateTotalCount(additionalCount) {
+    const header = document.querySelector('#webmentions h2');
+    if (!header) return;
+
+    const text = header.textContent;
+    const match = text.match(/\((\d+)\)/);
+    if (match) {
+      const currentCount = parseInt(match[1], 10);
+      const newCount = currentCount + additionalCount;
+      header.textContent = text.replace(/\(\d+\)/, `(${newCount})`);
+    }
+  }
+
+  function createAvatarSection(type) {
+    const section = document.createElement('div');
+    section.className = `webmention-${type} mb-6`;
+
+    const header = document.createElement('h3');
+    header.className = 'text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3';
+    header.textContent = `0 ${type === 'likes' ? 'Likes' : 'Reposts'}`;
+
+    const row = document.createElement('div');
+    row.className = 'facepile';
+
+    section.appendChild(header);
+    section.appendChild(row);
+
+    return section;
+  }
+
+  function createReplySection() {
+    const section = document.createElement('div');
+    section.className = 'webmention-replies';
+
+    const header = document.createElement('h3');
+    header.className = 'text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-4';
+    header.textContent = '0 Replies';
+
+    const list = document.createElement('ul');
+    list.className = 'space-y-4';
+
+    section.appendChild(header);
+    section.appendChild(list);
+
+    return section;
+  }
+
+  function createMentionSection() {
+    const section = document.createElement('div');
+    section.className = 'webmention-mentions mt-6';
+
+    const header = document.createElement('h3');
+    header.className = 'text-sm font-semibold text-surface-600 dark:text-surface-400 uppercase tracking-wide mb-3';
+    header.textContent = '0 Mentions';
+
+    const list = document.createElement('ul');
+    list.className = 'space-y-2 text-sm';
+
+    section.appendChild(header);
+    section.appendChild(list);
+
+    return section;
+  }
+
+  function createWebmentionsSection() {
+    const webmentionForm = document.querySelector('.webmention-form');
+    if (!webmentionForm) return;
+
+    const section = document.createElement('section');
+    section.className = 'webmentions mt-8 pt-8 border-t border-surface-200 dark:border-surface-700';
+    section.id = 'webmentions';
+
+    const header = document.createElement('h2');
+    header.className = 'text-xl font-bold text-surface-900 dark:text-surface-100 mb-6';
+    header.textContent = 'Webmentions (0)';
+
+    section.appendChild(header);
+    webmentionForm.parentNode.insertBefore(section, webmentionForm);
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  }
+})();
