@@ -21,6 +21,26 @@ jobs:
       - name: Build CSS
         run: npm run build:css
 
+      - name: Create .env file
+        run: |
+          echo "SITE_URL=${{ secrets.SITE_URL }}" > .env
+          echo "SITE_NAME=${{ secrets.SITE_NAME }}" >> .env
+          echo "AUTHOR_NAME=${{ secrets.AUTHOR_NAME }}" >> .env
+          echo "SITE_DESCRIPTION=${{ secrets.SITE_DESCRIPTION }}" >> .env
+          echo "AUTHOR_BIO=${{ secrets.AUTHOR_BIO }}" >> .env
+          echo "AUTHOR_EMAIL=${{ secrets.AUTHOR_EMAIL }}" >> .env
+          echo "AUTHOR_LOCATION=${{ secrets.AUTHOR_LOCATION }}" >> .env
+          echo "GITHUB_USERNAME=${{ secrets.GITHUB_USERNAME }}" >> .env
+          echo "MASTODON_INSTANCE=${{ secrets.MASTODON_INSTANCE }}" >> .env
+          echo "MASTODON_USER=${{ secrets.MASTODON_USER }}" >> .env
+          echo "BLUESKY_HANDLE=${{ secrets.BLUESKY_HANDLE }}" >> .env
+          echo "ACTIVITYPUB_HANDLE=${{ secrets.ACTIVITYPUB_HANDLE }}" >> .env
+          echo "AUTHOR_AVATAR=${{ secrets.AUTHOR_AVATAR }}" >> .env
+          echo "AUTHOR_TITLE=${{ secrets.AUTHOR_TITLE }}" >> .env
+          echo "AUTHOR_PRONOUN=${{ secrets.AUTHOR_PRONOUN }}" >> .env
+          echo "SITE_LOCALE=${{ secrets.SITE_LOCALE }}" >> .env
+          echo "INDIEKIT_PASSWORD=${{ secrets.INDIEKIT_PASSWORD }}" >> .env
+
       - name: Build site
         run: npm run build
         env:
@@ -41,6 +61,6 @@ jobs:
           port: 222
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "_site/*"
+          source: "_site/*,.env"
           target: "/usr/local/bastille/jails/web/root/usr/local/www/blog"
           strip_components: 1
