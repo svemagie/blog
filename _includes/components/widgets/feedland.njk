@@ -1,0 +1,383 @@
+{# FeedLand Widget - Matches Dave Winer's blogroll.js visual rendering #}
+{# Uses Alpine.js + blogroll API instead of jQuery + external blogroll.js #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rancho&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+.fl-wrap {
+  border: 1px solid gainsboro;
+  padding: 5px 10px;
+  font-family: Ubuntu, sans-serif;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+.fl-wrap:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  background-color: white;
+}
+.fl-title {
+  font-family: "Rancho", cursive;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-align: center;
+  margin: 5px 0;
+  line-height: 1.1;
+}
+.fl-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.fl-title a:hover {
+  text-decoration: underline;
+}
+.fl-sort {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 3px 0;
+}
+.fl-sort span {
+  cursor: pointer;
+}
+.fl-sort .selected {
+  font-weight: bold;
+}
+.fl-row {
+  display: flex;
+  align-items: baseline;
+  padding: 4px 0;
+  line-height: normal;
+  cursor: pointer;
+}
+.fl-row:hover {
+  background-color: whitesmoke;
+}
+.fl-row.fl-selected {
+  background-color: #e8f0fe;
+}
+.fl-caret {
+  width: 14px;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+.fl-caret-dark { opacity: .9; }
+.fl-caret-light { opacity: .2; }
+.fl-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fl-name a {
+  color: inherit;
+  text-decoration: none;
+}
+.fl-name a:hover {
+  text-decoration: underline;
+}
+.fl-when {
+  flex-shrink: 0;
+  font-size: 12px;
+  padding-left: 6px;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+/* Expanded items */
+.fl-items {
+  padding: 2px 0 4px 18px;
+}
+.fl-items ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fl-items li {
+  padding: 2px 0;
+  font-size: 13px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fl-items li a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+.fl-items li a:hover {
+  text-decoration: underline;
+}
+.fl-items .fl-item-when {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-left: 4px;
+}
+.fl-items .fl-loading {
+  font-size: 12px;
+  opacity: 0.5;
+  padding: 4px 0;
+}
+.fl-footer {
+  text-align: center;
+  font-size: 13px;
+  border-top: 1px solid gainsboro;
+  margin-top: 13px;
+  padding-top: 4px;
+  opacity: 0.5;
+}
+.fl-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+.fl-footer a:hover {
+  text-decoration: underline;
+}
+/* 3-dot menu */
+.fl-header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+.fl-header .fl-title {
+  flex: 1;
+}
+.fl-menu-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 2px;
+  opacity: 0.5;
+  color: inherit;
+}
+.fl-menu-btn:hover {
+  opacity: 1;
+}
+.fl-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid gainsboro;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+  min-width: 180px;
+  padding: 4px 0;
+  font-size: 13px;
+}
+.fl-menu a {
+  display: block;
+  padding: 5px 12px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.fl-menu a:hover {
+  background-color: whitesmoke;
+}
+.fl-menu hr {
+  margin: 4px 0;
+  border: none;
+  border-top: 1px solid gainsboro;
+}
+.dark .fl-menu {
+  background: #2a2a2a;
+  border-color: #444;
+}
+.dark .fl-menu a:hover {
+  background-color: #333;
+}
+.dark .fl-menu hr {
+  border-top-color: #444;
+}
+@media screen and (max-width: 576px) {
+  .fl-title { display: none; }
+  .fl-name { font-size: 14px; }
+}
+/* Dark mode */
+.dark .fl-wrap {
+  border-color: #444;
+  color: #e0e0e0;
+}
+.dark .fl-wrap:focus {
+  background-color: #1a1a1a;
+}
+.dark .fl-row:hover {
+  background-color: #2a2a2a;
+}
+.dark .fl-row.fl-selected {
+  background-color: #1e3a5f;
+}
+.dark .fl-items li a {
+  color: #8ab4f8;
+}
+.dark .fl-footer {
+  border-top-color: #444;
+}
+</style>
+
+<is-land on:visible>
+<div class="widget" x-data="feedlandWidget()" x-init="init()">
+  <div class="fl-wrap" tabindex="0">
+    {# Title + menu #}
+    <div class="fl-header">
+      <div class="fl-title">
+        <a :href="riverUrl" target="_blank" rel="noopener" x-text="title"></a>
+      </div>
+      <button class="fl-menu-btn" @click="menuOpen = !menuOpen" aria-label="Menu">&#x22EE;</button>
+      <div class="fl-menu" x-show="menuOpen" @click.away="menuOpen = false" x-cloak>
+        <a href="/blogroll/">Blogroll page</a>
+        <a href="/blogrollapi/api/opml" target="_blank" rel="noopener">View as OPML</a>
+        <hr>
+        <a :href="riverUrl" target="_blank" rel="noopener">View in FeedLand</a>
+      </div>
+    </div>
+
+    {# Sort links #}
+    <div class="fl-sort">
+      <span :class="sortBy === 'title' ? 'selected' : ''" @click="sortBy = 'title'">Title</span>
+      <span :class="sortBy === 'when' ? 'selected' : ''" @click="sortBy = 'when'">When</span>
+    </div>
+
+    {# Feed list — pure divs, no table #}
+    <template x-for="blog in sortedBlogs" :key="blog.id">
+      <div>
+        <div class="fl-row"
+             :class="selectedId === blog.id ? 'fl-selected' : ''"
+             @click="handleRowClick(blog)">
+          <span class="fl-caret"
+                :class="expandedId === blog.id ? 'fl-caret-dark' : (selectedId === blog.id ? 'fl-caret-dark' : 'fl-caret-light')"
+                x-text="expandedId === blog.id ? '\u25BC' : '\u25B6'"
+                @click.stop="toggleExpand(blog)"></span>
+          <span class="fl-name">
+            <a :href="blog.siteUrl || blog.feedUrl" target="_blank" rel="noopener"
+               x-text="blog.title" @click.stop></a>
+          </span>
+          <span class="fl-when" x-text="relativeTime(blog.lastItemAt || blog.lastFetchAt)"></span>
+        </div>
+        {# Expanded items #}
+        <div class="fl-items" x-show="expandedId === blog.id" x-collapse>
+          <template x-if="blog._loadingItems">
+            <div class="fl-loading">Loading…</div>
+          </template>
+          <template x-if="!blog._loadingItems && blog._items && blog._items.length > 0">
+            <ul>
+              <template x-for="item in blog._items" :key="item.id">
+                <li>
+                  <a :href="item.url" target="_blank" rel="noopener"
+                     x-text="truncate(item.title || item.summary || item.url, 80)"></a>
+                  <span class="fl-item-when" x-text="relativeTime(item.published)"></span>
+                </li>
+              </template>
+            </ul>
+          </template>
+          <template x-if="!blog._loadingItems && (!blog._items || blog._items.length === 0)">
+            <div class="fl-loading">No recent items</div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    {# Footer #}
+    <div class="fl-footer">
+      <a :href="riverUrl" target="_blank" rel="noopener">Powered by FeedLand</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function feedlandWidget() {
+  return {
+    blogs: [],
+    sortBy: 'when',
+    title: 'FeedLand',
+    riverUrl: 'https://feedland.com',
+    loading: true,
+    selectedId: null,
+    expandedId: null,
+    menuOpen: false,
+
+    get sortedBlogs() {
+      const sorted = [...this.blogs];
+      if (this.sortBy === 'title') {
+        sorted.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+      } else {
+        sorted.sort((a, b) => {
+          const da = new Date(a.lastItemAt || a.lastFetchAt || 0);
+          const db = new Date(b.lastItemAt || b.lastFetchAt || 0);
+          return db - da;
+        });
+      }
+      return sorted;
+    },
+
+    handleRowClick(blog) {
+      if (this.selectedId !== blog.id) {
+        this.selectedId = blog.id;
+      } else {
+        this.toggleExpand(blog);
+      }
+    },
+
+    async toggleExpand(blog) {
+      this.selectedId = blog.id;
+      if (this.expandedId === blog.id) {
+        this.expandedId = null;
+        return;
+      }
+      this.expandedId = blog.id;
+      if (!blog._items) {
+        blog._loadingItems = true;
+        try {
+          const res = await fetch('/blogrollapi/api/blogs/' + blog.id);
+          const data = await res.json();
+          blog._items = (data.items || []).slice(0, 5);
+        } catch (err) {
+          console.error('FeedLand: failed to load items for', blog.title, err);
+          blog._items = [];
+        } finally {
+          blog._loadingItems = false;
+        }
+      }
+    },
+
+    truncate(str, max) {
+      if (!str) return '';
+      return str.length > max ? str.slice(0, max) + '…' : str;
+    },
+
+    relativeTime(iso) {
+      if (!iso) return '';
+      const diff = Date.now() - new Date(iso).getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 60) return mins + 'm';
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return hrs + 'h';
+      const days = Math.floor(hrs / 24);
+      return days + 'd';
+    },
+
+    async init() {
+      try {
+        const res = await fetch('/blogrollapi/api/blogs?source=feedland&sort=recent&limit=100');
+        const data = await res.json();
+        this.blogs = (data.items || []).map(b => ({
+          ...b,
+          _items: null,
+          _loadingItems: false,
+        }));
+      } catch (err) {
+        console.error('FeedLand widget error:', err);
+      } finally {
+        this.loading = false;
+      }
+    }
+  };
+}
+</script>
+</is-land>

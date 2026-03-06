@@ -1,5 +1,27 @@
+# Dependencies
 node_modules/
+
+# Build output
 _site/
-.env
-start.sh
-*.log
+pagefind/
+css/style.css
+
+# Cache
+.cache/
+
+# Content (symlinked at runtime)
+content/
+uploads/
+
+# Personal overrides (should be in parent repo)
+*.rmendes
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

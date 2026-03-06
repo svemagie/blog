@@ -1,0 +1,110 @@
+{# Blogroll Widget - Dynamic loading from API with source tabs #}
+<is-land on:visible>
+<div class="widget" x-data="blogrollWidget()" x-init="init()">
+  <h3 class="widget-title flex items-center gap-2">
+    <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+    </svg>
+    <a href="/blogroll/" class="hover:text-accent-600 dark:hover:text-accent-400">Blogroll</a>
+  </h3>
+
+  {# Source tabs - only shown when multiple sources exist #}
+  <div x-show="tabs.length > 1" class="flex gap-1 mt-3 mb-2 border-b border-surface-200 dark:border-surface-700">
+    <template x-for="tab in tabs" :key="tab.key">
+      <button
+        @click="activeTab = tab.key"
+        :class="activeTab === tab.key
+          ? 'border-b-2 border-accent-600 text-accent-600 dark:text-accent-400 dark:border-accent-400'
+          : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'"
+        class="px-2 py-1 text-xs font-medium transition-colors -mb-px"
+        x-text="tab.label + ' (' + tab.count + ')'"
+      ></button>
+    </template>
+  </div>
+
+  <ul x-show="filteredBlogs.length > 0" class="space-y-2" :class="tabs.length > 1 ? '' : 'mt-3'">
+    <template x-for="blog in filteredBlogs.slice(0, 8)" :key="blog.id">
+      <li>
+        <a
+          :href="blog.siteUrl || blog.feedUrl"
+          class="flex items-center gap-2 text-sm text-surface-700 dark:text-surface-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="w-5 h-5 rounded bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-xs font-bold" x-text="blog.title?.charAt(0)?.toUpperCase()"></span>
+          </span>
+          <span class="truncate" x-text="blog.title"></span>
+        </a>
+      </li>
+    </template>
+  </ul>
+
+  <div x-show="filteredBlogs.length === 0 && !loading" class="text-sm text-surface-500 py-2">
+    No blogs loaded yet.
+  </div>
+
+  <a x-show="allBlogs.length > 0" href="/blogroll/" class="text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-flex items-center gap-1">
+    View all <span x-text="allBlogs.length"></span> blogs
+    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<script>
+function blogrollWidget() {
+  return {
+    allBlogs: [],
+    activeTab: 'all',
+    tabs: [],
+    loading: true,
+
+    get filteredBlogs() {
+      if (this.activeTab === 'all') return this.allBlogs;
+      return this.allBlogs.filter(b => (b.source || 'other') === this.activeTab);
+    },
+
+    async init() {
+      try {
+        const res = await fetch('/blogrollapi/api/blogs?sort=recent&limit=200').then(r => r.json());
+        this.allBlogs = res.items || [];
+        this.buildTabs();
+      } catch (err) {
+        console.error('Blogroll widget error:', err);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    buildTabs() {
+      const counts = {};
+      for (const blog of this.allBlogs) {
+        const src = blog.source || 'other';
+        counts[src] = (counts[src] || 0) + 1;
+      }
+
+      const labels = {
+        microsub: 'Microsub',
+        feedland: 'FeedLand',
+        other: 'Other',
+      };
+
+      const sources = Object.keys(counts);
+      if (sources.length <= 1) {
+        this.tabs = [];
+        this.activeTab = 'all';
+        return;
+      }
+
+      this.tabs = sources.map(key => ({
+        key,
+        label: labels[key] || key,
+        count: counts[key],
+      }));
+
+      // Default to the first tab
+      this.activeTab = this.tabs[0].key;
+    }
+  };
+}
+</script>
+</is-land>

@@ -1,0 +1,38 @@
+{# Fediverse Follow Me Widget — uses the fediverseInteract Alpine.js component #}
+{# Requires fediverse-interact.js loaded in base.njk (already present) #}
+{# Determines actor URI from site social links: prefers self-hosted AP, falls back to Mastodon #}
+
+{% set actorUrl = "" %}
+{% for link in site.social %}
+  {% if link.icon == "activitypub" and not actorUrl %}
+    {% set actorUrl = link.url %}
+  {% endif %}
+{% endfor %}
+{% if not actorUrl %}
+  {% for link in site.social %}
+    {% if link.icon == "mastodon" and not actorUrl %}
+      {% set actorUrl = link.url %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if actorUrl %}
+<is-land on:visible>
+<div class="widget" x-data="fediverseInteract('{{ actorUrl }}', 'interact')">
+  <h3 class="widget-title">Follow Me</h3>
+  <p class="text-sm text-surface-500 dark:text-surface-400 mb-3">Follow me from your fediverse instance.</p>
+  <a href="{{ actorUrl }}"
+     @click="handleClick($event)"
+     class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#a730b8]/10 text-[#a730b8] hover:bg-[#a730b8]/20 transition-colors text-sm font-medium cursor-pointer"
+     title="Follow from your fediverse instance (Shift+click to change)">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+    </svg>
+    <span>Follow on the Fediverse</span>
+  </a>
+  {% set modalTitle = "Follow on the Fediverse" %}
+  {% set modalDescription = "Choose your instance to follow this account." %}
+  {% include "components/fediverse-modal.njk" %}
+</div>
+</is-land>
+{% endif %}

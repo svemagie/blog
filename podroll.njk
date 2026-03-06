@@ -1,0 +1,386 @@
+---
+layout: layouts/base.njk
+title: Podroll
+permalink: /podroll/
+---
+<div class="podroll-page" x-data="podrollApp()" x-init="init()">
+  <header class="mb-6 sm:mb-8">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">
+      <svg class="w-8 h-8 inline-block mr-2 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 6a6 6 0 0 0-6 6h2a4 4 0 0 1 4-4V6z"/>
+        <path d="M12 2v2a8 8 0 0 1 8 8h2c0-5.52-4.48-10-10-10z"/>
+      </svg>
+      Podroll
+    </h1>
+    <p class="text-surface-600 dark:text-surface-400">
+      My podcast subscriptions - recent episodes from <span x-text="sources.length" class="font-medium"></span> podcasts
+    </p>
+    <p class="text-xs text-surface-500 mt-2" x-show="status?.episodes?.lastSync">
+      Last synced: <span x-text="formatDate(status?.episodes?.lastSync, 'full')"></span>
+      <button @click="refresh()" class="ml-2 text-orange-600 hover:text-orange-700 dark:text-orange-400" :disabled="loading">
+        <svg class="w-3 h-3 inline" :class="{ 'animate-spin': loading }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+      </button>
+    </p>
+  </header>
+
+  <div class="layout-with-sidebar">
+    {# Main Content - Episodes #}
+    <div class="main-content">
+      {# Loading State #}
+      <div x-show="loading && episodes.length === 0" class="text-center py-12">
+        <svg class="w-8 h-8 mx-auto text-orange-600 animate-spin mb-4" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-surface-600 dark:text-surface-400">Loading episodes...</p>
+      </div>
+
+      {# Error State #}
+      <div x-show="error" class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+        <p class="text-red-700 dark:text-red-400" x-text="error"></p>
+        <button @click="refresh()" class="mt-2 text-sm text-red-600 hover:text-red-700 underline">Try again</button>
+      </div>
+
+      {# Filter by Podcast #}
+      <div x-show="episodes.length > 0" class="mb-6">
+        <div class="relative">
+          <select
+            x-model="filterPodcast"
+            class="w-full sm:w-auto appearance-none bg-surface-100 dark:bg-surface-800 border border-surface-300 dark:border-surface-600 rounded-lg px-4 py-2 pr-10 text-sm text-surface-700 dark:text-surface-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          >
+            <option value="all">All Podcasts</option>
+            <template x-for="source in sortedSources" :key="source.title">
+              <option :value="source.title" x-text="source.title"></option>
+            </template>
+          </select>
+          <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-surface-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </div>
+      </div>
+
+      {# Episodes List #}
+      <div x-show="episodes.length > 0" class="space-y-4">
+        <template x-for="episode in filteredEpisodes" :key="episode.id">
+          <article class="bg-surface-50 dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4 sm:p-6 hover:border-orange-400 dark:hover:border-orange-600 transition-colors">
+            {# Episode Header #}
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-1 min-w-0">
+                <h2 class="font-semibold text-lg text-surface-900 dark:text-surface-100 mb-1">
+                  <a :href="episode.url" class="hover:text-orange-600 dark:hover:text-orange-400" target="_blank" rel="noopener" x-text="episode.title"></a>
+                </h2>
+                <div class="flex flex-wrap items-center gap-2 text-sm text-surface-500">
+                  <a
+                    x-show="episode.podcast"
+                    :href="episode.podcast?.url || '#'"
+                    class="inline-flex items-center gap-1 px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="3"/>
+                      <path d="M12 6a6 6 0 0 0-6 6h2a4 4 0 0 1 4-4V6z"/>
+                    </svg>
+                    <span x-text="episode.podcast?.title || 'Unknown'"></span>
+                  </a>
+                  <time :datetime="episode.published" x-text="formatDate(episode.published)"></time>
+                  <span x-show="episode.enclosure" class="text-surface-400">
+                    <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.828-2.828"/>
+                    </svg>
+                    <span x-text="formatDuration(episode.enclosure?.length)"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {# Audio Player #}
+            <div x-show="episode.enclosure?.url" class="mb-4">
+              <audio
+                controls
+                preload="none"
+                class="w-full h-10 rounded-lg"
+                :src="episode.enclosure?.url"
+              >
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            {# Episode Description (text only for safety) #}
+            <p
+              x-show="episode.content"
+              class="text-sm text-surface-600 dark:text-surface-400 line-clamp-3"
+              x-text="stripHtml(episode.content)"
+            ></p>
+
+            {# Actions #}
+            <div class="flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-surface-200 dark:border-surface-700">
+              <a
+                :href="episode.url"
+                class="inline-flex items-center gap-2 text-sm text-orange-600 hover:text-orange-700 dark:text-orange-400"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+                View Episode
+              </a>
+              <a
+                x-show="episode.podcast?.feedUrl"
+                :href="episode.podcast?.feedUrl"
+                class="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300"
+                target="_blank"
+                rel="noopener"
+                title="Subscribe to feed"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="6.18" cy="17.82" r="2.18"/>
+                  <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+                </svg>
+                RSS
+              </a>
+              <button
+                class="share-post-btn"
+                :data-share-url="episode.url"
+                :data-share-title="episode.title"
+                title="Create post"
+                aria-label="Create post"
+              >
+                <span class="share-post-icon">✏️</span>
+                <span class="share-post-label">Post</span>
+              </button>
+              <button
+                class="save-later-btn"
+                :data-save-url="episode.url"
+                :data-save-title="episode.title"
+                data-save-source="podroll"
+                title="Save for later"
+                aria-label="Save for later"
+              >
+                <span class="save-later-icon">📑</span>
+                <span class="save-later-label">Save</span>
+              </button>
+            </div>
+          </article>
+        </template>
+      </div>
+
+      {# Pagination #}
+      <div x-show="hasMore" class="text-center mt-8">
+        <button
+          @click="loadMore()"
+          :disabled="loadingMore"
+          class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+        >
+          <span x-show="!loadingMore">Load More Episodes</span>
+          <span x-show="loadingMore" class="flex items-center gap-2">
+            <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+            Loading...
+          </span>
+        </button>
+      </div>
+
+      {# Empty State #}
+      <div x-show="!loading && episodes.length === 0 && !error" class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto text-surface-300 dark:text-surface-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+        </svg>
+        <p class="text-surface-600 dark:text-surface-400 text-lg">No podcast episodes yet.</p>
+        <p class="text-surface-500 text-sm mt-2">Episodes will appear once the sync completes.</p>
+      </div>
+    </div>
+
+    {# Sidebar - Podcast Sources (OPML) #}
+    <aside class="sidebar">
+      <div class="widget">
+        <h3 class="widget-title flex items-center gap-2">
+          <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+            <circle cx="6.18" cy="17.82" r="2.18"/>
+            <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+          </svg>
+          Subscriptions
+          <span class="text-sm font-normal text-surface-500" x-text="'(' + sources.length + ')'"></span>
+        </h3>
+
+        <div x-show="sources.length === 0 && !loading" class="text-sm text-surface-500 text-center py-4">
+          No subscriptions loaded yet.
+        </div>
+
+        <ul x-show="sources.length > 0" class="space-y-2">
+          <template x-for="source in sources" :key="source.xmlUrl">
+            <li class="group">
+              <a
+                :href="source.htmlUrl || source.xmlUrl"
+                class="flex items-center gap-3 p-2 -mx-2 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0">
+                  <span class="text-white text-xs font-bold" x-text="source.title.charAt(0).toUpperCase()"></span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-surface-900 dark:text-surface-100 truncate" x-text="source.title"></p>
+                  <p x-show="source.category" class="text-xs text-surface-500 truncate" x-text="source.category"></p>
+                </div>
+                <a
+                  :href="source.xmlUrl"
+                  class="opacity-0 group-hover:opacity-100 text-surface-400 hover:text-orange-600 transition-opacity"
+                  target="_blank"
+                  rel="noopener"
+                  title="RSS Feed"
+                  @click.stop
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="6.18" cy="17.82" r="2.18"/>
+                    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+                  </svg>
+                </a>
+              </a>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+function podrollApp() {
+  return {
+    episodes: [],
+    sources: [],
+    status: null,
+    loading: true,
+    loadingMore: false,
+    error: null,
+    filterPodcast: 'all',
+    offset: 0,
+    limit: 20,
+    hasMore: false,
+    refreshInterval: null,
+
+    async init() {
+      await this.fetchData();
+      // Re-fetch from API when podcast filter changes
+      this.$watch('filterPodcast', () => this.fetchEpisodes());
+      // Auto-refresh every 5 minutes
+      this.refreshInterval = setInterval(() => this.fetchData(true), 5 * 60 * 1000);
+    },
+
+    async fetchData(silent = false) {
+      if (!silent) this.loading = true;
+      this.error = null;
+
+      try {
+        const [episodesRes, sourcesRes, statusRes] = await Promise.all([
+          fetch(`/podrollapi/api/episodes?limit=${this.limit}`).then(r => r.json()),
+          fetch('/podrollapi/api/sources').then(r => r.json()),
+          fetch('/podrollapi/api/status').then(r => r.json())
+        ]);
+
+        this.episodes = episodesRes.items || [];
+        this.hasMore = episodesRes.hasMore || false;
+        this.offset = 0;
+        this.sources = sourcesRes.items || [];
+        this.status = statusRes;
+      } catch (err) {
+        this.error = 'Failed to load podcasts: ' + err.message;
+        console.error('Podroll fetch error:', err);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async fetchEpisodes() {
+      this.loading = true;
+      this.error = null;
+      this.offset = 0;
+
+      try {
+        let url = `/podrollapi/api/episodes?limit=${this.limit}`;
+        if (this.filterPodcast !== 'all') {
+          url += `&source=${encodeURIComponent(this.filterPodcast)}`;
+        }
+        const res = await fetch(url).then(r => r.json());
+        this.episodes = res.items || [];
+        this.hasMore = res.hasMore || false;
+      } catch (err) {
+        this.error = 'Failed to load episodes: ' + err.message;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async loadMore() {
+      this.loadingMore = true;
+      const newOffset = this.offset + this.limit;
+
+      try {
+        let url = `/podrollapi/api/episodes?limit=${this.limit}&offset=${newOffset}`;
+        if (this.filterPodcast !== 'all') {
+          url += `&source=${encodeURIComponent(this.filterPodcast)}`;
+        }
+        const res = await fetch(url).then(r => r.json());
+        this.episodes = [...this.episodes, ...(res.items || [])];
+        this.hasMore = res.hasMore || false;
+        this.offset = newOffset;
+      } catch (err) {
+        console.error('Load more error:', err);
+      } finally {
+        this.loadingMore = false;
+      }
+    },
+
+    async refresh() {
+      this.filterPodcast = 'all';
+      await this.fetchData();
+    },
+
+    get filteredEpisodes() {
+      return this.episodes;
+    },
+
+    get sortedSources() {
+      return [...this.sources].sort((a, b) => a.title.localeCompare(b.title));
+    },
+
+    formatDate(dateStr, format = 'short') {
+      if (!dateStr) return '';
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return '';
+
+      if (format === 'full') {
+        return date.toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+      }
+      return date.toLocaleDateString(undefined, {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+    },
+
+    formatDuration(bytes) {
+      if (!bytes) return '';
+      const mb = bytes / (1024 * 1024);
+      return mb.toFixed(1) + ' MB';
+    },
+
+    stripHtml(html) {
+      if (!html) return '';
+      // Use textContent to safely extract text without executing HTML
+      const div = document.createElement('div');
+      div.textContent = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      return div.textContent.substring(0, 500);
+    }
+  };
+}
+</script>

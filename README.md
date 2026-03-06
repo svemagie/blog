@@ -1,2 +1,498 @@
-# blog :)
-try to emulate https://rmendes.net/
+# Indiekit Eleventy Theme
+
+A modern, IndieWeb-native Eleventy theme designed for [Indiekit](https://getindiekit.com/)-powered personal websites. Own your content, syndicate everywhere.
+
+## Features
+
+### IndieWeb First
+
+This theme is built from the ground up for the IndieWeb:
+
+- **Microformats2** markup (h-card, h-entry, h-feed, h-cite)
+- **Webmentions** via webmention.io (likes, reposts, replies)
+- **IndieAuth** with rel="me" verification
+- **Micropub** integration with Indiekit
+- **POSSE** syndication to Bluesky, Mastodon, LinkedIn, IndieNews
+
+### Full Post Type Support
+
+All IndieWeb post types via Indiekit:
+- **Articles** — Long-form blog posts with titles
+- **Notes** — Short status updates (like tweets)
+- **Photos** — Image posts with multi-photo galleries
+- **Bookmarks** — Save and share links with descriptions
+- **Likes** — Appreciate others' content
+- **Replies** — Respond to posts across the web
+- **Reposts** — Share others' content
+- **Pages** — Root-level slash pages (/about, /now, /uses)
+
+### Homepage Builder
+
+Dynamic, plugin-configured homepage with:
+- **Hero section** with avatar, bio, social links
+- **Recent posts** with configurable filtering
+- **CV sections** (experience, skills, education, projects, interests)
+- **Custom HTML** sections from admin UI
+- **Two-column layout** with configurable sidebar
+- **Single-column** or **full-width hero** layouts
+
+### Plugin Integration
+
+Integrates with custom Indiekit endpoint plugins:
+
+| Plugin | Features |
+|--------|----------|
+| `@rmdes/indiekit-endpoint-homepage` | Dynamic homepage builder with admin UI |
+| `@rmdes/indiekit-endpoint-cv` | CV/resume builder with admin UI |
+| `@rmdes/indiekit-endpoint-github` | GitHub activity, commits, stars, featured repos |
+| `@rmdes/indiekit-endpoint-funkwhale` | Listening activity from Funkwhale |
+| `@rmdes/indiekit-endpoint-lastfm` | Scrobbles and loved tracks from Last.fm |
+| `@rmdes/indiekit-endpoint-youtube` | Channel info, latest videos, live status |
+| `@rmdes/indiekit-endpoint-blogroll` | OPML/Microsub blog aggregator with admin UI |
+| `@rmdes/indiekit-endpoint-podroll` | Podcast episode aggregator |
+| `@rmdes/indiekit-endpoint-rss` | RSS feed reader with MongoDB caching |
+| `@rmdes/indiekit-endpoint-microsub` | Social reader with channels and timeline |
+
+### Modern Tech Stack
+
+- **Eleventy 3.0** — Fast, flexible static site generator
+- **Tailwind CSS** — Utility-first styling with dark mode
+- **Alpine.js** — Lightweight JavaScript framework
+- **Pagefind** — Fast client-side search
+- **Markdown-it** — Rich markdown with auto-linking
+- **Image optimization** — Automatic WebP conversion, lazy loading
+
+## Installation
+
+### As a Git Submodule (Recommended)
+
+This theme is designed to be used as a Git submodule in your Indiekit deployment repository:
+
+```bash
+# In your Indiekit deployment repo
+git submodule add https://github.com/rmdes/indiekit-eleventy-theme.git eleventy-site
+git submodule update --init --recursive
+cd eleventy-site
+npm install
+```
+
+**Why submodule?** Keeps the theme neutral (no personal data), allows upstream updates, and separates theme development from deployment.
+
+### Standalone Installation
+
+For local development or testing:
+
+```bash
+git clone https://github.com/rmdes/indiekit-eleventy-theme.git
+cd indiekit-eleventy-theme
+npm install
+```
+
+## Configuration
+
+**All configuration is done via environment variables** — the theme contains no hardcoded personal data.
+
+### Required Variables
+
+```bash
+# Site basics
+SITE_URL="https://your-site.com"
+SITE_NAME="Your Site Name"
+SITE_DESCRIPTION="A short description of your site"
+SITE_LOCALE="en"
+
+# Author info (displayed in h-card)
+AUTHOR_NAME="Your Name"
+AUTHOR_BIO="A short bio about yourself"
+AUTHOR_AVATAR="/images/avatar.jpg"
+```
+
+### Social Links
+
+Format: `Name|URL|icon,Name|URL|icon`
+
+```bash
+SITE_SOCIAL="GitHub|https://github.com/you|github,Mastodon|https://mastodon.social/@you|mastodon,Bluesky|https://bsky.app/profile/you|bluesky"
+```
+
+**Auto-generation:** If `SITE_SOCIAL` is not set, social links are automatically generated from feed credentials (GitHub, Bluesky, Mastodon, LinkedIn).
+
+### Optional Author Fields
+
+```bash
+AUTHOR_TITLE="Software Developer"
+AUTHOR_LOCATION="City, Country"
+AUTHOR_LOCALITY="City"
+AUTHOR_REGION="State/Province"
+AUTHOR_COUNTRY="Country"
+AUTHOR_ORG="Company Name"
+AUTHOR_PRONOUN="they/them"
+AUTHOR_CATEGORIES="IndieWeb,Open Source,Photography"  # Comma-separated
+AUTHOR_KEY_URL="https://keybase.io/you/pgp_keys.asc"
+AUTHOR_EMAIL="you@example.com"
+```
+
+### Social Activity Feeds
+
+For sidebar social activity widgets:
+
+```bash
+# Bluesky
+BLUESKY_HANDLE="you.bsky.social"
+
+# Mastodon
+MASTODON_INSTANCE="https://mastodon.social"
+MASTODON_USER="your-username"
+```
+
+### Plugin API Credentials
+
+#### GitHub Activity
+```bash
+GITHUB_USERNAME="your-username"
+GITHUB_TOKEN="ghp_xxxx"  # Personal access token (optional, increases rate limit)
+GITHUB_FEATURED_REPOS="user/repo1,user/repo2"  # Comma-separated
+```
+
+#### Funkwhale
+```bash
+FUNKWHALE_INSTANCE="https://your-instance.com"
+FUNKWHALE_USERNAME="your-username"
+FUNKWHALE_TOKEN="your-api-token"
+```
+
+#### YouTube
+```bash
+YOUTUBE_API_KEY="your-api-key"
+YOUTUBE_CHANNELS="@channel1,@channel2"  # Comma-separated handles
+```
+
+#### LinkedIn
+```bash
+LINKEDIN_USERNAME="your-username"
+```
+
+### Post Type Configuration
+
+Control which post types appear in navigation:
+
+```bash
+# Option 1: Environment variable (comma-separated)
+POST_TYPES="article,note,photo,bookmark"
+
+# Option 2: JSON file (written by Indiekit or deployer)
+# Create content/.indiekit/post-types.json:
+# ["article", "note", "photo"]
+```
+
+**Default:** All standard post types enabled (article, note, photo, bookmark, like, reply, repost).
+
+## Directory Structure
+
+```
+indiekit-eleventy-theme/
+├── _data/                    # Data files
+│   ├── site.js              # Site config from env vars
+│   ├── cv.js                # CV data from plugin
+│   ├── homepageConfig.js    # Homepage layout from plugin
+│   ├── enabledPostTypes.js  # Post types for navigation
+│   ├── githubActivity.js    # GitHub data (Indiekit API → GitHub API fallback)
+│   ├── funkwhaleActivity.js # Funkwhale listening activity
+│   ├── lastfmActivity.js    # Last.fm scrobbles
+│   ├── youtubeChannel.js    # YouTube channel info
+│   ├── blueskyFeed.js       # Bluesky posts for sidebar
+│   ├── mastodonFeed.js      # Mastodon posts for sidebar
+│   ├── blogrollStatus.js    # Blogroll API availability check
+│   └── urlAliases.js        # Legacy URL mappings for webmentions
+├── _includes/
+│   ├── layouts/
+│   │   ├── base.njk         # Base HTML shell (header, footer, nav)
+│   │   ├── home.njk         # Homepage layout (plugin vs default)
+│   │   ├── post.njk         # Individual post (h-entry, webmentions)
+│   │   └── page.njk         # Simple page layout
+│   ├── components/
+│   │   ├── homepage-builder.njk  # Renders plugin homepage config
+│   │   ├── homepage-section.njk  # Section router
+│   │   ├── sidebar.njk           # Default sidebar
+│   │   ├── h-card.njk            # Author identity card
+│   │   ├── reply-context.njk     # Reply/like/repost context
+│   │   └── webmentions.njk       # Webmention display + form
+│   │   ├── sections/
+│   │   │   ├── hero.njk          # Homepage hero
+│   │   │   ├── recent-posts.njk  # Recent posts grid
+│   │   │   ├── cv-experience.njk # Work experience timeline
+│   │   │   ├── cv-skills.njk     # Skills with proficiency
+│   │   │   ├── cv-education.njk  # Education history
+│   │   │   ├── cv-projects.njk   # Featured projects
+│   │   │   ├── cv-interests.njk  # Personal interests
+│   │   │   └── custom-html.njk   # Custom HTML content
+│   │   └── widgets/
+│   │       ├── author-card.njk   # Sidebar h-card
+│   │       ├── social-activity.njk  # Bluesky/Mastodon feed
+│   │       ├── github-repos.njk  # GitHub featured repos
+│   │       ├── funkwhale.njk     # Now playing widget
+│   │       ├── blogroll.njk      # Recently updated blogs
+│   │       └── categories.njk    # Category list
+├── css/
+│   ├── tailwind.css         # Tailwind source
+│   ├── style.css            # Compiled output (generated)
+│   └── prism-theme.css      # Syntax highlighting theme
+├── js/
+│   ├── webmentions.js       # Client-side webmention fetcher
+│   └── admin.js             # Admin auth detection (shows FAB + dashboard link)
+├── images/                  # Static images
+├── *.njk                    # Page templates (blog, about, cv, etc.)
+├── eleventy.config.js       # Eleventy configuration
+├── tailwind.config.js       # Tailwind configuration
+├── postcss.config.js        # PostCSS pipeline
+└── package.json             # Dependencies and scripts
+```
+
+## Usage
+
+### Development
+
+```bash
+# Install dependencies
+npm install
+
+# Development server with hot reload
+npm run dev
+# → http://localhost:8080
+
+# Build for production
+npm run build
+# → Output to _site/
+
+# Build CSS only (after Tailwind config changes)
+npm run build:css
+```
+
+### Content Directory
+
+The theme expects content in a `content/` directory (typically a symlink to Indiekit's content store):
+
+```
+content/
+├── .indiekit/               # Plugin data files
+│   ├── homepage.json        # Homepage builder config
+│   ├── cv.json              # CV data
+│   └── post-types.json      # Enabled post types
+├── articles/
+│   └── 2025-01-15-post.md
+├── notes/
+│   └── 2025-01-15-note.md
+├── photos/
+│   └── 2025-01-15-photo.md
+└── pages/
+    └── about.md             # Slash page
+```
+
+## Customization
+
+### Colors and Typography
+
+Edit `tailwind.config.js`:
+
+```javascript
+theme: {
+  extend: {
+    colors: {
+      primary: {
+        500: "#3b82f6",  // Your primary color
+        600: "#2563eb",
+        // ...
+      },
+    },
+    fontFamily: {
+      sans: ["Your Font", "system-ui", "sans-serif"],
+    },
+  },
+}
+```
+
+Then rebuild CSS: `npm run build:css`
+
+### Dark Mode
+
+The theme includes full dark mode support with `dark:` variants. Toggle is available in header/mobile nav, syncs with system preference.
+
+### Override Files
+
+When using as a submodule, place override files in your parent repo:
+
+```
+your-deployment-repo/
+├── overrides/
+│   └── eleventy-site/
+│       ├── _data/           # Override data files
+│       ├── images/          # Your images
+│       └── about.njk        # Override templates
+└── eleventy-site/           # This theme (submodule)
+```
+
+Override files are copied over the submodule during build.
+
+**Warning:** Be careful with `_data/` overrides — they can shadow dynamic plugin data. Use only for truly static customizations.
+
+## Plugin Integration
+
+### How Plugins Provide Data
+
+Indiekit plugins write JSON files to `content/.indiekit/*.json`. The theme's `_data/*.js` files read these JSON files at build time.
+
+**Example flow:**
+
+1. User edits CV in Indiekit admin UI (`/cv`)
+2. `@rmdes/indiekit-endpoint-cv` saves to `content/.indiekit/cv.json`
+3. Eleventy rebuild triggers (`_data/cv.js` reads the JSON file)
+4. CV sections render with new data
+
+### Homepage Builder
+
+The homepage builder is controlled by `@rmdes/indiekit-endpoint-homepage`:
+
+1. Plugin provides admin UI at `/homepage`
+2. User configures layout, sections, sidebar widgets
+3. Plugin writes `content/.indiekit/homepage.json`
+4. Theme renders configured layout (or falls back to default)
+
+**Fallback:** If no homepage plugin is installed, the theme shows a default layout (hero + recent posts + sidebar).
+
+### Adding Custom Sections
+
+To add a custom homepage section:
+
+1. Create template in `_includes/components/sections/your-section.njk`
+2. Register in `_includes/components/homepage-section.njk`:
+
+```nunjucks
+{% if section.type == "your-section" %}
+  {% include "components/sections/your-section.njk" %}
+{% endif %}
+```
+
+3. Plugin should register the section via `homepageSections` in Indiekit
+
+## Deployment
+
+### Cloudron
+
+See `indiekit-cloudron` repository for Cloudron deployment with this theme as submodule.
+
+### Docker Compose
+
+See `indiekit-deploy` repository for Docker Compose deployment with this theme as submodule.
+
+### Static Host (Netlify, Vercel, etc.)
+
+1. **Not recommended** — Indiekit needs a server for Micropub/Webmentions
+2. For static-only use (no Indiekit), set all env vars and run `npm run build`
+3. Deploy `_site/` directory
+
+## Pages Included
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Home | `/` | Dynamic homepage (plugin or default) |
+| About | `/about/` | Full h-card with bio |
+| CV | `/cv/` | Resume with all sections |
+| Blog | `/blog/` | All posts chronologically |
+| Articles | `/articles/` | Long-form articles |
+| Notes | `/notes/` | Short status updates |
+| Photos | `/photos/` | Photo posts |
+| Bookmarks | `/bookmarks/` | Saved links |
+| Likes | `/likes/` | Liked posts |
+| Replies | `/replies/` | Responses to others |
+| Reposts | `/reposts/` | Shared content |
+| Interactions | `/interactions/` | Combined social interactions |
+| Slashes | `/slashes/` | Index of all slash pages |
+| Categories | `/categories/` | Posts by category |
+| GitHub | `/github/` | GitHub activity (if plugin enabled) |
+| Funkwhale | `/funkwhale/` | Listening history (if plugin enabled) |
+| Last.fm | `/listening/` | Last.fm scrobbles (if plugin enabled) |
+| YouTube | `/youtube/` | YouTube channel (if plugin enabled) |
+| Blogroll | `/blogroll/` | Blog aggregator (if plugin enabled) |
+| Podroll | `/podroll/` | Podcast episodes (if plugin enabled) |
+| IndieNews | `/news/` | IndieNews submissions (if plugin enabled) |
+| Search | `/search/` | Pagefind search UI |
+| RSS Feed | `/feed.xml` | RSS 2.0 feed |
+| JSON Feed | `/feed.json` | JSON Feed 1.1 |
+| Changelog | `/changelog/` | Site changelog |
+
+## IndieWeb Resources
+
+- [IndieWebify.me](https://indiewebify.me/) — Test your IndieWeb implementation
+- [Microformats Wiki](https://microformats.org/wiki/h-card) — Microformats2 reference
+- [webmention.io](https://webmention.io/) — Webmention service
+- [IndieAuth](https://indieauth.com/) — Authentication protocol
+- [Bridgy](https://brid.gy/) — Backfeed social interactions
+
+## Troubleshooting
+
+### Webmentions not appearing
+
+**Solution:**
+1. Check `SITE_URL` matches your live domain exactly
+2. Verify webmention.io API is responding: `https://webmention.io/api/mentions?target=https://your-site.com/`
+3. Check build-time cache at `/webmention-debug/`
+4. Ensure post URLs match exactly (with/without trailing slash)
+
+### Plugin data not showing
+
+**Solution:**
+1. Verify the plugin is installed and running in Indiekit
+2. Check environment variables are set correctly
+3. Check `content/.indiekit/*.json` files exist and are valid JSON
+4. Rebuild Eleventy to refresh data: `npm run build`
+
+### Dark mode not working
+
+**Solution:**
+1. Check browser console for JavaScript errors
+2. Verify Alpine.js loaded: `<script src="...alpinejs..."></script>`
+3. Clear localStorage: `localStorage.removeItem('theme')`
+
+### Search not working
+
+**Solution:**
+1. Check Pagefind indexed: `_site/_pagefind/` directory exists
+2. Rebuild with search indexing: `npm run build`
+3. Check search page is not blocked by CSP headers
+
+## Contributing
+
+This theme is tailored for a specific Indiekit deployment but designed to be adaptable. Contributions welcome:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test with `npm run dev`
+5. Submit a pull request
+
+**Guidelines:**
+- Keep theme neutral (no hardcoded personal data)
+- Use environment variables for all configuration
+- Maintain microformats2 markup
+- Test dark mode
+- Follow existing code style (ESM, Nunjucks, Tailwind)
+
+## License
+
+MIT
+
+## Credits
+
+- Built for [Indiekit](https://getindiekit.com/) by Paul Robert Lloyd
+- Inspired by the [IndieWeb](https://indieweb.org/) community
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- Icons from [Heroicons](https://heroicons.com/)
+- Search by [Pagefind](https://pagefind.app/)
+- Static site generation by [Eleventy](https://11ty.dev/)
+
+## Related Projects
+
+- [Indiekit](https://github.com/getindiekit/indiekit) — Micropub server
+- [indiekit-cloudron](https://github.com/rmdes/indiekit-cloudron) — Cloudron deployment
+- [indiekit-deploy](https://github.com/rmdes/indiekit-deploy) — Docker Compose deployment
+- [@rmdes/indiekit-endpoint-*](https://github.com/rmdes?tab=repositories) — Custom Indiekit plugins
