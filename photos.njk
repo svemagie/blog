@@ -14,7 +14,7 @@ permalink: "photos/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumb
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Photos</h1>
     {% set sparklineSvg = collections.photos | postingFrequency %}
     {% if sparklineSvg %}
-    <span class="text-purple-600 dark:text-purple-400">{{ sparklineSvg | safe }}</span>
+    <div class="flex-1 min-w-0 text-purple-600 dark:text-purple-400">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -27,7 +27,7 @@ permalink: "photos/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumb
     {% for post in paginatedPhotos %}
     <li class="h-entry post-card border-l-[3px] border-l-purple-400 dark:border-l-purple-500">
       <div class="post-meta">
-        <time class="dt-published" datetime="{{ post.date | isoDate }}">
+        <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}
         </time>
         {% if post.data.category %}
@@ -59,7 +59,7 @@ permalink: "photos/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumb
       {% if post.templateContent %}
       <div class="e-content photo-caption prose dark:prose-invert prose-sm mt-3 max-w-none">{{ post.templateContent | safe }}</div>
       {% endif %}
-      <a class="u-url text-sm text-purple-600 dark:text-purple-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+      <a class="u-url text-sm text-purple-600 dark:text-purple-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Photo from ' + (post.date | dateDisplay)) }}">Permalink</a>
     </li>
     {% endfor %}
   </ul>
@@ -77,7 +77,7 @@ permalink: "photos/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumb
         Previous
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         Previous
       </span>
@@ -89,7 +89,7 @@ permalink: "photos/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumb
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         Next
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>

@@ -13,7 +13,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Blog</h1>
     {% set sparklineSvg = collections.posts | postingFrequency %}
     {% if sparklineSvg %}
-    <span class="text-amber-600 dark:text-amber-400">{{ sparklineSvg | safe }}</span>
+    <div class="flex-1 min-w-0 text-amber-600 dark:text-amber-400">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -22,20 +22,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
   </p>
 
   {% if paginatedPosts.length > 0 %}
-  <filter-container oninit leave-url-alone>
-    <div class="flex flex-wrap gap-3 mb-6">
-      <select data-filter-key="type" class="px-3 py-1.5 text-sm bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg">
-        <option value="">All Types</option>
-        <option value="article">Articles</option>
-        <option value="note">Notes</option>
-        <option value="photo">Photos</option>
-        <option value="bookmark">Bookmarks</option>
-        <option value="like">Likes</option>
-        <option value="reply">Replies</option>
-        <option value="repost">Reposts</option>
-      </select>
-      <span data-filter-results class="text-sm text-surface-500 dark:text-surface-400 self-center"></span>
-    </div>
+  <nav class="flex flex-wrap gap-2 mb-6" aria-label="Filter by post type">
+    <a href="/blog/" class="px-3 py-1.5 text-sm font-medium rounded-full bg-accent-600 text-white dark:bg-accent-700">All Posts <span class="opacity-75">({{ collections.posts.length }})</span></a>
+    {% for pt in enabledPostTypes %}
+    {% set collName = pt.label | lower %}
+    <a href="{{ pt.path }}" class="px-3 py-1.5 text-sm font-medium rounded-full bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 border border-surface-200 dark:border-surface-700 transition-colors">{{ pt.label }}{% if collections[collName] %} <span class="text-surface-600 dark:text-surface-400">({{ collections[collName].length }})</span>{% endif %}</a>
+    {% endfor %}
+  </nav>
   <ul class="post-list">
     {% for post in paginatedPosts %}
     {# Detect post type from frontmatter properties #}
@@ -44,7 +37,6 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
     {% set replyToUrl = post.data.inReplyTo or post.data.in_reply_to %}
     {% set hasPhotos = post.data.photo and post.data.photo.length %}
-    {% set _postType %}{% if likedUrl %}like{% elif bookmarkedUrl %}bookmark{% elif repostedUrl %}repost{% elif replyToUrl %}reply{% elif hasPhotos %}photo{% elif post.data.title %}article{% else %}note{% endif %}{% endset %}
     {% set borderClass = "" %}
     {% if likedUrl %}
       {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
@@ -56,10 +48,12 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {% set borderClass = "border-l-[3px] border-l-sky-400 dark:border-l-sky-500" %}
     {% elif hasPhotos %}
       {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
+    {% elif post.data.title %}
+      {% set borderClass = "border-l-[3px] border-l-indigo-400 dark:border-l-indigo-500" %}
     {% else %}
-      {% set borderClass = "border-l-[3px] border-l-surface-300 dark:border-l-surface-600" %}
+      {% set borderClass = "border-l-[3px] border-l-teal-400 dark:border-l-teal-500" %}
     {% endif %}
-    <li class="h-entry post-card {{ borderClass }}" data-filter-type="{{ _postType | trim }}">
+    <li class="h-entry post-card {{ borderClass }}">
 
       {% if likedUrl %}
       {# ── Like card ── #}
@@ -72,7 +66,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-red-600 dark:text-red-400">Liked</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -88,7 +82,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% endif %}
           </div>
           {% unfurl likedUrl %}
-          <a class="u-like-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
+          <a class="u-like-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
             {{ likedUrl }}
           </a>
           {% if post.templateContent %}
@@ -96,7 +90,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-sm text-red-600 dark:text-red-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Like from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -111,7 +105,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-amber-600 dark:text-amber-400">Bookmarked</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -128,11 +122,11 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           </div>
           {% if post.data.title %}
           <h2 class="p-name text-lg font-semibold text-surface-900 dark:text-surface-100 mt-2">
-            <a class="hover:text-accent-600 dark:hover:text-accent-400" href="{{ post.url }}">{{ post.data.title }}</a>
+            <a class="hover:text-amber-600 dark:hover:text-amber-400" href="{{ post.url }}">{{ post.data.title }}</a>
           </h2>
           {% endif %}
           {% unfurl bookmarkedUrl %}
-          <a class="u-bookmark-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ bookmarkedUrl }}">
+          <a class="u-bookmark-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ bookmarkedUrl }}">
             {{ bookmarkedUrl }}
           </a>
           {% if post.templateContent %}
@@ -140,7 +134,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-sm text-amber-600 dark:text-amber-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Bookmark from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -155,7 +149,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-green-600 dark:text-green-400">Reposted</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -171,7 +165,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% endif %}
           </div>
           {% unfurl repostedUrl %}
-          <a class="u-repost-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ repostedUrl }}">
+          <a class="u-repost-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ repostedUrl }}">
             {{ repostedUrl }}
           </a>
           {% if post.templateContent %}
@@ -179,7 +173,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-sm text-green-600 dark:text-green-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Repost from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -194,7 +188,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-sky-600 dark:text-sky-400">In reply to</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -210,13 +204,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% endif %}
           </div>
           {% unfurl replyToUrl %}
-          <a class="u-in-reply-to text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ replyToUrl }}">
+          <a class="u-in-reply-to text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ replyToUrl }}">
             {{ replyToUrl }}
           </a>
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
-          <a class="u-url text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-sm text-sky-600 dark:text-sky-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Reply from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -232,7 +226,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-purple-600 dark:text-purple-400">Photo</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -263,7 +257,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-sm text-purple-600 dark:text-purple-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Photo from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -271,12 +265,12 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Article card (unchanged) ── #}
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1">
-          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400" href="{{ post.url }}">
+          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-indigo-600 dark:hover:text-indigo-400" href="{{ post.url }}">
             {{ post.data.title }}
           </a>
         </h2>
         <div class="post-meta">
-          <time class="dt-published" datetime="{{ post.date | isoDate }}">
+          <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time>
           {% if post.data.category %}
@@ -295,7 +289,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
       </p>
-      <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-block">
+      <a href="{{ post.url }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline mt-3 inline-block">
         Read more &rarr;
       </a>
 
@@ -303,7 +297,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Note card (unchanged) ── #}
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
-          <time-difference><time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium" datetime="{{ post.date | isoDate }}">
+          <time-difference><time class="dt-published text-sm text-surface-600 dark:text-surface-400 font-medium font-mono" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time></time-difference>
         </a>
@@ -323,7 +317,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         {{ post.templateContent | safe }}
       </div>
       <div class="post-footer mt-3">
-        <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline">
+        <a href="{{ post.url }}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
           Permalink
         </a>
       </div>
@@ -333,7 +327,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {% set postAiText = post.data.aiTextLevel or post.data.ai_text_level %}
       {% set postAiCode = post.data.aiCodeLevel or post.data.ai_code_level %}
       {% if (postAiText and postAiText !== "0") or (postAiCode and postAiCode !== "0") %}
-      <span class="inline-flex items-center gap-1 mt-2 px-1.5 py-0.5 rounded text-[10px] font-medium bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-400" title="AI usage: Text level {{ postAiText or '–' }}, Code level {{ postAiCode or '–' }}">
+      <span class="inline-flex items-center gap-1 mt-2 px-1.5 py-0.5 rounded text-[10px] font-medium bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400" title="AI usage: Text level {{ postAiText or '–' }}, Code level {{ postAiCode or '–' }}">
         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 01-1.59.659H9.06a2.25 2.25 0 01-1.591-.659L5 14.5m14 0V17a2 2 0 01-2 2H7a2 2 0 01-2-2v-2.5"/></svg>
         AI{% if postAiText %}: T{{ postAiText }}{% endif %}{% if postAiCode %}/C{{ postAiCode }}{% endif %}
       </span>
@@ -341,7 +335,6 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     </li>
     {% endfor %}
   </ul>
-  </filter-container>
 
   {# Pagination controls #}
   {% if pagination.pages.length > 1 %}
@@ -356,7 +349,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         Previous
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         Previous
       </span>
@@ -368,7 +361,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         Next
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>

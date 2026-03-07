@@ -16,7 +16,7 @@
     {% for item in cv.education %}
     {% if not filterType or item.educationType == filterType or not item.educationType %}
     {% set ci = loop.index0 % 8 %}
-    <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 transition-colors overflow-hidden border-l-[3px]
+    <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm transition-colors overflow-hidden border-l-[3px]
       {% if ci == 0 %}border-l-amber-400 dark:border-l-amber-500
       {% elif ci == 1 %}border-l-emerald-400 dark:border-l-emerald-500
       {% elif ci == 2 %}border-l-sky-400 dark:border-l-sky-500
@@ -40,11 +40,11 @@
         </div>
         <div class="flex items-center gap-2 shrink-0">
           {% if item.startDate %}
-          <span class="text-xs text-surface-500 hidden sm:inline">
+          <span class="text-xs text-surface-600 dark:text-surface-400 hidden sm:inline font-mono">
             {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
           </span>
           {% elif item.year %}
-          <span class="text-xs text-surface-500 hidden sm:inline">{{ item.year }}</span>
+          <span class="text-xs text-surface-600 dark:text-surface-400 hidden sm:inline font-mono">{{ item.year }}</span>
           {% endif %}
           <svg
             class="w-4 h-4 text-surface-400 transition-transform duration-200"
@@ -69,11 +69,11 @@
         class="px-4 pb-4"
       >
         {% if item.startDate %}
-        <p class="text-xs text-surface-500 mb-1 sm:hidden">
+        <p class="text-xs text-surface-600 dark:text-surface-400 mb-1 sm:hidden font-mono">
           {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
         </p>
         {% elif item.year %}
-        <p class="text-xs text-surface-500 mb-1 sm:hidden">{{ item.year }}</p>
+        <p class="text-xs text-surface-600 dark:text-surface-400 mb-1 sm:hidden font-mono">{{ item.year }}</p>
         {% endif %}
 
         {% if item.description %}

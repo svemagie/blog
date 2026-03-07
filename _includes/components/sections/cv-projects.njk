@@ -16,7 +16,7 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
     {% for item in cv.projects | head(maxItems) %}
     {% set ci = loop.index0 % 8 %}
-    <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 transition-colors overflow-hidden border-l-[3px]
+    <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm transition-colors overflow-hidden border-l-[3px]
       {% if ci == 0 %}border-l-amber-400 dark:border-l-amber-500
       {% elif ci == 1 %}border-l-emerald-400 dark:border-l-emerald-500
       {% elif ci == 2 %}border-l-sky-400 dark:border-l-sky-500
@@ -52,7 +52,7 @@
         </div>
         <div class="flex items-center gap-2 shrink-0">
           {% if item.startDate %}
-          <span class="text-xs text-surface-500 hidden sm:inline">
+          <span class="text-xs text-surface-600 dark:text-surface-400 hidden sm:inline font-mono">
             {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
           </span>
           {% endif %}
@@ -79,7 +79,7 @@
         class="px-4 pb-4"
       >
         {% if item.startDate %}
-        <p class="text-xs text-surface-500 mb-1 sm:hidden">
+        <p class="text-xs text-surface-600 dark:text-surface-400 mb-1 sm:hidden font-mono">
           {{ item.startDate }}{% if item.endDate %} – {{ item.endDate }}{% else %} – Present{% endif %}
         </p>
         {% endif %}
@@ -91,7 +91,7 @@
         {% if showTechnologies and item.technologies and item.technologies.length %}
         <div class="flex flex-wrap gap-1">
           {% for tech in item.technologies %}
-          <span class="text-xs px-2 py-0.5 rounded
+          <span class="text-xs px-2 py-0.5 rounded-full
             {% if ci == 0 %}bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300
             {% elif ci == 1 %}bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300
             {% elif ci == 2 %}bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300

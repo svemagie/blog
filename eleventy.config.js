@@ -7,6 +7,7 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
+import { minify as minifyJS } from "terser";
 import registerUnfurlShortcode, { getCachedCard, prefetchUrl } from "./lib/unfurl-shortcode.js";
 import matter from "gray-matter";
 import { createHash, createHmac } from "crypto";
@@ -245,11 +246,18 @@ export default function (eleventyConfig) {
   });
 
   // Embed Everything - auto-embed YouTube, Vimeo, Bluesky, Mastodon, etc.
+  // YouTube uses lite-yt-embed facade: shows thumbnail + play button,
+  // only loads full iframe on click (~800 KiB savings).
+  // CSS/JS disabled here — already loaded in base.njk.
   eleventyConfig.addPlugin(embedEverything, {
     use: ["youtube", "vimeo", "twitter", "mastodon", "bluesky", "spotify", "soundcloud"],
     youtube: {
       options: {
-        lite: false,
+        lite: {
+          css: { enabled: false },
+          js: { enabled: false },
+          responsive: true,
+        },
         recommendSelfOnly: true,
       },
     },
@@ -269,7 +277,8 @@ export default function (eleventyConfig) {
   // Usage: {{ url | unfurlCard | safe }}
   eleventyConfig.addFilter("unfurlCard", getCachedCard);
 
-  // Custom transform to convert YouTube links to embeds
+  // Custom transform to convert YouTube links to lite-youtube embeds
+  // Catches bare YouTube links in Markdown that the embed plugin misses
   eleventyConfig.addTransform("youtube-link-to-embed", function (content, outputPath) {
     if (!outputPath || !outputPath.endsWith(".html")) {
       return content;
@@ -279,8 +288,8 @@ export default function (eleventyConfig) {
     const youtubePattern = /<a[^>]+href="https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)[^"]*"[^>]*>(?:https?:\/\/)?(?:www\.)?[^<]*(?:youtube|youtu\.be)[^<]*<\/a>/gi;
 
     content = content.replace(youtubePattern, (match, videoId) => {
-      // Use standard YouTube iframe with exact oEmbed parameters
-      return `</p><div class="video-embed"><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="YouTube video"></iframe></div><p>`;
+      // Use lite-youtube facade — loads full iframe only on click
+      return `</p><div class="video-embed eleventy-plugin-youtube-embed"><lite-youtube videoid="${videoId}" style="background-image: url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg');"><div class="lty-playbtn"></div></lite-youtube></div><p>`;
     });
 
     // Clean up empty <p></p> tags created by the replacement
@@ -316,7 +325,7 @@ export default function (eleventyConfig) {
     cacheOptions: {
       duration: process.env.ELEVENTY_RUN_MODE === "build" ? "1d" : "30d",
     },
-    concurrency: 4,
+    concurrency: 1,
     defaultAttributes: {
       loading: "lazy",
       decoding: "async",
@@ -387,6 +396,52 @@ export default function (eleventyConfig) {
     }
 
     return content;
+  });
+
+  // Auto-unfurl standalone external links in note content
+  // Finds <a> tags that are the primary content of a <p> tag and injects OG preview cards
+  eleventyConfig.addTransform("auto-unfurl-notes", async function (content, outputPath) {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+    // Only process note pages (individual + listing)
+    if (!outputPath.includes("/notes/")) return content;
+
+    // Match <p> tags whose content is short text + a single external <a> as the last element
+    // Pattern: <p>optional short text <a href="https://external.example">...</a></p>
+    const linkParagraphRe = /<p>([^<]{0,80})?<a\s+href="(https?:\/\/[^"]+)"[^>]*>[^<]*<\/a>\s*<\/p>/g;
+    const siteHost = new URL(siteUrl).hostname;
+    const matches = [];
+
+    let match;
+    while ((match = linkParagraphRe.exec(content)) !== null) {
+      const url = match[2];
+      try {
+        const linkHost = new URL(url).hostname;
+        // Skip same-domain links and common non-content URLs
+        if (linkHost === siteHost || linkHost.endsWith("." + siteHost)) continue;
+        matches.push({ fullMatch: match[0], url, index: match.index });
+      } catch {
+        continue;
+      }
+    }
+
+    if (matches.length === 0) return content;
+
+    // Unfurl all matched URLs in parallel (uses cache, throttles network)
+    const cards = await Promise.all(matches.map(m => prefetchUrl(m.url)));
+
+    // Replace in reverse order to preserve indices
+    let result = content;
+    for (let i = matches.length - 1; i >= 0; i--) {
+      const m = matches[i];
+      const card = cards[i];
+      // Skip if unfurl returned just a fallback link (no OG data)
+      if (!card || !card.includes("unfurl-card")) continue;
+      // Insert the unfurl card after the paragraph
+      const insertPos = m.index + m.fullMatch.length;
+      result = result.slice(0, insertPos) + "\n" + card + "\n" + result.slice(insertPos);
+    }
+
+    return result;
   });
 
   // HTML minification — only during initial build, skip during watch rebuilds
@@ -783,7 +838,7 @@ export default function (eleventyConfig) {
     // Closed polygon for gradient fill (line path + bottom corners)
     const fillPoints = `${points} ${w},${h} 0,${h}`;
     return [
-      `<svg viewBox="0 0 ${w} ${h}" class="sparkline" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posting frequency over the last 12 months">`,
+      `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none" class="sparkline" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posting frequency over the last 12 months">`,
       `<defs><linearGradient id="spk-fill" x1="0" y1="0" x2="0" y2="1">`,
       `<stop offset="0%" stop-color="currentColor" stop-opacity="0.25"/>`,
       `<stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>`,
@@ -1214,6 +1269,36 @@ export default function (eleventyConfig) {
         console.error("[pagefind] Indexing failed:", err.message);
       }
 
+    }
+
+    // JS minification — minify source JS files in output (skip vendor, already-minified)
+    if (runMode === "build" && !incremental) {
+      const jsOutputDir = directories?.output || dir.output;
+      const jsDir = resolve(jsOutputDir, "js");
+      if (existsSync(jsDir)) {
+        let jsMinified = 0;
+        let jsSaved = 0;
+        for (const file of readdirSync(jsDir).filter(f => f.endsWith(".js") && !f.endsWith(".min.js"))) {
+          const filePath = resolve(jsDir, file);
+          try {
+            const src = readFileSync(filePath, "utf-8");
+            const result = await minifyJS(src, { compress: true, mangle: true });
+            if (result.code) {
+              const saved = src.length - result.code.length;
+              if (saved > 0) {
+                writeFileSync(filePath, result.code);
+                jsSaved += saved;
+                jsMinified++;
+              }
+            }
+          } catch (err) {
+            console.error(`[js-minify] Failed to minify ${file}:`, err.message);
+          }
+        }
+        if (jsMinified > 0) {
+          console.log(`[js-minify] Minified ${jsMinified} JS files, saved ${(jsSaved / 1024).toFixed(1)} KiB`);
+        }
+      }
     }
 
     // Syndication webhook — trigger after incremental rebuilds (new posts are now live)

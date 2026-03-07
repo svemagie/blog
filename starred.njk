@@ -24,7 +24,7 @@ eleventyExcludeFromCollections: true
         <span>
           <span x-text="totalCount"></span> repos starred on GitHub.
           <template x-if="lastSync">
-            <span>Last synced <span x-text="formatDate(lastSync)"></span>.</span>
+            <span>Last synced <span class="font-mono" x-text="formatDate(lastSync)"></span>.</span>
           </template>
         </span>
       </template>
@@ -37,8 +37,8 @@ eleventyExcludeFromCollections: true
   {# Loading state #}
   <template x-if="loading">
     <div class="text-center py-12">
-      <div class="inline-block w-8 h-8 border-4 border-accent-200 border-t-accent-600 rounded-full animate-spin"></div>
-      <p class="mt-4 text-surface-500">Loading starred repositories&hellip;</p>
+      <div class="inline-block w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
+      <p class="mt-4 text-surface-600 dark:text-surface-400">Loading starred repositories&hellip;</p>
     </div>
   </template>
 
@@ -53,13 +53,15 @@ eleventyExcludeFromCollections: true
 
       {# ===== TAB BAR ===== #}
       <div class="mb-4 -mx-4 px-4 overflow-x-auto scrollbar-thin">
-        <div class="flex gap-1 min-w-max border-b border-surface-200 dark:border-surface-700">
+        <div class="flex gap-1 min-w-max border-b border-surface-200 dark:border-surface-700" role="tablist" aria-label="Starred repository lists">
           {# All tab #}
           <button
             @click="activeTab = 'all'; resetView()"
             :class="activeTab === 'all'
-              ? 'border-accent-600 text-accent-700 dark:text-accent-400'
-              : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300'"
+              ? 'border-emerald-600 text-emerald-700 dark:text-emerald-400'
+              : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300'"
+            :aria-selected="(activeTab === 'all').toString()"
+            role="tab"
             class="px-3 py-2 text-sm font-medium border-b-2 whitespace-nowrap transition-colors"
           >
             All
@@ -71,8 +73,10 @@ eleventyExcludeFromCollections: true
             <button
               @click="activeTab = list.slug; resetView()"
               :class="activeTab === list.slug
-                ? 'border-accent-600 text-accent-700 dark:text-accent-400'
-                : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300'"
+                ? 'border-emerald-600 text-emerald-700 dark:text-emerald-400'
+                : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300'"
+              :aria-selected="(activeTab === list.slug).toString()"
+              role="tab"
               class="px-3 py-2 text-sm font-medium border-b-2 whitespace-nowrap transition-colors"
             >
               <span x-text="list.name"></span>
@@ -84,8 +88,10 @@ eleventyExcludeFromCollections: true
           <button
             @click="activeTab = 'uncategorized'; resetView()"
             :class="activeTab === 'uncategorized'
-              ? 'border-accent-600 text-accent-700 dark:text-accent-400'
-              : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300'"
+              ? 'border-emerald-600 text-emerald-700 dark:text-emerald-400'
+              : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300'"
+            :aria-selected="(activeTab === 'uncategorized').toString()"
+            role="tab"
             class="px-3 py-2 text-sm font-medium border-b-2 whitespace-nowrap transition-colors"
           >
             Uncategorized
@@ -108,7 +114,7 @@ eleventyExcludeFromCollections: true
               x-model="searchQuery"
               @input="resetView()"
               placeholder="Search by name, description, topic, or language..."
-              class="w-full pl-10 pr-10 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+              class="w-full pl-10 pr-10 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400 text-sm"
             >
             <template x-if="searchQuery">
               <button @click="searchQuery = ''; resetView()" class="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600">
@@ -123,7 +129,7 @@ eleventyExcludeFromCollections: true
           <select
             x-model="sortBy"
             @change="resetView()"
-            class="px-3 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500"
+            class="px-3 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-sm"
           >
             <option value="stars">Sort: Stars</option>
             <option value="starredAt">Sort: Recently Starred</option>
@@ -138,7 +144,7 @@ eleventyExcludeFromCollections: true
           <select
             x-model="languageFilter"
             @change="resetView()"
-            class="px-2 py-1.5 rounded border border-surface-300 dark:border-surface-600 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-xs focus:outline-none focus:ring-2 focus:ring-accent-500"
+            class="px-2 py-1.5 rounded border border-surface-300 dark:border-surface-600 bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-xs"
           >
             <option value="">All Languages</option>
             <template x-for="lang in availableLanguages" :key="lang">
@@ -152,7 +158,7 @@ eleventyExcludeFromCollections: true
               <button
                 @click="starCountMin = opt.value; resetView()"
                 :class="starCountMin === opt.value
-                  ? 'bg-accent-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-surface-50 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-700'"
                 class="px-2.5 py-1 text-xs font-medium transition-colors"
                 x-text="opt.label"
@@ -162,7 +168,7 @@ eleventyExcludeFromCollections: true
 
           {# Archived toggle #}
           <label class="flex items-center gap-1.5 text-xs text-surface-600 dark:text-surface-400 cursor-pointer">
-            <input type="checkbox" x-model="showArchived" @change="resetView()" class="rounded border-surface-300 text-accent-600 focus:ring-accent-500">
+            <input type="checkbox" x-model="showArchived" @change="resetView()" class="rounded border-surface-300 text-emerald-600">
             Show archived
           </label>
 
@@ -170,21 +176,21 @@ eleventyExcludeFromCollections: true
           <template x-if="hasActiveFilters">
             <button
               @click="clearFilters()"
-              class="text-xs text-accent-600 dark:text-accent-400 hover:underline"
+              class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
             >Clear filters</button>
           </template>
         </div>
       </div>
 
       {# ===== RESULTS SUMMARY ===== #}
-      <div class="mb-4 text-sm text-surface-500">
+      <div class="mb-4 text-sm text-surface-600 dark:text-surface-400">
         <span x-text="resultSummary"></span>
       </div>
 
       {# ===== REPO GRID ===== #}
       <div class="grid gap-3 sm:gap-4 md:grid-cols-2" id="starred-grid">
         <template x-for="repo in visibleStars" :key="repo.fullName">
-          <article class="starred-card p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-surface-400 dark:hover:border-surface-500 transition-colors">
+          <article class="starred-card p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-emerald-400 dark:hover:border-emerald-600 transition-colors shadow-sm">
             <div class="flex items-center gap-2 mb-1">
               <template x-if="repo.ownerAvatar">
                 <img :src="repo.ownerAvatar" :alt="repo.ownerLogin" class="w-5 h-5 rounded-full" loading="lazy">
@@ -207,12 +213,12 @@ eleventyExcludeFromCollections: true
                   <span class="text-xs px-2 py-0.5 bg-surface-100 dark:bg-surface-700 text-surface-700 dark:text-surface-300 rounded" x-text="topic"></span>
                 </template>
                 <template x-if="repo.topics.length > 5">
-                  <span class="text-xs px-2 py-0.5 bg-surface-100 dark:bg-surface-700 text-surface-500 rounded" x-text="'+' + (repo.topics.length - 5)"></span>
+                  <span class="text-xs px-2 py-0.5 bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400 rounded" x-text="'+' + (repo.topics.length - 5)"></span>
                 </template>
               </div>
             </template>
 
-            <div class="flex flex-wrap items-center gap-3 text-xs text-surface-500">
+            <div class="flex flex-wrap items-center gap-3 text-xs text-surface-600 dark:text-surface-400">
               <template x-if="repo.language">
                 <span class="flex items-center gap-1">
                   <span class="w-2.5 h-2.5 rounded-full" :style="'background:' + languageColor(repo.language)"></span>
@@ -233,7 +239,7 @@ eleventyExcludeFromCollections: true
                 <span x-text="repo.license"></span>
               </template>
               <template x-if="repo.starredAt">
-                <span x-text="'Starred ' + formatDate(repo.starredAt)"></span>
+                <span class="font-mono" x-text="'Starred ' + formatDate(repo.starredAt)"></span>
               </template>
             </div>
           </article>
@@ -243,8 +249,8 @@ eleventyExcludeFromCollections: true
       {# ===== EMPTY FILTERED STATE ===== #}
       <template x-if="sortedStars.length === 0">
         <div class="text-center py-12">
-          <p class="text-surface-500">No repos match your current filters.</p>
-          <button @click="clearFilters()" class="mt-2 text-sm text-accent-600 dark:text-accent-400 hover:underline">Clear all filters</button>
+          <p class="text-surface-600 dark:text-surface-400">No repos match your current filters.</p>
+          <button @click="clearFilters()" class="mt-2 text-sm text-emerald-600 dark:text-emerald-400 hover:underline">Clear all filters</button>
         </div>
       </template>
 
@@ -253,10 +259,10 @@ eleventyExcludeFromCollections: true
         <div class="mt-6 text-center">
           <button
             @click="visibleCount = Math.min(visibleCount + 50, sortedStars.length)"
-            class="px-6 py-2.5 bg-accent-600 hover:bg-accent-700 text-white rounded-lg transition-colors"
+            class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors"
           >
             Load More
-            <span class="text-accent-200" x-text="'(' + (sortedStars.length - visibleCount) + ' remaining)'"></span>
+            <span class="text-emerald-200" x-text="'(' + (sortedStars.length - visibleCount) + ' remaining)'"></span>
           </button>
         </div>
       </template>

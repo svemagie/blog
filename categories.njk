@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
 withSidebar: true
+pagefindIgnore: true
 pagination:
   data: collections.categories
   size: 1
@@ -31,7 +32,7 @@ eleventyComputed:
   {% endfor %}
 
   {% if categoryPosts.length > 0 %}
-  <p class="text-sm text-surface-500 dark:text-surface-400 mb-4">{{ categoryPosts.length }} post{% if categoryPosts.length != 1 %}s{% endif %}</p>
+  <p class="text-sm text-surface-600 dark:text-surface-400 mb-4">{{ categoryPosts.length }} post{% if categoryPosts.length != 1 %}s{% endif %}</p>
   <ul class="post-list">
     {% for post in categoryPosts %}
     {% set postType = post.inputPath | replace("./content/", "") %}
@@ -59,7 +60,7 @@ eleventyComputed:
         </h2>
       </div>
       <div class="post-meta mt-2">
-        <time class="dt-published" datetime="{{ post.date | isoDate }}">
+        <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}
         </time>
         <span class="post-type">{{ postType }}</span>

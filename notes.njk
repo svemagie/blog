@@ -14,7 +14,7 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Notes</h1>
     {% set sparklineSvg = collections.notes | postingFrequency %}
     {% if sparklineSvg %}
-    <span class="text-amber-600 dark:text-amber-400">{{ sparklineSvg | safe }}</span>
+    <div class="flex-1 min-w-0 text-teal-600 dark:text-teal-400">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -25,10 +25,10 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
   {% if paginatedNotes.length > 0 %}
   <ul class="post-list">
     {% for post in paginatedNotes %}
-    <li class="h-entry post-card border-l-[3px] border-l-surface-300 dark:border-l-surface-600">
+    <li class="h-entry post-card border-l-[3px] border-l-teal-400 dark:border-l-teal-500">
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
-          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium" datetime="{{ post.date | isoDate }}">
+          <time class="dt-published text-sm text-surface-600 dark:text-surface-400 font-medium font-mono" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time>
         </a>
@@ -52,7 +52,7 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         {% endif %}
       </div>
       <div class="post-footer mt-3">
-        <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline">
+        <a href="{{ post.url }}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
           Permalink
         </a>
       </div>
@@ -73,7 +73,7 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         Previous
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         Previous
       </span>
@@ -85,7 +85,7 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         Next
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>

@@ -14,7 +14,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Likes</h1>
     {% set sparklineSvg = collections.likes | postingFrequency %}
     {% if sparklineSvg %}
-    <span class="text-rose-600 dark:text-rose-400">{{ sparklineSvg | safe }}</span>
+    <div class="flex-1 min-w-0 text-red-600 dark:text-red-400">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -25,16 +25,16 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
   {% if paginatedLikes.length > 0 %}
   <ul class="post-list">
     {% for post in paginatedLikes %}
-    <li class="h-entry post-card border-l-[3px] border-l-rose-400 dark:border-l-rose-500">
+    <li class="h-entry post-card border-l-[3px] border-l-red-400 dark:border-l-red-500">
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-rose-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
             {% if post.data.category %}
@@ -53,7 +53,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
           {% set likedUrl = post.data.likeOf or post.data.like_of %}
           {% if likedUrl %}
           {% unfurl likedUrl %}
-          <a class="u-like-of text-xs text-surface-400 dark:text-surface-500 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
+          <a class="u-like-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
             {{ likedUrl }}
           </a>
           {% endif %}
@@ -62,7 +62,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-rose-600 dark:text-rose-400 hover:underline mt-3 inline-block" href="{{ post.url }}">Permalink</a>
+          <a class="u-url text-sm text-red-600 dark:text-red-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Like from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
     </li>
@@ -82,7 +82,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         Previous
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         Previous
       </span>
@@ -94,7 +94,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </a>
       {% else %}
-      <span class="pagination-link disabled">
+      <span class="pagination-link disabled" aria-disabled="true">
         Next
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>
