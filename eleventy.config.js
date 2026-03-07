@@ -242,11 +242,18 @@ export default function (eleventyConfig) {
   });
 
   // Embed Everything - auto-embed YouTube, Vimeo, Bluesky, Mastodon, etc.
+  // YouTube uses lite-yt-embed facade: shows thumbnail + play button,
+  // only loads full iframe on click (~800 KiB savings).
+  // CSS/JS disabled here — already loaded in base.njk.
   eleventyConfig.addPlugin(embedEverything, {
     use: ["youtube", "vimeo", "twitter", "mastodon", "bluesky", "spotify", "soundcloud"],
     youtube: {
       options: {
-        lite: false,
+        lite: {
+          css: { enabled: false },
+          js: { enabled: false },
+          responsive: true,
+        },
         recommendSelfOnly: true,
       },
     },
@@ -266,7 +273,8 @@ export default function (eleventyConfig) {
   // Usage: {{ url | unfurlCard | safe }}
   eleventyConfig.addFilter("unfurlCard", getCachedCard);
 
-  // Custom transform to convert YouTube links to embeds
+  // Custom transform to convert YouTube links to lite-youtube embeds
+  // Catches bare YouTube links in Markdown that the embed plugin misses
   eleventyConfig.addTransform("youtube-link-to-embed", function (content, outputPath) {
     if (!outputPath || !outputPath.endsWith(".html")) {
       return content;
@@ -276,8 +284,8 @@ export default function (eleventyConfig) {
     const youtubePattern = /<a[^>]+href="https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)[^"]*"[^>]*>(?:https?:\/\/)?(?:www\.)?[^<]*(?:youtube|youtu\.be)[^<]*<\/a>/gi;
 
     content = content.replace(youtubePattern, (match, videoId) => {
-      // Use standard YouTube iframe with exact oEmbed parameters
-      return `</p><div class="video-embed"><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="YouTube video"></iframe></div><p>`;
+      // Use lite-youtube facade — loads full iframe only on click
+      return `</p><div class="video-embed eleventy-plugin-youtube-embed"><lite-youtube videoid="${videoId}" style="background-image: url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg');"><div class="lty-playbtn"></div></lite-youtube></div><p>`;
     });
 
     // Clean up empty <p></p> tags created by the replacement
