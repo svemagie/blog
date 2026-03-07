@@ -43,6 +43,9 @@ export default function (eleventyConfig) {
   // Ignore interactive assets (served via passthrough copy, not processed as templates)
   eleventyConfig.ignores.add("interactive");
   eleventyConfig.ignores.add("interactive/**");
+  // Ignore theme/ subdirectory (contains theme source files, not site content)
+  eleventyConfig.ignores.add("theme");
+  eleventyConfig.ignores.add("theme/**");
 
   // Configure watch targets to exclude output directory
   eleventyConfig.watchIgnores.add("_site");
