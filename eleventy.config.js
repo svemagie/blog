@@ -7,6 +7,7 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
+import { minify as minifyJS } from "terser";
 import registerUnfurlShortcode, { getCachedCard, prefetchUrl } from "./lib/unfurl-shortcode.js";
 import matter from "gray-matter";
 import { createHash, createHmac } from "crypto";
@@ -1265,6 +1266,36 @@ export default function (eleventyConfig) {
         console.error("[pagefind] Indexing failed:", err.message);
       }
 
+    }
+
+    // JS minification — minify source JS files in output (skip vendor, already-minified)
+    if (runMode === "build" && !incremental) {
+      const jsOutputDir = directories?.output || dir.output;
+      const jsDir = resolve(jsOutputDir, "js");
+      if (existsSync(jsDir)) {
+        let jsMinified = 0;
+        let jsSaved = 0;
+        for (const file of readdirSync(jsDir).filter(f => f.endsWith(".js") && !f.endsWith(".min.js"))) {
+          const filePath = resolve(jsDir, file);
+          try {
+            const src = readFileSync(filePath, "utf-8");
+            const result = await minifyJS(src, { compress: true, mangle: true });
+            if (result.code) {
+              const saved = src.length - result.code.length;
+              if (saved > 0) {
+                writeFileSync(filePath, result.code);
+                jsSaved += saved;
+                jsMinified++;
+              }
+            }
+          } catch (err) {
+            console.error(`[js-minify] Failed to minify ${file}:`, err.message);
+          }
+        }
+        if (jsMinified > 0) {
+          console.log(`[js-minify] Minified ${jsMinified} JS files, saved ${(jsSaved / 1024).toFixed(1)} KiB`);
+        }
+      }
     }
 
     // Syndication webhook — trigger after incremental rebuilds (new posts are now live)

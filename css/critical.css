@@ -45,6 +45,8 @@ main.container{padding-top:1.5rem;padding-bottom:1.5rem}
 .layout-with-sidebar{display:grid;grid-template-columns:1fr;gap:1.5rem}
 @media(min-width:1024px){.layout-with-sidebar{grid-template-columns:2fr 1fr;gap:2rem}}
 .main-content{min-width:0;overflow-x:hidden}
+/* Reserve sidebar space on desktop to prevent CLS when Alpine.js hydrates collapsible widgets */
+@media(min-width:1024px){.sidebar{min-height:600px}}
 
 /* Basic typography — prevent FOUT */
 h1,h2,h3,h4{margin:0;line-height:1.25}

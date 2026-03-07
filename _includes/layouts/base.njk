@@ -67,7 +67,8 @@
     var _pfQueue = [];
     function initPagefind(sel, opts) { _pfQueue.push([sel, opts]); }
   </script>
-  <link rel="stylesheet" href="/css/lite-yt-embed.css?v={{ '/css/lite-yt-embed.css' | hash }}">
+  <link rel="stylesheet" href="/css/lite-yt-embed.css?v={{ '/css/lite-yt-embed.css' | hash }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/lite-yt-embed.css?v={{ '/css/lite-yt-embed.css' | hash }}"></noscript>
   <script src="/js/vendor/lite-yt-embed.js?v={{ '/js/vendor/lite-yt-embed.js' | hash }}" defer></script>
   {# Alpine.js components — MUST load before Alpine core (Alpine.data() registration via alpine:init) #}
   <script src="/js/comments.js?v={{ '/js/comments.js' | hash }}" defer></script>

@@ -25,7 +25,7 @@ permalink: /interactions/
       role="tab" id="interactions-tab-outbound" aria-controls="interactions-panel-outbound"
       class="px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors">
       My Activity
-      <span class="ml-1 text-xs text-surface-400">(outbound)</span>
+      <span class="ml-1 text-xs text-surface-600 dark:text-surface-400">(outbound)</span>
     </button>
     <button
       @click="activeTab = 'inbound'"
@@ -34,7 +34,7 @@ permalink: /interactions/
       role="tab" id="interactions-tab-inbound" aria-controls="interactions-panel-inbound"
       class="px-4 py-3 text-sm font-medium border-b-2 -mb-px transition-colors">
       Received
-      <span class="ml-1 text-xs text-surface-400">(inbound)</span>
+      <span class="ml-1 text-xs text-surface-600 dark:text-surface-400">(inbound)</span>
       <span x-show="totalInbound > 0" x-text="totalInbound" class="ml-1 px-1.5 py-0.5 text-xs bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300 rounded-full"></span>
     </button>
   </div>
