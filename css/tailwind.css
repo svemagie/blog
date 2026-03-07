@@ -847,14 +847,13 @@
 
 /* Sparkline — inline SVG posting frequency chart */
 .sparkline {
-  width: 120px;
+  width: 100%;
   height: 28px;
   display: block;
 }
 
 @media (min-width: 640px) {
   .sparkline {
-    width: 180px;
     height: 32px;
   }
 }
