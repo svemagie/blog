@@ -212,8 +212,8 @@ withBlogSidebar: true
       "@type": "WebPage",
       "@id": "{{ site.url }}{{ page.url }}"
     },
-    "datePublished": "{{ date.toISOString() }}",
-    "dateModified": "{{ date.toISOString() }}",
+    "datePublished": "{{ date | isoDate }}",
+    "dateModified": "{{ date | isoDate }}",
     "author": {
       "@type": "Person",
       "name": "{{ site.author.name }}",
