@@ -28,7 +28,7 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
     <li class="h-entry post-card border-l-[3px] border-l-surface-300 dark:border-l-surface-600">
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
-          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium" datetime="{{ post.date | isoDate }}">
+          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium font-mono" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time>
         </a>

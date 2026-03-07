@@ -22,7 +22,7 @@
           <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline break-all line-clamp-1">
             Liked {{ likedUrl | replace("https://", "") | truncate(40) }}
           </a>
-          <time class="text-xs text-surface-500 block" datetime="{{ post.data.published }}">
+          <time class="text-xs text-surface-500 block font-mono" datetime="{{ post.data.published }}">
             {{ (post.data.published or post.date) | dateDisplay }}
           </time>
         </div>
@@ -37,7 +37,7 @@
           <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline line-clamp-1">
             {{ post.data.title or ("Bookmarked " + (bookmarkedUrl | replace("https://", "") | truncate(35))) }}
           </a>
-          <time class="text-xs text-surface-500 block" datetime="{{ post.data.published }}">
+          <time class="text-xs text-surface-500 block font-mono" datetime="{{ post.data.published }}">
             {{ (post.data.published or post.date) | dateDisplay }}
           </time>
         </div>
@@ -52,7 +52,7 @@
           <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline break-all line-clamp-1">
             Reposted {{ repostedUrl | replace("https://", "") | truncate(40) }}
           </a>
-          <time class="text-xs text-surface-500 block" datetime="{{ post.data.published }}">
+          <time class="text-xs text-surface-500 block font-mono" datetime="{{ post.data.published }}">
             {{ (post.data.published or post.date) | dateDisplay }}
           </time>
         </div>
@@ -67,7 +67,7 @@
           <a href="{{ post.url }}" class="text-sm text-sky-600 dark:text-sky-400 hover:underline break-all line-clamp-1">
             Reply to {{ replyToUrl | replace("https://", "") | truncate(40) }}
           </a>
-          <time class="text-xs text-surface-500 block" datetime="{{ post.data.published }}">
+          <time class="text-xs text-surface-500 block font-mono" datetime="{{ post.data.published }}">
             {{ (post.data.published or post.date) | dateDisplay }}
           </time>
         </div>
@@ -78,7 +78,7 @@
       <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline line-clamp-1">
         {{ post.data.title or post.data.name or (post.templateContent | striptags | truncate(50)) or "Note" }}
       </a>
-      <time class="text-xs text-surface-500 block" datetime="{{ post.data.published }}">
+      <time class="text-xs text-surface-500 block font-mono" datetime="{{ post.data.published }}">
         {{ (post.data.published or post.date) | dateDisplay }}
       </time>
       {% endif %}

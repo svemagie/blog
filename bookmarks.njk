@@ -36,7 +36,7 @@ permalink: "bookmarks/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageN
         {% endif %}
       </div>
       <div class="post-meta mt-2">
-        <time class="dt-published" datetime="{{ post.date | isoDate }}">
+        <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}
         </time>
         {% if post.data.category %}

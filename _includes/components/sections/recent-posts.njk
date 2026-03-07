@@ -52,7 +52,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-3 text-xs text-surface-500">
             <span class="font-medium text-red-600 dark:text-red-400">Liked</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
           </div>
@@ -80,7 +80,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-3 text-xs text-surface-500">
             <span class="font-medium text-amber-600 dark:text-amber-400">Bookmarked</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
           </div>
@@ -113,7 +113,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-3 text-xs text-surface-500">
             <span class="font-medium text-green-600 dark:text-green-400">Reposted</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
           </div>
@@ -141,7 +141,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-3 text-xs text-surface-500">
             <span class="font-medium text-sky-600 dark:text-sky-400">In reply to</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
           </div>
@@ -170,7 +170,7 @@
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-3 text-xs text-surface-500">
             <span class="font-medium text-purple-600 dark:text-purple-400">Photo</span>
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
           </div>
@@ -207,11 +207,11 @@
       </p>
       {% endif %}
       <div class="flex items-center gap-3 text-xs text-surface-500">
-        <time class="dt-published" datetime="{{ post.date | isoDate }}">
+        <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}
         </time>
         {% if post.data.postType %}
-        <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded">
+        <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded-full">
           {{ post.data.postType }}
         </span>
         {% endif %}
@@ -221,12 +221,12 @@
       {# ── Note card ── #}
       <div class="flex items-center gap-3 text-xs text-surface-500 mb-2">
         <a class="u-url" href="{{ post.url }}">
-          <time class="dt-published font-medium text-surface-500 dark:text-surface-400" datetime="{{ post.date | isoDate }}">
+          <time class="dt-published font-medium font-mono text-surface-500 dark:text-surface-400" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time>
         </a>
         {% if post.data.postType %}
-        <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded">
+        <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded-full">
           {{ post.data.postType }}
         </span>
         {% endif %}

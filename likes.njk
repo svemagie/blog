@@ -34,7 +34,7 @@ permalink: "likes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time>
             {% if post.data.category %}
