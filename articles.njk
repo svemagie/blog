@@ -14,7 +14,7 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Articles</h1>
     {% set sparklineSvg = collections.articles | postingFrequency %}
     {% if sparklineSvg %}
-    <div class="flex-1 min-w-0 text-amber-600 dark:text-amber-400">{{ sparklineSvg | safe }}</div>
+    <div class="flex-1 min-w-0 text-indigo-600 dark:text-indigo-400">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -25,10 +25,10 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
   {% if paginatedArticles.length > 0 %}
   <ul class="post-list">
     {% for post in paginatedArticles %}
-    <li class="h-entry post-card border-l-[3px] border-l-amber-400 dark:border-l-amber-500">
+    <li class="h-entry post-card border-l-[3px] border-l-indigo-400 dark:border-l-indigo-500">
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1 flex-1">
-          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-amber-600 dark:hover:text-amber-400" href="{{ post.url }}">
+          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-indigo-600 dark:hover:text-indigo-400" href="{{ post.url }}">
             {{ post.data.title or "Untitled" }}
           </a>
         </h2>
@@ -52,7 +52,7 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
       </p>
-      <a href="{{ post.url }}" class="text-sm text-amber-600 dark:text-amber-400 hover:underline mt-3 inline-block">
+      <a href="{{ post.url }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline mt-3 inline-block">
         Read more &rarr;
       </a>
     </li>

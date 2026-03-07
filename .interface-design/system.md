@@ -29,19 +29,32 @@
 
 ## Domain Colors
 
-Every section of the site has a color identity. On domain pages, links, hover states, and card borders use the domain color instead of amber.
+Every post type and section has its own unique color identity. On collection pages, sparklines, card borders, icons, labels, hover states, and permalink links all use the domain color. No two post types share the same color.
 
-### Domain Map (complete — every page accounted for)
+### Post Type Colors (each unique — no sharing)
 
-| Domain | Tailwind color | Light text | Dark text | Pages |
-|--------|---------------|------------|-----------|-------|
-| **Writing** | amber (= accent) | amber-700 | amber-400 | `/blog/`, `/articles/`, `/notes/`, `/bookmarks/`, `/digest/`, `/news/`, `/categories/`, individual posts |
-| **Social** | rose | rose-600 | rose-400 | `/likes/`, `/replies/`, `/reposts/`, `/interactions/` |
+| Post Type | Tailwind color | Light text | Dark text | Icon | Pages |
+|-----------|---------------|------------|-----------|------|-------|
+| **Articles** | indigo | indigo-600 | indigo-400 | document | `/articles/` |
+| **Notes** | teal | teal-600 | teal-400 | chat bubble | `/notes/` |
+| **Bookmarks** | amber | amber-600 | amber-400 | bookmark | `/bookmarks/` |
+| **Likes** | red | red-600 | red-400 | heart (filled) | `/likes/` |
+| **Replies** | sky | sky-600 | sky-400 | reply arrow | `/replies/` |
+| **Reposts** | green | green-600 | green-400 | refresh arrows | `/reposts/` |
+| **Photos** | purple | purple-600 | purple-400 | camera | `/photos/` |
+
+Each color is applied consistently across: sparkline wrapper, card `border-l`, SVG icon, label text, title hover, and permalink link.
+
+### Section Colors (non-post-type pages)
+
+| Section | Tailwind color | Light text | Dark text | Pages |
+|---------|---------------|------------|-----------|-------|
+| **Blog** (mixed) | amber | amber-600 | amber-400 | `/blog/` (sparkline only — individual cards use their post-type color) |
 | **Code** | emerald | emerald-600 | emerald-400 | `/github/`, `/github/starred/` |
 | **Music** | purple | purple-600 | purple-400 | `/funkwhale/`, `/listening/` |
 | **Video** | red | red-600 | red-400 | `/youtube/` |
 | **Reading** | orange | orange-600 | orange-400 | `/blogroll/`, `/podroll/`, `/readlater/` |
-| **Neutral** | — (use accent) | — | — | `/` (home), `/about/`, `/cv/`, `/slashes/`, `/search/`, `/changelog/`, `/404` |
+| **Neutral** | accent (amber) | — | — | `/` (home), `/about/`, `/cv/`, `/slashes/`, `/search/`, `/changelog/`, `/404` |
 
 ### Brand Colors (hardcoded hex — not domain colors)
 
@@ -381,6 +394,6 @@ Reusable utility classes defined in `css/tailwind.css`:
 
 Audit findings — remaining gaps between this system and the current code:
 
-1. **Domain colors on section pages** — some pages still use generic accent instead of domain color for links, hovers, card borders
+1. ~~**Domain colors on section pages**~~ — ✅ Done: all 7 post-type collections + blog.njk mixed view + recent-posts widget use per-type colors
 2. **Active states** — add to buttons where appropriate
 3. **Consistent card hover** — some older templates use `hover:border-surface-400` instead of domain-colored border hover
