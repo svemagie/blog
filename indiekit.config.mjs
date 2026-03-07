@@ -6,7 +6,7 @@ export default {
     name: "Indiekit",
     admin: {
       username: "admin@blog.giersig.eu",
-      password: "accus3D!23"
+      password: process.env.INDIEKIT_PASSWORD
     }
   },
   "@indiekit/endpoint-auth": {
