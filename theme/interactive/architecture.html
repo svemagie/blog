@@ -1104,7 +1104,7 @@ function renderDeployment(page) {
   var convItems = [
     ['Dates', 'Always ISO 8601 strings via new Date().toISOString(). Never store Date objects \u2014 the Nunjucks | date filter crashes on them.'],
     ['Modules', 'ESM everywhere. All plugins use "type": "module" in package.json.'],
-    ['Templates', 'Always guard date filters with {% if value %} to protect against null/undefined.'],
+    ['Templates', 'Always guard date filters with {% raw %}{% if value %}{% endraw %} to protect against null/undefined.'],
     ['Auth', 'IndieAuth for admin routes, JWT for background processes, HTTP Signatures for ActivityPub.'],
     ['Storage', 'MongoDB for state and metadata. Filesystem for content (.md files). Two sources of truth by design.'],
     ['Publishing', 'Bump version \u2192 commit \u2192 npm publish (manual, OTP required) \u2192 update Dockerfile \u2192 cloudron build.'],
