@@ -133,6 +133,15 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
+    trapFocus(event) {
+      const focusable = [...this.$el.querySelectorAll('button, input, a, [tabindex]:not([tabindex="-1"])')].filter(el => !el.closest('[x-show]') || el.closest('[x-show]').style.display !== 'none');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    },
+
     redirectToInstance(domain) {
       if (this.mode === "share") {
         window.location.href = `https://${domain}/share?text=${encodeURIComponent(this.targetUrl)}`;
