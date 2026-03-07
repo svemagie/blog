@@ -101,7 +101,7 @@ withSidebar: true
     {% if githubActivity.commits.length %}
     <div class="space-y-3">
       {% for commit in githubActivity.commits %}
-      <div class="flex items-start gap-3 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
+      <div class="flex items-start gap-3 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
         <code class="text-xs font-mono bg-surface-100 dark:bg-surface-700 px-2 py-1 rounded">
           {{ commit.sha }}
         </code>
@@ -111,7 +111,7 @@ withSidebar: true
           </a>
           <p class="text-xs text-surface-500 mt-1">
             <a href="{{ commit.repoUrl }}" class="hover:underline" target="_blank" rel="noopener">{{ commit.repo }}</a>
-            · <time datetime="{{ commit.date }}">{{ commit.date | date("MMM d, yyyy") }}</time>
+            · <time class="font-mono" datetime="{{ commit.date }}">{{ commit.date | date("MMM d, yyyy") }}</time>
           </p>
         </div>
       </div>
@@ -134,7 +134,7 @@ withSidebar: true
 
     <div class="space-y-3">
       {% for item in githubActivity.contributions %}
-      <div class="flex items-start gap-3 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
+      <div class="flex items-start gap-3 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
         {% if item.type == "pr" %}
         <span class="flex-shrink-0 px-2 py-1 text-xs font-medium bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded">PR</span>
         {% else %}
@@ -147,7 +147,7 @@ withSidebar: true
           <p class="text-xs text-surface-500 mt-1">
             <a href="{{ item.repoUrl }}" class="hover:underline" target="_blank" rel="noopener">{{ item.repo }}</a>
             #{{ item.number }}
-            · <time datetime="{{ item.date }}">{{ item.date | date("MMM d, yyyy") }}</time>
+            · <time class="font-mono" datetime="{{ item.date }}">{{ item.date | date("MMM d, yyyy") }}</time>
           </p>
         </div>
       </div>
@@ -168,7 +168,7 @@ withSidebar: true
     {% if githubRepos.length %}
     <div class="grid gap-3 sm:gap-4 md:grid-cols-2">
       {% for repo in githubRepos | head(6) %}
-      <article class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700">
+      <article class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
         <h3 class="font-semibold text-surface-900 dark:text-surface-100 mb-1">
           <a href="{{ repo.html_url }}" class="hover:text-emerald-600 dark:hover:text-emerald-400" target="_blank" rel="noopener">
             {{ repo.name }}
@@ -223,7 +223,7 @@ withSidebar: true
     {% if githubActivity.stars.length %}
     <div class="grid gap-3 sm:gap-4 md:grid-cols-2">
       {% for repo in githubActivity.stars | head(10) %}
-      <article class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-surface-400 dark:hover:border-surface-600 transition-colors">
+      <article class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-emerald-400 dark:hover:border-emerald-600 transition-colors shadow-sm">
         <h3 class="font-semibold text-surface-900 dark:text-surface-100 mb-1">
           <a href="{{ repo.url }}" class="hover:text-emerald-600 dark:hover:text-emerald-400" target="_blank" rel="noopener">
             {{ repo.name }}

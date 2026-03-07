@@ -173,7 +173,7 @@ withSidebar: true
       {% if channelVideos and channelVideos.length %}
       <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {% for video in channelVideos | head(9) %}
-        <article class="group bg-surface-50 dark:bg-surface-800 rounded-xl overflow-hidden border border-surface-200 dark:border-surface-700 hover:border-red-400 dark:hover:border-red-600 transition-colors">
+        <article class="group bg-surface-50 dark:bg-surface-800 rounded-xl overflow-hidden border border-surface-200 dark:border-surface-700 hover:border-red-400 dark:hover:border-red-600 transition-colors shadow-sm">
           <a href="{{ video.url }}" class="block" target="_blank" rel="noopener">
             <div class="relative aspect-video">
               {% if video.thumbnail %}

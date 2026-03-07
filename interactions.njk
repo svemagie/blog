@@ -41,7 +41,7 @@ permalink: /interactions/
 
     <div class="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
       {# Likes #}
-      <a href="/likes/" class="block p-6 bg-surface-100 dark:bg-surface-800 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group">
+      <a href="/likes/" class="block p-6 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group shadow-sm">
         <div class="flex items-center gap-4 mb-4">
           <div class="p-3 bg-rose-100 dark:bg-rose-900/30 rounded-full">
             <svg class="w-6 h-6 text-rose-500" fill="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@ permalink: /interactions/
       </a>
 
       {# Replies #}
-      <a href="/replies/" class="block p-6 bg-surface-100 dark:bg-surface-800 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group">
+      <a href="/replies/" class="block p-6 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group shadow-sm">
         <div class="flex items-center gap-4 mb-4">
           <div class="p-3 bg-rose-100 dark:bg-rose-900/30 rounded-full">
             <svg class="w-6 h-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,7 +73,7 @@ permalink: /interactions/
       </a>
 
       {# Bookmarks #}
-      <a href="/bookmarks/" class="block p-6 bg-surface-100 dark:bg-surface-800 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group">
+      <a href="/bookmarks/" class="block p-6 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group shadow-sm">
         <div class="flex items-center gap-4 mb-4">
           <div class="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-full">
             <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
@@ -89,7 +89,7 @@ permalink: /interactions/
       </a>
 
       {# Reposts #}
-      <a href="/reposts/" class="block p-6 bg-surface-100 dark:bg-surface-800 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group">
+      <a href="/reposts/" class="block p-6 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group shadow-sm">
         <div class="flex items-center gap-4 mb-4">
           <div class="p-3 bg-rose-100 dark:bg-rose-900/30 rounded-full">
             <svg class="w-6 h-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ permalink: /interactions/
       </a>
 
       {# Photos #}
-      <a href="/photos/" class="block p-6 bg-surface-100 dark:bg-surface-800 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group">
+      <a href="/photos/" class="block p-6 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors group shadow-sm">
         <div class="flex items-center gap-4 mb-4">
           <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-full">
             <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,7 +121,7 @@ permalink: /interactions/
       </a>
     </div>
 
-    <div class="mt-12 p-6 bg-surface-100 dark:bg-surface-800/50 rounded-lg">
+    <div class="mt-12 p-6 bg-surface-50 dark:bg-surface-800/50 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
       <h2 class="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-2">About IndieWeb Interactions</h2>
       <p class="text-surface-600 dark:text-surface-400 text-sm mb-4">
         These pages show different types of IndieWeb interactions I've made. Each type uses specific microformat properties
@@ -214,7 +214,7 @@ permalink: /interactions/
     {# Webmentions list #}
     <div x-show="!notConfigured && (!loading || webmentions.length)" class="space-y-4">
       <template x-for="wm in paginatedWebmentions" :key="wm['wm-id']">
-        <div class="p-4 bg-surface-100 dark:bg-surface-800 rounded-lg">
+        <div class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
           <div class="flex gap-3">
             {# Author avatar #}
             <a :href="wm.author?.url || '#'" target="_blank" rel="noopener" class="flex-shrink-0">
@@ -261,7 +261,7 @@ permalink: /interactions/
                 </span>
 
                 <a :href="wm.url || '#'" target="_blank" rel="noopener" class="text-xs text-surface-500 hover:underline">
-                  <time :datetime="wm.published || wm['wm-received']" x-text="formatDate(wm.published || wm['wm-received'])"></time>
+                  <time class="font-mono text-sm" :datetime="wm.published || wm['wm-received']" x-text="formatDate(wm.published || wm['wm-received'])"></time>
                 </a>
               </div>
 
@@ -324,7 +324,7 @@ permalink: /interactions/
     </div>
 
     {# Info box #}
-    <div class="mt-12 p-6 bg-surface-100 dark:bg-surface-800/50 rounded-lg">
+    <div class="mt-12 p-6 bg-surface-50 dark:bg-surface-800/50 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
       <h2 class="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-2">About Webmentions</h2>
       <p class="text-surface-600 dark:text-surface-400 text-sm mb-4">
         Webmentions are a W3C standard for cross-site communication. When someone likes, reposts, or replies to my content

@@ -29,7 +29,7 @@
         <div>
           <div class="flex flex-col gap-2 mb-3">
             <template x-for="item in savedDomains" :key="item.domain">
-              <div class="flex items-center gap-2 rounded-lg bg-surface-50 dark:bg-surface-700 hover:bg-surface-100 dark:hover:bg-surface-600 transition-colors">
+              <div class="flex items-center gap-2 rounded-lg bg-surface-50 dark:bg-surface-800 hover:bg-surface-100 dark:hover:bg-surface-600 transition-colors">
                 <button class="flex-1 px-3 py-2.5 text-left text-sm font-medium text-surface-900 dark:text-surface-100 cursor-pointer"
                         @click="useSaved(item.domain)"
                         x-text="item.domain"></button>
@@ -45,7 +45,7 @@
                   @click="showAddNew()">Use a different instance</button>
           <div class="flex mt-3">
             <button @click="showModal = false"
-                    class="w-full px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-300 bg-surface-100 dark:bg-surface-700 hover:bg-surface-200 dark:hover:bg-surface-600 rounded-lg transition-colors">
+                    class="w-full px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-300 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-600 rounded-lg transition-colors">
               Cancel
             </button>
           </div>
@@ -60,13 +60,13 @@
                  @keydown.enter.prevent="confirm()"
                  type="text"
                  placeholder="mastodon.social"
-                 class="w-full px-3 py-2 border border-surface-300 dark:border-surface-600 rounded-lg bg-surface-50 dark:bg-surface-700 text-surface-900 dark:text-surface-100 placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-[#a730b8] focus:border-transparent text-sm">
+                 class="w-full px-3 py-2 border border-surface-300 dark:border-surface-600 rounded-lg bg-surface-50 dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400 text-sm">
           <template x-if="error">
             <p class="text-xs text-red-500 mt-1" x-text="error"></p>
           </template>
           <div class="flex gap-3 mt-4">
             <button @click="showInput ? (showInput = false) : (showModal = false)"
-                    class="flex-1 px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-300 bg-surface-100 dark:bg-surface-700 hover:bg-surface-200 dark:hover:bg-surface-600 rounded-lg transition-colors"
+                    class="flex-1 px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-300 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-600 rounded-lg transition-colors"
                     x-text="showInput && savedDomains.length > 0 ? 'Back' : 'Cancel'">
             </button>
             <button @click="confirm()"
