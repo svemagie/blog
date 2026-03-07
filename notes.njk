@@ -45,7 +45,11 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
         {% endif %}
       </div>
       <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
-        {{ post.templateContent | safe }}
+        {% if post.content and post.content.html %}
+          {{ post.content.html | safe }}
+        {% else %}
+          {{ post.templateContent | safe }}
+        {% endif %}
       </div>
       <div class="post-footer mt-3">
         <a href="{{ post.url }}" class="text-sm text-accent-600 dark:text-accent-400 hover:underline">
