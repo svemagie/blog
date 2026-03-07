@@ -20,9 +20,9 @@ withBlogSidebar: true
   {% endif %}
 
   <div class="post-meta mb-4 sm:mb-6">
-    <time-difference><time class="dt-published" datetime="{{ date.toISOString() }}">
+    {% if date %}<time-difference><time class="dt-published" datetime="{{ date | isoDate }}">
       {{ date | dateDisplay }}
-    </time></time-difference>
+    </time></time-difference>{% endif %}
     {% if category %}
     <span class="post-categories">
       {# Handle both string and array categories #}
