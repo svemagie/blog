@@ -35,13 +35,13 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
 
       {# Determine border color by post type #}
       {% if likedUrl %}
-        {% set borderClass = "border-l-red-400 dark:border-l-red-500" %}
+        {% set borderClass = "border-l-rose-400 dark:border-l-rose-500" %}
       {% elif bookmarkedUrl %}
         {% set borderClass = "border-l-amber-400 dark:border-l-amber-500" %}
       {% elif repostedUrl %}
-        {% set borderClass = "border-l-green-400 dark:border-l-green-500" %}
+        {% set borderClass = "border-l-rose-400 dark:border-l-rose-500" %}
       {% elif replyToUrl %}
-        {% set borderClass = "border-l-sky-400 dark:border-l-sky-500" %}
+        {% set borderClass = "border-l-rose-400 dark:border-l-rose-500" %}
       {% elif hasPhotos %}
         {% set borderClass = "border-l-purple-400 dark:border-l-purple-500" %}
       {% else %}
@@ -53,9 +53,9 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
       {% if likedUrl %}
       {# ── Like ── #}
       <div class="post-header">
-        <span class="text-xs font-medium text-red-600 dark:text-red-400">Liked</span>
+        <span class="text-xs font-medium text-rose-600 dark:text-rose-400">Liked</span>
         <a class="u-url ml-2" href="{{ post.url }}">
-          <time class="dt-published text-sm text-surface-500 dark:text-surface-400" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-mono" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
         </a>
       </div>
       <a class="u-like-of text-sm text-surface-600 dark:text-surface-400 hover:underline break-all mt-2 inline-block" href="{{ likedUrl }}">{{ likedUrl }}</a>
@@ -67,7 +67,7 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
       {# ── Bookmark ── #}
       <div class="post-header">
         <span class="text-xs font-medium text-amber-600 dark:text-amber-400">Bookmarked</span>
-        <time class="dt-published text-sm text-surface-500 dark:text-surface-400 ml-2" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+        <time class="dt-published text-sm text-surface-500 dark:text-surface-400 ml-2 font-mono" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
       </div>
       {% if post.data.title %}
       <h2 class="p-name text-lg font-semibold mt-2">
@@ -82,9 +82,9 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
       {% elif repostedUrl %}
       {# ── Repost ── #}
       <div class="post-header">
-        <span class="text-xs font-medium text-green-600 dark:text-green-400">Reposted</span>
+        <span class="text-xs font-medium text-rose-600 dark:text-rose-400">Reposted</span>
         <a class="u-url ml-2" href="{{ post.url }}">
-          <time class="dt-published text-sm text-surface-500 dark:text-surface-400" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-mono" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
         </a>
       </div>
       <a class="u-repost-of text-sm text-surface-600 dark:text-surface-400 hover:underline break-all mt-2 inline-block" href="{{ repostedUrl }}">{{ repostedUrl }}</a>
@@ -95,9 +95,9 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
       {% elif replyToUrl %}
       {# ── Reply ── #}
       <div class="post-header">
-        <span class="text-xs font-medium text-sky-600 dark:text-sky-400">In reply to</span>
+        <span class="text-xs font-medium text-rose-600 dark:text-rose-400">In reply to</span>
         <a class="u-url ml-2" href="{{ post.url }}">
-          <time class="dt-published text-sm text-surface-500 dark:text-surface-400" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-mono" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
         </a>
       </div>
       <a class="u-in-reply-to text-sm text-surface-600 dark:text-surface-400 hover:underline break-all mt-2 inline-block" href="{{ replyToUrl }}">{{ replyToUrl }}</a>
@@ -113,7 +113,7 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
         </h2>
       </div>
       <div class="post-meta mt-2">
-        <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+        <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
         {% if post.data.postType %}
         <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded text-xs ml-2">{{ post.data.postType }}</span>
         {% endif %}
@@ -127,7 +127,7 @@ permalink: "featured/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
       {# ── Note ── #}
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
-          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+          <time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium font-mono" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
         </a>
         {% if post.data.postType %}
         <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded text-xs ml-2">{{ post.data.postType }}</span>

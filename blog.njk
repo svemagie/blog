@@ -39,13 +39,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     {% set hasPhotos = post.data.photo and post.data.photo.length %}
     {% set borderClass = "" %}
     {% if likedUrl %}
-      {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
+      {% set borderClass = "border-l-[3px] border-l-rose-400 dark:border-l-rose-500" %}
     {% elif bookmarkedUrl %}
       {% set borderClass = "border-l-[3px] border-l-amber-400 dark:border-l-amber-500" %}
     {% elif repostedUrl %}
-      {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
+      {% set borderClass = "border-l-[3px] border-l-rose-400 dark:border-l-rose-500" %}
     {% elif replyToUrl %}
-      {% set borderClass = "border-l-[3px] border-l-sky-400 dark:border-l-sky-500" %}
+      {% set borderClass = "border-l-[3px] border-l-rose-400 dark:border-l-rose-500" %}
     {% elif hasPhotos %}
       {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
     {% else %}
@@ -57,14 +57,14 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Like card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-rose-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-red-600 dark:text-red-400">Liked</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <span class="font-medium text-rose-600 dark:text-rose-400">Liked</span>
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -103,7 +103,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-amber-600 dark:text-amber-400">Bookmarked</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -140,14 +140,14 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Repost card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-green-600 dark:text-green-400">Reposted</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <span class="font-medium text-rose-600 dark:text-rose-400">Reposted</span>
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -179,14 +179,14 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Reply card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-sky-600 dark:text-sky-400">In reply to</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <span class="font-medium text-rose-600 dark:text-rose-400">In reply to</span>
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -224,7 +224,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         <div class="flex-1 min-w-0">
           <div class="post-meta">
             <span class="font-medium text-purple-600 dark:text-purple-400">Photo</span>
-            <time-difference><time class="dt-published" datetime="{{ post.date | isoDate }}">
+            <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
             {% if post.data.category %}
@@ -268,7 +268,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           </a>
         </h2>
         <div class="post-meta">
-          <time class="dt-published" datetime="{{ post.date | isoDate }}">
+          <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time>
           {% if post.data.category %}
@@ -295,7 +295,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Note card (unchanged) ── #}
       <div class="post-header">
         <a class="u-url" href="{{ post.url }}">
-          <time-difference><time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium" datetime="{{ post.date | isoDate }}">
+          <time-difference><time class="dt-published text-sm text-surface-500 dark:text-surface-400 font-medium font-mono" datetime="{{ post.date | isoDate }}">
             {{ post.date | dateDisplay }}
           </time></time-difference>
         </a>

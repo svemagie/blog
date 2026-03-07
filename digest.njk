@@ -19,7 +19,7 @@ permalink: "digest/{{ digest.slug }}/"
     {{ digest.label }}
   </h1>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
-    <time datetime="{{ digest.startDate | isoDate }}">{{ digest.startDate | dateDisplay }}</time> &ndash; <time datetime="{{ digest.endDate | isoDate }}">{{ digest.endDate | dateDisplay }}</time>
+    <time class="font-mono" datetime="{{ digest.startDate | isoDate }}">{{ digest.startDate | dateDisplay }}</time> &ndash; <time class="font-mono" datetime="{{ digest.endDate | isoDate }}">{{ digest.endDate | dateDisplay }}</time>
     <span class="text-sm">({{ digest.posts.length }} post{% if digest.posts.length != 1 %}s{% endif %})</span>
   </p>
 
@@ -51,7 +51,7 @@ permalink: "digest/{{ digest.slug }}/"
               <div>
                 <a href="{{ targetUrl }}" class="text-accent-600 dark:text-accent-400 hover:underline break-all">{{ targetUrl }}</a>
                 <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                  <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                  <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
                   &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
                 </div>
               </div>
@@ -68,7 +68,7 @@ permalink: "digest/{{ digest.slug }}/"
                   <a href="{{ targetUrl }}" class="text-accent-600 dark:text-accent-400 hover:underline break-all">{{ targetUrl }}</a>
                 {% endif %}
                 <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                  <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                  <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
                   &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
                 </div>
               </div>
@@ -81,7 +81,7 @@ permalink: "digest/{{ digest.slug }}/"
               <div>
                 <a href="{{ targetUrl }}" class="text-accent-600 dark:text-accent-400 hover:underline break-all">{{ targetUrl }}</a>
                 <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                  <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                  <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
                   &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
                 </div>
               </div>
@@ -104,7 +104,7 @@ permalink: "digest/{{ digest.slug }}/"
                 <p class="text-surface-700 dark:text-surface-300 text-sm">{{ post.templateContent | striptags | truncate(120) }}</p>
               {% endif %}
               <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
                 &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
               </div>
             </div>
@@ -118,7 +118,7 @@ permalink: "digest/{{ digest.slug }}/"
               <p class="text-surface-700 dark:text-surface-300 text-sm mt-1">{{ post.templateContent | striptags | truncate(200) }}</p>
               {% endif %}
               <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
                 &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
               </div>
             </div>
@@ -127,7 +127,7 @@ permalink: "digest/{{ digest.slug }}/"
             <div>
               <p class="text-surface-700 dark:text-surface-300">{{ post.templateContent | striptags | truncate(200) }}</p>
               <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                <time class="dt-published" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+                <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
                 &middot; <a href="{{ post.url }}" class="hover:underline">Permalink</a>
               </div>
             </div>
@@ -151,7 +151,7 @@ permalink: "digest/{{ digest.slug }}/"
   <nav class="flex justify-between items-center mt-8 pt-6 border-t border-surface-200 dark:border-surface-700" aria-label="Digest navigation">
     {% if currentIndex > 0 %}
       {% set newer = allDigests[currentIndex - 1] %}
-      <a href="/digest/{{ newer.slug }}/" class="text-accent-600 dark:text-accent-400 hover:underline">
+      <a href="/digest/{{ newer.slug }}/" class="text-amber-600 dark:text-amber-400 hover:underline">
         &larr; {{ newer.label }}
       </a>
     {% else %}
@@ -159,7 +159,7 @@ permalink: "digest/{{ digest.slug }}/"
     {% endif %}
     {% if currentIndex < allDigests.length - 1 %}
       {% set older = allDigests[currentIndex + 1] %}
-      <a href="/digest/{{ older.slug }}/" class="text-accent-600 dark:text-accent-400 hover:underline">
+      <a href="/digest/{{ older.slug }}/" class="text-amber-600 dark:text-amber-400 hover:underline">
         {{ older.label }} &rarr;
       </a>
     {% else %}
