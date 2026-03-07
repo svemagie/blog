@@ -8,12 +8,12 @@
       <img
         src="{{ site.author.avatar }}"
         alt="{{ site.author.name }}"
-        class="w-12 h-12 rounded-full object-cover"
+        class="w-12 h-12 rounded-full object-cover shadow-lg"
         loading="lazy"
       >
     </a>
     <div>
-      <a href="{{ site.author.url }}" class="u-url p-name font-medium text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">
+      <a href="{{ site.author.url }}" class="u-url p-name font-medium text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
         {{ site.author.name }}
       </a>
       <p class="p-job-title text-xs text-surface-500">{{ site.author.title }}</p>
