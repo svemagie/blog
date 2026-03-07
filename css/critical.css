@@ -55,3 +55,7 @@ a{color:#b45309}
 .site-nav{display:flex;align-items:center;gap:1rem}
 .site-nav>a,.site-nav .nav-dropdown-trigger{color:#5c5750;text-decoration:none;padding-top:0.5rem;padding-bottom:0.5rem}
 .dark .site-nav>a,.dark .site-nav .nav-dropdown-trigger{color:#a09a90}
+
+/* Prevent FOUC — constrain images and SVG icons before Tailwind loads */
+img{max-width:100%;height:auto}
+svg:not(:root):not([width]){width:1.25rem;height:1.25rem}
