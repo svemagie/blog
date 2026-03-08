@@ -5,8 +5,10 @@ category:
   - where
   - slashpage
 visibility: unlisted
-updated: 2026-03-08T13:57:39.481Z
+updated: 2026-03-08T14:04:42.356Z
+summary: A [where page](https://niqwithq.com/posts/where-are-you) is a place on the web to let others know about your current location.
 permalink: https://blog.giersig.eu/where/
 ---
 
-A [where page](https://niqwithq.com/posts/where-are-you) is a place on the web to let others know about your current location.
+
+Thanks to [Aaron Parecki](https://aaronparecki.com/) for ownyourswarm.
