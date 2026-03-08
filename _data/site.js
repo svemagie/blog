@@ -8,12 +8,30 @@
 // Parse social links from env (format: "name|url|icon,name|url|icon")
 function parseSocialLinks(envVar) {
   if (!envVar) return [];
-  return envVar.split(",").map((link) => {
-    const [name, url, icon] = link.split("|").map((s) => s.trim());
-    // Bluesky requires "me atproto" for verification
-    const rel = url.includes("bsky.app") ? "me atproto" : "me";
-    return { name, url, rel, icon: icon || name.toLowerCase() };
-  });
+
+  // Normalize common secret copy/paste mistakes, e.g. SITE_SOCIAL="..."
+  const cleaned = String(envVar)
+    .trim()
+    .replace(/^SITE_SOCIAL\s*=\s*/i, "")
+    .replace(/^['"]|['"]$/g, "");
+
+  return cleaned
+    .split(",")
+    .map((link) => link.trim())
+    .filter(Boolean)
+    .map((link) => {
+      const [rawName, rawUrl, rawIcon] = link.split("|");
+      const name = (rawName || "").trim().replace(/^['"]|['"]$/g, "");
+      const url = (rawUrl || "").trim().replace(/^['"]|['"]$/g, "");
+      const icon = (rawIcon || "").trim().replace(/^['"]|['"]$/g, "");
+
+      if (!name || !url) return null;
+
+      // Bluesky requires "me atproto" for verification
+      const rel = url.includes("bsky.app") ? "me atproto" : "me";
+      return { name, url, rel, icon: icon || name.toLowerCase() };
+    })
+    .filter(Boolean);
 }
 
 // Get fediverse handle for fediverse:creator meta tag
