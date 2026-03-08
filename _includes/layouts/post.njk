@@ -9,7 +9,7 @@ withBlogSidebar: true
   {% set replyTo = inReplyTo or in_reply_to %}
   {% set repostedUrl = repostOf or repost_of %}
 
-  {% if title %}
+  {% if title and not repostedUrl %}
   <h1 class="p-name text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-3 sm:mb-4">{{ title }}</h1>
   {% else %}
   <div class="flex items-center gap-2 mb-1">
