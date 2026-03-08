@@ -5,7 +5,7 @@ summary: About me page
 category:
   - about
   - slashpage
-updated: 2026-03-08T05:45:08.126Z
+updated: 2026-03-08T12:44:56.840Z
 permalink: https://blog.giersig.eu/about/
 ---
 
@@ -20,3 +20,7 @@ Between 2021 and 2024, I worked as a social worker supporting young people and r
 Since 2024, I’ve been a public relations specialist at a district office, focusing on social issues and community communication. 
 
 Outside of work, I run blogs, design and sew ultralight hiking gear, and enjoy life and long-distance hikes in the Alps and elsewhere.
+
+---
+PGP: svemagie@anche.no 
+3818 0708 ACB8 A61A 1C53  D170 B986 7870 D887 1475
