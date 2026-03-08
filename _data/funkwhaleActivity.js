@@ -5,28 +5,36 @@
 
 import EleventyFetch from "@11ty/eleventy-fetch";
 
-const INDIEKIT_URL = process.env.SITE_URL || "https://example.com";
+const INDIEKIT_URL =
+  process.env.INDIEKIT_URL || process.env.SITE_URL || "https://example.com";
 const FUNKWHALE_INSTANCE = process.env.FUNKWHALE_INSTANCE || "";
 
 /**
  * Fetch from Indiekit's public Funkwhale API endpoint
  */
 async function fetchFromIndiekit(endpoint) {
-  try {
-    const url = `${INDIEKIT_URL}/funkwhaleapi/api/${endpoint}`;
-    console.log(`[funkwhaleActivity] Fetching from Indiekit: ${url}`);
-    const data = await EleventyFetch(url, {
-      duration: "15m",
-      type: "json",
-    });
-    console.log(`[funkwhaleActivity] Indiekit ${endpoint} success`);
-    return data;
-  } catch (error) {
-    console.log(
-      `[funkwhaleActivity] Indiekit API unavailable for ${endpoint}: ${error.message}`
-    );
-    return null;
+  const urls = [
+    `${INDIEKIT_URL}/funkwhale/api/${endpoint}`,
+    `${INDIEKIT_URL}/funkwhaleapi/api/${endpoint}`,
+  ];
+
+  for (const url of urls) {
+    try {
+      console.log(`[funkwhaleActivity] Fetching from Indiekit: ${url}`);
+      const data = await EleventyFetch(url, {
+        duration: "15m",
+        type: "json",
+      });
+      console.log(`[funkwhaleActivity] Indiekit ${endpoint} success via ${url}`);
+      return data;
+    } catch (error) {
+      console.log(
+        `[funkwhaleActivity] Indiekit API unavailable for ${endpoint} at ${url}: ${error.message}`
+      );
+    }
   }
+
+  return null;
 }
 
 /**
