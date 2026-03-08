@@ -4,8 +4,8 @@ title: about
 summary: About me page
 category:
   - about
-  - slashpages
-updated: 2026-03-08T01:52:37.491Z
+  - slashpage
+updated: 2026-03-08T04:31:46.710Z
 permalink: https://blog.giersig.eu/about/
 ---
 
