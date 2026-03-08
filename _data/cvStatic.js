@@ -12,7 +12,6 @@ export default {
       location: "Garmisch-Partenkirchen, Germany",
       startDate: "2024",
       endDate: null,
-      type: "part-time",
       experienceType: "work",
       description:
         "Spearheaded strategic communication initiatives, improved public outreach, and strengthened stakeholder relationships.",
@@ -63,7 +62,6 @@ export default {
       location: "Murnau, Germany",
       startDate: "2017",
       endDate: "2021",
-      type: "full-time",
       experienceType: "work",
       description:
         "Managed daily store operations, team leadership, and sales strategy with consistent growth and strong customer service outcomes.",
@@ -80,7 +78,6 @@ export default {
       location: "Konstanz, Germany",
       startDate: "2012",
       endDate: "2017",
-      type: "full-time",
       experienceType: "work",
       description:
         "Built strong customer relationships and product expertise in outdoor retail while improving sales performance.",
@@ -97,7 +94,6 @@ export default {
       location: "Konstanz, Germany",
       startDate: "2007",
       endDate: "2012",
-      type: "part-time",
       experienceType: "work",
       description:
         "Supported sociological research projects, contributed to publications, and tutored students in qualitative and quantitative methods.",
@@ -114,7 +110,6 @@ export default {
       location: "Waiblingen and Stuttgart, Germany",
       startDate: "1998",
       endDate: "2002",
-      type: "full-time",
       experienceType: "work",
       description:
         "Delivered UNIX consulting in networked environments, covering system administration, troubleshooting, and technical support.",
