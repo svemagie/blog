@@ -5,7 +5,7 @@ summary: a page that tells you what I'm focused on at this point in my life
 category:
   - now
   - slashpage
-updated: 2026-03-08T13:06:04.623Z
+updated: 2026-03-08T13:56:38.077Z
 permalink: https://blog.giersig.eu/now/
 ---
 
@@ -19,3 +19,5 @@ This page is a [now page](https://nownownow.com/about), you should consider addi
 - Ghost blogging
 
 and I like ice in the sunhine!
+
+check out my [where page](https://blog.giersig.eu/where)
