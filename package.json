@@ -6,7 +6,9 @@
   "scripts": {
     "build": "eleventy",
     "dev": "eleventy --serve --watch",
-    "build:css": "postcss css/tailwind.css -o css/style.css"
+    "build:css": "postcss css/tailwind.css -o css/style.css",
+    "check:upstream-widgets": "node scripts/check-upstream-widget-drift.mjs",
+    "check:upstream-widgets:strict": "node scripts/check-upstream-widget-drift.mjs --strict"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
