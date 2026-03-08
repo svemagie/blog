@@ -1,12 +1,12 @@
 ---
-date: 2026-03-08T01:52:03.894Z
+date: 2026-03-08T06:15:00.000Z
 title: about
 summary: About me page
 category:
   - about
   - slashpage
-updated: 2026-03-08T04:31:46.710Z
+updated: 2026-03-08T05:30:29.398Z
 permalink: https://blog.giersig.eu/about/
 ---
 
-pedestrian sociologist, mostly harmless
+I gained early professional experience as a Unix administrator and a brief stint as a minimal techno DJ. I earned a degree in Sociology from the University of Constance and worked in sales for outdoor and mountaineering brands, eventually managing a specialty retail store. From 2014 to 2023, I ran a successful communication agency offering content creation, editorial services, and strategic communication consulting. As an entrepreneur, I led projects across industries, focusing on tailored messaging, client collaboration, and adaptability. Between 2021 and 2024, I worked as a social worker supporting young people and refugees in integrating into German society. Since 2024, I’ve been a public relations specialist at a district office, focusing on social issues and community communication. Outside of work, I run blogs, design and sew ultralight hiking gear, and enjoy life and long-distance hikes in the Alps.
