@@ -84,9 +84,9 @@
               {{ post.date | dateDisplay }}
             </time>
           </div>
-          {% if post.data.title %}
+          {% if post.data.title and (post.data.title | trim) %}
           <h3 class="p-name font-semibold text-surface-900 dark:text-surface-100 mt-1">
-            <a class="hover:text-accent-600 dark:hover:text-accent-400" href="{{ post.url }}">{{ post.data.title }}</a>
+            <a class="hover:text-accent-600 dark:hover:text-accent-400" href="{{ post.url }}">{{ post.data.title | trim }}</a>
           </h3>
           {% endif %}
           {{ bookmarkedUrl | unfurlCard | safe }}
@@ -194,11 +194,11 @@
         </div>
       </div>
 
-      {% elif post.data.title %}
+      {% elif post.data.title and (post.data.title | trim) %}
       {# ── Article card ── #}
       <h3 class="p-name font-semibold text-surface-900 dark:text-surface-100 mb-1">
         <a href="{{ post.url }}" class="u-url hover:text-accent-600 dark:hover:text-accent-400">
-          {{ post.data.title }}
+          {{ post.data.title | trim }}
         </a>
       </h3>
       {% if showSummary and post.templateContent %}
