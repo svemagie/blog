@@ -1,11 +1,12 @@
 {# Recent Posts Widget — type-aware, for blog/post sidebars #}
 {# Uses collections.posts directly (all post types, not just recentPosts collection) #}
-{% if collections.posts %}
+{% set listedPosts = collections.posts | excludeUnlistedPosts %}
+{% if listedPosts and listedPosts.length %}
 <is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Recent Posts</h3>
   <ul class="space-y-3">
-    {% for post in collections.posts | head(5) %}
+    {% for post in listedPosts | head(5) %}
     {% if post.url != page.url %}
     <li>
       {% set _likedUrl = post.data.likeOf or post.data.like_of %}

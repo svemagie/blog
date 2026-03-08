@@ -7,15 +7,16 @@
 {% set sectionConfig = section.config or {} %}
 {% set maxItems = sectionConfig.maxItems or 5 %}
 {% set showSummary = sectionConfig.showSummary if sectionConfig.showSummary is defined else true %}
+{% set listedPosts = collections.posts | excludeUnlistedPosts %}
 
-{% if collections.posts and collections.posts.length %}
+{% if listedPosts and listedPosts.length %}
 <section class="mb-8 sm:mb-12">
   <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4 sm:mb-6">
     {{ sectionConfig.title or "Recent Posts" }}
   </h2>
 
   <div class="space-y-4">
-    {% for post in collections.posts | head(maxItems) %}
+    {% for post in listedPosts | head(maxItems) %}
       {# Detect post type from frontmatter properties #}
       {% set likedUrl = post.data.likeOf or post.data.like_of %}
       {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}

@@ -876,6 +876,17 @@ export default function (eleventyConfig) {
     };
   });
 
+  // Exclude unlisted posts from UI slices like homepage/sidebar recent-post lists.
+  eleventyConfig.addFilter("excludeUnlistedPosts", (posts) => {
+    if (!Array.isArray(posts)) return [];
+    return posts.filter((post) => {
+      const data = post?.data || {};
+      const rawVisibility = data.visibility ?? data.properties?.visibility;
+      const visibility = Array.isArray(rawVisibility) ? rawVisibility[0] : rawVisibility;
+      return String(visibility ?? "").toLowerCase() !== "unlisted";
+    });
+  });
+
   // Helper: exclude drafts from collections
   const isPublished = (item) => !item.data.draft;
 

@@ -1,11 +1,12 @@
 {# Recent Posts Widget (sidebar) - compact type-aware list #}
 {% set recentPosts = recentPosts or collections.recentPosts %}
-{% if recentPosts and recentPosts.length %}
+{% set listedRecentPosts = recentPosts | excludeUnlistedPosts %}
+{% if listedRecentPosts and listedRecentPosts.length %}
 <is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Recent Posts</h3>
   <ul class="space-y-3">
-    {% for post in recentPosts | head(5) %}
+    {% for post in listedRecentPosts | head(5) %}
     <li>
       {# Detect post type #}
       {% set likedUrl = post.data.likeOf or post.data.like_of %}
