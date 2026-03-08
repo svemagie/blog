@@ -39,7 +39,6 @@ jobs:
           echo "AUTHOR_TITLE=${{ secrets.AUTHOR_TITLE }}" >> .env
           echo "AUTHOR_PRONOUN=${{ secrets.AUTHOR_PRONOUN }}" >> .env
           echo "SITE_LOCALE=${{ secrets.SITE_LOCALE }}" >> .env
-          echo "INDIEKIT_PASSWORD=${{ secrets.INDIEKIT_PASSWORD }}" >> .env
 
       - name: Build site
         run: npm run build
