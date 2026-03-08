@@ -1,7 +1,8 @@
 {# Social Feed Widget - Tabbed Bluesky/Mastodon #}
 {% if (blueskyFeed and blueskyFeed.length) or (mastodonFeed and mastodonFeed.length) %}
 <is-land on:visible>
-<div class="widget" x-data="{ activeTab: 'bluesky' }">
+{% set defaultSocialTab = "mastodon" if mastodonFeed and mastodonFeed.length else "bluesky" %}
+<div class="widget" x-data="{ activeTab: '{{ defaultSocialTab }}' }">
   <h3 class="widget-title">Social Activity</h3>
 
   {# Tab buttons #}
