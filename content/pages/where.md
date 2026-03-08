@@ -2,8 +2,10 @@
 date: 2026-03-08T13:55:46.901Z
 title: where
 category:
-  - slashpage
   - where
+  - slashpage
+visibility: unlisted
+updated: 2026-03-08T13:57:39.481Z
 permalink: https://blog.giersig.eu/where/
 ---
 
