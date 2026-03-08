@@ -7,7 +7,12 @@
 {% set sectionConfig = section.config or {} %}
 {% set maxItems = sectionConfig.maxItems or 5 %}
 {% set showSummary = sectionConfig.showSummary if sectionConfig.showSummary is defined else true %}
-{% set listedPosts = collections.posts | excludeUnlistedPosts %}
+{% set primaryPosts = collections.posts if (collections and collections.posts) else [] %}
+{% set fallbackRecentPosts = collections.recentPosts if (collections and collections.recentPosts) else [] %}
+{% set listedPosts = primaryPosts | excludeUnlistedPosts %}
+{% if not (listedPosts and listedPosts.length) %}
+  {% set listedPosts = fallbackRecentPosts | excludeUnlistedPosts %}
+{% endif %}
 
 {% if listedPosts and listedPosts.length %}
 <section class="mb-8 sm:mb-12">
@@ -68,7 +73,7 @@
             </span>
             {% endif %}
           </div>
-          {% unfurl likedUrl %}
+          {{ likedUrl | unfurlCard | safe }}
           <a class="u-like-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
             {{ likedUrl }}
           </a>
@@ -112,7 +117,7 @@
             <a class="hover:text-amber-600 dark:hover:text-amber-400" href="{{ post.url }}">{{ post.data.title }}</a>
           </h3>
           {% endif %}
-          {% unfurl bookmarkedUrl %}
+          {{ bookmarkedUrl | unfurlCard | safe }}
           <a class="u-bookmark-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ bookmarkedUrl }}">
             {{ bookmarkedUrl }}
           </a>
@@ -151,7 +156,7 @@
             </span>
             {% endif %}
           </div>
-          {% unfurl repostedUrl %}
+          {{ repostedUrl | unfurlCard | safe }}
           <a class="u-repost-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ repostedUrl }}">
             {{ repostedUrl }}
           </a>
@@ -190,7 +195,7 @@
             </span>
             {% endif %}
           </div>
-          {% unfurl replyToUrl %}
+          {{ replyToUrl | unfurlCard | safe }}
           <a class="u-in-reply-to text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ replyToUrl }}">
             {{ replyToUrl }}
           </a>
