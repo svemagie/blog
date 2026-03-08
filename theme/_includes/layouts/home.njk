@@ -79,12 +79,15 @@ withSidebar: true
   <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4 sm:mb-6">Recent Posts</h2>
   <div class="space-y-4">
     {% for post in collections.posts | head(10) %}
-    <article class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-accent-400 dark:hover:border-accent-600 transition-colors">
-      <h3 class="font-semibold text-surface-900 dark:text-surface-100 mb-1">
-        <a href="{{ post.url }}" class="hover:text-accent-600 dark:hover:text-accent-400">
-          {{ post.data.title or post.data.name or "Untitled" }}
-        </a>
-      </h3>
+      <article class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 hover:border-accent-400 dark:hover:border-accent-600 transition-colors">
+        {% set postTitle = ((post.data.title or post.data.name or "") | trim) %}
+        {% if postTitle %}
+        <h3 class="font-semibold text-surface-900 dark:text-surface-100 mb-1">
+          <a href="{{ post.url }}" class="hover:text-accent-600 dark:hover:text-accent-400">
+            {{ postTitle }}
+          </a>
+        </h3>
+        {% endif %}
       {% if post.data.summary %}
       <p class="text-sm text-surface-600 dark:text-surface-400 mb-2 line-clamp-2">{{ post.data.summary }}</p>
       {% endif %}
@@ -92,6 +95,9 @@ withSidebar: true
         <time datetime="{{ post.data.published or post.date }}">
           {{ (post.data.published or post.date) | date("MMM d, yyyy") }}
         </time>
+          {% if not postTitle %}
+          <a href="{{ post.url }}" class="text-accent-600 dark:text-accent-400 hover:underline">Permalink</a>
+          {% endif %}
         {% if post.data.postType %}
         <span class="px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded">{{ post.data.postType }}</span>
         {% endif %}
