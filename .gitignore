@@ -11,7 +11,10 @@ css/style.css
 
 # Environment variables (never commit!)
 .env
-.env.local
+*.env.local
+*.env.*.local
+env.sh
+env.sh.*
 
 # Content (symlinked at runtime)
 content/
@@ -30,4 +33,24 @@ Thumbs.db
 *.swp
 *.swo
 
+# Development files
 .claude
+
+# Build artifacts (eleventy-site is a submodule)
+# _site and .cache are in submodule's .gitignore
+
+# User content (populated at runtime)
+migrated-content/
+
+# Personal data overrides (applied during build)
+overrides/
+
+# Personal avatar images can go in overrides/eleventy-site/images/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
