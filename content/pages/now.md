@@ -5,7 +5,7 @@ summary: a page that tells you what I'm focused on at this point in my life
 category:
   - now
   - slashpage
-permalink: https://blog.giersig.eu/now/
+permalink: /now/
 ---
 
 This page is a now page, you should consider adding one if you have a website as well, inspiration comes from here

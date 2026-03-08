@@ -15,14 +15,33 @@
  * See: https://github.com/11ty/eleventy/issues/3183
  */
 
+const normalizeOutputPermalink = (permalink) => {
+  if (typeof permalink !== "string") return permalink;
+
+  // Convert accidental absolute URLs to Eleventy output paths.
+  if (/^https?:\/\//i.test(permalink)) {
+    try {
+      const { pathname } = new URL(permalink);
+      if (!pathname) return "/";
+      return pathname.endsWith("/") ? pathname : `${pathname}/`;
+    } catch {
+      return permalink;
+    }
+  }
+
+  return permalink;
+};
+
 export default {
   eleventyComputed: {
     // Compute permalink from file path for posts without explicit frontmatter permalink.
     // Pattern: content/{type}/{yyyy}-{MM}-{dd}-{slug}.md → /{type}/{yyyy}/{MM}/{dd}/{slug}/
     permalink: (data) => {
       // Convert stale /content/ permalinks from pre-beta.37 posts to canonical format
-      if (data.permalink && typeof data.permalink === "string") {
-        const contentMatch = data.permalink.match(
+      const explicitPermalink = normalizeOutputPermalink(data.permalink);
+
+      if (explicitPermalink && typeof explicitPermalink === "string") {
+        const contentMatch = explicitPermalink.match(
           /^\/content\/([^/]+)\/(\d{4})-(\d{2})-(\d{2})-(.+?)\/?$/
         );
         if (contentMatch) {
@@ -30,7 +49,7 @@ export default {
           return `/${type}/${year}/${month}/${day}/${slug}/`;
         }
         // Valid non-/content/ permalink — use as-is
-        return data.permalink;
+        return explicitPermalink;
       }
 
       // No frontmatter permalink — compute from file path
