@@ -12,6 +12,7 @@ import EleventyFetch from "@11ty/eleventy-fetch";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import cvStatic from "./cvStatic.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const INDIEKIT_URL =
@@ -73,6 +74,10 @@ export default async function () {
   const localData = readLocalCvFile();
   if (localData && typeof localData === "object") {
     return { ...EMPTY_CV, ...localData };
+  }
+
+  if (cvStatic && typeof cvStatic === "object") {
+    return { ...EMPTY_CV, ...cvStatic };
   }
 
   return EMPTY_CV;
