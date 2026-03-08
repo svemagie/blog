@@ -1,29 +1,75 @@
 /**
  * CV Page Configuration Data
- * Reads config from indiekit-endpoint-cv plugin CV page builder.
- * Falls back to null — cv.njk then uses the default hardcoded layout.
  *
- * The CV plugin writes a .indiekit/cv-page.json file that Eleventy watches.
- * On change, a rebuild picks up the new config, allowing layout changes
- * without a Docker rebuild.
+ * API-first for split backend/frontend deployments:
+ * - Try Indiekit public API (`/cvapi/page.json`, fallback `/cv/page.json`)
+ * - Fallback to local plugin file (`content/.indiekit/cv-page.json`)
+ *
+ * Falls back to null so cv.njk can use the hardcoded default layout.
  */
 
+import EleventyFetch from "@11ty/eleventy-fetch";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const INDIEKIT_URL =
+  process.env.INDIEKIT_URL || process.env.SITE_URL || "https://example.com";
 
-export default function () {
+async function fetchFromIndiekit(path) {
+  const urls = [
+    `${INDIEKIT_URL}/cvapi/${path}`,
+    `${INDIEKIT_URL}/cv/${path}`,
+  ];
+
+  for (const url of urls) {
+    try {
+      console.log(`[cvPageConfig] Fetching from Indiekit: ${url}`);
+      const data = await EleventyFetch(url, {
+        duration: "15m",
+        type: "json",
+      });
+      console.log(`[cvPageConfig] Indiekit ${path} success via ${url}`);
+      return data;
+    } catch (error) {
+      console.log(
+        `[cvPageConfig] Indiekit API unavailable at ${url}: ${error.message}`
+      );
+    }
+  }
+
+  return null;
+}
+
+function readLocalConfigFile() {
   try {
-    // Resolve via the content/ symlink relative to the Eleventy project
-    const configPath = resolve(__dirname, "..", "content", ".indiekit", "cv-page.json");
+    const configPath = resolve(
+      __dirname,
+      "..",
+      "content",
+      ".indiekit",
+      "cv-page.json"
+    );
     const raw = readFileSync(configPath, "utf8");
     const config = JSON.parse(raw);
-    console.log("[cvPageConfig] Loaded CV page builder config");
+    console.log("[cvPageConfig] Loaded local CV page builder config");
     return config;
   } catch {
-    // No CV page builder config — fall back to hardcoded layout in cv.njk
     return null;
   }
+}
+
+export default async function () {
+  const apiConfig = await fetchFromIndiekit("page.json");
+  if (apiConfig && typeof apiConfig === "object") {
+    return apiConfig;
+  }
+
+  const localConfig = readLocalConfigFile();
+  if (localConfig && typeof localConfig === "object") {
+    return localConfig;
+  }
+
+  return null;
 }
