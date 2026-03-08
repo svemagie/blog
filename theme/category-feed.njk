@@ -18,8 +18,11 @@ permalink: "categories/{{ categoryFeed.slug }}/feed.xml"
     <language>{{ site.locale | default('en') }}</language>
     <atom:link href="{{ site.url }}/categories/{{ categoryFeed.slug }}/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link href="https://websubhub.com/hub" rel="hub"/>
-    <lastBuildDate>{{ categoryFeed.posts | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
-    {%- for post in categoryFeed.posts %}
+    {%- set listedCategoryPosts = categoryFeed.posts | excludeUnlistedPosts %}
+    {%- if listedCategoryPosts.length %}
+    <lastBuildDate>{{ listedCategoryPosts | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
+    {%- endif %}
+    {%- for post in listedCategoryPosts %}
     {%- set absolutePostUrl = site.url + post.url %}
     {%- set postImage = post.data.photo %}
     {%- if postImage %}

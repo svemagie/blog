@@ -32,8 +32,9 @@ eleventyImport:
     "support": {{ site.support | textcastingSupport | jsonEncode | safe }}
     {%- endif %}
   },
+  {%- set listedFeedPosts = collections.feed | excludeUnlistedPosts %}
   "items": [
-    {%- for post in collections.feed %}
+    {%- for post in listedFeedPosts %}
     {%- set absolutePostUrl = site.url + post.url %}
     {%- set postImage = post.data.photo %}
     {%- if postImage %}

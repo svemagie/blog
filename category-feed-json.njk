@@ -36,8 +36,9 @@ permalink: "categories/{{ categoryFeed.slug }}/feed.json"
     "support": {{ site.support | textcastingSupport | jsonEncode | safe }}
     {%- endif %}
   },
+  {%- set listedCategoryPosts = categoryFeed.posts | excludeUnlistedPosts %}
   "items": [
-    {%- for post in categoryFeed.posts %}
+    {%- for post in listedCategoryPosts %}
     {%- set absolutePostUrl = site.url + post.url %}
     {%- set postImage = post.data.photo %}
     {%- if postImage %}

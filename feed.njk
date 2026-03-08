@@ -14,8 +14,11 @@ eleventyImport:
     <language>{{ site.locale | default('en') }}</language>
     <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml"/>
     <atom:link href="https://websubhub.com/hub" rel="hub"/>
-    <lastBuildDate>{{ collections.feed | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
-    {%- for post in collections.feed %}
+    {%- set listedFeedPosts = collections.feed | excludeUnlistedPosts %}
+    {%- if listedFeedPosts.length %}
+    <lastBuildDate>{{ listedFeedPosts | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
+    {%- endif %}
+    {%- for post in listedFeedPosts %}
     {%- set absolutePostUrl = site.url + post.url %}
     {%- set postImage = post.data.photo %}
     {%- if postImage %}
