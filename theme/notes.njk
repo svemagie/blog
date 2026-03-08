@@ -3,7 +3,7 @@ layout: layouts/base.njk
 title: Notes
 withSidebar: true
 pagination:
-  data: collections.notes
+  data: collections.listedNotes
   size: 20
   alias: paginatedNotes
   generatePageOnEmptyData: true
@@ -12,14 +12,14 @@ permalink: "notes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
 <div class="h-feed">
   <div class="flex flex-wrap items-center gap-4 mb-2">
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Notes</h1>
-    {% set sparklineSvg = collections.notes | postingFrequency %}
+    {% set sparklineSvg = collections.listedNotes | postingFrequency %}
     {% if sparklineSvg %}
     <span class="text-amber-600 dark:text-amber-400">{{ sparklineSvg | safe }}</span>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
     Short thoughts, updates, and quick posts.
-    <span class="text-sm">({{ collections.notes.length }} total)</span>
+    <span class="text-sm">({{ collections.listedNotes.length }} total)</span>
   </p>
 
   {% if paginatedNotes.length > 0 %}

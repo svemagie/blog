@@ -818,19 +818,22 @@ export default function (eleventyConfig) {
     };
   });
 
+  // Helper: exclude drafts from collections
+  const isPublished = (item) => !item.data.draft;
+
+  // Helper: exclude unlisted visibility from public listing surfaces
+  const isListed = (item) => {
+    const data = item?.data || {};
+    const rawVisibility = data.visibility ?? data.properties?.visibility;
+    const visibility = Array.isArray(rawVisibility) ? rawVisibility[0] : rawVisibility;
+    return String(visibility ?? "").toLowerCase() !== "unlisted";
+  };
+
   // Exclude unlisted posts from UI slices like homepage/sidebar recent-post lists.
   eleventyConfig.addFilter("excludeUnlistedPosts", (posts) => {
     if (!Array.isArray(posts)) return [];
-    return posts.filter((post) => {
-      const data = post?.data || {};
-      const rawVisibility = data.visibility ?? data.properties?.visibility;
-      const visibility = Array.isArray(rawVisibility) ? rawVisibility[0] : rawVisibility;
-      return String(visibility ?? "").toLowerCase() !== "unlisted";
-    });
+    return posts.filter(isListed);
   });
-
-  // Helper: exclude drafts from collections
-  const isPublished = (item) => !item.data.draft;
 
   // Collections for different post types
   // Note: content path is content/ due to symlink structure
@@ -842,10 +845,24 @@ export default function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addCollection("listedPosts", function (collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("content/**/*.md")
+      .filter((item) => isPublished(item) && isListed(item))
+      .sort((a, b) => b.date - a.date);
+  });
+
   eleventyConfig.addCollection("notes", function (collectionApi) {
     return collectionApi
       .getFilteredByGlob("content/notes/**/*.md")
       .filter(isPublished)
+      .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("listedNotes", function (collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("content/notes/**/*.md")
+      .filter((item) => isPublished(item) && isListed(item))
       .sort((a, b) => b.date - a.date);
   });
 
