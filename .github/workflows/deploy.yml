@@ -47,6 +47,7 @@ jobs:
           SITE_NAME: ${{ secrets.SITE_NAME }}
           SITE_DESCRIPTION: ${{ secrets.SITE_DESCRIPTION }}
           AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+          ACTIVITYPUB_HANDLE: ${{ secrets.ACTIVITYPUB_HANDLE }}
           AUTHOR_AVATAR: ${{ secrets.AUTHOR_AVATAR }}
           AUTHOR_BIO: ${{ secrets.AUTHOR_BIO }}
           AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
