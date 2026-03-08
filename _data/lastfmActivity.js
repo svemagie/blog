@@ -12,10 +12,10 @@ const LASTFM_USERNAME = process.env.LASTFM_USERNAME || "";
 /**
  * Fetch from Indiekit's public Last.fm API endpoint
  */
-async function fetchFromIndiekit(endpoint) {
+async function fetchFromIndiekit(path) {
   const urls = [
-    `${INDIEKIT_URL}/lastfmapi/api/${endpoint}`,
-    `${INDIEKIT_URL}/lastfm/api/${endpoint}`,
+    `${INDIEKIT_URL}/lastfmapi/api/${path}`,
+    `${INDIEKIT_URL}/lastfm/api/${path}`,
   ];
 
   for (const url of urls) {
@@ -25,11 +25,11 @@ async function fetchFromIndiekit(endpoint) {
         duration: "15m",
         type: "json",
       });
-      console.log(`[lastfmActivity] Indiekit ${endpoint} success via ${url}`);
+      console.log(`[lastfmActivity] Indiekit ${path} success via ${url}`);
       return data;
     } catch (error) {
       console.log(
-        `[lastfmActivity] Indiekit API unavailable for ${endpoint} at ${url}: ${error.message}`
+        `[lastfmActivity] Indiekit API unavailable for ${path} at ${url}: ${error.message}`
       );
     }
   }
@@ -44,9 +44,9 @@ export default async function () {
     // Fetch all data from Indiekit API
     const [nowPlaying, scrobbles, loved, stats] = await Promise.all([
       fetchFromIndiekit("now-playing"),
-      fetchFromIndiekit("scrobbles"),
-      fetchFromIndiekit("loved"),
-      fetchFromIndiekit("stats"),
+      fetchFromIndiekit("scrobbles?period=alltime&limit=10"),
+      fetchFromIndiekit("loved?limit=10"),
+      fetchFromIndiekit("stats?period=alltime"),
     ]);
 
     // Check if we got data
