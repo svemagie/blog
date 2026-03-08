@@ -4,6 +4,9 @@
 
 {% if homepageConfig.sidebar and homepageConfig.sidebar.length %}
   {% for widget in homepageConfig.sidebar %}
+    {% if widget.type == "recent-posts" or widget.type == "recent-comments" or widget.type == "categories" or widget.type == "post-categories" %}
+      {# Hidden sidebar widgets by request #}
+    {% else %}
 
     {# Resolve widget title #}
     {% if widget.type == "search" %}{% set widgetTitle = "Search" %}
@@ -138,6 +141,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
 
   {% endfor %}
 {% endif %}

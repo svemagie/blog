@@ -1,7 +1,9 @@
 {# CV Page Builder Sidebar — renders widgets from cvPageConfig.sidebar #}
 {% if cvPageConfig.sidebar and cvPageConfig.sidebar.length %}
   {% for widget in cvPageConfig.sidebar %}
-    {% if widget.type == "author-card" %}
+    {% if widget.type == "recent-posts" or widget.type == "recent-comments" or widget.type == "categories" or widget.type == "post-categories" %}
+      {# Hidden sidebar widgets by request #}
+    {% elif widget.type == "author-card" %}
       {% include "components/widgets/author-card.njk" %}
     {% elif widget.type == "social-activity" %}
       {% include "components/widgets/social-activity.njk" %}

@@ -6,6 +6,9 @@
 {% if homepageConfig and homepageConfig.blogPostSidebar and homepageConfig.blogPostSidebar.length %}
   {# === Data-driven mode: render configured widgets === #}
   {% for widget in homepageConfig.blogPostSidebar %}
+    {% if widget.type == "recent-posts" or widget.type == "recent-comments" or widget.type == "categories" or widget.type == "post-categories" %}
+      {# Hidden sidebar widgets by request #}
+    {% else %}
 
     {# Resolve widget title #}
     {% if widget.type == "search" %}{% set widgetTitle = "Search" %}
@@ -159,6 +162,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
 
   {% endfor %}
 {% else %}
@@ -193,6 +197,7 @@
     </div>
   </div>
 
+  {% if false %}
   {# Post Categories #}
   {% set widgetKey = "post-fb-post-categories" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : true }">
@@ -206,7 +211,9 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
+  {% if false %}
   {# Recent Posts #}
   {% set widgetKey = "post-fb-recent-posts" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : false }">
@@ -220,6 +227,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   {# Webmentions #}
   {% set widgetKey = "post-fb-webmentions" %}
@@ -263,6 +271,7 @@
     </div>
   </div>
 
+  {% if false %}
   {# Recent Comments #}
   {% set widgetKey = "post-fb-recent-comments" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : false }">
@@ -276,4 +285,5 @@
       </div>
     </div>
   </div>
+  {% endif %}
 {% endif %}

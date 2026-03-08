@@ -6,6 +6,9 @@
 {% if homepageConfig and homepageConfig.blogListingSidebar and homepageConfig.blogListingSidebar.length %}
   {# === Data-driven mode: render configured widgets === #}
   {% for widget in homepageConfig.blogListingSidebar %}
+    {% if widget.type == "recent-posts" or widget.type == "recent-comments" or widget.type == "categories" or widget.type == "post-categories" %}
+      {# Hidden sidebar widgets by request #}
+    {% else %}
 
     {# Resolve widget title #}
     {% if widget.type == "search" %}{% set widgetTitle = "Search" %}
@@ -148,6 +151,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
 
   {% endfor %}
 {% else %}
@@ -210,6 +214,7 @@
     </div>
   </div>
 
+  {% if false %}
   {# Recent Posts #}
   {% set widgetKey = "listing-fb-recent-posts" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : false }">
@@ -223,6 +228,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   {# Blogroll — only when backend is available #}
   {% if blogrollStatus and blogrollStatus.source == "indiekit" %}
@@ -256,6 +262,7 @@
   </div>
   {% endif %}
 
+  {% if false %}
   {# Recent Comments #}
   {% set widgetKey = "listing-fb-recent-comments" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : false }">
@@ -269,7 +276,9 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
+  {% if false %}
   {# Categories/Tags #}
   {% set widgetKey = "listing-fb-categories" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : false }">
@@ -283,4 +292,5 @@
       </div>
     </div>
   </div>
+  {% endif %}
 {% endif %}
