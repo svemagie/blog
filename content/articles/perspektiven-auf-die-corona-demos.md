@@ -4,7 +4,9 @@ title: Perspektiven auf die Corona-Demos
 category:
   - people
   - covid19
+  - lang:de
 visibility: public
+updated: 2026-03-08T07:29:05.275Z
 permalink: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
 ---
 
