@@ -2,16 +2,24 @@
  * Where/Checkin data
  *
  * Reads local check-ins created by this site's Micropub endpoint.
- * A post is treated as a check-in when frontmatter includes checkin/location
- * metadata, coordinates, or a checkin-like category.
+ * Supports OwnYourSwarm JSON mode and simple mode payloads once they are
+ * written to local markdown content.
  */
 
 import matter from "gray-matter";
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const CONTENT_DIR = fileURLToPath(new URL("../content", import.meta.url));
+function resolveContentDir() {
+  const candidates = ["../content", "../../content"].map((value) =>
+    fileURLToPath(new URL(value, import.meta.url))
+  );
+  return candidates.find((dirPath) => existsSync(dirPath)) || candidates[0];
+}
+
+const CONTENT_DIR = resolveContentDir();
+const SWARM_HOST = "swarmapp.com";
 
 function first(value) {
   if (Array.isArray(value)) return value[0];
@@ -42,12 +50,12 @@ function asNumber(value) {
   return Number.isFinite(num) ? num : null;
 }
 
-function joinLocation(locality, region, country) {
-  return [locality, region, country].filter(Boolean).join(", ");
-}
-
 function uniqueStrings(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function joinLocation(locality, region, country) {
+  return [locality, region, country].filter(Boolean).join(", ");
 }
 
 function toRelativePath(filePath) {
@@ -72,15 +80,61 @@ function walkMarkdownFiles(dirPath) {
   return files;
 }
 
+function toPropertiesObject(value) {
+  if (!value || typeof value !== "object") return {};
+  if (value.properties && typeof value.properties === "object") {
+    return value.properties;
+  }
+  return value;
+}
+
+function getEntryProperties(frontmatter) {
+  return toPropertiesObject(frontmatter.properties);
+}
+
+function isSwarmUrl(url) {
+  return asText(url).toLowerCase().includes(SWARM_HOST);
+}
+
+function parseGeoUri(value) {
+  const raw = asText(value).trim();
+  const match = raw.match(/^geo:\s*([-+]?\d+(?:\.\d+)?),\s*([-+]?\d+(?:\.\d+)?)/i);
+  if (!match) {
+    return {
+      latitude: null,
+      longitude: null,
+    };
+  }
+
+  const latitude = Number(match[1]);
+  const longitude = Number(match[2]);
+
+  return {
+    latitude: Number.isFinite(latitude) ? latitude : null,
+    longitude: Number.isFinite(longitude) ? longitude : null,
+  };
+}
+
+function extractSimpleModeVenueName(contentValue) {
+  const text = asText(contentValue).trim();
+  if (!text) return "";
+
+  const match = text.match(/^Checked in (?:at|to)\s+(.+?)(?:\.\s|$)/i);
+  return match ? match[1].trim() : "";
+}
+
 function parsePersonCard(card) {
   if (!card || typeof card !== "object") return null;
-  const props = card.properties || {};
+  const props = toPropertiesObject(card);
 
   const urls = asArray(props.url).map((url) => asText(url)).filter(Boolean);
   const photos = asArray(props.photo).map((photo) => asText(photo)).filter(Boolean);
 
   return {
-    name: asText(first(asArray(props.name))),
+    name:
+      asText(first(asArray(props.name))) ||
+      asText(props.firstName) ||
+      "",
     url: urls[0] || "",
     urls,
     photo: photos[0] || "",
@@ -98,9 +152,15 @@ function parseCategory(categoryValues) {
     }
 
     if (!value || typeof value !== "object") continue;
-    const type = Array.isArray(value.type) ? value.type : [];
 
-    if (type.includes("h-card")) {
+    const type = Array.isArray(value.type) ? value.type : [];
+    const looksLikePersonTag =
+      type.includes("h-card") ||
+      Boolean(value.properties) ||
+      value.name !== undefined ||
+      value.url !== undefined;
+
+    if (looksLikePersonTag) {
       const person = parsePersonCard(value);
       if (person && (person.name || person.url)) {
         people.push(person);
@@ -121,101 +181,159 @@ function parseCategory(categoryValues) {
 function isCheckinFrontmatter(frontmatter, relativePath) {
   if (relativePath === "pages/where.md") return false;
 
-  const categories = asArray(frontmatter.category)
+  const properties = getEntryProperties(frontmatter);
+
+  const checkinValue =
+    properties.checkin ??
+    frontmatter.checkin ??
+    frontmatter["check-in"];
+
+  const syndicationValues = asArray(properties.syndication ?? frontmatter.syndication)
+    .map((value) => asText(value))
+    .filter(Boolean);
+
+  const categories = asArray(properties.category ?? frontmatter.category)
     .map((value) => asText(value).toLowerCase())
     .filter(Boolean);
 
-  const hasCheckinField = frontmatter.checkin !== undefined || frontmatter["check-in"] !== undefined;
-  const hasLocationField = frontmatter.location !== undefined;
-  const hasCoordinates = frontmatter.latitude !== undefined || frontmatter.longitude !== undefined;
-  const hasCheckinCategory = categories.includes("where") || categories.includes("checkin") || categories.includes("swarm");
+  const locationValue = properties.location ?? frontmatter.location;
+  const geoCoords = parseGeoUri(first(asArray(locationValue)));
 
-  return hasCheckinField || hasLocationField || hasCoordinates || hasCheckinCategory;
+  const hasCheckinField = checkinValue !== undefined;
+  const hasSwarmSyndication = syndicationValues.some((url) => isSwarmUrl(url));
+  const hasLocationField = locationValue !== undefined;
+  const hasCoordinates =
+    properties.latitude !== undefined ||
+    properties.longitude !== undefined ||
+    frontmatter.latitude !== undefined ||
+    frontmatter.longitude !== undefined ||
+    (geoCoords.latitude !== null && geoCoords.longitude !== null);
+
+  const hasCheckinCategory =
+    categories.includes("where") ||
+    categories.includes("checkin") ||
+    categories.includes("swarm");
+
+  return hasCheckinField || hasSwarmSyndication || (hasCheckinCategory && (hasLocationField || hasCoordinates));
 }
 
 function normalizeCheckin(frontmatter, relativePath) {
-  const checkinValue = first(asArray(frontmatter.checkin ?? frontmatter["check-in"]));
-  const locationValue = first(asArray(frontmatter.location));
+  const properties = getEntryProperties(frontmatter);
 
-  const checkinProps =
-    checkinValue && typeof checkinValue === "object" && checkinValue.properties
-      ? checkinValue.properties
-      : {};
-  const locationProps =
-    locationValue && typeof locationValue === "object" && locationValue.properties
-      ? locationValue.properties
-      : {};
+  const checkinValue = first(
+    asArray(properties.checkin ?? frontmatter.checkin ?? frontmatter["check-in"])
+  );
+  const locationValue = first(asArray(properties.location ?? frontmatter.location));
+
+  const checkinProps = toPropertiesObject(checkinValue);
+  const locationProps = toPropertiesObject(locationValue);
+  const locationGeo = parseGeoUri(locationValue);
 
   const venueUrlsFromCard = asArray(checkinProps.url).map((url) => asText(url)).filter(Boolean);
-  const venueUrlFromSimpleMode = typeof checkinValue === "string" ? checkinValue : "";
-  const venueUrls = venueUrlFromSimpleMode
-    ? [venueUrlFromSimpleMode, ...venueUrlsFromCard]
-    : venueUrlsFromCard;
+  const venueUrlFromSimpleMode =
+    typeof checkinValue === "string" ? checkinValue : asText(checkinValue?.value);
+  const venueUrls = uniqueStrings(
+    venueUrlFromSimpleMode ? [venueUrlFromSimpleMode, ...venueUrlsFromCard] : venueUrlsFromCard
+  );
 
   const venueUrl = venueUrls[0] || "";
   const venueWebsiteUrl = venueUrls[1] || "";
   const venueSocialUrl = venueUrls[2] || "";
 
+  const contentValue = first(asArray(properties.content ?? frontmatter.content));
+  const simpleModeVenueName = extractSimpleModeVenueName(contentValue);
+
   const name =
     asText(first(asArray(checkinProps.name))) ||
+    simpleModeVenueName ||
     asText(frontmatter.title) ||
     "Unknown place";
 
   const locality =
     asText(first(asArray(checkinProps.locality))) ||
     asText(first(asArray(locationProps.locality))) ||
+    asText(properties.locality) ||
     asText(frontmatter.locality);
   const region =
     asText(first(asArray(checkinProps.region))) ||
     asText(first(asArray(locationProps.region))) ||
+    asText(properties.region) ||
     asText(frontmatter.region);
   const country =
     asText(first(asArray(checkinProps["country-name"]))) ||
     asText(first(asArray(locationProps["country-name"]))) ||
+    asText(properties["country-name"]) ||
     asText(frontmatter["country-name"]);
   const postalCode =
     asText(first(asArray(checkinProps["postal-code"]))) ||
     asText(first(asArray(locationProps["postal-code"]))) ||
+    asText(properties["postal-code"]) ||
     asText(frontmatter["postal-code"]);
 
   const latitude =
     asNumber(checkinProps.latitude) ??
     asNumber(locationProps.latitude) ??
-    asNumber(frontmatter.latitude);
+    asNumber(properties.latitude) ??
+    asNumber(frontmatter.latitude) ??
+    locationGeo.latitude;
   const longitude =
     asNumber(checkinProps.longitude) ??
     asNumber(locationProps.longitude) ??
-    asNumber(frontmatter.longitude);
+    asNumber(properties.longitude) ??
+    asNumber(frontmatter.longitude) ??
+    locationGeo.longitude;
 
   const published =
-    asText(first(asArray(frontmatter.published))) ||
+    asText(first(asArray(properties.published ?? frontmatter.published))) ||
     asText(frontmatter.date);
 
-  const syndicationUrls = asArray(frontmatter.syndication)
+  const syndicationUrls = asArray(properties.syndication ?? frontmatter.syndication)
     .map((url) => asText(url))
     .filter(Boolean);
   const syndication =
-    syndicationUrls.find((url) => url.includes("swarmapp.com")) ||
+    syndicationUrls.find((url) => isSwarmUrl(url)) ||
     syndicationUrls[0] ||
     "";
 
-  const visibility = asText(frontmatter.visibility).toLowerCase();
+  const visibility = asText(
+    first(asArray(properties.visibility ?? frontmatter.visibility))
+  ).toLowerCase();
 
-  const categoryValues = asArray(frontmatter.category);
+  const categoryValues = asArray(properties.category ?? frontmatter.category);
   const category = parseCategory(categoryValues);
 
-  const checkedInByValue = first(asArray(frontmatter["checked-in-by"] ?? frontmatter.checkedInBy));
+  const checkedInByValue = first(
+    asArray(
+      properties["checked-in-by"] ??
+        frontmatter["checked-in-by"] ??
+        frontmatter.checkedInBy
+    )
+  );
   const checkedInBy = parsePersonCard(checkedInByValue);
 
-  const photos = asArray(frontmatter.photo)
-    .map((photo) => {
-      if (typeof photo === "string") return photo;
-      if (photo && typeof photo === "object") {
-        return asText(photo.url || photo.value || photo.src || "");
-      }
-      return "";
-    })
-    .filter(Boolean);
+  const addedPhotos =
+    frontmatter.add && typeof frontmatter.add === "object"
+      ? asArray(frontmatter.add.photo)
+      : [];
+  const photoValues = [
+    ...asArray(properties.photo ?? frontmatter.photo),
+    ...addedPhotos,
+  ];
+  const photos = uniqueStrings(
+    photoValues
+      .map((photo) => {
+        if (typeof photo === "string") return photo;
+        if (photo && typeof photo === "object") {
+          return asText(photo.url || photo.value || photo.src || "");
+        }
+        return "";
+      })
+      .filter(Boolean)
+  );
+
+  if (!checkinValue && !syndication && latitude === null && longitude === null) {
+    return null;
+  }
 
   const mapUrl =
     latitude !== null && longitude !== null
@@ -265,6 +383,7 @@ function normalizeCheckins(items) {
   const checkins = [];
 
   for (const item of items) {
+    if (!item) continue;
     if (seen.has(item.id)) continue;
     seen.add(item.id);
     checkins.push(item);
@@ -310,7 +429,7 @@ export default async function () {
       if (!isCheckinFrontmatter(frontmatter, relativePath)) continue;
 
       const checkin = normalizeCheckin(frontmatter, relativePath);
-      items.push(checkin);
+      if (checkin) items.push(checkin);
     } catch (error) {
       errors.push(`[whereCheckins] Skipped ${relativePath}: ${error.message}`);
     }
