@@ -22,10 +22,29 @@ const targets = [
     localPath: "_includes/components/widgets/recent-posts-blog.njk",
     mirrorPath: "theme/_includes/components/widgets/recent-posts-blog.njk",
   },
+  {
+    name: "sidebar-listing",
+    upstreamPath: "_includes/components/sidebar.njk",
+    localPath: "_includes/components/sidebar.njk",
+    mirrorPath: "theme/_includes/components/sidebar.njk",
+  },
+  {
+    name: "sidebar-blog-post",
+    upstreamPath: "_includes/components/blog-sidebar.njk",
+    localPath: "_includes/components/blog-sidebar.njk",
+    mirrorPath: "theme/_includes/components/blog-sidebar.njk",
+  },
+  {
+    name: "sidebar-homepage",
+    upstreamPath: "_includes/components/homepage-sidebar.njk",
+    localPath: "_includes/components/homepage-sidebar.njk",
+    mirrorPath: "theme/_includes/components/homepage-sidebar.njk",
+  },
 ];
 
 function printHelp() {
-  console.log(`Usage: node scripts/check-upstream-widget-drift.mjs [options]\n\nOptions:\n  --ref=<git-ref>   Upstream branch/tag/sha to compare against (default: ${DEFAULT_REF})\n  --show-diff       Print unified diff when drift is found\n  --strict          Exit with code 1 when drift is found\n  -h, --help        Show this help\n\nExamples:\n  npm run check:upstream-widgets\n  npm run check:upstream-widgets -- --show-diff\n  npm run check:upstream-widgets -- --ref=main --strict`);
+  console.log(`Usage: node scripts/check-upstream-widget-drift.mjs [options]\n\nOptions:\n  --ref=<git-ref>   Upstream branch/tag/sha to compare against (default: ${DEFAULT_REF})\n  --show-diff       Print unified diff when drift is found\n  --strict          Exit with code 1 when drift is found\n  -h, --help        Show this help\n\nChecks:\n  - Recent Posts widgets (listing + post)
+  - Sidebar wrappers (listing + post + homepage)\n\nExamples:\n  npm run check:upstream-widgets\n  npm run check:upstream-widgets -- --show-diff\n  npm run check:upstream-widgets -- --ref=main --strict`);
 }
 
 function normalize(content) {
@@ -92,7 +111,7 @@ async function main() {
   let mirrorDriftCount = 0;
   let errorCount = 0;
 
-  console.log(`Comparing local widget files against ${UPSTREAM_REPO}@${options.ref}`);
+  console.log(`Comparing local files against ${UPSTREAM_REPO}@${options.ref}`);
 
   try {
     for (const target of targets) {
