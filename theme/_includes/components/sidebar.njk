@@ -6,6 +6,8 @@
 {% if homepageConfig and homepageConfig.blogListingSidebar and homepageConfig.blogListingSidebar.length %}
   {# === Data-driven mode: render configured widgets === #}
   {% for widget in homepageConfig.blogListingSidebar %}
+    {% set isHomepageAuthorWidget = page.url == "/" and (widget.type == "author-card" or widget.type == "author-card-compact") %}
+    {% if not isHomepageAuthorWidget %}
 
     {# Resolve widget title #}
     {% if widget.type == "search" %}{% set widgetTitle = "Search" %}
@@ -149,6 +151,8 @@
       </div>
     </div>
 
+    {% endif %}
+
   {% endfor %}
 {% else %}
   {# === Fallback: aligned with rmendes.net default sidebar === #}
@@ -225,6 +229,7 @@
     </div>
   </div>
 
+  {% if page.url != "/" %}
   {# Author #}
   {% set widgetKey = "widget-author-card-5" %}
   <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : false }">
@@ -238,6 +243,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
   {# Fediverse #}
   {% set widgetKey = "widget-fediverse-follow-6" %}

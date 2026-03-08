@@ -4,6 +4,8 @@
 
 {% if homepageConfig.sidebar and homepageConfig.sidebar.length %}
   {% for widget in homepageConfig.sidebar %}
+    {% set isHomepageAuthorWidget = widget.type == "author-card" or widget.type == "author-card-compact" %}
+    {% if not isHomepageAuthorWidget %}
 
     {# Resolve widget title #}
     {% if widget.type == "search" %}{% set widgetTitle = "Search" %}
@@ -138,6 +140,8 @@
         </div>
       </div>
     </div>
+
+    {% endif %}
 
   {% endfor %}
 {% endif %}
