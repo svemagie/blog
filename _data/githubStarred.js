@@ -12,16 +12,28 @@ const INDIEKIT_URL = process.env.SITE_URL || "https://example.com";
 
 export default async function () {
   try {
-    const url = `${INDIEKIT_URL}/githubapi/api/starred/all`;
-    const response = await EleventyFetch(url, {
-      duration: "15m",
-      type: "json",
-    });
+    const urls = [
+      `${INDIEKIT_URL}/github/api/starred/all`,
+      `${INDIEKIT_URL}/githubapi/api/starred/all`,
+    ];
 
-    return {
-      totalCount: response.totalCount || 0,
-      buildDate: new Date().toISOString(),
-    };
+    for (const url of urls) {
+      try {
+        const response = await EleventyFetch(url, {
+          duration: "15m",
+          type: "json",
+        });
+
+        return {
+          totalCount: response.totalCount || 0,
+          buildDate: new Date().toISOString(),
+        };
+      } catch (error) {
+        console.log(`[githubStarred] Could not fetch ${url}: ${error.message}`);
+      }
+    }
+
+    throw new Error("No GitHub starred endpoint responded");
   } catch (error) {
     console.log(`[githubStarred] Could not fetch starred count: ${error.message}`);
     return {

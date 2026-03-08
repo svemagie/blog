@@ -16,21 +16,28 @@ const FALLBACK_FEATURED_REPOS = process.env.GITHUB_FEATURED_REPOS?.split(",").fi
  * Fetch from Indiekit's public GitHub API endpoint
  */
 async function fetchFromIndiekit(endpoint) {
-  try {
-    const url = `${INDIEKIT_URL}/githubapi/api/${endpoint}`;
-    console.log(`[githubActivity] Fetching from Indiekit: ${url}`);
-    const data = await EleventyFetch(url, {
-      duration: "15m",
-      type: "json",
-    });
-    console.log(`[githubActivity] Indiekit ${endpoint} success`);
-    return data;
-  } catch (error) {
-    console.log(
-      `[githubActivity] Indiekit API unavailable for ${endpoint}: ${error.message}`
-    );
-    return null;
+  const urls = [
+    `${INDIEKIT_URL}/github/api/${endpoint}`,
+    `${INDIEKIT_URL}/githubapi/api/${endpoint}`,
+  ];
+
+  for (const url of urls) {
+    try {
+      console.log(`[githubActivity] Fetching from Indiekit: ${url}`);
+      const data = await EleventyFetch(url, {
+        duration: "15m",
+        type: "json",
+      });
+      console.log(`[githubActivity] Indiekit ${endpoint} success via ${url}`);
+      return data;
+    } catch (error) {
+      console.log(
+        `[githubActivity] Indiekit API unavailable for ${endpoint} at ${url}: ${error.message}`
+      );
+    }
   }
+
+  return null;
 }
 
 /**

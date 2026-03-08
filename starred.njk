@@ -422,9 +422,20 @@ document.addEventListener("alpine:init", () => {
 
     async init() {
       try {
-        const res = await fetch("/githubapi/api/starred/all");
-        if (!res.ok) throw new Error("API returned " + res.status);
-        const data = await res.json();
+        let data = null;
+        for (const path of ["/github/api/starred/all", "/githubapi/api/starred/all"]) {
+          try {
+            const res = await fetch(path);
+            if (res.ok) {
+              data = await res.json();
+              break;
+            }
+          } catch {
+            // Try next candidate path.
+          }
+        }
+
+        if (!data) throw new Error("API returned no usable response");
         this.allStars = data.stars || [];
         this.listMeta = (data.listMeta || []).sort((a, b) => a.name.localeCompare(b.name));
         this.totalCount = data.totalCount || 0;

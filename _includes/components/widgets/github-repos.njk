@@ -255,9 +255,9 @@ function githubWidget(username) {
 
       try {
         const [commitsRes, featuredRes, contribRes] = await Promise.all([
-          this.fetchJson(['/githubapi/api/commits', '/github/api/commits']),
-          this.fetchJson(['/githubapi/api/featured', '/github/api/featured']),
-          this.fetchJson(['/githubapi/api/contributions', '/github/api/contributions']),
+          this.fetchJson(['/github/api/commits', '/githubapi/api/commits']),
+          this.fetchJson(['/github/api/featured', '/githubapi/api/featured']),
+          this.fetchJson(['/github/api/contributions', '/githubapi/api/contributions']),
         ]);
 
         if (commitsRes.ok) {
