@@ -1,33 +1,43 @@
 /**
  * Where/Checkin data
  *
- * Fetches h-entry checkins from an OwnYourSwarm-connected endpoint.
- * Expected payload: MF2 JSON with h-entry objects containing `checkin` and/or `location`.
+ * Reads local check-ins created by this site's Micropub endpoint.
+ * A post is treated as a check-in when frontmatter includes checkin/location
+ * metadata, coordinates, or a checkin-like category.
  */
 
-import EleventyFetch from "@11ty/eleventy-fetch";
+import matter from "gray-matter";
+import { readdirSync, readFileSync } from "node:fs";
+import { extname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const FEED_URL = process.env.OWNYOURSWARM_FEED_URL || "https://ownyourswarm.p3k.io/";
-const FEED_TOKEN = process.env.OWNYOURSWARM_FEED_TOKEN || "";
+const CONTENT_DIR = fileURLToPath(new URL("../content", import.meta.url));
 
 function first(value) {
   if (Array.isArray(value)) return value[0];
   return value;
 }
 
+function asArray(value) {
+  if (value === null || value === undefined || value === "") return [];
+  return Array.isArray(value) ? value : [value];
+}
+
 function asText(value) {
   if (value === null || value === undefined) return "";
   if (typeof value === "string") return value;
   if (typeof value === "number") return String(value);
+  if (value instanceof Date) return value.toISOString();
   if (typeof value === "object") {
     if (typeof value.value === "string") return value.value;
     if (typeof value.text === "string") return value.text;
+    if (typeof value.url === "string") return value.url;
   }
   return "";
 }
 
 function asNumber(value) {
-  const raw = first(value);
+  const raw = first(asArray(value));
   const num = Number(raw);
   return Number.isFinite(num) ? num : null;
 }
@@ -36,120 +46,41 @@ function joinLocation(locality, region, country) {
   return [locality, region, country].filter(Boolean).join(", ");
 }
 
-function buildCandidateUrls(baseUrl) {
-  const raw = (baseUrl || "").trim();
-  if (!raw) return [];
-
-  const urls = [raw];
-
-  try {
-    const parsed = new URL(raw);
-    const pathWithoutSlash = parsed.pathname.replace(/\/$/, "");
-    const basePath = `${parsed.origin}${pathWithoutSlash}`;
-
-    const withFormat = new URL(parsed.toString());
-    withFormat.searchParams.set("format", "json");
-    urls.push(withFormat.toString());
-
-    const withOutput = new URL(parsed.toString());
-    withOutput.searchParams.set("output", "json");
-    urls.push(withOutput.toString());
-
-    if (pathWithoutSlash) {
-      urls.push(`${basePath}.json`);
-      urls.push(`${basePath}/checkins.json`);
-      urls.push(`${basePath}/feed.json`);
-      urls.push(`${basePath}/api/checkins`);
-    } else {
-      urls.push(`${parsed.origin}/checkins.json`);
-      urls.push(`${parsed.origin}/feed.json`);
-      urls.push(`${parsed.origin}/api/checkins`);
-    }
-  } catch {
-    // If URL parsing fails, we still try the raw URL above.
-  }
-
-  return [...new Set(urls)];
-}
-
-async function fetchJson(url) {
-  const headers = FEED_TOKEN ? { Authorization: `Bearer ${FEED_TOKEN}` } : {};
-  const fetchOptions = Object.keys(headers).length ? { headers } : undefined;
-
-  try {
-    return await EleventyFetch(url, {
-      duration: "15m",
-      type: "json",
-      fetchOptions,
-    });
-  } catch (jsonError) {
-    // Some endpoints serve JSON with an incorrect content type. Retry as text.
-    const text = await EleventyFetch(url, {
-      duration: "15m",
-      type: "text",
-      fetchOptions,
-    });
-    const trimmed = text.trim();
-    if (!trimmed.startsWith("{") && !trimmed.startsWith("[")) {
-      throw jsonError;
-    }
-    return JSON.parse(trimmed);
-  }
-}
-
-function looksLikeCheckinEntry(entry) {
-  if (!entry || typeof entry !== "object") return false;
-  const type = Array.isArray(entry.type) ? entry.type : [];
-  if (type.includes("h-entry")) {
-    const props = entry.properties || {};
-    return Boolean(props.checkin || props.location);
-  }
-  return false;
-}
-
-function extractEntries(payload) {
-  const queue = [];
-  if (Array.isArray(payload)) {
-    queue.push(...payload);
-  } else if (payload && typeof payload === "object") {
-    queue.push(payload);
-  }
-
-  const entries = [];
-
-  while (queue.length) {
-    const item = queue.shift();
-    if (!item || typeof item !== "object") continue;
-
-    if (looksLikeCheckinEntry(item)) {
-      entries.push(item);
-    }
-
-    if (Array.isArray(item.items)) queue.push(...item.items);
-    if (Array.isArray(item.children)) queue.push(...item.children);
-    if (item.data && Array.isArray(item.data.items)) queue.push(...item.data.items);
-  }
-
-  return entries;
-}
-
 function uniqueStrings(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function toRelativePath(filePath) {
+  return relative(CONTENT_DIR, filePath).replace(/\\/g, "/");
+}
+
+function walkMarkdownFiles(dirPath) {
+  const files = [];
+
+  for (const entry of readdirSync(dirPath, { withFileTypes: true })) {
+    const fullPath = join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...walkMarkdownFiles(fullPath));
+      continue;
+    }
+
+    if (entry.isFile() && extname(entry.name).toLowerCase() === ".md") {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
 }
 
 function parsePersonCard(card) {
   if (!card || typeof card !== "object") return null;
   const props = card.properties || {};
 
-  const urls = Array.isArray(props.url)
-    ? props.url.map((url) => asText(url)).filter(Boolean)
-    : [];
-  const photos = Array.isArray(props.photo)
-    ? props.photo.map((photo) => asText(photo)).filter(Boolean)
-    : [];
+  const urls = asArray(props.url).map((url) => asText(url)).filter(Boolean);
+  const photos = asArray(props.photo).map((photo) => asText(photo)).filter(Boolean);
 
   return {
-    name: asText(first(props.name)),
+    name: asText(first(asArray(props.name))),
     url: urls[0] || "",
     urls,
     photo: photos[0] || "",
@@ -168,6 +99,7 @@ function parseCategory(categoryValues) {
 
     if (!value || typeof value !== "object") continue;
     const type = Array.isArray(value.type) ? value.type : [];
+
     if (type.includes("h-card")) {
       const person = parsePersonCard(value);
       if (person && (person.name || person.url)) {
@@ -176,70 +108,114 @@ function parseCategory(categoryValues) {
     }
   }
 
+  const normalizedTags = uniqueStrings(tags).filter(
+    (tag) => !["where", "slashpage"].includes(tag.toLowerCase())
+  );
+
   return {
-    tags: uniqueStrings(tags),
+    tags: normalizedTags,
     people,
   };
 }
 
-function normalizeCheckin(entry) {
-  const props = entry.properties || {};
+function isCheckinFrontmatter(frontmatter, relativePath) {
+  if (relativePath === "pages/where.md") return false;
 
-  if (!props.checkin && !props.location) {
-    return null;
-  }
+  const categories = asArray(frontmatter.category)
+    .map((value) => asText(value).toLowerCase())
+    .filter(Boolean);
 
-  const checkinCard = first(props.checkin);
-  const locationCard = first(props.location);
+  const hasCheckinField = frontmatter.checkin !== undefined || frontmatter["check-in"] !== undefined;
+  const hasLocationField = frontmatter.location !== undefined;
+  const hasCoordinates = frontmatter.latitude !== undefined || frontmatter.longitude !== undefined;
+  const hasCheckinCategory = categories.includes("where") || categories.includes("checkin") || categories.includes("swarm");
+
+  return hasCheckinField || hasLocationField || hasCoordinates || hasCheckinCategory;
+}
+
+function normalizeCheckin(frontmatter, relativePath) {
+  const checkinValue = first(asArray(frontmatter.checkin ?? frontmatter["check-in"]));
+  const locationValue = first(asArray(frontmatter.location));
 
   const checkinProps =
-    checkinCard && typeof checkinCard === "object" && checkinCard.properties
-      ? checkinCard.properties
+    checkinValue && typeof checkinValue === "object" && checkinValue.properties
+      ? checkinValue.properties
       : {};
   const locationProps =
-    locationCard && typeof locationCard === "object" && locationCard.properties
-      ? locationCard.properties
+    locationValue && typeof locationValue === "object" && locationValue.properties
+      ? locationValue.properties
       : {};
 
-  const venueUrlsRaw = Array.isArray(checkinProps.url)
-    ? checkinProps.url
-    : checkinProps.url
-      ? [checkinProps.url]
-      : [];
-  const venueUrls = venueUrlsRaw.map((url) => asText(url)).filter(Boolean);
+  const venueUrlsFromCard = asArray(checkinProps.url).map((url) => asText(url)).filter(Boolean);
+  const venueUrlFromSimpleMode = typeof checkinValue === "string" ? checkinValue : "";
+  const venueUrls = venueUrlFromSimpleMode
+    ? [venueUrlFromSimpleMode, ...venueUrlsFromCard]
+    : venueUrlsFromCard;
 
-  const name = asText(first(checkinProps.name)) || "Unknown place";
-  const venueUrl = venueUrls[0] || asText(checkinCard?.value);
+  const venueUrl = venueUrls[0] || "";
   const venueWebsiteUrl = venueUrls[1] || "";
   const venueSocialUrl = venueUrls[2] || "";
 
-  const locality = asText(first(checkinProps.locality)) || asText(first(locationProps.locality));
-  const region = asText(first(checkinProps.region)) || asText(first(locationProps.region));
+  const name =
+    asText(first(asArray(checkinProps.name))) ||
+    asText(frontmatter.title) ||
+    "Unknown place";
+
+  const locality =
+    asText(first(asArray(checkinProps.locality))) ||
+    asText(first(asArray(locationProps.locality))) ||
+    asText(frontmatter.locality);
+  const region =
+    asText(first(asArray(checkinProps.region))) ||
+    asText(first(asArray(locationProps.region))) ||
+    asText(frontmatter.region);
   const country =
-    asText(first(checkinProps["country-name"])) ||
-    asText(first(locationProps["country-name"]));
+    asText(first(asArray(checkinProps["country-name"]))) ||
+    asText(first(asArray(locationProps["country-name"]))) ||
+    asText(frontmatter["country-name"]);
   const postalCode =
-    asText(first(checkinProps["postal-code"])) ||
-    asText(first(locationProps["postal-code"]));
+    asText(first(asArray(checkinProps["postal-code"]))) ||
+    asText(first(asArray(locationProps["postal-code"]))) ||
+    asText(frontmatter["postal-code"]);
 
   const latitude =
-    asNumber(checkinProps.latitude) ?? asNumber(locationProps.latitude) ?? asNumber(props.latitude);
+    asNumber(checkinProps.latitude) ??
+    asNumber(locationProps.latitude) ??
+    asNumber(frontmatter.latitude);
   const longitude =
-    asNumber(checkinProps.longitude) ?? asNumber(locationProps.longitude) ?? asNumber(props.longitude);
+    asNumber(checkinProps.longitude) ??
+    asNumber(locationProps.longitude) ??
+    asNumber(frontmatter.longitude);
 
-  const published = asText(first(props.published));
-  const syndication = asText(first(props.syndication));
-  const visibility = asText(first(props.visibility)).toLowerCase();
+  const published =
+    asText(first(asArray(frontmatter.published))) ||
+    asText(frontmatter.date);
 
-  const categoryValues = Array.isArray(props.category) ? props.category : [];
+  const syndicationUrls = asArray(frontmatter.syndication)
+    .map((url) => asText(url))
+    .filter(Boolean);
+  const syndication =
+    syndicationUrls.find((url) => url.includes("swarmapp.com")) ||
+    syndicationUrls[0] ||
+    "";
+
+  const visibility = asText(frontmatter.visibility).toLowerCase();
+
+  const categoryValues = asArray(frontmatter.category);
   const category = parseCategory(categoryValues);
 
-  const checkedInByCard = first(props["checked-in-by"]);
-  const checkedInBy = parsePersonCard(checkedInByCard);
+  const checkedInByValue = first(asArray(frontmatter["checked-in-by"] ?? frontmatter.checkedInBy));
+  const checkedInBy = parsePersonCard(checkedInByValue);
 
-  const photos = Array.isArray(props.photo)
-    ? props.photo.map((photo) => asText(photo)).filter(Boolean)
-    : [];
+  const photos = asArray(frontmatter.photo)
+    .map((photo) => {
+      if (typeof photo === "string") return photo;
+      if (photo && typeof photo === "object") {
+        return asText(photo.url || photo.value || photo.src || "");
+      }
+      return "";
+    })
+    .filter(Boolean);
 
   const mapUrl =
     latitude !== null && longitude !== null
@@ -253,10 +229,12 @@ function normalizeCheckin(entry) {
 
   const locationText = joinLocation(locality, region, country);
   const timestamp = published ? Date.parse(published) || 0 : 0;
-  const id = syndication || `${published}-${name}-${coordinatesText}`;
+  const permalink = asText(frontmatter.permalink);
+  const id = syndication || permalink || `${relativePath}-${published || "unknown"}`;
 
   return {
     id,
+    sourcePath: relativePath,
     published,
     timestamp,
     syndication,
@@ -282,16 +260,14 @@ function normalizeCheckin(entry) {
   };
 }
 
-function normalizeCheckins(entries) {
+function normalizeCheckins(items) {
   const seen = new Set();
   const checkins = [];
 
-  for (const entry of entries) {
-    const normalized = normalizeCheckin(entry);
-    if (!normalized) continue;
-    if (seen.has(normalized.id)) continue;
-    seen.add(normalized.id);
-    checkins.push(normalized);
+  for (const item of items) {
+    if (seen.has(item.id)) continue;
+    seen.add(item.id);
+    checkins.push(item);
   }
 
   return checkins.sort((a, b) => b.timestamp - a.timestamp);
@@ -299,55 +275,62 @@ function normalizeCheckins(entries) {
 
 export default async function () {
   const checkedAt = new Date().toISOString();
-  const candidateUrls = buildCandidateUrls(FEED_URL);
   const errors = [];
 
-  for (const url of candidateUrls) {
+  let filePaths = [];
+
+  try {
+    filePaths = walkMarkdownFiles(CONTENT_DIR);
+  } catch (error) {
+    const message = `[whereCheckins] Unable to scan local content: ${error.message}`;
+    console.log(message);
+    return {
+      source: "local-endpoint",
+      available: false,
+      checkedAt,
+      scannedFiles: 0,
+      checkins: [],
+      errors: [message],
+      stats: {
+        total: 0,
+        withCoordinates: 0,
+      },
+    };
+  }
+
+  const items = [];
+
+  for (const filePath of filePaths) {
+    const relativePath = toRelativePath(filePath);
+
     try {
-      console.log(`[whereCheckins] Fetching: ${url}`);
-      const payload = await fetchJson(url);
-      const entries = extractEntries(payload);
-      const checkins = normalizeCheckins(entries);
+      const raw = readFileSync(filePath, "utf-8");
+      const frontmatter = matter(raw).data || {};
 
-      if (checkins.length > 0) {
-        const withCoordinates = checkins.filter(
-          (item) => item.latitude !== null && item.longitude !== null
-        ).length;
+      if (!isCheckinFrontmatter(frontmatter, relativePath)) continue;
 
-        return {
-          feedUrl: url,
-          checkins,
-          source: "ownyourswarm",
-          available: true,
-          checkedAt,
-          triedUrls: candidateUrls,
-          errors,
-          stats: {
-            total: checkins.length,
-            withCoordinates,
-          },
-        };
-      }
-
-      errors.push(`No checkin h-entry objects found at ${url}`);
+      const checkin = normalizeCheckin(frontmatter, relativePath);
+      items.push(checkin);
     } catch (error) {
-      const message = `[whereCheckins] Unable to use ${url}: ${error.message}`;
-      console.log(message);
-      errors.push(message);
+      errors.push(`[whereCheckins] Skipped ${relativePath}: ${error.message}`);
     }
   }
 
+  const checkins = normalizeCheckins(items);
+  const withCoordinates = checkins.filter(
+    (item) => item.latitude !== null && item.longitude !== null
+  ).length;
+
   return {
-    feedUrl: FEED_URL,
-    checkins: [],
-    source: "unavailable",
-    available: false,
+    source: "local-endpoint",
+    available: checkins.length > 0,
     checkedAt,
-    triedUrls: candidateUrls,
+    scannedFiles: filePaths.length,
+    checkins,
     errors,
     stats: {
-      total: 0,
-      withCoordinates: 0,
+      total: checkins.length,
+      withCoordinates,
     },
   };
 }

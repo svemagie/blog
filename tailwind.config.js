@@ -3,10 +3,13 @@ import typography from "@tailwindcss/typography";
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./**/*.njk",
-    "./**/*.md",
-    "./_includes/**/*.njk",
+    "./*.njk",
     "./content/**/*.md",
+    "./docs/**/*.md",
+    "./.interface-design/**/*.md",
+    "./_includes/**/*.njk",
+    "./_includes/**/*.md",
+    "./js/**/*.js",
     "./lib/**/*.js",
   ],
   darkMode: "class",
