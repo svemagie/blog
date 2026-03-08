@@ -1,4 +1,5 @@
 ---
+layout: layouts/where.njk
 date: 2026-03-08T13:55:46.901Z
 title: where
 category:
