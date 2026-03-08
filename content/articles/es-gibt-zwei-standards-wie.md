@@ -1,8 +1,9 @@
 ---
-date: 2026-03-08T07:12:13.912Z
+date: 2025-07-06T18:00:00.000Z
 title: Du machst es Dir aber leicht!
-updated: 2026-03-08T07:14:48.512Z
-draft: true
+updated: 2026-03-08T07:16:19.109Z
+category: people
+visibility: public
 permalink: https://blog.giersig.eu/articles/es-gibt-zwei-standards-wie/
 ---
 
