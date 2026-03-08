@@ -5,10 +5,15 @@ summary: a page that tells you what I'm focused on at this point in my life
 category:
   - now
   - slashpage
-permalink: /now/
+updated: 2026-03-08T05:56:51.212Z
+permalink: https://blog.giersig.eu/now/
 ---
 
 This page is a now page, you should consider adding one if you have a website as well, inspiration comes from here
 
 ## personal
-what a wild ride
+what a wild ride!
+
+## tech
+- indieweb (this site)
+- Ghost blog
