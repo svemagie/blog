@@ -1,10 +1,10 @@
 ---
 date: 2025-07-06T18:00:00.000Z
 title: Du machst es Dir aber leicht!
-updated: 2026-03-08T07:20:25.181Z
+updated: 2026-03-08T07:20:56.513Z
 category:
   - people
-  - german
+  - lang:de
 visibility: public
 permalink: https://blog.giersig.eu/articles/du-machst-es-dir-aber-leicht/
 ---
