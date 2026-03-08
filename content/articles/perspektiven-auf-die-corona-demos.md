@@ -6,13 +6,14 @@ category:
   - covid19
   - lang:de
 visibility: public
-updated: 2026-03-08T07:29:05.275Z
+updated: 2026-03-08T07:50:18.987Z
+summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
 permalink: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
 ---
 
 Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit. Hier und da wird zwar darauf hingewiesen, dass der Terminus “Covidioten” ableistisch ist und dass das Wort Verschwörungstheorie den falschen Anschein von Wissenschaftlichkeit erwecken kann und man darum besser “-ideologie” oder “-erzählung” nutzen sollte. Das sind fraglos wichtige Beiträge zu dieser Debatte. Aber um den Kern der Frage, nämlich, was so viele Menschen dazu bringt, solch offensichtlich unwissenschaftlichen Unfug zu vertreten, und aus jeglicher logischen Lebensführung herauszutreten und in die pure Emotion einzutreten, wird sich nichtwissenwollend und nichtinteressierend ausgeschwiegen. Diese Menschen werden kurzerhand als Verirrte stigmatisiert, und das Thema wird mit dieser breit geteilten und allseits anerkannten Erkenntnis schleunig abgeschlossen.
 
-### Pandemische Zustände
+## Pandemische Zustände
 Mich aber treibt um, dass ich persönlich und im Grundsatz mit den “Skeptikern” übereinstimme: der Staat will uns ganz grundsätzlich nichts Gutes. Der Staat will das kapitalistische Gesellschaftssystem und seine Macht erhalten. Das nimmt er als seine ureigenen Aufgaben wahr. Er schützt die Minderheit der Reichen um jeden Preis. Dieser Preis ist für den Staat mal mehr, mal weniger hoch. Wenn die Maschine rund läuft, kostet der Schutz der Wenigen nicht sehr viel, denn die Vielen haben die Machtpraktiken und Sicherheitsdispositive verinnerlicht und in ihre Leben eingebunden.
 
 Dieser Preis ist grundsätzlich und vor allem durch die vom Staate zugestandene Freiheit bemessen. In pandemischen Zeiten jedoch steigt dieser Preis, wie wir lernen konnten. Die Regierung bat höflichst darum, sich nicht mehr außer Haus aufzuhalten - die Wörter Ausgangssperre, Ausnahmezustand u.ä. wohlwissend vermeidend, denn das wären rechtliche Kategorien, auf die sich im Gegenzug dann auch die Mensch berufen könnte. Den Sinn dahinter, warum man vermeiden wollte, dass sich Menschen, und eben nicht nur die Repressionsorgane, auf das Recht berufen können, werden wir gleich sehen.
