@@ -22,24 +22,44 @@ jobs:
         run: npm run build:css
 
       - name: Create .env file
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          SITE_NAME: ${{ secrets.SITE_NAME }}
+          SITE_SOCIAL: ${{ secrets.SITE_SOCIAL }}
+          AUTHOR_NAME: ${{ secrets.AUTHOR_NAME }}
+          SITE_DESCRIPTION: ${{ secrets.SITE_DESCRIPTION }}
+          AUTHOR_BIO: ${{ secrets.AUTHOR_BIO }}
+          AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
+          AUTHOR_LOCATION: ${{ secrets.AUTHOR_LOCATION }}
+          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_USER: ${{ secrets.MASTODON_USER }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          ACTIVITYPUB_HANDLE: ${{ secrets.ACTIVITYPUB_HANDLE }}
+          AUTHOR_AVATAR: ${{ secrets.AUTHOR_AVATAR }}
+          AUTHOR_TITLE: ${{ secrets.AUTHOR_TITLE }}
+          AUTHOR_PRONOUN: ${{ secrets.AUTHOR_PRONOUN }}
+          SITE_LOCALE: ${{ secrets.SITE_LOCALE }}
         run: |
-          echo "SITE_URL=${{ secrets.SITE_URL }}" > .env
-          echo "SITE_NAME=${{ secrets.SITE_NAME }}" >> .env
-          echo "SITE_SOCIAL=${{ secrets.SITE_SOCIAL }}" >> .env
-          echo "AUTHOR_NAME=${{ secrets.AUTHOR_NAME }}" >> .env
-          echo "SITE_DESCRIPTION=${{ secrets.SITE_DESCRIPTION }}" >> .env
-          echo "AUTHOR_BIO=${{ secrets.AUTHOR_BIO }}" >> .env
-          echo "AUTHOR_EMAIL=${{ secrets.AUTHOR_EMAIL }}" >> .env
-          echo "AUTHOR_LOCATION=${{ secrets.AUTHOR_LOCATION }}" >> .env
-          echo "GITHUB_USERNAME=${{ secrets.GITHUB_USERNAME }}" >> .env
-          echo "MASTODON_INSTANCE=${{ secrets.MASTODON_INSTANCE }}" >> .env
-          echo "MASTODON_USER=${{ secrets.MASTODON_USER }}" >> .env
-          echo "BLUESKY_HANDLE=${{ secrets.BLUESKY_HANDLE }}" >> .env
-          echo "ACTIVITYPUB_HANDLE=${{ secrets.ACTIVITYPUB_HANDLE }}" >> .env
-          echo "AUTHOR_AVATAR=${{ secrets.AUTHOR_AVATAR }}" >> .env
-          echo "AUTHOR_TITLE=${{ secrets.AUTHOR_TITLE }}" >> .env
-          echo "AUTHOR_PRONOUN=${{ secrets.AUTHOR_PRONOUN }}" >> .env
-          echo "SITE_LOCALE=${{ secrets.SITE_LOCALE }}" >> .env
+          {
+            printf 'SITE_URL=%s\n' "$SITE_URL"
+            printf 'SITE_NAME=%s\n' "$SITE_NAME"
+            printf 'SITE_SOCIAL=%s\n' "$SITE_SOCIAL"
+            printf 'AUTHOR_NAME=%s\n' "$AUTHOR_NAME"
+            printf 'SITE_DESCRIPTION=%s\n' "$SITE_DESCRIPTION"
+            printf 'AUTHOR_BIO=%s\n' "$AUTHOR_BIO"
+            printf 'AUTHOR_EMAIL=%s\n' "$AUTHOR_EMAIL"
+            printf 'AUTHOR_LOCATION=%s\n' "$AUTHOR_LOCATION"
+            printf 'GITHUB_USERNAME=%s\n' "$GITHUB_USERNAME"
+            printf 'MASTODON_INSTANCE=%s\n' "$MASTODON_INSTANCE"
+            printf 'MASTODON_USER=%s\n' "$MASTODON_USER"
+            printf 'BLUESKY_HANDLE=%s\n' "$BLUESKY_HANDLE"
+            printf 'ACTIVITYPUB_HANDLE=%s\n' "$ACTIVITYPUB_HANDLE"
+            printf 'AUTHOR_AVATAR=%s\n' "$AUTHOR_AVATAR"
+            printf 'AUTHOR_TITLE=%s\n' "$AUTHOR_TITLE"
+            printf 'AUTHOR_PRONOUN=%s\n' "$AUTHOR_PRONOUN"
+            printf 'SITE_LOCALE=%s\n' "$SITE_LOCALE"
+          } > .env
 
       - name: Build site
         run: npm run build
