@@ -158,11 +158,37 @@ function changelogApp() {
       await this.fetchChangelog(30);
     },
 
+    async fetchJson(paths) {
+      for (const path of paths) {
+        try {
+          const response = await fetch(path);
+          if (response.ok) {
+            return {
+              ok: true,
+              data: await response.json(),
+            };
+          }
+        } catch {
+          // Try next candidate path.
+        }
+      }
+
+      return {
+        ok: false,
+        data: null,
+      };
+    },
+
     async fetchChangelog(days) {
       try {
-        const response = await fetch('/githubapi/api/changelog?days=' + days);
-        if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
+        const result = await this.fetchJson([
+          '/githubapi/api/changelog?days=' + days,
+          '/github/api/changelog?days=' + days,
+        ]);
+
+        if (!result.ok) throw new Error('Failed to fetch');
+
+        const data = result.data || {};
         this.commits = data.commits || [];
         this.categories = data.categories || {};
         this.currentDays = data.days;

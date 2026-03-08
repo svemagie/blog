@@ -1,5 +1,9 @@
 {# GitHub Activity Widget - Tabbed Commits/Repos/Featured/PRs with live API data #}
 <is-land on:visible>
+{% set ghFallbackCommits = githubActivity.commits if githubActivity and githubActivity.commits else [] %}
+{% set ghFallbackFeatured = githubActivity.featured if githubActivity and githubActivity.featured else [] %}
+{% set ghFallbackContributions = githubActivity.contributions if githubActivity and githubActivity.contributions else [] %}
+{% set ghFallbackRepos = githubRepos if githubRepos else [] %}
 <div class="widget" x-data="githubWidget('{{ site.feeds.github }}')" x-init="init()">
   <h3 class="widget-title flex items-center gap-2">
     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -168,6 +172,13 @@
 </div>
 
 <script>
+const githubFallbackData = {
+  commits: {{ ghFallbackCommits | dump | safe }},
+  featured: {{ ghFallbackFeatured | dump | safe }},
+  contributions: {{ ghFallbackContributions | dump | safe }},
+  repos: {{ ghFallbackRepos | dump | safe }},
+};
+
 function githubWidget(username) {
   return {
     activeTab: 'commits',
@@ -177,25 +188,97 @@ function githubWidget(username) {
     featured: [],
     contributions: [],
 
-    async init() {
-      try {
-        const fetches = [
-          fetch('/githubapi/api/commits').then(r => r.ok ? r.json() : null).catch(() => null),
-          fetch('/githubapi/api/featured').then(r => r.ok ? r.json() : null).catch(() => null),
-          fetch('/githubapi/api/contributions').then(r => r.ok ? r.json() : null).catch(() => null),
-        ];
-        if (username) {
-          fetches.push(
-            fetch('https://api.github.com/users/' + username + '/repos?sort=updated&per_page=10&type=owner', {
-              headers: { 'Accept': 'application/vnd.github.v3+json' }
-            }).then(r => r.ok ? r.json() : null).catch(() => null)
-          );
+    sanitizeRepos(repos) {
+      if (!Array.isArray(repos)) return [];
+      return repos.filter((repo) => !repo.fork && !repo.private);
+    },
+
+    deriveUsernameFromCommits(commits) {
+      if (!Array.isArray(commits) || commits.length === 0) return '';
+      const firstRepo = commits.find((item) => item && item.repo)?.repo || '';
+      return firstRepo.includes('/') ? firstRepo.split('/')[0] : '';
+    },
+
+    async fetchJson(paths) {
+      for (const path of paths) {
+        try {
+          const response = await fetch(path);
+          if (response.ok) {
+            return {
+              ok: true,
+              data: await response.json(),
+            };
+          }
+        } catch {
+          // Try next candidate path.
         }
-        const [commitsRes, featuredRes, contribRes, reposRes] = await Promise.all(fetches);
-        this.commits = commitsRes?.commits || [];
-        this.featured = featuredRes?.featured || [];
-        this.contributions = contribRes?.contributions || [];
-        this.repos = (reposRes || []).filter(r => !r.fork && !r.private);
+      }
+
+      return {
+        ok: false,
+        data: null,
+      };
+    },
+
+    async fetchReposForUser(user) {
+      if (!user) return [];
+
+      try {
+        const response = await fetch(
+          'https://api.github.com/users/' + user + '/repos?sort=updated&per_page=10&type=owner',
+          {
+            headers: { Accept: 'application/vnd.github.v3+json' },
+          }
+        );
+
+        if (!response.ok) return [];
+
+        return this.sanitizeRepos(await response.json());
+      } catch {
+        return [];
+      }
+    },
+
+    async init() {
+      this.commits = Array.isArray(githubFallbackData.commits) ? githubFallbackData.commits : [];
+      this.featured = Array.isArray(githubFallbackData.featured) ? githubFallbackData.featured : [];
+      this.contributions = Array.isArray(githubFallbackData.contributions) ? githubFallbackData.contributions : [];
+      this.repos = this.sanitizeRepos(githubFallbackData.repos);
+
+      const hasFallbackData =
+        this.commits.length > 0 ||
+        this.featured.length > 0 ||
+        this.contributions.length > 0 ||
+        this.repos.length > 0;
+
+      this.loading = !hasFallbackData;
+
+      try {
+        const [commitsRes, featuredRes, contribRes] = await Promise.all([
+          this.fetchJson(['/githubapi/api/commits', '/github/api/commits']),
+          this.fetchJson(['/githubapi/api/featured', '/github/api/featured']),
+          this.fetchJson(['/githubapi/api/contributions', '/github/api/contributions']),
+        ]);
+
+        if (commitsRes.ok) {
+          this.commits = commitsRes.data?.commits || [];
+        }
+        if (featuredRes.ok) {
+          this.featured = featuredRes.data?.featured || [];
+        }
+        if (contribRes.ok) {
+          this.contributions = contribRes.data?.contributions || [];
+        }
+
+        let resolvedUsername = username;
+        if (!resolvedUsername) {
+          resolvedUsername = this.deriveUsernameFromCommits(this.commits);
+        }
+
+        const repos = await this.fetchReposForUser(resolvedUsername);
+        if (repos.length > 0 || this.repos.length === 0) {
+          this.repos = repos;
+        }
       } catch (err) {
         console.error('GitHub widget error:', err);
       } finally {
