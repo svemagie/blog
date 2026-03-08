@@ -1,9 +1,9 @@
 {# Table of Contents Widget (for articles with headings) #}
-{% if toc and toc.length %}
 <is-land on:visible>
 <div class="widget">
   <h3 class="widget-title">Contents</h3>
-  <nav class="toc">
+  <nav class="toc" aria-label="Table of contents">
+    {% if toc and toc.length %}
     <ul class="space-y-1 text-sm">
       {% for item in toc %}
       <li class="{% if item.level > 2 %}ml-{{ (item.level - 2) * 3 }}{% endif %}">
@@ -13,7 +13,47 @@
       </li>
       {% endfor %}
     </ul>
+    {% else %}
+    <ul class="space-y-1 text-sm" data-toc-fallback-list></ul>
+    <script>
+      (() => {
+        const script = document.currentScript;
+        if (!script) return;
+
+        const widget = script.closest(".widget");
+        const fallbackList = widget ? widget.querySelector("[data-toc-fallback-list]") : null;
+        if (!widget || !fallbackList) return;
+
+        const shell = widget.closest(".widget-collapsible");
+        const contentRoot = document.querySelector("article .e-content");
+        if (!contentRoot) {
+          if (shell) shell.style.display = "none";
+          return;
+        }
+
+        const headings = Array.from(contentRoot.querySelectorAll("h2[id], h3[id], h4[id], h5[id], h6[id]"));
+        if (!headings.length) {
+          if (shell) shell.style.display = "none";
+          return;
+        }
+
+        for (const heading of headings) {
+          const level = Number.parseInt(heading.tagName.slice(1), 10);
+          const item = document.createElement("li");
+          if (Number.isFinite(level) && level > 2) {
+            item.style.marginLeft = `${(level - 2) * 0.75}rem`;
+          }
+
+          const link = document.createElement("a");
+          link.href = `#${heading.id}`;
+          link.className = "text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors";
+          link.textContent = heading.textContent ? heading.textContent.trim() : heading.id;
+          item.appendChild(link);
+          fallbackList.appendChild(item);
+        }
+      })();
+    </script>
+    {% endif %}
   </nav>
 </div>
 </is-land>
-{% endif %}

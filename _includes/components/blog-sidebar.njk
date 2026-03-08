@@ -3,8 +3,12 @@
 {# Each widget is wrapped in a collapsible container with localStorage persistence #}
 {% from "components/icon.njk" import icon %}
 
+{% set isArticlePost = (postType == "article") or (page.url and page.url.startsWith('/articles/') and page.url != '/articles/') %}
+{% set showArticleToc = isArticlePost %}
+
 {% if homepageConfig and homepageConfig.blogPostSidebar and homepageConfig.blogPostSidebar.length %}
   {# === Data-driven mode: render configured widgets === #}
+  {% set hasConfiguredToc = '"toc"' in (homepageConfig.blogPostSidebar | dump) %}
   {% for widget in homepageConfig.blogPostSidebar %}
 
     {# Resolve widget title #}
@@ -160,6 +164,21 @@
       </div>
     </div>
 
+    {% if showArticleToc and not hasConfiguredToc and (widget.type == "author-card" or widget.type == "author-card-compact") %}
+      {% set widgetKey = "post-widget-toc-article" %}
+      <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : true }">
+        <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden">
+          <button class="widget-header w-full p-4" @click="open = !open; localStorage.setItem('{{ widgetKey }}', open)" :aria-expanded="open ? 'true' : 'false'">
+            <h3 class="widget-title font-bold text-lg flex items-center gap-2">{{ icon("list", "w-5 h-5 text-surface-600 dark:text-surface-400") }} Table of Contents</h3>
+            <svg class="widget-chevron" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak>
+            {% include "components/widgets/toc.njk" %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
   {% endfor %}
 {% else %}
   {# === Fallback: aligned with rmendes.net article sidebar === #}
@@ -177,6 +196,22 @@
       </div>
     </div>
   </div>
+
+  {% if showArticleToc %}
+  {# Table of Contents (articles only) #}
+  {% set widgetKey = "post-widget-toc-article" %}
+  <div class="widget-collapsible mb-4" x-data="{ open: localStorage.getItem('{{ widgetKey }}') !== null ? localStorage.getItem('{{ widgetKey }}') === 'true' : true }">
+    <div class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden">
+      <button class="widget-header w-full p-4" @click="open = !open; localStorage.setItem('{{ widgetKey }}', open)" :aria-expanded="open ? 'true' : 'false'">
+        <h3 class="widget-title font-bold text-lg flex items-center gap-2">{{ icon("list", "w-5 h-5 text-surface-600 dark:text-surface-400") }} Table of Contents</h3>
+        <svg class="widget-chevron" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak>
+        {% include "components/widgets/toc.njk" %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
 
   {# Share #}
   {% set widgetKey = "post-widget-share-1" %}
