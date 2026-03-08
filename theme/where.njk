@@ -28,11 +28,7 @@ withSidebar: true
 
         <div class="flex-1 min-w-0">
           <h2 class="text-base sm:text-lg font-semibold text-surface-900 dark:text-surface-100">
-            {% if checkin.venueUrl %}
-            <a href="{{ checkin.venueUrl }}" class="hover:text-emerald-600 dark:hover:text-emerald-400" target="_blank" rel="noopener">{{ checkin.name }}</a>
-            {% else %}
             {{ checkin.name }}
-            {% endif %}
           </h2>
 
           {% if checkin.locationText or checkin.postalCode %}
