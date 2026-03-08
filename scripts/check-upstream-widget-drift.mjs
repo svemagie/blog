@@ -40,11 +40,17 @@ const targets = [
     localPath: "_includes/components/homepage-sidebar.njk",
     mirrorPath: "theme/_includes/components/homepage-sidebar.njk",
   },
+  {
+    name: "sidebar-cv",
+    upstreamPath: "_includes/components/cv-sidebar.njk",
+    localPath: "_includes/components/cv-sidebar.njk",
+    mirrorPath: "theme/_includes/components/cv-sidebar.njk",
+  },
 ];
 
 function printHelp() {
   console.log(`Usage: node scripts/check-upstream-widget-drift.mjs [options]\n\nOptions:\n  --ref=<git-ref>   Upstream branch/tag/sha to compare against (default: ${DEFAULT_REF})\n  --show-diff       Print unified diff when drift is found\n  --strict          Exit with code 1 when drift is found\n  -h, --help        Show this help\n\nChecks:\n  - Recent Posts widgets (listing + post)
-  - Sidebar wrappers (listing + post + homepage)\n\nExamples:\n  npm run check:upstream-widgets\n  npm run check:upstream-widgets -- --show-diff\n  npm run check:upstream-widgets -- --ref=main --strict`);
+  - Sidebar wrappers (listing + post + homepage + cv)\n\nExamples:\n  npm run check:upstream-widgets\n  npm run check:upstream-widgets -- --show-diff\n  npm run check:upstream-widgets -- --ref=main --strict`);
 }
 
 function normalize(content) {
