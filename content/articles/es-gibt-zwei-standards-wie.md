@@ -1,11 +1,11 @@
 ---
 date: 2026-03-08T07:12:13.912Z
-title: Es gibt zwei Standards, wie viele Menschen reagieren, wenn sie
+title: Du machst es Dir aber leicht!
+updated: 2026-03-08T07:14:48.512Z
 draft: true
 permalink: https://blog.giersig.eu/articles/es-gibt-zwei-standards-wie/
 ---
 
-# Du machst es Dir aber leicht!
 Es gibt zwei Standards, wie viele Menschen reagieren, wenn sie zum ersten Mal von meiner Art, Beziehung zu definieren und zu leben, hören:
 
 1. „Oh, wie spannend, das wäre ja auch was für mich! (…) Aber nein, ich könnte das nicht“. Ich beobachte im Gegenüber dabei stets die Kette der Gedanken, die fast unweigerlich bei der eigenen Eifersucht und dann sofort auch mit Ablehnung endet.
