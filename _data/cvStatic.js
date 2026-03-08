@@ -12,7 +12,7 @@ export default {
       location: "Garmisch-Partenkirchen, Germany",
       startDate: "2024",
       endDate: null,
-      type: "full-time",
+      type: "part-time",
       experienceType: "work",
       description:
         "Spearheaded strategic communication initiatives, improved public outreach, and strengthened stakeholder relationships.",
@@ -29,7 +29,6 @@ export default {
       location: "Garmisch-Partenkirchen, Germany",
       startDate: "2021",
       endDate: "2024",
-      type: "full-time",
       experienceType: "work",
       description:
         "Provided social support and counseling with a focus on integration, empowerment, and crisis intervention.",
