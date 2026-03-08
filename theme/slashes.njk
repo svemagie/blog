@@ -63,7 +63,8 @@ eleventyImport:
         (newsActivity and newsActivity.source == "indiekit") or
         (youtubeChannel and youtubeChannel.source == "indiekit") or
         (blogrollStatus and blogrollStatus.source == "indiekit") or
-        (podrollStatus and podrollStatus.source == "indiekit") %}
+      (podrollStatus and podrollStatus.source == "indiekit") or
+      (whereCheckins and whereCheckins.source != "error") %}
   {% if hasActivityPages %}
   <div class="mb-8">
     <h2 class="text-lg font-semibold text-surface-800 dark:text-surface-200 mb-4">Activity Feeds</h2>
@@ -138,6 +139,14 @@ eleventyImport:
         <p class="text-surface-600 dark:text-surface-400 mt-2">YouTube channel</p>
       </li>
       {% endif %}
+      <li class="post-card">
+        <div class="post-header">
+          <h3 class="text-xl font-semibold">
+            <a href="/where/" class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400">/where</a>
+          </h3>
+        </div>
+        <p class="text-surface-600 dark:text-surface-400 mt-2">Location check-ins from OwnYourSwarm</p>
+      </li>
     </ul>
   </div>
   {% endif %}

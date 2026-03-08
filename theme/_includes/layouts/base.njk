@@ -166,6 +166,7 @@
             <div class="nav-dropdown-menu" x-show="open" x-transition x-cloak>
               <a href="/slashes/">All Pages</a>
               <a href="/cv/">/cv</a>
+              <a href="/where/">/where</a>
               {% for item in collections.pages %}
               <a href="{{ item.url }}">/{{ item.fileSlug }}</a>
               {% endfor %}
@@ -252,6 +253,7 @@
         <div class="mobile-nav-submenu" x-show="slashOpen" x-collapse>
           <a href="/slashes/">All Pages</a>
           <a href="/cv/">/cv</a>
+          <a href="/where/">/where</a>
           {% for item in collections.pages %}
           <a href="{{ item.url }}">/{{ item.fileSlug }}</a>
           {% endfor %}

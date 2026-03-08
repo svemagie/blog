@@ -40,6 +40,8 @@ jobs:
           AUTHOR_TITLE: ${{ secrets.AUTHOR_TITLE }}
           AUTHOR_PRONOUN: ${{ secrets.AUTHOR_PRONOUN }}
           SITE_LOCALE: ${{ secrets.SITE_LOCALE }}
+          OWNYOURSWARM_FEED_URL: ${{ secrets.OWNYOURSWARM_FEED_URL }}
+          OWNYOURSWARM_FEED_TOKEN: ${{ secrets.OWNYOURSWARM_FEED_TOKEN }}
         run: |
           {
             printf 'SITE_URL=%s\n' "$SITE_URL"
@@ -59,6 +61,8 @@ jobs:
             printf 'AUTHOR_TITLE=%s\n' "$AUTHOR_TITLE"
             printf 'AUTHOR_PRONOUN=%s\n' "$AUTHOR_PRONOUN"
             printf 'SITE_LOCALE=%s\n' "$SITE_LOCALE"
+            printf 'OWNYOURSWARM_FEED_URL=%s\n' "$OWNYOURSWARM_FEED_URL"
+            printf 'OWNYOURSWARM_FEED_TOKEN=%s\n' "$OWNYOURSWARM_FEED_TOKEN"
           } > .env
 
       - name: Build site
@@ -76,6 +80,8 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
           MASTODON_USER: ${{ secrets.MASTODON_USER }}
+          OWNYOURSWARM_FEED_URL: ${{ secrets.OWNYOURSWARM_FEED_URL }}
+          OWNYOURSWARM_FEED_TOKEN: ${{ secrets.OWNYOURSWARM_FEED_TOKEN }}
 
       - name: Deploy via SCP
         uses: appleboy/scp-action@v0.1.7
