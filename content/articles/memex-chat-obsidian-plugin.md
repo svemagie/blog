@@ -7,11 +7,19 @@ category:
   - dev
   - AI
 visibility: private
-updated: 2026-03-09T18:15:45.225Z
+updated: 2026-03-09T20:44:07.624Z
 syndication:
   - https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-09T20:41:55.890Z
+webmentionSent: true
 permalink: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 ---
 
