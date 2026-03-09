@@ -4,15 +4,21 @@
  */
 
 import EleventyFetch from "@11ty/eleventy-fetch";
-import { BskyAgent } from "@atproto/api";
 
 export default async function () {
-  const handle = process.env.BLUESKY_HANDLE || "";
+  const rawHandle = (process.env.BLUESKY_HANDLE || "")
+    .trim()
+    .replace(/^@+/, "");
+  const handle =
+    rawHandle && !rawHandle.includes(".") && !rawHandle.startsWith("did:")
+      ? `${rawHandle}.bsky.social`
+      : rawHandle;
+
+  if (!handle) {
+    return [];
+  }
 
   try {
-    // Create agent and resolve handle to DID
-    const agent = new BskyAgent({ service: "https://bsky.social" });
-
     // Get the author's feed using public API (no auth needed for public posts)
     const feedUrl = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${handle}&limit=10`;
 
