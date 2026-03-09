@@ -4,8 +4,9 @@ title: ai
 category:
   - dev
   - AI
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+syndication:
+  - https://blog.giersig.eu/ai/
+updated: 2026-03-09T13:48:39.195Z
 permalink: https://blog.giersig.eu/ai/
 ai:
   textLevel: "0"
