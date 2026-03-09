@@ -6,15 +6,12 @@ category:
   - AI
 syndication:
   - https://blog.giersig.eu/ai/
-updated: 2026-03-09T14:57:12.097Z
+updated: 2026-03-09T18:09:07.627Z
 summary: How AI is used on this blog, with structured disclosure levels for text and code.
 visibility: public
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/ai/
-ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 I use AI as a thinking tool for brainstorming, structuring, drafting, editing, and translating. It helps me work through ideas faster and write more consistently, especially during periods when energy is limited.
