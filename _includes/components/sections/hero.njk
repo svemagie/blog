@@ -51,9 +51,9 @@
       {# Social Links #}
       {% from "components/social-icon.njk" import socialIcon, socialIconColorClass %}
       {% if heroConfig.showSocial != false and socialLinks %}
-        <pre class="bg-yellow-100 text-xs p-2 mb-2 rounded">DEBUG: socialLinks={{ socialLinks | jsonEncode }}<br>identity.social={{ id.social | jsonEncode }}</pre>
       <div class="flex flex-wrap gap-3">
         {% for link in socialLinks %}
+          <pre class="bg-pink-100 text-xs p-1 mb-1 rounded">DEBUG: icon={{ link.icon }}</pre>
         <a
           href="{{ link.url }}"
           rel="{{ link.rel }} noopener"
