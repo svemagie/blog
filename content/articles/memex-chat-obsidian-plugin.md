@@ -1,6 +1,7 @@
 ---
-date: 2026-03-09T14:38:59.721Z
+date: 2026-03-09T11:04:48.857Z
 title: "Memex Chat: Obsidian Plugin I built for myself"
+deleted: 2026-03-09T12:20:17.422Z
 summary: I've been using Obsidian for years as my primary thinking environment. At some point I got tired of switching between my notes and AI tools, copy-pasting context back and forth. So I built something that works the way I actually think.
 category:
   - dev
@@ -8,10 +9,10 @@ category:
 mpSyndicateTo:
   - https://blog.giersig.eu/
 visibility: public
-updated: 2026-03-09T14:39:09.710Z
+updated: 2026-03-09T15:18:22.040Z
 permalink: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 ai:
-  textLevel: "1"
+  textLevel: "2"
   codeLevel: "3"
   aiTools: "Claude, Copilot"
   # aiDescription: "Optional disclosure about how AI was used"
