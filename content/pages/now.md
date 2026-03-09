@@ -7,6 +7,11 @@ category:
   - slashpage
 updated: 2026-03-08T13:56:38.077Z
 permalink: https://blog.giersig.eu/now/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 This page is a [now page](https://nownownow.com/about), you should consider adding one if you have a website as well, inspiration comes [from here](https://slashpages.net/#defaults).

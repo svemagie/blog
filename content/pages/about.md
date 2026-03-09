@@ -7,6 +7,11 @@ category:
   - slashpage
 updated: 2026-03-08T12:47:17.679Z
 permalink: https://blog.giersig.eu/about/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 My path has been anything but straight. I started out as a Unix administrator, spent some time DJing minimal techno, studied Sociology in Constance, and somehow ended up managing a mountaineering gear shop. For nearly a decade I ran a communication agency — writing, editing, advising clients across industries. Then came years as a social worker, helping young people and refugees find their footing in Germany. These days I work in public relations for a district office, with a focus on social issues.

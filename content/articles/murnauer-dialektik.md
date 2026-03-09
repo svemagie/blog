@@ -8,6 +8,11 @@ category:
   - lang:de
 visibility: public
 permalink: https://blog.giersig.eu/articles/murnauer-dialektik/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 

@@ -850,10 +850,43 @@ export default function (eleventyConfig) {
   });
 
   // Filter AI-involved posts (ai-text-level > "0" or aiTextLevel > "0")
+  const getAiMetadata = (data = {}) => {
+    const aiMeta = (data && typeof data.ai === "object" && !Array.isArray(data.ai))
+      ? data.ai
+      : {};
+
+    const textLevel = String(
+      data.aiTextLevel
+      ?? data.ai_text_level
+      ?? data["ai-text-level"]
+      ?? aiMeta.textLevel
+      ?? aiMeta.aiTextLevel
+      ?? "0",
+    );
+
+    const codeLevel = String(
+      data.aiCodeLevel
+      ?? data.ai_code_level
+      ?? data["ai-code-level"]
+      ?? aiMeta.codeLevel
+      ?? aiMeta.aiCodeLevel
+      ?? "0",
+    );
+
+    const tools = data.aiTools ?? data.ai_tools ?? aiMeta.aiTools ?? aiMeta.tools;
+    const description =
+      data.aiDescription
+      ?? data.ai_description
+      ?? aiMeta.aiDescription
+      ?? aiMeta.description;
+
+    return { textLevel, codeLevel, tools, description };
+  };
+
   eleventyConfig.addFilter("aiPosts", (posts) => {
     if (!Array.isArray(posts)) return [];
     return posts.filter((post) => {
-      const level = post.data?.aiTextLevel || post.data?.["ai-text-level"] || "0";
+      const { textLevel: level } = getAiMetadata(post.data || {});
       return level !== "0" && level !== 0;
     });
   });
@@ -864,7 +897,8 @@ export default function (eleventyConfig) {
     const total = posts.length;
     const byLevel = { 0: 0, 1: 0, 2: 0, 3: 0 };
     for (const post of posts) {
-      const level = parseInt(post.data?.aiTextLevel || post.data?.["ai-text-level"] || "0", 10);
+      const { textLevel } = getAiMetadata(post.data || {});
+      const level = parseInt(textLevel || "0", 10);
       byLevel[level] = (byLevel[level] || 0) + 1;
     }
     const aiCount = total - byLevel[0];

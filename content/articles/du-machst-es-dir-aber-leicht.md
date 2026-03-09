@@ -7,6 +7,11 @@ category:
   - lang:de
 visibility: public
 permalink: https://blog.giersig.eu/articles/du-machst-es-dir-aber-leicht/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 Es gibt zwei Standards, wie viele Menschen reagieren, wenn sie zum ersten Mal von meiner Art, Beziehung zu definieren und zu leben, hören:

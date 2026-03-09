@@ -8,6 +8,11 @@ category:
   - lang:de
 visibility: public
 permalink: https://blog.giersig.eu/articles/soeders-tweet-zu-trumps-wahl/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 > Amerika hat gewählt - und das eindeutig. Entgegen mancher Prognosen ist es ein klarer Sieg für Donald Trump und die Republikaner. Glückwunsch an Donald Trump. Für Deutschland muss sich jetzt aber einiges zwingend ändern. Natürlich bleiben die USA unser wichtigster Partner: Aber wir werden so gefordert wie nie. Es weht ein anderer Wind. Wir müssen uns deutlich mehr anstrengen, um mithalten zu können: Die Bundeswehr muss massiv gestärkt werden - statt zwei Prozent vom BIP braucht es mindestens drei Prozent und eine echte Wehrpflicht. Beides rasch! Und wirtschaftlich benötigt Deutschland ein komplettes Update mit vergleichbaren Steuern und Energiepreisen wie die USA. Klar ist auch: Einen gestärkten Donald Trump wird eine schwache und zerstrittene Bundesregierung wenig beeindrucken. Daher braucht es jetzt erst recht Neuwahlen und einen Neuanfang in Deutschland. Die Partnerschaft mit den USA bleibt zentral, aber sie muss mehr aus eigener Stärke heraus erfolgen. Kontinuität in der Schwäche hilft unserem Land nicht.

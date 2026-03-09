@@ -9,6 +9,11 @@ visibility: public
 updated: 2026-03-08T07:50:18.987Z
 summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
 permalink: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit. Hier und da wird zwar darauf hingewiesen, dass der Terminus “Covidioten” ableistisch ist und dass das Wort Verschwörungstheorie den falschen Anschein von Wissenschaftlichkeit erwecken kann und man darum besser “-ideologie” oder “-erzählung” nutzen sollte. Das sind fraglos wichtige Beiträge zu dieser Debatte. Aber um den Kern der Frage, nämlich, was so viele Menschen dazu bringt, solch offensichtlich unwissenschaftlichen Unfug zu vertreten, und aus jeglicher logischen Lebensführung herauszutreten und in die pure Emotion einzutreten, wird sich nichtwissenwollend und nichtinteressierend ausgeschwiegen. Diese Menschen werden kurzerhand als Verirrte stigmatisiert, und das Thema wird mit dieser breit geteilten und allseits anerkannten Erkenntnis schleunig abgeschlossen.
