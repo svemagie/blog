@@ -8,6 +8,11 @@ import EleventyFetch from "@11ty/eleventy-fetch";
 const INDIEKIT_URL =
   process.env.INDIEKIT_URL || process.env.SITE_URL || "https://example.com";
 const FUNKWHALE_INSTANCE = process.env.FUNKWHALE_INSTANCE || "";
+const DEFAULT_FETCH_CACHE_DURATION = "5m";
+const LISTENING_FETCH_CACHE_DURATION =
+  (process.env.LISTENING_FETCH_CACHE_DURATION || "").trim() || DEFAULT_FETCH_CACHE_DURATION;
+const FUNKWHALE_FETCH_CACHE_DURATION =
+  (process.env.FUNKWHALE_FETCH_CACHE_DURATION || "").trim() || LISTENING_FETCH_CACHE_DURATION;
 
 /**
  * Fetch from Indiekit's public Funkwhale API endpoint
@@ -22,7 +27,7 @@ async function fetchFromIndiekit(endpoint) {
     try {
       console.log(`[funkwhaleActivity] Fetching from Indiekit: ${url}`);
       const data = await EleventyFetch(url, {
-        duration: "15m",
+        duration: FUNKWHALE_FETCH_CACHE_DURATION,
         type: "json",
       });
       console.log(`[funkwhaleActivity] Indiekit ${endpoint} success via ${url}`);
@@ -61,6 +66,9 @@ function formatDuration(seconds) {
 export default async function () {
   try {
     console.log("[funkwhaleActivity] Fetching Funkwhale data...");
+    console.log(
+      `[funkwhaleActivity] EleventyFetch cache duration: ${FUNKWHALE_FETCH_CACHE_DURATION}`
+    );
 
     // Fetch all data from Indiekit API
     const [nowPlaying, listenings, favorites, stats] = await Promise.all([

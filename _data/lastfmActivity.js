@@ -8,6 +8,11 @@ import EleventyFetch from "@11ty/eleventy-fetch";
 const INDIEKIT_URL =
   process.env.INDIEKIT_URL || process.env.SITE_URL || "https://example.com";
 const LASTFM_USERNAME = process.env.LASTFM_USERNAME || "";
+const DEFAULT_FETCH_CACHE_DURATION = "5m";
+const LISTENING_FETCH_CACHE_DURATION =
+  (process.env.LISTENING_FETCH_CACHE_DURATION || "").trim() || DEFAULT_FETCH_CACHE_DURATION;
+const LASTFM_FETCH_CACHE_DURATION =
+  (process.env.LASTFM_FETCH_CACHE_DURATION || "").trim() || LISTENING_FETCH_CACHE_DURATION;
 
 /**
  * Fetch from Indiekit's public Last.fm API endpoint
@@ -22,7 +27,7 @@ async function fetchFromIndiekit(path) {
     try {
       console.log(`[lastfmActivity] Fetching from Indiekit: ${url}`);
       const data = await EleventyFetch(url, {
-        duration: "15m",
+        duration: LASTFM_FETCH_CACHE_DURATION,
         type: "json",
       });
       console.log(`[lastfmActivity] Indiekit ${path} success via ${url}`);
@@ -40,6 +45,9 @@ async function fetchFromIndiekit(path) {
 export default async function () {
   try {
     console.log("[lastfmActivity] Fetching Last.fm data...");
+    console.log(
+      `[lastfmActivity] EleventyFetch cache duration: ${LASTFM_FETCH_CACHE_DURATION}`
+    );
 
     // Fetch all data from Indiekit API
     const [nowPlaying, scrobbles, loved, stats] = await Promise.all([
