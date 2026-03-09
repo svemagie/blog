@@ -5,13 +5,22 @@ summary: a page that tells you what I'm focused on at this point in my life
 category:
   - now
   - slashpage
-updated: 2026-03-08T13:56:38.077Z
+updated: 2026-03-09T23:18:11.510Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 2
+  details:
+    sent: []
+    failed: []
+    skipped:
+      - target: https://nownownow.com/about
+        reason: No webmention endpoint found
+      - target: https://slashpages.net/#defaults
+        reason: No webmention endpoint found
+  timestamp: 2026-03-09T19:23:19.612Z
+webmentionSent: true
 permalink: https://blog.giersig.eu/now/
-ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 This page is a [now page](https://nownownow.com/about), you should consider adding one if you have a website as well, inspiration comes [from here](https://slashpages.net/#defaults).
@@ -21,7 +30,7 @@ This page is a [now page](https://nownownow.com/about), you should consider addi
 
 ## tech
 - exploring the Indieweb
-- Ghost blogging
+- Ghost blogging on [ferals.eu](https://www.ferals.eu)
 
 and I like ice in the sunhine!
 
