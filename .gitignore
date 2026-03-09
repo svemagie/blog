@@ -9,13 +9,6 @@ css/style.css
 # Cache
 .cache/
 
-# Environment variables (never commit!)
-.env
-*.env.local
-*.env.*.local
-env.sh
-env.sh.*
-
 # Content (symlinked at runtime)
 content/
 uploads/
