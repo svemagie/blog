@@ -6,11 +6,9 @@ category:
   - AI
 syndication:
   - https://blog.giersig.eu/ai/
-updated: 2026-03-09T18:09:07.627Z
+updated: 2026-03-09T18:11:01.322Z
 summary: How AI is used on this blog, with structured disclosure levels for text and code.
 visibility: public
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/ai/
 ---
 
