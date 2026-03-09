@@ -53,7 +53,6 @@
       {% if heroConfig.showSocial != false and socialLinks %}
       <div class="flex flex-wrap gap-3">
         {% for link in socialLinks %}
-          <pre class="bg-pink-100 text-xs p-1 mb-1 rounded">DEBUG: icon={{ link.icon }}</pre>
         <a
           href="{{ link.url }}"
           rel="{{ link.rel }} noopener"
