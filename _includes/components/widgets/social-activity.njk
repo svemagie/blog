@@ -1,5 +1,25 @@
 {# Social Feed Widget - Tabbed Bluesky/Mastodon #}
 {% if (blueskyFeed and blueskyFeed.length) or (mastodonFeed and mastodonFeed.length) %}
+{% set id = homepageConfig.identity if (homepageConfig and homepageConfig.identity) else {} %}
+{% set socialLinks = id.social if (id.social is defined) else site.social %}
+
+{% set blueskyProfileUrl = "" %}
+{% set mastodonProfileUrl = "" %}
+{% for link in socialLinks %}
+  {% if not blueskyProfileUrl and (link.icon == "bluesky" or "bsky.app/profile/" in link.url) %}
+    {% set blueskyProfileUrl = link.url %}
+  {% endif %}
+  {% if not mastodonProfileUrl and (link.icon == "mastodon" or "@" in link.url) %}
+    {% set mastodonProfileUrl = link.url %}
+  {% endif %}
+{% endfor %}
+{% if not blueskyProfileUrl and site.feeds.bluesky %}
+  {% set blueskyProfileUrl = "https://bsky.app/profile/" + site.feeds.bluesky %}
+{% endif %}
+{% if not mastodonProfileUrl and site.feeds.mastodon.instance and site.feeds.mastodon.username %}
+  {% set mastodonProfileUrl = "https://" + site.feeds.mastodon.instance + "/@" + site.feeds.mastodon.username %}
+{% endif %}
+
 <is-land on:visible>
 {% set defaultSocialTab = "mastodon" if mastodonFeed and mastodonFeed.length else "bluesky" %}
 <div class="widget" x-data="{ activeTab: '{{ defaultSocialTab }}' }">
@@ -60,10 +80,12 @@
       </li>
       {% endfor %}
     </ul>
-    <a href="https://bsky.app/profile/{{ site.feeds.bluesky }}" target="_blank" rel="noopener" class="text-sm text-[#0085ff] hover:underline mt-3 inline-flex items-center gap-1">
+    {% if blueskyProfileUrl %}
+    <a href="{{ blueskyProfileUrl }}" target="_blank" rel="noopener" class="text-sm text-[#0085ff] hover:underline mt-3 inline-flex items-center gap-1">
       View on Bluesky
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
     </a>
+    {% endif %}
   </div>
   {% endif %}
 
@@ -90,10 +112,12 @@
       </li>
       {% endfor %}
     </ul>
-    <a href="https://{{ site.feeds.mastodon.instance }}/@{{ site.feeds.mastodon.username }}" target="_blank" rel="noopener" class="text-sm text-[#a730b8] hover:underline mt-3 inline-flex items-center gap-1">
+    {% if mastodonProfileUrl %}
+    <a href="{{ mastodonProfileUrl }}" target="_blank" rel="noopener" class="text-sm text-[#a730b8] hover:underline mt-3 inline-flex items-center gap-1">
       View on Mastodon
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
     </a>
+    {% endif %}
   </div>
   {% endif %}
 </div>

@@ -2,14 +2,17 @@
 {# Requires fediverse-interact.js loaded in base.njk (already present) #}
 {# Determines actor URI from site social links: prefers self-hosted AP, falls back to Mastodon #}
 
+{% set id = homepageConfig.identity if (homepageConfig and homepageConfig.identity) else {} %}
+{% set socialLinks = id.social if (id.social is defined) else site.social %}
+
 {% set actorUrl = "" %}
-{% for link in site.social %}
+{% for link in socialLinks %}
   {% if link.icon == "activitypub" and not actorUrl %}
     {% set actorUrl = link.url %}
   {% endif %}
 {% endfor %}
 {% if not actorUrl %}
-  {% for link in site.social %}
+  {% for link in socialLinks %}
     {% if link.icon == "mastodon" and not actorUrl %}
       {% set actorUrl = link.url %}
     {% endif %}
