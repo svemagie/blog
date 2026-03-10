@@ -7,9 +7,10 @@ category:
   - dev
   - AI
 visibility: public
-updated: 2026-03-10T01:38:35.430Z
+updated: 2026-03-10T01:38:38.417Z
 syndication:
   - https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mgnqfu2jon2o
 webmentionResults:
   sent: 0
   failed: 0
