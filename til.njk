@@ -1,0 +1,77 @@
+---
+layout: layouts/base.njk
+title: Today I Learned
+withSidebar: true
+permalink: /til/
+eleventyImport:
+  collections:
+    - posts
+---
+{%- set tilPosts = [] -%}
+{%- for post in collections.posts -%}
+  {%- if post.data.category -%}
+    {%- if post.data.category is string -%}
+      {%- if post.data.category == "til" -%}
+        {%- set tilPosts = (tilPosts.push(post), tilPosts) -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- if "til" in post.data.category -%}
+        {%- set tilPosts = (tilPosts.push(post), tilPosts) -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div>
+  <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">Today I Learned</h1>
+  <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
+    A collection of concise write-ups on small things I&rsquo;ve learnt day to day.
+    <span class="text-sm">({{ tilPosts.length }} post{% if tilPosts.length != 1 %}s{% endif %})</span>
+  </p>
+
+  {% if tilPosts.length > 0 %}
+  <ul class="space-y-4">
+    {% for post in tilPosts %}
+    {% set postType = post.inputPath | replace("./content/", "") %}
+    {% set postType = postType.split("/")[0] %}
+    <li class="p-4 bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg hover:border-amber-400 dark:hover:border-amber-600 transition-colors shadow-sm">
+      <a href="{{ post.url }}" class="block group">
+        {% if post.data.title %}
+        <h2 class="font-semibold text-surface-900 dark:text-surface-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 mb-1">
+          {{ post.data.title }}
+        </h2>
+        {% endif %}
+        <p class="text-sm text-surface-600 dark:text-surface-400 mb-2">
+          <time class="font-mono" datetime="{{ post.date | isoDate }}">{{ post.date | dateDisplay }}</time>
+          <span class="mx-1">&middot;</span>
+          <span class="capitalize">{{ postType | replace("s", "") }}</span>
+          {% if post.data.category %}
+          <span class="mx-1">&middot;</span>
+          {% set cats = [] %}
+          {% if post.data.category is string %}
+            {% set cats = [post.data.category] %}
+          {% else %}
+            {% set cats = post.data.category %}
+          {% endif %}
+          {% for cat in cats %}
+            {% if cat != "til" %}
+            <a href="/categories/{{ cat | slugify }}/" class="text-amber-600 dark:text-amber-400 hover:underline">#{{ cat }}</a>{% if not loop.last %} {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+        </p>
+        <p class="text-surface-700 dark:text-surface-300 text-sm leading-relaxed">
+          {{ post.templateContent | striptags | truncate(300) }}
+        </p>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="p-4 bg-surface-100 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
+    <p class="text-surface-600 dark:text-surface-400">
+      No TIL posts yet. Tag any post with <code>category: til</code> and it will appear here.
+    </p>
+  </div>
+  {% endif %}
+</div>
