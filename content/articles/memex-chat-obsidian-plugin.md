@@ -6,8 +6,9 @@ summary: I've been using Obsidian for years as my primary thinking environment. 
 category:
   - dev
   - AI
+  - featured
 visibility: public
-updated: 2026-03-10T06:51:27.218Z
+updated: 2026-03-10T08:57:56.863Z
 syndication:
   - https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 webmentionResults:
@@ -18,8 +19,10 @@ webmentionResults:
     sent: []
     failed: []
     skipped: []
-  timestamp: 2026-03-10T06:47:00.790Z
+  timestamp: 2026-03-10T08:54:17.260Z
 webmentionSent: true
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 ---
 
