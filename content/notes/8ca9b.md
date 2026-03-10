@@ -3,6 +3,7 @@ date: 2026-03-09T23:15:13.793Z
 category:
   - dev
   - indieweb
+  - til
 webmentionResults:
   sent: 0
   failed: 0
@@ -15,7 +16,7 @@ webmentionResults:
 webmentionSent: true
 syndication:
   - https://blog.giersig.eu/notes/8ca9b/
-updated: 2026-03-10T01:34:31.107Z
+updated: 2026-03-10T06:57:20.287Z
 permalink: https://blog.giersig.eu/notes/8ca9b/
 ---
 
