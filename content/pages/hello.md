@@ -3,7 +3,18 @@ date: 2026-03-10T07:31:17.438Z
 title: Hello
 summary: Hello, I'm svemagie
 visibility: unlisted
-updated: 2026-03-10T07:33:43.648Z
+updated: 2026-03-10T08:16:54.103Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-10T07:35:02.562Z
+webmentionSent: true
+category: slashpage
 permalink: https://blog.giersig.eu/hello/
 ---
 
