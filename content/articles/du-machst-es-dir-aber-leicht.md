@@ -1,10 +1,13 @@
 ---
 date: 2025-07-06T18:00:00.000Z
 title: Du machst es Dir aber leicht!
-updated: 2026-03-10T09:41:19.353Z
+updated: 2026-03-10T09:48:24.567Z
 category:
   - people
   - lang:de
+  - Reziprozität
+  - polyamorie
+  - Präfiguration
 visibility: public
 webmentionResults:
   sent: 0
@@ -30,7 +33,7 @@ Die #Polyamorie offenbart eine spannende gesellschaftliche Ironie: Die vermeintl
 
 Einerseits begann diese Beziehung als bewusste Entscheidung mit dem Wunsch, diesen sehr besonderen Menschen kennenzulernen und lieben zu können, auch wenn der Anstand das eigentlich verbietet. Sie ist verheiratet, hat zwei Kinder, ich kenne und schätze ihren Mann sehr, ich kenne ihn sogar länger als sie. Andererseits schien mir der Versuch, Liebe und Beziehung auf eine andere Art zu leben, ganz offenkundig einfach auch die Fortschreibung meiner persönlichen Entwicklung hin zu einem vollständigeren, wahrhaftigeren Menschen zu sein. Mir war sehr klar, dass mich emotionale Herausforderungen und die Bedingung der Möglichkeit persönlichen Wachstums erwartet. Was ich jedoch nicht ahnte, waren die tiefgreifenden emotionalen Erschütterungen, die aus meinem Liebes(er)leben hervorgehen würden.
 
-Dieses Wagnis, in eine polyamore Beziehung (und somit in eine Familie) hineinzuwachsen, verlangte zu Beginn primär das Verstehen und die Akzeptanz, dass Liebe nicht limitiert oder besitzergreifend sein muss. Nicht meine Liebe, und nicht die Liebe im Allgemeinen. Liebe ist nicht begrenzt oder eindimensional oder verlangt zwingend und zu jedem Zeitpunkt Reziprozität. Wahrlich: Liebe wird wirklich nicht weniger, wenn man sie teilt. Diese Erkenntnis kam nicht plötzlich, sondern entwickelte sich im Verlauf von mehreren Wochen aus Gesprächen, aus der Lektüre von Unmengen an Büchern und Artikeln, aus der daraus angestoßenen Selbstreflexion und natürlich dem grundlegenden Bedürfnis, über die gesellschaftlichen Beziehungsnormen hinauszudenken: wie kann ich, wie können wir es ermöglichen, dass diese Liebe sein darf und gedeihen kann?
+Dieses Wagnis, in eine polyamore Beziehung (und somit in eine Familie) hineinzuwachsen, verlangte zu Beginn primär das Verstehen und die Akzeptanz, dass Liebe nicht limitiert oder besitzergreifend sein muss. Nicht meine Liebe, und nicht die Liebe im Allgemeinen. Liebe ist nicht begrenzt oder eindimensional oder verlangt zwingend und zu jedem Zeitpunkt #Reziprozität. Wahrlich: Liebe wird wirklich nicht weniger, wenn man sie teilt. Diese Erkenntnis kam nicht plötzlich, sondern entwickelte sich im Verlauf von mehreren Wochen aus Gesprächen, aus der Lektüre von Unmengen an Büchern und Artikeln, aus der daraus angestoßenen Selbstreflexion und natürlich dem grundlegenden Bedürfnis, über die gesellschaftlichen Beziehungsnormen hinauszudenken: wie kann ich, wie können wir es ermöglichen, dass diese Liebe sein darf und gedeihen kann?
 
 ## Eifersucht: im Kampf gegen die Normen
 
@@ -64,5 +67,5 @@ Ich bin zutiefst dankbar für diese fortlaufende Entdeckung meiner selbst und de
 
 Polyamorie hält der Gesellschaft einen Spiegel vor, indem sie die Vielfalt menschlicher Beziehungen und die Fluidität von Liebe und Bindung aufzeigt. Sie fordert dazu auf, die starren und leider auch oft tödlichen Grenzen zu hinterfragen, die traditionell um Beziehungen gezogen wurden, und ermutigt, einen inklusiveren und umfassenderen Blick auf Liebe und Beziehungen zu entwickeln.
 
-Während wir diesen Weg beschreiten, gestalten wir aktiv eine Zukunft, in der Beziehungen nicht durch gesellschaftliche Normierungen, sondern durch die individuellen Bedürfnisse und Wünsche der Beteiligten definiert werden. Polyamorie ist somit mehr als nur eine Form der Beziehungsführung, sie ist ein tiefes, persönliches und auch politisches Engagement für Authentizität, Autonomie, gegenseitigem Respekt und die Erkundung der unendlichen Landschaft menschlicher Beziehungen. Sie lehrt uns, dass in der Vielfalt und Komplexität menschlicher Emotionen und Bindungen eine außerordentliche Schönheit liegt, die es zu feiern gilt. Mehr Glitzer!
+Während wir diesen Weg beschreiten, gestalten wir aktiv eine Zukunft, in der Beziehungen nicht durch gesellschaftliche Normierungen, sondern durch die individuellen Bedürfnisse und Wünsche der Beteiligten definiert werden. Polyamorie ist somit mehr als nur eine Form der Beziehungsführung, sie ist ein tiefes, persönliches und auch politisches Engagement für Authentizität, #Autonomie, gegenseitigem Respekt und die Erkundung der unendlichen Landschaft menschlicher Beziehungen. Sie lehrt uns, dass in der Vielfalt und Komplexität menschlicher Emotionen und Bindungen eine außerordentliche Schönheit liegt, die es zu feiern gilt. Mehr Glitzer!
 
