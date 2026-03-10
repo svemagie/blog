@@ -5,11 +5,22 @@ summary: My setup for everyday uses.
 category: uses
 mpSyndicateTo:
   - https://blog.giersig.eu/
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-10T08:54:17.264Z
+webmentionSent: true
+updated: 2026-03-10T09:27:47.216Z
 permalink: https://blog.giersig.eu/uses/
 ---
 
 ## Hardware
-- Macbook
+- MacbookAir M3
 - iPhone
 - RaspberryPI running FreeBSD
 
