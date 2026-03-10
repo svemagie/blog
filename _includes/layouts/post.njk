@@ -76,7 +76,8 @@ withBlogSidebar: true
   {# Rich reply context with h-cite microformat #}
   {% include "components/reply-context.njk" %}
 
-  {# AI usage disclosure — always shown, collapsed by default, placed after reply context #}
+  {# AI usage disclosure — articles and notes only #}
+  {% if '/articles/' in page.url or '/notes/' in page.url %}
   <details class="mt-4 text-xs text-surface-600 dark:text-surface-400">
     <summary class="cursor-pointer hover:text-surface-600 dark:hover:text-surface-300 list-none flex items-center gap-1.5 [&::-webkit-details-marker]:hidden">
       <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -101,6 +102,7 @@ withBlogSidebar: true
       {% endif %}
     </div>
   </details>
+  {% endif %}
 
   {# Pending syndication targets (for services like IndieNews that require u-syndication before webmention) #}
   {% if mpSyndicateTo %}
