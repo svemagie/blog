@@ -1,17 +1,22 @@
 ---
 date: 2025-07-06T18:00:00.000Z
 title: Du machst es Dir aber leicht!
-updated: 2026-03-08T07:20:56.513Z
+updated: 2026-03-10T09:41:19.353Z
 category:
   - people
   - lang:de
 visibility: public
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-09T19:18:12.756Z
+webmentionSent: true
 permalink: https://blog.giersig.eu/articles/du-machst-es-dir-aber-leicht/
-ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 Es gibt zwei Standards, wie viele Menschen reagieren, wenn sie zum ersten Mal von meiner Art, Beziehung zu definieren und zu leben, hören:
@@ -19,7 +24,7 @@ Es gibt zwei Standards, wie viele Menschen reagieren, wenn sie zum ersten Mal vo
 1. „Oh, wie spannend, das wäre ja auch was für mich! (…) Aber nein, ich könnte das nicht“. Ich beobachte im Gegenüber dabei stets die Kette der Gedanken, die fast unweigerlich bei der eigenen Eifersucht und dann sofort auch mit Ablehnung endet.
 2. „Du machst es Dir aber leicht! Schön ungebunden und ohne Verantwortung, das ist nicht gerade sehr reif, Du bist doch keine 16 mehr!“
 
-Die Polyamorie offenbart eine spannende gesellschaftliche Ironie: Die vermeintliche Leichtigkeit, mit der man sich angeblich von „echten“ Bindungen löst, ist tatsächlich ein Weg voller tiefer Selbstreflexion, Zweifel, schwerer emotionaler Arbeit und dem sehr bewussten Navigieren durch die Komplexität menschlicher Beziehungen. Dieser Prozess ist weit entfernt von der Unbeschwertheit, die Außenstehende oft annehmen. Die Konfrontation mit diesen Erwartungen erfordert ein ständiges Hinterfragen und Reflektieren der eigenen Werte und Überzeugungen. Es ist ein Prozess, der dazu zwingt, sich mit den Prämissen der Monogamie und dem sozialen Konstrukt Names „Liebe“ auseinanderzusetzen.
+Die #Polyamorie offenbart eine spannende gesellschaftliche Ironie: Die vermeintliche Leichtigkeit, mit der man sich angeblich von „echten“ Bindungen löst, ist tatsächlich ein Weg voller tiefer Selbstreflexion, Zweifel, schwerer emotionaler Arbeit und dem sehr bewussten Navigieren durch die Komplexität menschlicher Beziehungen. Dieser Prozess ist weit entfernt von der Unbeschwertheit, die Außenstehende oft annehmen. Die Konfrontation mit diesen Erwartungen erfordert ein ständiges Hinterfragen und Reflektieren der eigenen Werte und Überzeugungen. Es ist ein Prozess, der dazu zwingt, sich mit den Prämissen der Monogamie und dem sozialen Konstrukt Names „Liebe“ auseinanderzusetzen.
 
 ## Vielfalt
 
