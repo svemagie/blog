@@ -2,7 +2,7 @@
 date: 2026-03-10T06:58:50.220Z
 title: Today I learned
 category: slashpage
-visibility: unlisted
+visibility: private
 webmentionResults:
   sent: 0
   failed: 0
@@ -13,7 +13,7 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-10T07:02:01.660Z
 webmentionSent: true
-updated: 2026-03-10T07:36:11.149Z
+updated: 2026-03-10T07:49:47.220Z
 permalink: https://blog.giersig.eu/til/
 ---
 
