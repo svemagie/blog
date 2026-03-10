@@ -7,7 +7,7 @@ category:
   - dev
   - AI
 visibility: public
-updated: 2026-03-10T01:34:37.040Z
+updated: 2026-03-10T01:38:30.369Z
 syndication:
   - https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mgnqfu2jon2o
@@ -19,10 +19,11 @@ webmentionResults:
     sent: []
     failed: []
     skipped: []
-  timestamp: 2026-03-10T01:31:43.885Z
+  timestamp: 2026-03-10T01:36:44.171Z
 webmentionSent: true
 mpSyndicateTo:
-  - https://troet.cafe/@svemagie
+  - https://bsky.app/profile/svemagie.bsky.social
+  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 ---
 
