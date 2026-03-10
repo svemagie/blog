@@ -34,7 +34,7 @@ jobs:
           AUTHOR_BIO: ${{ secrets.AUTHOR_BIO }}
           AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
           AUTHOR_LOCATION: ${{ secrets.AUTHOR_LOCATION }}
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
           MASTODON_USER: ${{ secrets.MASTODON_USER }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
@@ -86,11 +86,11 @@ jobs:
           AUTHOR_AVATAR: ${{ secrets.AUTHOR_AVATAR }}
           AUTHOR_BIO: ${{ secrets.AUTHOR_BIO }}
           AUTHOR_EMAIL: ${{ secrets.AUTHOR_EMAIL }}
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
           MASTODON_USER: ${{ secrets.MASTODON_USER }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           OWNYOURSWARM_FEED_URL: ${{ secrets.OWNYOURSWARM_FEED_URL }}
           OWNYOURSWARM_FEED_TOKEN: ${{ secrets.OWNYOURSWARM_FEED_TOKEN }}
           LISTENING_FETCH_CACHE_DURATION: ${{ secrets.LISTENING_FETCH_CACHE_DURATION }}
