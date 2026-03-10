@@ -1,13 +1,14 @@
 ---
 date: 2025-07-06T18:00:00.000Z
 title: Du machst es Dir aber leicht!
-updated: 2026-03-10T09:48:24.567Z
+updated: 2026-03-10T09:50:26.205Z
 category:
   - people
   - lang:de
   - Reziprozität
   - polyamorie
   - Präfiguration
+  - autonomie
 visibility: public
 webmentionResults:
   sent: 0
