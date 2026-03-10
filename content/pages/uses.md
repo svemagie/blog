@@ -1,0 +1,39 @@
+---
+date: 2026-03-10T08:52:56.474Z
+title: uses
+summary: My setup for everyday uses.
+category: uses
+mpSyndicateTo:
+  - https://blog.giersig.eu/
+permalink: https://blog.giersig.eu/uses/
+---
+
+## Hardware
+- Macbook
+- iPhone
+- RaspberryPI running FreeBSD
+
+
+## Editor + Terminal
+- VS Code
+- iTerm2
+- nvim
+
+## Desktop + Software
+- Obsidian with LYT framework
+- DevonThink
+- Hookmark
+- homebrew
+
+## Backup
+- Timemachine
+- Github ;)
+
+## Camera
+- iPhone
+- Sony RX5
+
+## Sound
+- Airpods
+- Sennheiser
+- Homepod (1st gen)
