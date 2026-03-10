@@ -6,8 +6,23 @@
 import EleventyFetch from "@11ty/eleventy-fetch";
 
 export default async function () {
-  const instance = process.env.MASTODON_INSTANCE?.replace("https://", "") || "";
-  const username = process.env.MASTODON_USER || "";
+  const instance = (
+    process.env.MASTODON_URL ||
+    process.env.MASTODON_INSTANCE ||
+    ""
+  )
+    .replace(/^https?:\/\//, "")
+    .replace(/\/+$/, "");
+  const username = (
+    process.env.MASTODON_USER ||
+    process.env.MASTODON_USERNAME ||
+    ""
+  ).trim().replace(/^@+/, "");
+
+  if (!instance || !username) {
+    console.log("[mastodonFeed] MASTODON_URL/MASTODON_USER not set, skipping");
+    return [];
+  }
 
   try {
     // First, look up the account ID
