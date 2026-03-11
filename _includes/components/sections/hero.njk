@@ -14,6 +14,10 @@
 {% set authorUrl = id.url if (id.url is defined and id.url) else (site.author.url or site.url) %}
 
 <section class="h-card mb-8 sm:mb-12">
+  {# Hidden u-photo for reliable microformat parsing (some parsers struggle with img inside links) #}
+  {% if authorAvatar %}
+  <data class="u-photo hidden" value="{{ authorAvatar }}"></data>
+  {% endif %}
   <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
     {# Avatar #}
     {% if heroConfig.showAvatar != false %}
@@ -23,7 +27,7 @@
         alt="{{ authorName }}"
         width="96"
         height="96"
-        class="u-photo w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg"
+        class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg"
         loading="eager"
       >
     </a>
