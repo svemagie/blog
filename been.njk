@@ -14,9 +14,9 @@ withSidebar: true
     </p>
   </header>
 
-  {% if checkins.length > 1 %}
+  {% if checkins.length %}
   <section class="space-y-4" aria-label="Past check-ins">
-    {% for checkin in checkins | slice(1) %}
+    {% for checkin in checkins %}
     <article class="p-4 sm:p-5 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
       <div class="flex items-start gap-3 sm:gap-4">
         <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0 mt-0.5">
