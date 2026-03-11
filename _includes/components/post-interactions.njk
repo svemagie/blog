@@ -1,0 +1,172 @@
+{# Post Interactions — inbound webmentions for this post, shown before comments #}
+{# Hidden when no interactions. Styled like the /interactions page. #}
+{% set absoluteUrl = site.url + page.url %}
+
+<section
+  class="post-interactions mt-8 pt-8 border-t border-surface-200 dark:border-surface-700"
+  id="post-interactions"
+  x-data="postInteractions('{{ absoluteUrl }}')"
+  x-init="init()"
+  x-show="interactions.length > 0"
+  x-cloak>
+
+  <h2 class="text-xl font-bold text-surface-900 dark:text-surface-100 mb-4">
+    Interactions
+    <span x-text="'(' + interactions.length + ')'" class="text-base font-normal text-surface-500 dark:text-surface-400"></span>
+  </h2>
+
+  {# Type filter pills #}
+  <div class="flex flex-wrap gap-2 mb-4" x-show="interactions.length > 1">
+    <button
+      @click="filter = 'all'"
+      :class="filter === 'all' ? 'bg-rose-500 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
+      class="px-3 py-1 text-sm rounded-full transition-colors">
+      All <span x-text="'(' + interactions.length + ')'" class="text-xs opacity-75"></span>
+    </button>
+    <button x-show="likes.length"
+      @click="filter = 'like-of'"
+      :class="filter === 'like-of' ? 'bg-red-500 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
+      class="px-3 py-1 text-sm rounded-full transition-colors">
+      ❤️ Likes <span x-text="'(' + likes.length + ')'" class="text-xs opacity-75"></span>
+    </button>
+    <button x-show="reposts.length"
+      @click="filter = 'repost-of'"
+      :class="filter === 'repost-of' ? 'bg-green-500 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
+      class="px-3 py-1 text-sm rounded-full transition-colors">
+      🔄 Reposts <span x-text="'(' + reposts.length + ')'" class="text-xs opacity-75"></span>
+    </button>
+    <button x-show="replies.length"
+      @click="filter = 'in-reply-to'"
+      :class="filter === 'in-reply-to' ? 'bg-sky-500 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
+      class="px-3 py-1 text-sm rounded-full transition-colors">
+      💬 Replies <span x-text="'(' + replies.length + ')'" class="text-xs opacity-75"></span>
+    </button>
+    <button x-show="mentions.length"
+      @click="filter = 'mention-of'"
+      :class="filter === 'mention-of' ? 'bg-yellow-500 text-white' : 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'"
+      class="px-3 py-1 text-sm rounded-full transition-colors">
+      📣 Mentions <span x-text="'(' + mentions.length + ')'" class="text-xs opacity-75"></span>
+    </button>
+  </div>
+
+  {# Interaction cards #}
+  <ul class="space-y-3" role="list">
+    <template x-for="wm in filtered" :key="wm['wm-id'] || wm.url">
+      <li class="p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm">
+        <div class="flex gap-3">
+          <a :href="wm.author?.url || '#'" target="_blank" rel="noopener" class="flex-shrink-0">
+            <img
+              :src="wm.author?.photo || '/images/default-avatar.svg'"
+              :alt="wm.author?.name || 'Anonymous'"
+              class="w-10 h-10 rounded-full"
+              loading="lazy"
+              onerror="this.src='/images/default-avatar.svg'">
+          </a>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-1.5 mb-1">
+              <a :href="wm.author?.url || '#'" target="_blank" rel="noopener"
+                 class="font-semibold text-surface-900 dark:text-surface-100 hover:underline text-sm"
+                 x-text="wm.author?.name || 'Anonymous'"></a>
+
+              <span x-show="wm['wm-property'] === 'like-of'"
+                    class="inline-flex items-center px-1.5 py-0.5 text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full">❤️ liked</span>
+              <span x-show="wm['wm-property'] === 'repost-of'"
+                    class="inline-flex items-center px-1.5 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">🔄 reposted</span>
+              <span x-show="wm['wm-property'] === 'in-reply-to'"
+                    class="inline-flex items-center px-1.5 py-0.5 text-xs bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 rounded-full">💬 replied</span>
+              <span x-show="wm['wm-property'] === 'mention-of'"
+                    class="inline-flex items-center px-1.5 py-0.5 text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full">📣 mentioned</span>
+              <span x-show="wm['wm-property'] === 'bookmark-of'"
+                    class="inline-flex items-center px-1.5 py-0.5 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full">🔖 bookmarked</span>
+
+              <a :href="wm.url || '#'" target="_blank" rel="noopener"
+                 class="text-xs text-surface-500 dark:text-surface-400 hover:underline font-mono"
+                 x-text="formatDate(wm.published || wm['wm-received'])"></a>
+            </div>
+            <div x-show="wm.content?.text"
+                 class="text-sm text-surface-700 dark:text-surface-300 mt-1"
+                 x-text="truncate(wm.content?.text, 300)"></div>
+          </div>
+        </div>
+      </li>
+    </template>
+  </ul>
+</section>
+
+<script>
+function postInteractions(targetUrl) {
+  return {
+    interactions: [],
+    filter: 'all',
+
+    get likes()    { return this.interactions.filter(w => w['wm-property'] === 'like-of'); },
+    get reposts()  { return this.interactions.filter(w => w['wm-property'] === 'repost-of'); },
+    get replies()  { return this.interactions.filter(w => w['wm-property'] === 'in-reply-to'); },
+    get mentions() { return this.interactions.filter(w => w['wm-property'] === 'mention-of'); },
+
+    get filtered() {
+      if (this.filter === 'all') return this.interactions;
+      return this.interactions.filter(w => w['wm-property'] === this.filter);
+    },
+
+    async init() {
+      const urlWithSlash    = targetUrl.endsWith('/') ? targetUrl : targetUrl + '/';
+      const urlWithoutSlash = targetUrl.endsWith('/') ? targetUrl.slice(0, -1) : targetUrl;
+
+      const endpoints = [
+        `/webmentions/api/mentions?target=${encodeURIComponent(urlWithSlash)}&per-page=100`,
+        `/webmentions/api/mentions?target=${encodeURIComponent(urlWithoutSlash)}&per-page=100`,
+        `/conversations/api/mentions?target=${encodeURIComponent(urlWithSlash)}&per-page=100`,
+        `/conversations/api/mentions?target=${encodeURIComponent(urlWithoutSlash)}&per-page=100`,
+      ];
+
+      try {
+        const results = await Promise.all(
+          endpoints.map(url =>
+            fetch(url).then(r => r.ok ? r.json() : { children: [] }).catch(() => ({ children: [] }))
+          )
+        );
+
+        const [wm1, wm2, conv1, conv2] = results;
+        const wmItems   = [...(wm1.children || []),   ...(wm2.children || [])];
+        const convItems = [...(conv1.children || []), ...(conv2.children || [])];
+
+        const seen = new Set();
+        const merged = [];
+
+        for (const item of convItems) {
+          const key = item['wm-id'] || item.url;
+          if (key && !seen.has(key)) { seen.add(key); merged.push(item); }
+        }
+
+        const convUrls = new Set(convItems.map(c => c.url).filter(Boolean));
+        for (const item of wmItems) {
+          const key = item['wm-id'];
+          if (seen.has(key) || (item.url && convUrls.has(item.url))) continue;
+          seen.add(key);
+          merged.push(item);
+        }
+
+        merged.sort((a, b) =>
+          new Date(b.published || b['wm-received'] || 0) -
+          new Date(a.published || a['wm-received'] || 0)
+        );
+
+        this.interactions = merged;
+      } catch (err) {
+        console.debug('[PostInteractions] fetch error:', err.message);
+      }
+    },
+
+    formatDate(str) {
+      if (!str) return '';
+      return new Date(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    },
+
+    truncate(text, max) {
+      if (!text) return '';
+      return text.length > max ? text.slice(0, max).trim() + '…' : text;
+    },
+  };
+}
+</script>

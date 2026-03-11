@@ -310,6 +310,9 @@ withBlogSidebar: true
   </template>
 </article>
 
+{# Interactions — inbound webmentions for this post, hidden when none #}
+{% include "components/post-interactions.njk" %}
+
 {# Comments section #}
 {% include "components/comments.njk" %}
 
