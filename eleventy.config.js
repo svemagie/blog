@@ -492,9 +492,9 @@ export default function (eleventyConfig) {
   // Webmentions plugin configuration
   const wmDomain = siteUrl.replace("https://", "").replace("http://", "");
   eleventyConfig.addPlugin(pluginWebmentions, {
-    domain: siteUrl,
-    feed: `http://127.0.0.1:8080/webmentions/api/mentions?per-page=10000`,
-    key: "children",
+     domain: siteUrl,
+     feed: `https://blog.giersig.eu/webmentions/api/mentions?per-page=10000`,
+     key: "children",
   });
 
   // Date formatting filter
