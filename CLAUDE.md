@@ -146,7 +146,7 @@ Most plugin-dependent data files:
 |------|---------|----------|
 | `base.njk` | All pages | Base HTML shell with header, footer, nav, meta tags |
 | `home.njk` | Homepage | Always delegates to `homepage-builder.njk` (requires `content/.indiekit/homepage.json`) |
-| `post.njk` | Individual posts | h-entry microformat, Bridgy syndication, webmentions, reply context, photo gallery |
+| `post.njk` | Individual posts | h-entry microformat, Bridgy syndication, webmentions, reply context, photo gallery; includes `post-interactions.njk` → `comments.njk` → `webmentions.njk` in that order |
 | `page.njk` | Static pages | Simple content wrapper, no post metadata |
 
 #### Components (_includes/components/)
@@ -161,7 +161,9 @@ Most plugin-dependent data files:
 | `blog-sidebar.njk` | Sidebar for blog/post pages (recent posts, categories) |
 | `h-card.njk` | Microformat2 h-card for author identity |
 | `reply-context.njk` | Displays reply-to/like-of/repost-of/bookmark-of context with h-cite |
-| `webmentions.njk` | Renders likes, reposts, replies from webmention.io + send form |
+| `post-interactions.njk` | Per-post inbound webmentions (likes, reposts, replies, mentions) in card style; client-side AlpineJS, fetches from `/webmentions/api/mentions` + `/conversations/api/mentions`, hidden when empty; placed before comments |
+| `webmentions.njk` | Build-time webmention display (facepile + reply cards) + send form; shown after comments |
+| `comments.njk` | IndieAuth-gated comment form and thread; shown between post-interactions and webmentions |
 | `empty-collection.njk` | Fallback message when a post type collection is empty |
 
 #### Sections (_includes/components/sections/)
