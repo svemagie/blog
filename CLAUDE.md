@@ -83,11 +83,14 @@ export default async function () {
 ### Data Flow: Plugin → JSON → _data → Template
 
 ```
-Indiekit Plugin (backend)
+Indiekit Plugin (backend, jail node)
   → writes JSON to content/.indiekit/*.json
+  → GitHub Action fetches homepage.json via SSH before build
   → _data/*.js reads JSON file
   → Nunjucks template renders data
 ```
+
+**homepage.json is fetched at deploy time** — the `deploy.yml` workflow SSHes into the server and runs `sudo bastille cmd node cat /usr/local/indiekit/content/.indiekit/homepage.json` before the Eleventy build. This ensures the build always uses the latest admin-saved config. Do not rely on the committed `content/.indiekit/homepage.json` as source of truth; it may be stale.
 
 **Example:** CV plugin flow
 
@@ -115,7 +118,7 @@ All `_data/*.js` files are ESM modules that export functions returning data obje
 |------|-------------|---------|
 | `site.js` | Environment variables | Site config (name, URL, author, social links) |
 | `cv.js` | `content/.indiekit/cv.json` | CV data from `@rmdes/indiekit-endpoint-cv` |
-| `homepageConfig.js` | `content/.indiekit/homepage.json` | Homepage layout from `@rmdes/indiekit-endpoint-homepage` |
+| `homepageConfig.js` | `content/.indiekit/homepage.json` (fetched from node jail at deploy time) | Homepage layout from `@rmdes/indiekit-endpoint-homepage` |
 | `enabledPostTypes.js` | `content/.indiekit/post-types.json` or env | List of enabled post types for navigation |
 | `urlAliases.js` | `content/.indiekit/url-aliases.json` | Legacy URL mappings for webmentions |
 | `blogrollStatus.js` | Indiekit `/blogrollapi/api/status` | Checks if blogroll plugin is available |
@@ -142,7 +145,7 @@ Most plugin-dependent data files:
 | File | Used By | Features |
 |------|---------|----------|
 | `base.njk` | All pages | Base HTML shell with header, footer, nav, meta tags |
-| `home.njk` | Homepage | Two-tier fallback: plugin-driven (homepage builder) or default (hero + recent posts) |
+| `home.njk` | Homepage | Always delegates to `homepage-builder.njk` (requires `content/.indiekit/homepage.json`) |
 | `post.njk` | Individual posts | h-entry microformat, Bridgy syndication, webmentions, reply context, photo gallery |
 | `page.njk` | Static pages | Simple content wrapper, no post metadata |
 
@@ -153,7 +156,7 @@ Most plugin-dependent data files:
 | `homepage-builder.njk` | Renders plugin-configured homepage layout (single/two-column, sections, sidebar) |
 | `homepage-section.njk` | Router for section types (hero, cv-*, custom-html, recent-posts) |
 | `homepage-sidebar.njk` | Renders plugin-configured sidebar widgets |
-| `homepage-footer.njk` | Optional homepage footer with admin link |
+| `homepage-footer.njk` | Full-width footer below the main layout; renders `homepageConfig.footer` sections in a 3-column grid |
 | `sidebar.njk` | Default sidebar (author card, social activity, GitHub, Funkwhale, blogroll, categories) |
 | `blog-sidebar.njk` | Sidebar for blog/post pages (recent posts, categories) |
 | `h-card.njk` | Microformat2 h-card for author identity |
@@ -167,7 +170,7 @@ Homepage builder sections:
 
 | Section | Config Type | Purpose |
 |---------|-------------|---------|
-| `hero.njk` | `hero` | Full-width hero with avatar, name, bio, social links |
+| `hero.njk` | `hero` | Full-width hero with avatar, name, bio, social links; carries the homepage **h-card** microformat |
 | `recent-posts.njk` | `recent-posts` | Recent posts grid (configurable maxItems, postTypes filter) |
 | `cv-experience.njk` | `cv-experience` | Work experience timeline from CV data |
 | `cv-skills.njk` | `cv-skills` | Skills with proficiency bars from CV data |
@@ -295,7 +298,7 @@ Page templates in the root directory:
 
 #### Microformats2
 
-- **h-card** (author identity): Name, photo, bio, location, social links with `rel="me"`
+- **h-card** (author identity): Name, photo, bio, location, social links with `rel="me"`. On the homepage, the h-card lives in `_includes/components/sections/hero.njk` (`h-card` on `<section>`, `p-name`/`u-url`/`u-photo`/`p-job-title`/`p-note` on inner elements). The `authorUrl` resolves from `homepageConfig.identity.url` → `site.author.url` → `site.url`.
 - **h-entry** (post markup): All post types properly marked up
 - **h-feed** (feed markup): Machine-readable post lists
 - **h-cite** (reply context): Cites external content in replies/likes/reposts
