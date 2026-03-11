@@ -8,18 +8,15 @@ withSidebar: true
 
 <div class="where-page">
   <header class="mb-6 sm:mb-8">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">Where</h1>
       <p class="p-summary text-lg text-surface-600 dark:text-surface-400">
         Recent check-ins captured by this site via Micropub.
-      </p>
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">Where</h1>
+      </p>      
       <div class="prose prose-surface dark:prose-invert max-w-none text-surface-600 dark:text-surface-400 mb-2">
         <p>
           A <a href="https://niqwithq.com/posts/where-are-you">where page</a> is a place on the web to let others know about your current location. Thanks to <a href="https://aaronparecki.com/">Aaron Parecki</a> for ownyourswarm.
         </p>
       </div>
-      <p class="mt-2 text-sm">
-        <a href="/been/" class="text-accent-600 hover:underline">See all past check-ins →</a>
-      </p>
   </header>
 
   {% if checkins.length %}
@@ -110,4 +107,7 @@ withSidebar: true
   {% else %}
   <p class="text-surface-600 dark:text-surface-400">No check-ins found.</p>
   {% endif %}
+  <p class="mt-2 text-sm">
+    <a href="/been/" class="text-accent-600 hover:underline">See all past check-ins →</a>
+  </p>  
 </div>
