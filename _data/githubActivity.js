@@ -75,17 +75,27 @@ function truncate(text, maxLength = 80) {
 function extractCommits(events) {
   if (!Array.isArray(events)) return [];
 
+  // Style commit keywords
+  const styleKeywords = [
+    "style", "css", "tailwind", "design", "layout", "responsive", "dark mode", "typography", "color", "palette", "theme"
+  ];
   return events
     .filter((event) => event.type === "PushEvent")
     .flatMap((event) =>
-      (event.payload?.commits || []).map((commit) => ({
-        sha: commit.sha.slice(0, 7),
-        message: truncate(commit.message.split("\n")[0]),
-        url: `https://github.com/${event.repo.name}/commit/${commit.sha}`,
-        repo: event.repo.name,
-        repoUrl: `https://github.com/${event.repo.name}`,
-        date: event.created_at,
-      }))
+      (event.payload?.commits || []).map((commit) => {
+        const msg = commit.message.split("\n")[0];
+        const lowerMsg = msg.toLowerCase();
+        const isStyle = styleKeywords.some((kw) => lowerMsg.includes(kw));
+        return {
+          sha: commit.sha.slice(0, 7),
+          message: truncate(msg),
+          url: `https://github.com/${event.repo.name}/commit/${commit.sha}`,
+          repo: event.repo.name,
+          repoUrl: `https://github.com/${event.repo.name}`,
+          date: event.created_at,
+          category: isStyle ? "style" : undefined,
+        };
+      })
     )
     .slice(0, 10);
 }
