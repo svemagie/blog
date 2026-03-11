@@ -21,6 +21,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Fetch homepage config from node jail
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          mkdir -p content/.indiekit
+          scp -P 222 -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/usr/local/bastille/jails/node/root/usr/local/indiekit/content/.indiekit/homepage.json \
+            content/.indiekit/homepage.json
+
       - name: Build CSS
         run: npm run build:css
 
