@@ -64,10 +64,10 @@
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <span class="p-category">{{ post.data.category }}</span>
+              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in post.data.category %}
-              <span class="p-category">{{ cat }}</span>
+              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -103,10 +103,10 @@
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <span class="p-category">{{ post.data.category }}</span>
+              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in post.data.category %}
-              <span class="p-category">{{ cat }}</span>
+              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -147,10 +147,10 @@
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <span class="p-category">{{ post.data.category }}</span>
+              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in post.data.category %}
-              <span class="p-category">{{ cat }}</span>
+              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -186,10 +186,10 @@
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <span class="p-category">{{ post.data.category }}</span>
+              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in post.data.category %}
-              <span class="p-category">{{ cat }}</span>
+              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -226,10 +226,10 @@
             {% if post.data.category %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <span class="p-category">{{ post.data.category }}</span>
+              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in post.data.category %}
-              <span class="p-category">{{ cat }}</span>
+              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -270,10 +270,10 @@
           {% if post.data.category %}
           <span class="post-categories">
             {% if post.data.category is string %}
-            <span class="p-category">{{ post.data.category }}</span>
+            <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
             {% else %}
             {% for cat in post.data.category %}
-            <span class="p-category">{{ cat }}</span>
+            <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
             {% endfor %}
             {% endif %}
           </span>
@@ -300,10 +300,10 @@
         {% if post.data.category %}
         <span class="post-categories ml-2">
           {% if post.data.category is string %}
-          <span class="p-category">{{ post.data.category }}</span>
+          <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
           {% else %}
           {% for cat in post.data.category %}
-          <span class="p-category">{{ cat }}</span>
+          <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
           {% endfor %}
           {% endif %}
         </span>
