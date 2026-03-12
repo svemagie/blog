@@ -913,15 +913,15 @@ export default function (eleventyConfig) {
   // Helper: exclude drafts from collections
   const isPublished = (item) => !item.data.draft;
 
-  // Helper: exclude unlisted visibility from public listing surfaces
+  // Helper: exclude unlisted/private visibility from public listing surfaces
   const isListed = (item) => {
     const data = item?.data || {};
     const rawVisibility = data.visibility ?? data.properties?.visibility;
-    const visibility = Array.isArray(rawVisibility) ? rawVisibility[0] : rawVisibility;
-    return String(visibility ?? "").toLowerCase() !== "unlisted";
+    const visibility = String(Array.isArray(rawVisibility) ? rawVisibility[0] : (rawVisibility ?? "")).toLowerCase();
+    return visibility !== "unlisted" && visibility !== "private";
   };
 
-  // Exclude unlisted posts from UI slices like homepage/sidebar recent-post lists.
+  // Exclude unlisted/private posts from UI slices like homepage/sidebar recent-post lists.
   eleventyConfig.addFilter("excludeUnlistedPosts", (posts) => {
     if (!Array.isArray(posts)) return [];
     return posts.filter(isListed);
