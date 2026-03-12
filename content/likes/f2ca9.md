@@ -46,6 +46,8 @@ webmentionResults:
 webmentionSent: true
 syndication:
   - https://blog.giersig.eu/likes/f2ca9/
-updated: 2026-03-12T13:20:52.064Z
+updated: 2026-03-12T13:31:59.615Z
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/likes/f2ca9/
 ---
