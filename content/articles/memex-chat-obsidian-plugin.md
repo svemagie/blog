@@ -7,7 +7,7 @@ category:
   - dev
   - AI
 visibility: public
-updated: 2026-03-11T21:33:54.594Z
+updated: 2026-03-12T07:43:13.633Z
 syndication:
   - https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 webmentionResults:
@@ -48,11 +48,16 @@ webmentionResults:
         reason: No webmention endpoint found
       - target: https://11ty.dev/
         reason: No webmention endpoint found
-  timestamp: 2026-03-11T21:25:54.079Z
+  timestamp: 2026-03-12T07:34:39.157Z
 webmentionSent: true
 mpSyndicateTo:
   - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
+ai:
+  textLevel: "0"
+  codeLevel: "2"
+  aiTools: "Claude, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 Memex Chat is an Obsidian plugin that lets you chat with your vault using Claude AI with proper context retrieval, not just keyword search.
