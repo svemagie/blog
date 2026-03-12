@@ -1,6 +1,6 @@
 {# Recent Posts Widget (sidebar) - compact type-aware list #}
 {% set recentPosts = recentPosts or collections.recentPosts %}
-{% set listedRecentPosts = recentPosts | excludeUnlistedPosts | excludeWhereNotes %}
+{% set listedRecentPosts = recentPosts | excludeUnlistedPosts %}
 {% if listedRecentPosts and listedRecentPosts.length %}
 <is-land on:visible>
 <div class="widget">
