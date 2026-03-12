@@ -7,8 +7,27 @@ category:
   - fascism
   - lang:de
 visibility: public
-updated: 2026-03-09T17:57:29.201Z
+updated: 2026-03-12T08:09:39.663Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 2
+  details:
+    sent: []
+    failed: []
+    skipped:
+      - target: https://x.com/Markus_Soeder/status/1854083280645071326
+        reason: No webmention endpoint found
+      - target: https://imgflip.com/i/3r3wva?ref=svemagie.me
+        reason: No webmention endpoint found
+  timestamp: 2026-03-09T19:18:12.741Z
+webmentionSent: true
 permalink: https://blog.giersig.eu/articles/soeders-tweet-zu-trumps-wahl/
+ai:
+  textLevel: "1"
+  codeLevel: "0"
+  aiTools: "ChatGPT"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 > Amerika hat gewählt - und das eindeutig. Entgegen mancher Prognosen ist es ein klarer Sieg für Donald Trump und die Republikaner. Glückwunsch an Donald Trump. Für Deutschland muss sich jetzt aber einiges zwingend ändern. Natürlich bleiben die USA unser wichtigster Partner: Aber wir werden so gefordert wie nie. Es weht ein anderer Wind. Wir müssen uns deutlich mehr anstrengen, um mithalten zu können: Die Bundeswehr muss massiv gestärkt werden - statt zwei Prozent vom BIP braucht es mindestens drei Prozent und eine echte Wehrpflicht. Beides rasch! Und wirtschaftlich benötigt Deutschland ein komplettes Update mit vergleichbaren Steuern und Energiepreisen wie die USA. Klar ist auch: Einen gestärkten Donald Trump wird eine schwache und zerstrittene Bundesregierung wenig beeindrucken. Daher braucht es jetzt erst recht Neuwahlen und einen Neuanfang in Deutschland. Die Partnerschaft mit den USA bleibt zentral, aber sie muss mehr aus eigener Stärke heraus erfolgen. Kontinuität in der Schwäche hilft unserem Land nicht.
