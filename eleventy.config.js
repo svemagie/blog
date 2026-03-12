@@ -913,13 +913,27 @@ export default function (eleventyConfig) {
   // Helper: exclude drafts from collections
   const isPublished = (item) => !item.data.draft;
 
-  // Helper: exclude unlisted visibility from public listing surfaces
+  // Helper: exclude unlisted/private/where/Loc notes from public listing surfaces
   const isListed = (item) => {
     const data = item?.data || {};
     const rawVisibility = data.visibility ?? data.properties?.visibility;
     const visibility = Array.isArray(rawVisibility) ? rawVisibility[0] : rawVisibility;
-    return String(visibility ?? "").toLowerCase() !== "unlisted";
+    const tags = (data.category || data.tags || []).map(t => typeof t === 'string' ? t.toLowerCase() : '');
+    // Exclude unlisted, private, and where/Loc notes
+    if (["unlisted", "private"].includes(String(visibility ?? "").toLowerCase())) return false;
+    if (tags.includes("where") || tags.includes("loc")) return false;
+    return true;
   };
+
+  // Filter: exclude where/Loc notes from collections
+  eleventyConfig.addFilter("excludeWhereNotes", (posts) => {
+    if (!Array.isArray(posts)) return [];
+    return posts.filter(item => {
+      const data = item?.data || {};
+      const tags = (data.category || data.tags || []).map(t => typeof t === 'string' ? t.toLowerCase() : '');
+      return !tags.includes("where") && !tags.includes("loc");
+    });
+  });
 
   // Exclude unlisted posts from UI slices like homepage/sidebar recent-post lists.
   eleventyConfig.addFilter("excludeUnlistedPosts", (posts) => {

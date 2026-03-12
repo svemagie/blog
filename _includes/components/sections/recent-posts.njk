@@ -9,9 +9,9 @@
 {% set showSummary = sectionConfig.showSummary if sectionConfig.showSummary is defined else true %}
 {% set primaryPosts = collections.posts if (collections and collections.posts) else [] %}
 {% set fallbackRecentPosts = collections.recentPosts if (collections and collections.recentPosts) else [] %}
-{% set listedPosts = primaryPosts | excludeUnlistedPosts %}
+{% set listedPosts = primaryPosts | excludeUnlistedPosts | excludeWhereNotes %}
 {% if not (listedPosts and listedPosts.length) %}
-  {% set listedPosts = fallbackRecentPosts | excludeUnlistedPosts %}
+  {% set listedPosts = fallbackRecentPosts | excludeUnlistedPosts | excludeWhereNotes %}
 {% endif %}
 
 {% if listedPosts and listedPosts.length %}

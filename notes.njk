@@ -3,7 +3,7 @@ layout: layouts/base.njk
 title: Notes
 withSidebar: true
 pagination:
-  data: collections.listedNotes
+  data: collections.listedNotes | excludeWhereNotes
   size: 20
   alias: paginatedNotes
   generatePageOnEmptyData: true
