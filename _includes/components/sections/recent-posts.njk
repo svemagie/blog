@@ -9,10 +9,15 @@
 {% set showSummary = sectionConfig.showSummary if sectionConfig.showSummary is defined else true %}
 {% set primaryPosts = collections.posts if (collections and collections.posts) else [] %}
 {% set fallbackRecentPosts = collections.recentPosts if (collections and collections.recentPosts) else [] %}
+{% set debugPrimaryCount = primaryPosts.length %}
+{% set debugFallbackCount = fallbackRecentPosts.length %}
 {% set listedPosts = primaryPosts | excludeUnlistedPosts | excludeWhereNotes %}
+{% set debugListedCount = listedPosts.length %}
 {% if not (listedPosts and listedPosts.length) %}
   {% set listedPosts = fallbackRecentPosts | excludeUnlistedPosts | excludeWhereNotes %}
+  {% set debugListedCount = listedPosts.length %}
 {% endif %}
+<div class="text-xs text-surface-400 dark:text-surface-500 mb-2">Debug: primary={{ debugPrimaryCount }}, fallback={{ debugFallbackCount }}, listed={{ debugListedCount }}</div>
 
 {% if listedPosts and listedPosts.length %}
 <section class="mb-8 sm:mb-12">
