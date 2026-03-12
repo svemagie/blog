@@ -21,7 +21,6 @@
   </h2>
 
   <ul class="post-list">
-    {% set postsShown = 0 %}
     {% for post in listedPosts | head(maxItems) %}
       {% set rawVisibility = post.data.visibility or post.data.properties.visibility %}
       {% set visibility = (rawVisibility is array) ? rawVisibility[0] : rawVisibility %}
@@ -32,12 +31,6 @@
         {# Skip private and where/Loc posts #}
         {% continue %}
       {% endif %}
-      {% set postsShown = postsShown + 1 %}
-      ...existing code...
-    {% endfor %}
-    {% if postsShown == 0 %}
-      <li class="text-surface-600 dark:text-surface-400">No recent posts available.</li>
-    {% endif %}
     {# Detect post type from frontmatter properties #}
     {% set likedUrl = post.data.likeOf or post.data.like_of %}
     {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
