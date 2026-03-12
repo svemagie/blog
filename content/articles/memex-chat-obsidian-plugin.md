@@ -7,13 +7,13 @@ category:
   - dev
   - AI
 visibility: public
-updated: 2026-03-12T07:43:13.633Z
+updated: 2026-03-12T08:07:26.932Z
 syndication:
   - https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 webmentionResults:
   sent: 1
   failed: 0
-  skipped: 13
+  skipped: 14
   details:
     sent:
       - target: https://indieweb.org/User:Blog.giersig.eu
@@ -36,7 +36,9 @@ webmentionResults:
         reason: No webmention endpoint found
       - target: https://share.joinmastodon.org/#text=Memex%20Chat%3A%20Obsidian%20Plugin%20I%20built%20for%20myself%20https%3A%2F%2Fblog.giersig.eu%2Farticles%2Fmemex-chat-obsidian-plugin%2F
         reason: No webmention endpoint found
-      - target: https://open.audio/federation/music/tracks/bbd68764-5143-4f8a-bd49-898f7d0ba7eb
+      - target: https://open.audio/federation/music/tracks/2f21d772-cd85-4fa3-bb21-9204b5925460
+        reason: No webmention endpoint found
+      - target: https://open.audio/federation/music/tracks/4cb8a8e2-b477-4256-94e5-cb8f861e1e9f
         reason: No webmention endpoint found
       - target: https://www.last.fm/music/Son+Of+Robot/_/The+Turn
         reason: No webmention endpoint found
@@ -48,14 +50,14 @@ webmentionResults:
         reason: No webmention endpoint found
       - target: https://11ty.dev/
         reason: No webmention endpoint found
-  timestamp: 2026-03-12T07:34:39.157Z
+  timestamp: 2026-03-12T08:00:17.293Z
 webmentionSent: true
 mpSyndicateTo:
   - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin/
 ai:
-  textLevel: "0"
-  codeLevel: "2"
+  textLevel: "1"
+  codeLevel: "1"
   aiTools: "Claude, Copilot"
   # aiDescription: "Optional disclosure about how AI was used"
 ---
