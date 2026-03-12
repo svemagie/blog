@@ -31,17 +31,6 @@
 
       {% elif bookmarkedUrl %}
       <div class="flex items-start gap-2">
-          {% if post.data.category %}
-          <div class="mt-1 flex flex-wrap gap-1">
-            {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ post.data.category }}</a>
-            {% else %}
-              {% for cat in post.data.category %}
-                <a href="/categories/{{ cat | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ cat }}</a>
-              {% endfor %}
-            {% endif %}
-          </div>
-          {% endif %}
         <svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
         </svg>
@@ -58,17 +47,6 @@
       {% elif repostedUrl %}
       <div class="flex items-start gap-2">
         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          {% if post.data.category %}
-          <div class="mt-1 flex flex-wrap gap-1">
-            {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ post.data.category }}</a>
-            {% else %}
-              {% for cat in post.data.category %}
-                <a href="/categories/{{ cat | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ cat }}</a>
-              {% endfor %}
-            {% endif %}
-          </div>
-          {% endif %}
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
         </svg>
         <div class="min-w-0">
@@ -85,17 +63,6 @@
       <div class="flex items-start gap-2">
         <svg class="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
-          {% if post.data.category %}
-          <div class="mt-1 flex flex-wrap gap-1">
-            {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ post.data.category }}</a>
-            {% else %}
-              {% for cat in post.data.category %}
-                <a href="/categories/{{ cat | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ cat }}</a>
-              {% endfor %}
-            {% endif %}
-          </div>
-          {% endif %}
         </svg>
         <div class="min-w-0">
           <a href="{{ post.url }}" class="text-sm text-sky-600 dark:text-sky-400 hover:underline break-all line-clamp-1">
@@ -112,17 +79,6 @@
       <div class="flex items-start gap-2">
         <svg class="w-4 h-4 text-indigo-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          {% if post.data.category %}
-          <div class="mt-1 flex flex-wrap gap-1">
-            {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ post.data.category }}</a>
-            {% else %}
-              {% for cat in post.data.category %}
-                <a href="/categories/{{ cat | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ cat }}</a>
-              {% endfor %}
-            {% endif %}
-          </div>
-          {% endif %}
         </svg>
         <div class="min-w-0">
           <a href="{{ post.url }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline line-clamp-1">
@@ -140,17 +96,6 @@
         <svg class="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
         </svg>
-          {% if post.data.category %}
-          <div class="mt-1 flex flex-wrap gap-1">
-            {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ post.data.category }}</a>
-            {% else %}
-              {% for cat in post.data.category %}
-                <a href="/categories/{{ cat | slugify }}/" class="p-category px-2 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-xs text-surface-700 dark:text-surface-200 hover:bg-accent-100 dark:hover:bg-accent-700 hover:text-accent-600 dark:hover:text-accent-400">{{ cat }}</a>
-              {% endfor %}
-            {% endif %}
-          </div>
-          {% endif %}
         <div class="min-w-0">
           <a href="{{ post.url }}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline line-clamp-1">
             {{ post.templateContent | striptags | truncate(50) or "Note" }}
