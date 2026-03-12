@@ -918,10 +918,7 @@ export default function (eleventyConfig) {
     const data = item?.data || {};
     const rawVisibility = data.visibility ?? data.properties?.visibility;
     const visibility = Array.isArray(rawVisibility) ? rawVisibility[0] : rawVisibility;
-    // Normalize category and tags to arrays
-    const categories = Array.isArray(data.category) ? data.category : (data.category ? [data.category] : []);
-    const tagsArr = Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []);
-    const tags = [...categories, ...tagsArr].map(t => typeof t === 'string' ? t.toLowerCase() : '');
+    const tags = (data.category || data.tags || []).map(t => typeof t === 'string' ? t.toLowerCase() : '');
     // Exclude unlisted, private, and where/Loc notes
     if (["unlisted", "private"].includes(String(visibility ?? "").toLowerCase())) return false;
     if (tags.includes("where") || tags.includes("loc")) return false;
@@ -933,9 +930,7 @@ export default function (eleventyConfig) {
     if (!Array.isArray(posts)) return [];
     return posts.filter(item => {
       const data = item?.data || {};
-      const categories = Array.isArray(data.category) ? data.category : (data.category ? [data.category] : []);
-      const tagsArr = Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []);
-      const tags = [...categories, ...tagsArr].map(t => typeof t === 'string' ? t.toLowerCase() : '');
+      const tags = (data.category || data.tags || []).map(t => typeof t === 'string' ? t.toLowerCase() : '');
       return !tags.includes("where") && !tags.includes("loc");
     });
   });

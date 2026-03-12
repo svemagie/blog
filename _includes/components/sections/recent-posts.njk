@@ -22,15 +22,6 @@
 
   <ul class="post-list">
     {% for post in listedPosts | head(maxItems) %}
-      {% set rawVisibility = post.data.visibility or post.data.properties.visibility %}
-      {% set visibility = (rawVisibility is array) ? rawVisibility[0] : rawVisibility %}
-      {% set categories = post.data.category is string ? [post.data.category] : post.data.category or [] %}
-      {% set tags = post.data.tags is string ? [post.data.tags] : post.data.tags or [] %}
-      {% set allTags = (categories + tags) | map('lower') %}
-      {% if visibility == 'private' or allTags.includes('where') or allTags.includes('loc') %}
-        {# Skip private and where/Loc posts #}
-        {% continue %}
-      {% endif %}
     {# Detect post type from frontmatter properties #}
     {% set likedUrl = post.data.likeOf or post.data.like_of %}
     {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
