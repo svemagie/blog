@@ -1,8 +1,8 @@
 {# Homepage Section Dispatcher — maps section.type to the right partial #}
 {% if section.type == "featured-posts" %}
-  {% include "components/sections/featured-posts.njk" %}
+  {% include "components/sections/featured-posts.njk" with { collections: collections } %}
 {% elif section.type == "recent-posts" %}
-  {% include "components/sections/recent-posts.njk" %}
+  {% include "components/sections/recent-posts.njk" with { collections: collections } %}
 {% elif section.type == "custom-html" %}
   {% include "components/sections/custom-html.njk" %}
 {% elif section.type == "cv-experience" %}
