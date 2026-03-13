@@ -118,6 +118,8 @@ export default {
         "Troubleshooting",
         "Technical support",
         "Large network environments",
+        "LDAP",
+        "Checkpoint Firewall",
       ],
     },
   ],
@@ -191,6 +193,12 @@ export default {
       "Counseling",
       "Community collaboration",
     ],
+    "Technology": [
+      "Unix Systems and Networks",
+      "Checkpoint Firewall",
+      "LDAP",
+      "Community collaboration",
+    ],
     Operations: ["Project management", "Team leadership", "Adaptability", "Client engagement"],
   },
   skillTypes: {
@@ -205,13 +213,13 @@ export default {
   ],
   education: [
     {
-      degree: "B.A. Sociology (Minor Subjects: Politics and Administration, Gender Studies)",
+      degree: "B.A. Sociology",
       institution: "University of Constance",
       location: "Constance, Germany",
       startDate: "2007",
       endDate: "2018",
       educationType: "work",
-      description: "Academic training in sociology with a strong methodological and social-theory foundation.",
+      description: "Academic training in sociology with a strong methodological and social-theory foundation. Minor Subjects: Politics and Administration, Gender Studies",
     },
     {
       degree: "A Level / Abitur",
@@ -231,7 +239,7 @@ export default {
       "Grassroots movements",
     ],
     Personal: [
-      "Long-distance hiking in the Alps",
+      "Long-distance hiking",
       "Designing and sewing ultralight hiking gear",
       "Running blogs",
       "Minimal techno",
