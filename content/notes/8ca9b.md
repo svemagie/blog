@@ -4,20 +4,58 @@ category:
   - dev
   - indieweb
   - til
-webmentionResults:
-  sent: 0
-  failed: 0
-  skipped: 0
-  details:
-    sent: []
-    failed: []
-    skipped: []
-  timestamp: 2026-03-09T23:18:20.201Z
-webmentionSent: true
+  - freebsd
 syndication:
   - https://blog.giersig.eu/notes/8ca9b/
-updated: 2026-03-10T06:57:20.287Z
+updated: 2026-03-13T09:00:01.299Z
+webmentionResults:
+  sent: 1
+  failed: 0
+  skipped: 13
+  details:
+    sent:
+      - target: https://indieweb.org/User:Blog.giersig.eu
+        endpoint: https://webmention.io/indiewebcamp/webmention
+        type: webmention
+        status: 201
+    failed: []
+    skipped:
+      - target: https://keys.openpgp.org/vks/v1/by-fingerprint/38180708ACB8A61A1C53D170B9867870D8871475
+        reason: No webmention endpoint found
+      - target: https://troet.cafe/@svemagie
+        reason: No webmention endpoint found
+      - target: https://bsky.app/profile/svemagie.bsky.social
+        reason: No webmention endpoint found
+      - target: https://github.com/svemagie
+        reason: No webmention endpoint found
+      - target: https://bsky.app/intent/compose?text=undefined%20https%3A%2F%2Fblog.giersig.eu%2Fnotes%2F8ca9b%2F
+        reason: No webmention endpoint found
+      - target: https://share.joinmastodon.org/#text=undefined%20https%3A%2F%2Fblog.giersig.eu%2Fnotes%2F8ca9b%2F
+        reason: No webmention endpoint found
+      - target: https://open.audio/federation/music/tracks/bbd68764-5143-4f8a-bd49-898f7d0ba7eb
+        reason: No webmention endpoint found
+      - target: https://open.audio/federation/music/tracks/11506ee6-af57-4988-8f09-a56ecdfd689c
+        reason: No webmention endpoint found
+      - target: https://www.last.fm/music/Son+Of+Robot/_/The+Turn
+        reason: No webmention endpoint found
+      - target: https://www.last.fm/music/Chris+Zabriskie/_/There%27s+a+Special+Place+for+Some+People
+        reason: No webmention endpoint found
+      - target: https://troet.cafe/svemagie
+        reason: No webmention endpoint found
+      - target: https://getindiekit.com/
+        reason: No webmention endpoint found
+      - target: https://11ty.dev/
+        reason: No webmention endpoint found
+  timestamp: 2026-03-11T19:54:28.566Z
+webmentionSent: true
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/notes/8ca9b/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 remember, indiekit on FreeBSD needs 
