@@ -5,13 +5,45 @@ summary: "I spent a few hours building a bridge between my favourite writing too
 category:
   - indieweb
   - dev
-visibility: Public
+visibility: public
+webmentionResults:
+  sent: 2
+  failed: 0
+  skipped: 5
+  details:
+    sent:
+      - target: https://www.w3.org/TR/micropub/
+        endpoint: https://webmention.io/w3c/webmention
+        type: webmention
+        status: 201
+      - target: https://maggieappleton.com/garden-history
+        endpoint: https://webmention.io/maggieappleton.com/webmention
+        type: webmention
+        status: 201
+    failed: []
+    skipped:
+      - target: https://getindiekit.com/
+        reason: No webmention endpoint found
+      - target: https://obsidian.md/
+        reason: No webmention endpoint found
+      - target: https://github.com/otaviocc/obsidian-microblog
+        reason: No webmention endpoint found
+      - target: https://github.com/svemagie/obsidian-micropub
+        reason: No webmention endpoint found
+      - target: https://indieauth.net/
+        reason: No webmention endpoint found
+  timestamp: 2026-03-14T17:24:52.339Z
+webmentionSent: true
+mpSyndicateTo:
+  - https://bsky.app/profile/svemagie.bsky.social
+  - https://blog.giersig.eu/
+updated: 2026-03-14T17:25:07.483Z
 permalink: https://blog.giersig.eu/articles/for-the-love-of-obsidian/
 ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  # aiDescription: "Optional disclosure about how AI was used"
+  textLevel: "1"
+  codeLevel: "2"
+  aiTools: "Claude"
+  aiDescription: "Claude built the Obsidian Plugin"
 ---
 
 There is a version of the web that most people never see. No algorithms, no growth hacking, no engagement metrics. Just people writing on their own domains, linking to each other, publishing in open formats that anyone can read. It has a name **the IndieWeb** and once you find it, it is very hard to go back to anything else.
