@@ -338,7 +338,7 @@
             <li><a href="/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Home</a></li>
             <li><a href="/about/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">About</a></li>
             <li><a href="/cv/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">CV</a></li>
-            <li x-data="{ show: false }" x-show="show" x-cloak @indiekit:auth.window="show = $event.detail.loggedIn"><a href="/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Dashboard</a></li>
+            <li x-data="{ show: false }" x-show="show" x-cloak @indiekit:auth.window="show = $event.detail.loggedIn"><a href="/posts" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Dashboard</a></li>
           </ul>
         </div>
         {# Content #}
