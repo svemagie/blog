@@ -224,7 +224,7 @@ permalink: /interactions/
             <a :href="wm.author?.url || '#'" target="_blank" rel="noopener" class="flex-shrink-0">
               <img
                 :src="wm.author?.photo || '/images/default-avatar.svg'"
-                :alt="wm.author?.name || 'Anonymous'"
+                :alt="wm.author?.name || (wm.author?.url?.includes('bsky.app/profile/') ? wm.author.url.split('/profile/')[1].split('/')[0] : 'Anonymous')"
                 class="w-10 h-10 rounded-full"
                 loading="lazy"
                 onerror="this.src='/images/default-avatar.svg'"
@@ -234,7 +234,7 @@ permalink: /interactions/
             <div class="flex-1 min-w-0">
               {# Header with author, type badge, and date #}
               <div class="flex flex-wrap items-center gap-2 mb-1">
-                <a :href="wm.author?.url || '#'" target="_blank" rel="noopener" class="font-semibold text-surface-900 dark:text-surface-100 hover:underline" x-text="wm.author?.name || 'Anonymous'"></a>
+                <a :href="wm.author?.url || '#'" target="_blank" rel="noopener" class="font-semibold text-surface-900 dark:text-surface-100 hover:underline" x-text="wm.author?.name || (wm.author?.url?.includes('bsky.app/profile/') ? wm.author.url.split('/profile/')[1].split('/')[0] : 'Anonymous')"></a>
 
                 {# Type badge #}
                 <span x-show="wm['wm-property'] === 'like-of'" class="inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full">
