@@ -150,15 +150,17 @@ function webmentionsWidget() {
           merged.push(item);
         }
 
-        // Filter out webmentions from own Bluesky handle
-        const filtered = merged.filter((item) => {
-          const authorUrl = item.author && item.author.url ? item.author.url : '';
-          // Bluesky profile URLs can be at:// or https://bsky.app/profile/ or handle
-          return !(
-            authorUrl.includes('svemagie.bsky.social') ||
-            (item.author && item.author.name && item.author.name.toLowerCase() === 'svemagie.bsky.social')
-          );
-        });
+        // Use same self-Bluesky filter as post-interactions/interactions.njk
+        const isSelfBsky = (item) => {
+          const u = (item.url || '').toLowerCase();
+          const a = ((item.author && item.author.url) || '').toLowerCase();
+          return u.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+                 u.includes('bsky.app/profile/svemagie.bsky.social') ||
+                 a.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+                 a.includes('bsky.app/profile/svemagie.bsky.social');
+        };
+
+        const filtered = merged.filter((item) => !isSelfBsky(item));
 
         this.mentions = filtered.sort((a, b) => {
           return new Date(b.published || b['wm-received'] || 0) - new Date(a.published || a['wm-received'] || 0);
