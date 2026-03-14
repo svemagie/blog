@@ -145,7 +145,7 @@ withSidebar: true
                     class="hover:text-accent-600 dark:hover:text-accent-400"
                     target="_blank"
                     rel="noopener"
-                    x-text="item.title"
+                    x-text="item.title || item.link"
                   ></a>
                 </h2>
                 <p x-show="item.description" class="text-sm text-surface-600 dark:text-surface-400 line-clamp-2 mb-2" x-text="item.description"></p>
@@ -211,7 +211,7 @@ withSidebar: true
                     class="hover:text-accent-600 dark:hover:text-accent-400"
                     target="_blank"
                     rel="noopener"
-                    x-text="item.title"
+                    x-text="item.title || item.link"
                   ></a>
                 </h2>
                 <p x-show="item.description" class="text-sm text-surface-600 dark:text-surface-400 line-clamp-3 mb-3" x-text="item.description"></p>
@@ -278,7 +278,7 @@ withSidebar: true
                     class="hover:text-accent-600 dark:hover:text-accent-400"
                     target="_blank"
                     rel="noopener"
-                    x-text="item.title"
+                    x-text="item.title || item.link"
                   ></a>
                 </h2>
 
