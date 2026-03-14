@@ -5,6 +5,7 @@ summary: "I spent a few hours building a bridge between my favourite writing too
 category:
   - indieweb
   - dev
+  - memex
 visibility: Public
 webmentionResults:
   sent: 2
@@ -34,7 +35,7 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T17:24:52.339Z
 webmentionSent: true
-updated: 2026-03-14T18:26:49.539Z
+updated: 2026-03-14T18:58:12.182Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh22kjy5d227
   - https://blog.giersig.eu/articles/for-the-love-of-obsidian/
