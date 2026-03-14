@@ -34,13 +34,10 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T17:24:52.339Z
 webmentionSent: true
-updated: 2026-03-14T18:02:18.044Z
+updated: 2026-03-14T18:26:49.539Z
 syndication:
-  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mgzxwpoub627
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh22kjy5d227
   - https://blog.giersig.eu/articles/for-the-love-of-obsidian/
-mpSyndicateTo:
-  - https://bsky.app/profile/svemagie.bsky.social
-  - https://blog.giersig.eu/
 gardenStage: plant
 permalink: https://blog.giersig.eu/articles/for-the-love-of-obsidian/
 ai:
