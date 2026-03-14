@@ -134,13 +134,25 @@ function postInteractions(targetUrl) {
         const seen = new Set();
         const merged = [];
 
+        // Skip self-interactions from own Bluesky account
+        const isSelfBsky = (item) => {
+          const u = (item.url || '').toLowerCase();
+          const a = ((item.author && item.author.url) || '').toLowerCase();
+          return u.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+                 u.includes('bsky.app/profile/svemagie.bsky.social') ||
+                 a.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+                 a.includes('bsky.app/profile/svemagie.bsky.social');
+        };
+
         for (const item of convItems) {
+          if (isSelfBsky(item)) continue;
           const key = item['wm-id'] || item.url;
           if (key && !seen.has(key)) { seen.add(key); merged.push(item); }
         }
 
         const convUrls = new Set(convItems.map(c => c.url).filter(Boolean));
         for (const item of wmItems) {
+          if (isSelfBsky(item)) continue;
           const key = item['wm-id'];
           if (seen.has(key) || (item.url && convUrls.has(item.url))) continue;
           seen.add(key);
