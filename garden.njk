@@ -1,0 +1,105 @@
+---
+layout: layouts/base.njk
+title: Digital Garden
+withSidebar: true
+permalink: /garden/
+pagefindIgnore: true
+---
+<div class="h-feed">
+
+  {# ── Header ─────────────────────────────────────────────────────────── #}
+  <div class="mb-8 sm:mb-10 pb-6 border-b border-surface-200 dark:border-surface-700">
+    <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-3 flex items-center gap-2">
+      🌱 Digital Garden
+    </h1>
+    <p class="text-surface-600 dark:text-surface-400 max-w-2xl">
+      A growing collection of ideas in various stages of development. Unlike polished blog posts,
+      garden notes are living documents — planted, cultivated, and sometimes transplanted as my
+      thinking evolves.
+    </p>
+    {# Stage legend #}
+    <div class="mt-4 flex flex-wrap gap-2">
+      {% set _allStages = ["plant", "cultivate", "question", "repot", "revitalize", "revisit"] %}
+      {% for _s in _allStages %}
+        {% set _info = _s | gardenStageInfo %}
+        {% if _info %}
+        <a href="/garden/#{{ _s }}" class="garden-badge garden-badge--{{ _s }}">
+          <span aria-hidden="true">{{ _info.emoji }}</span>
+          <span>{{ _info.label }}</span>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {# ── Posts grouped by stage ──────────────────────────────────────────── #}
+  {% set _stages = ["plant", "cultivate", "question", "repot", "revitalize", "revisit"] %}
+
+  {% for _stage in _stages %}
+
+    {# Collect posts for this stage #}
+    {% set _stagePosts = [] %}
+    {% for post in collections.gardenPosts %}
+      {% if post.data.gardenStage == _stage %}
+        {% set _stagePosts = (_stagePosts.push(post), _stagePosts) %}
+      {% endif %}
+    {% endfor %}
+
+    {% if _stagePosts.length > 0 %}
+      {% set _stageInfo = _stage | gardenStageInfo %}
+
+      <section id="{{ _stage }}" class="mb-10 scroll-mt-20">
+        <div class="flex items-baseline gap-3 mb-1">
+          <h2 class="text-xl font-bold text-surface-900 dark:text-surface-100 flex items-center gap-2">
+            <span>{{ _stageInfo.emoji }}</span>
+            <span>{{ _stageInfo.label }}</span>
+          </h2>
+          <span class="text-sm text-surface-500 dark:text-surface-400">
+            {{ _stagePosts.length }} note{% if _stagePosts.length != 1 %}s{% endif %}
+          </span>
+        </div>
+        <p class="text-sm text-surface-500 dark:text-surface-400 mb-4 italic">{{ _stageInfo.description }}</p>
+
+        <ul class="space-y-3 list-none p-0 m-0">
+          {% for post in _stagePosts %}
+          <li class="h-entry garden-post-card">
+            <div class="flex items-start gap-3">
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-surface-900 dark:text-surface-100 mb-0.5">
+                  <a class="u-url p-name hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+                     href="{{ post.url }}">
+                    {{ post.data.title or (post.templateContent | striptags | truncate(80)) or "Untitled" }}
+                  </a>
+                </h3>
+                <div class="flex items-center gap-3 text-xs text-surface-500 dark:text-surface-400">
+                  <time class="dt-published font-mono" datetime="{{ post.date | isoDate }}">
+                    {{ post.date | dateDisplay }}
+                  </time>
+                  {% set _postType = post.inputPath | replace("./content/", "") %}
+                  {% set _postType = _postType.split("/")[0] %}
+                  <span class="capitalize">{{ _postType }}</span>
+                </div>
+                {% if post.data.description %}
+                <p class="p-summary text-sm text-surface-600 dark:text-surface-400 mt-1 line-clamp-2">
+                  {{ post.data.description }}
+                </p>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+    {% endif %}
+  {% endfor %}
+
+  {# ── Empty state ─────────────────────────────────────────────────────── #}
+  {% if not collections.gardenPosts or collections.gardenPosts.length == 0 %}
+  <p class="text-surface-600 dark:text-surface-400">
+    The garden is being prepared. Posts with a <code>gardenStage</code> frontmatter property
+    will appear here once published.
+  </p>
+  {% endif %}
+
+</div>

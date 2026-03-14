@@ -927,6 +927,28 @@ export default function (eleventyConfig) {
     return posts.filter(isListed);
   });
 
+  // ── Digital Garden ───────────────────────────────────────────────────────
+  // Returns display metadata for a garden stage slug.
+  // Used by garden-badge.njk and garden.njk to render labels + emoji.
+  // Stages map to Obsidian's #garden/* tag convention:
+  //   #garden/plant → gardenStage: plant   (newly planted idea)
+  //   #garden/cultivate → gardenStage: cultivate  (actively developing)
+  //   #garden/question → gardenStage: question    (open exploration)
+  //   #garden/repot → gardenStage: repot          (being restructured)
+  //   #garden/revitalize → gardenStage: revitalize (being refreshed)
+  //   #garden/revisit → gardenStage: revisit       (flagged for revisiting)
+  eleventyConfig.addFilter("gardenStageInfo", (stage) => {
+    const stages = {
+      plant:      { label: "Seedling",      emoji: "🌱", description: "Newly planted idea" },
+      cultivate:  { label: "Growing",       emoji: "🌿", description: "Being actively developed" },
+      question:   { label: "Open Question", emoji: "❓", description: "Open for exploration" },
+      repot:      { label: "Repotting",     emoji: "🪴", description: "Being restructured" },
+      revitalize: { label: "Revitalizing",  emoji: "✨", description: "Being refreshed and updated" },
+      revisit:    { label: "Revisit",       emoji: "🔄", description: "Flagged for revisiting" },
+    };
+    return stages[stage] || null;
+  });
+
   // Collections for different post types
   // Note: content path is content/ due to symlink structure
   // "posts" shows ALL content types combined
@@ -1090,6 +1112,15 @@ export default function (eleventyConfig) {
       .getFilteredByGlob("content/**/*.md")
       .filter(isPublished)
       .filter((item) => item.data.pinned === true || item.data.pinned === "true")
+      .sort((a, b) => b.date - a.date);
+  });
+
+  // Digital Garden — posts with a gardenStage frontmatter property
+  eleventyConfig.addCollection("gardenPosts", function (collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("content/**/*.md")
+      .filter(isPublished)
+      .filter((item) => item.data.gardenStage)
       .sort((a, b) => b.date - a.date);
   });
 

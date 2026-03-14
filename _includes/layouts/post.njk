@@ -43,6 +43,8 @@ withBlogSidebar: true
       {% endif %}
     </ul>
     {% endif %}
+    {# Digital Garden stage badge #}
+    {% include "components/garden-badge.njk" %}
   </div>
 
   {# Bridgy syndication content - controls what gets posted to social networks #}
@@ -228,6 +230,9 @@ withBlogSidebar: true
     <span data-pagefind-filter="ai-text-level">{{ aiTextLevel }}</span>
     <span data-pagefind-filter="ai-code-level">{{ aiCodeLevel or "0" }}</span>
     <span data-pagefind-filter="ai-used">{% if aiUsed %}yes{% else %}no{% endif %}</span>
+    {% if gardenStage %}
+    <span data-pagefind-filter="garden-stage">{{ gardenStage }}</span>
+    {% endif %}
     {% if category %}
       {% if category is string %}
       <span data-pagefind-filter="category">{{ category }}</span>

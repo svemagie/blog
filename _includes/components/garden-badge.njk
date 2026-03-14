@@ -1,0 +1,18 @@
+{#
+  garden-badge.njk — Digital Garden stage indicator
+  Usage: {% include "components/garden-badge.njk" %}
+  Requires: gardenStage variable in scope (from post frontmatter)
+  Renders a coloured pill badge linking to /garden/#<stage>
+#}
+{% if gardenStage %}
+{% set _stageInfo = gardenStage | gardenStageInfo %}
+{% if _stageInfo %}
+<a href="/garden/#{{ gardenStage }}"
+   class="garden-badge garden-badge--{{ gardenStage }}"
+   title="{{ _stageInfo.description }}"
+   aria-label="Garden stage: {{ _stageInfo.label }}">
+  <span aria-hidden="true">{{ _stageInfo.emoji }}</span>
+  <span>{{ _stageInfo.label }}</span>
+</a>
+{% endif %}
+{% endif %}
