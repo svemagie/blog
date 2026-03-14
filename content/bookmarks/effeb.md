@@ -4,8 +4,21 @@ bookmarkOf: https://econsoc.mpifg.de/51979/27-2
 category:
   - sociology
   - economy
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 1
+  details:
+    sent: []
+    failed: []
+    skipped:
+      - target: https://getindiekit.com/
+        reason: No webmention endpoint found
+  timestamp: 2026-03-12T11:39:52.455Z
+webmentionSent: true
+syndication:
+  - https://blog.giersig.eu/bookmarks/effeb/
+updated: 2026-03-14T08:25:48.475Z
 permalink: https://blog.giersig.eu/bookmarks/effeb/
 ---
 
