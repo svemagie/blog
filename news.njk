@@ -12,7 +12,7 @@ withSidebar: true
     </p>
     <p class="text-xs text-surface-600 dark:text-surface-400 mt-2" x-show="lastUpdated">
       Last updated: <span class="font-mono" x-text="formatDate(lastUpdated, 'full')"></span>
-      <button @click="refresh()" class="ml-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 rounded" :disabled="loading" aria-label="Refresh news">
+      <button @click="refresh()" class="ml-2 text-accent-700 hover:text-accent-700 dark:text-accent-300 rounded" :disabled="loading" aria-label="Refresh news">
         <svg class="w-3 h-3 inline" :class="{ 'animate-spin': loading }" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
         </svg>
@@ -116,7 +116,7 @@ withSidebar: true
           </svg>
           Syncing...
         </div>
-        <div x-show="loading && items.length > 0" class="flex items-center gap-2 text-accent-600 dark:text-accent-400 ml-auto">
+        <div x-show="loading && items.length > 0" class="flex items-center gap-2 text-accent-700 dark:text-accent-300 ml-auto">
           <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -142,7 +142,7 @@ withSidebar: true
                 <h2 class="font-semibold text-surface-900 dark:text-surface-100 mb-1">
                   <a
                     :href="item.link"
-                    class="hover:text-accent-600 dark:hover:text-accent-400"
+                    class="hover:text-accent-700 dark:hover:text-accent-300"
                     target="_blank"
                     rel="noopener"
                     x-text="item.title || item.link"
@@ -162,7 +162,7 @@ withSidebar: true
                   <time class="font-mono text-sm" :datetime="item.pubDate" x-text="formatDate(item.pubDate)"></time>
                   <span class="hidden sm:inline" x-show="item.categories?.length">
                     <template x-for="cat in item.categories.slice(0, 3)" :key="cat">
-                      <span class="text-accent-600 dark:text-accent-400" x-text="'#' + cat"></span>
+                      <span class="text-accent-700 dark:text-accent-300" x-text="'#' + cat"></span>
                     </template>
                   </span>
                   <button
@@ -208,7 +208,7 @@ withSidebar: true
                 <h2 class="font-semibold text-surface-900 dark:text-surface-100 mb-2 line-clamp-2">
                   <a
                     :href="item.link"
-                    class="hover:text-accent-600 dark:hover:text-accent-400"
+                    class="hover:text-accent-700 dark:hover:text-accent-300"
                     target="_blank"
                     rel="noopener"
                     x-text="item.title || item.link"
@@ -275,7 +275,7 @@ withSidebar: true
                 <h2 class="text-xl sm:text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4">
                   <a
                     :href="item.link"
-                    class="hover:text-accent-600 dark:hover:text-accent-400"
+                    class="hover:text-accent-700 dark:hover:text-accent-300"
                     target="_blank"
                     rel="noopener"
                     x-text="item.title || item.link"
@@ -319,7 +319,7 @@ withSidebar: true
                   </button>
                   <div x-show="item.categories?.length" class="flex flex-wrap gap-2">
                     <template x-for="cat in item.categories" :key="cat">
-                      <span class="px-2 py-1 text-xs bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 rounded-full" x-text="cat"></span>
+                      <span class="px-2 py-1 text-xs bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 rounded-full" x-text="cat"></span>
                     </template>
                   </div>
                 </div>

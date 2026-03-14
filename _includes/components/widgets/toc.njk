@@ -7,7 +7,7 @@
     <ul class="space-y-1 text-sm">
       {% for item in toc %}
       <li class="{% if item.level == 3 %}ml-3{% elif item.level == 4 %}ml-6{% elif item.level == 5 %}ml-9{% elif item.level == 6 %}ml-12{% endif %}">
-        <a href="#{{ item.slug }}" class="text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 hover:underline transition-colors">
+        <a href="#{{ item.slug }}" class="text-surface-600 dark:text-surface-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors">
           {{ item.text }}
         </a>
       </li>
@@ -46,7 +46,7 @@
 
           const link = document.createElement("a");
           link.href = `#${heading.id}`;
-          link.className = "text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 hover:underline transition-colors";
+          link.className = "text-surface-600 dark:text-surface-400 hover:text-accent-700 dark:hover:text-accent-300 hover:underline transition-colors";
           link.textContent = heading.textContent ? heading.textContent.trim() : heading.id;
           item.appendChild(link);
           fallbackList.appendChild(item);

@@ -27,7 +27,7 @@
   <div class="flex gap-1 mb-4 border-b border-surface-200 dark:border-surface-700" role="tablist" aria-label="GitHub activity">
     <button
       @click="activeTab = 'commits'"
-      :class="activeTab === 'commits' ? 'border-b-2 border-accent-500 text-accent-600 dark:text-accent-400' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="activeTab === 'commits' ? 'border-b-2 border-accent-500 text-accent-700 dark:text-accent-300' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
       :aria-selected="(activeTab === 'commits').toString()"
       role="tab" id="gh-tab-commits" aria-controls="gh-panel-commits"
       class="flex items-center gap-1.5 px-2 py-2 text-xs font-medium transition-colors -mb-px"
@@ -36,7 +36,7 @@
     </button>
     <button
       @click="activeTab = 'repos'"
-      :class="activeTab === 'repos' ? 'border-b-2 border-accent-500 text-accent-600 dark:text-accent-400' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="activeTab === 'repos' ? 'border-b-2 border-accent-500 text-accent-700 dark:text-accent-300' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
       :aria-selected="(activeTab === 'repos').toString()"
       role="tab" id="gh-tab-repos" aria-controls="gh-panel-repos"
       class="flex items-center gap-1.5 px-2 py-2 text-xs font-medium transition-colors -mb-px"
@@ -45,7 +45,7 @@
     </button>
     <button
       @click="activeTab = 'featured'"
-      :class="activeTab === 'featured' ? 'border-b-2 border-accent-500 text-accent-600 dark:text-accent-400' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="activeTab === 'featured' ? 'border-b-2 border-accent-500 text-accent-700 dark:text-accent-300' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
       :aria-selected="(activeTab === 'featured').toString()"
       role="tab" id="gh-tab-featured" aria-controls="gh-panel-featured"
       class="flex items-center gap-1.5 px-2 py-2 text-xs font-medium transition-colors -mb-px"
@@ -54,7 +54,7 @@
     </button>
     <button
       @click="activeTab = 'prs'"
-      :class="activeTab === 'prs' ? 'border-b-2 border-accent-500 text-accent-600 dark:text-accent-400' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="activeTab === 'prs' ? 'border-b-2 border-accent-500 text-accent-700 dark:text-accent-300' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
       :aria-selected="(activeTab === 'prs').toString()"
       role="tab" id="gh-tab-prs" aria-controls="gh-panel-prs"
       class="flex items-center gap-1.5 px-2 py-2 text-xs font-medium transition-colors -mb-px"
@@ -175,7 +175,7 @@
 
   {# Footer link #}
   {% if githubProfileUrl %}
-  <a href="{{ githubProfileUrl }}" target="_blank" rel="noopener" class="text-sm text-accent-600 dark:text-accent-400 hover:underline mt-3 inline-flex items-center gap-1">
+  <a href="{{ githubProfileUrl }}" target="_blank" rel="noopener" class="text-sm text-accent-700 dark:text-accent-300 hover:underline mt-3 inline-flex items-center gap-1">
     View on GitHub
     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
   </a>

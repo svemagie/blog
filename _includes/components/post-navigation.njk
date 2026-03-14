@@ -40,7 +40,7 @@
       {% else %}
       <div class="p-4 sm:p-5">
         <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-surface-600 dark:text-surface-400 block mb-2">&larr; Previous</span>
-        <span class="text-sm sm:text-base font-medium text-surface-900 dark:text-surface-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 line-clamp-2 transition-colors">
+        <span class="text-sm sm:text-base font-medium text-surface-900 dark:text-surface-100 group-hover:text-accent-700 dark:group-hover:text-accent-300 line-clamp-2 transition-colors">
           {{ _prevTitle }}
         </span>
         <time class="text-xs text-surface-600 dark:text-surface-400 mt-1 block font-mono" datetime="{{ _prevPost.date | isoDate }}">{{ _prevPost.date | dateDisplay }}</time>
@@ -86,7 +86,7 @@
       {% else %}
       <div class="p-4 sm:p-5 text-right">
         <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-surface-600 dark:text-surface-400 block mb-2">Next &rarr;</span>
-        <span class="text-sm sm:text-base font-medium text-surface-900 dark:text-surface-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 line-clamp-2 transition-colors">
+        <span class="text-sm sm:text-base font-medium text-surface-900 dark:text-surface-100 group-hover:text-accent-700 dark:group-hover:text-accent-300 line-clamp-2 transition-colors">
           {{ _nextTitle }}
         </span>
         <time class="text-xs text-surface-600 dark:text-surface-400 mt-1 block font-mono" datetime="{{ _nextPost.date | isoDate }}">{{ _nextPost.date | dateDisplay }}</time>

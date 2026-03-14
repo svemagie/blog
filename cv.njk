@@ -51,7 +51,7 @@ pagefindIgnore: true
             {{ authorName }}
           </h1>
           {% if authorTitle %}
-          <p class="text-lg sm:text-xl text-accent-600 dark:text-accent-400 mb-3 sm:mb-4">
+          <p class="text-lg sm:text-xl text-accent-700 dark:text-accent-300 mb-3 sm:mb-4">
             {{ authorTitle }}
           </p>
           {% endif %}
@@ -86,13 +86,13 @@ pagefindIgnore: true
             <span>{{ cvOrg }}</span>
             {% endif %}
             {% if cvUrl %}
-            <span><a href="{{ cvUrl }}" class="text-accent-600 dark:text-accent-400 hover:underline" target="_blank" rel="noopener">{{ cvUrl | replace("https://", "") | replace("http://", "") }}</a></span>
+            <span><a href="{{ cvUrl }}" class="text-accent-700 dark:text-accent-300 hover:underline" target="_blank" rel="noopener">{{ cvUrl | replace("https://", "") | replace("http://", "") }}</a></span>
             {% endif %}
             {% if cvEmail %}
-            <span><a href="mailto:{{ cvEmail }}" class="text-accent-600 dark:text-accent-400 hover:underline">{{ cvEmail }}</a></span>
+            <span><a href="mailto:{{ cvEmail }}" class="text-accent-700 dark:text-accent-300 hover:underline">{{ cvEmail }}</a></span>
             {% endif %}
             {% if cvKeyUrl %}
-            <span><a href="{{ cvKeyUrl }}" class="text-accent-600 dark:text-accent-400 hover:underline" target="_blank" rel="noopener">PGP Key</a></span>
+            <span><a href="{{ cvKeyUrl }}" class="text-accent-700 dark:text-accent-300 hover:underline" target="_blank" rel="noopener">PGP Key</a></span>
             {% endif %}
           </div>
           {% endif %}
@@ -139,7 +139,7 @@ pagefindIgnore: true
   <h1 class="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-4">CV</h1>
   <p class="text-surface-600 dark:text-surface-400">
     No CV data available yet. Add your experience, projects, and skills via the
-    <a href="/dashboard" class="text-accent-600 dark:text-accent-400 hover:underline">admin dashboard</a>.
+    <a href="/dashboard" class="text-accent-700 dark:text-accent-300 hover:underline">admin dashboard</a>.
   </p>
 </div>
 

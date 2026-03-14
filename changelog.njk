@@ -18,7 +18,7 @@ withSidebar: false
     <template x-for="tab in tabs" :key="tab.key">
       <button
         @click="activeTab = tab.key"
-        :class="activeTab === tab.key ? 'border-b-2 border-accent-500 text-accent-600 dark:text-accent-400' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+        :class="activeTab === tab.key ? 'border-b-2 border-accent-500 text-accent-700 dark:text-accent-300' : 'text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
         :aria-selected="(activeTab === tab.key).toString()"
         role="tab"
         class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors -mb-px whitespace-nowrap flex-shrink-0"
@@ -53,7 +53,7 @@ withSidebar: false
         <li class="bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg p-4 shadow-sm">
           <div class="flex items-start gap-3">
             <a :href="commit.url" target="_blank" rel="noopener"
-               class="font-mono text-xs bg-surface-100 dark:bg-surface-800 px-1.5 py-0.5 rounded text-accent-600 dark:text-accent-400 hover:underline flex-shrink-0 mt-0.5"
+               class="font-mono text-xs bg-surface-100 dark:bg-surface-800 px-1.5 py-0.5 rounded text-accent-700 dark:text-accent-300 hover:underline flex-shrink-0 mt-0.5"
                x-text="commit.sha"></a>
             <div class="min-w-0 flex-1">
               <p class="text-sm font-medium text-surface-900 dark:text-surface-100 break-words" x-text="commit.title"></p>
@@ -64,7 +64,7 @@ withSidebar: false
                   x-text="categoryLabels[commit.category] || commit.category"
                 ></span>
                 <a :href="commit.repoUrl" target="_blank" rel="noopener"
-                   class="text-xs px-2 py-0.5 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400"
+                   class="text-xs px-2 py-0.5 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:text-accent-700 dark:hover:text-accent-300"
                    x-text="commit.repoName"></a>
                 <span class="text-xs text-surface-600 dark:text-surface-400 font-mono" x-text="formatDate(commit.date)"></span>
                 <span class="text-xs text-surface-600 dark:text-surface-400" x-text="'by ' + commit.author"></span>

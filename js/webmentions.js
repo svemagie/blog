@@ -292,7 +292,7 @@
       dateLink.appendChild(timeEl);
 
       const newBadge = document.createElement('span');
-      newBadge.className = 'text-xs text-accent-600 dark:text-accent-400 font-medium';
+      newBadge.className = 'text-xs text-accent-700 dark:text-accent-300 font-medium';
       newBadge.textContent = 'NEW';
 
       headerDiv.appendChild(authorLink);
@@ -343,13 +343,13 @@
 
       const link = document.createElement('a');
       link.href = item.url || '#';
-      link.className = 'text-accent-600 dark:text-accent-400 hover:underline';
+      link.className = 'text-accent-700 dark:text-accent-300 hover:underline';
       link.target = '_blank';
       link.rel = 'noopener';
       link.textContent = `${author.name || 'Someone'} mentioned this on ${formatDate(published)}`;
 
       const badge = document.createElement('span');
-      badge.className = 'text-xs text-accent-600 dark:text-accent-400 font-medium ml-1';
+      badge.className = 'text-xs text-accent-700 dark:text-accent-300 font-medium ml-1';
       badge.textContent = 'NEW';
 
       li.appendChild(link);

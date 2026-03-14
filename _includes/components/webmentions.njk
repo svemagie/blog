@@ -168,7 +168,7 @@
       {% for mention in otherMentions %}
       <li>
         <a href="{{ mention.url }}"
-           class="text-accent-600 dark:text-accent-400 hover:underline"
+           class="text-accent-700 dark:text-accent-300 hover:underline"
            target="_blank"
            rel="noopener">
           {{ mention.author.name }} mentioned this on <time class="font-mono" datetime="{{ mention.published }}">{{ mention.published | date("MMM d, yyyy") }}</time>

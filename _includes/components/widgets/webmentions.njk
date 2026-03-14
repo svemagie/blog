@@ -14,14 +14,14 @@
   <div class="flex border-b border-surface-200 dark:border-surface-700 mb-3">
     <button
       @click="tab = 'inbound'"
-      :class="tab === 'inbound' ? 'border-accent-500 text-accent-600 dark:text-accent-400' : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="tab === 'inbound' ? 'border-accent-500 text-accent-700 dark:text-accent-300' : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
       class="px-2 py-1.5 text-xs font-medium border-b-2 -mb-px transition-colors">
       Received
       <span x-show="mentions.length" x-text="mentions.length" class="ml-0.5 text-xs opacity-75"></span>
     </button>
     <button
       @click="tab = 'outbound'"
-      :class="tab === 'outbound' ? 'border-accent-500 text-accent-600 dark:text-accent-400' : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
+      :class="tab === 'outbound' ? 'border-accent-500 text-accent-700 dark:text-accent-300' : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'"
       class="px-2 py-1.5 text-xs font-medium border-b-2 -mb-px transition-colors">
       Sent
     </button>
@@ -66,7 +66,7 @@
 
     {# Link to full interactions page #}
     <div x-show="mentions.length > 0" class="mt-2 pt-2 border-t border-surface-200 dark:border-surface-700">
-      <a href="/interactions/" class="text-xs text-accent-600 dark:text-accent-400 hover:underline">
+      <a href="/interactions/" class="text-xs text-accent-700 dark:text-accent-300 hover:underline">
         View all &rarr;
       </a>
     </div>
@@ -111,7 +111,7 @@
       {% endfor %}
     </div>
     <div class="mt-2 pt-2 border-t border-surface-200 dark:border-surface-700">
-      <a href="/interactions/" class="text-xs text-accent-600 dark:text-accent-400 hover:underline">
+      <a href="/interactions/" class="text-xs text-accent-700 dark:text-accent-300 hover:underline">
         View all &rarr;
       </a>
     </div>

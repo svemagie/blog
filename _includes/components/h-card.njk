@@ -37,7 +37,7 @@
       >
     </a>
     <div>
-      <a href="{{ authorUrl }}" class="u-url p-name font-bold text-lg block hover:text-accent-600 dark:hover:text-accent-400" itemprop="name">
+      <a href="{{ authorUrl }}" class="u-url p-name font-bold text-lg block hover:text-accent-700 dark:hover:text-accent-300" itemprop="name">
         {{ authorName }}
       </a>
       {% if authorPronoun %}
@@ -78,7 +78,7 @@
   <div class="mt-2 flex flex-wrap gap-3 text-sm">
     {% if authorEmail %}
     {# Display text obfuscated to deter spam harvesters; href kept plain for browser compatibility #}
-    <a href="mailto:{{ authorEmail }}" class="u-email text-accent-600 dark:text-accent-400 hover:underline" itemprop="email" aria-label="Email {{ authorEmail }}">
+    <a href="mailto:{{ authorEmail }}" class="u-email text-accent-700 dark:text-accent-300 hover:underline" itemprop="email" aria-label="Email {{ authorEmail }}">
       ✉️ {{ authorEmail | obfuscateEmail | safe }}
     </a>
     {% endif %}
@@ -106,7 +106,7 @@
     <a
       href="{{ link.url }}"
       rel="{{ link.rel }} noopener"
-      class="u-url text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+      class="u-url text-surface-600 dark:text-surface-400 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
       aria-label="{{ link.name }} (opens in new tab)"
       target="_blank">
       {{ socialIcon(link.icon, "w-5 h-5") }}
