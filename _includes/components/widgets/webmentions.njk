@@ -150,7 +150,17 @@ function webmentionsWidget() {
           merged.push(item);
         }
 
-        this.mentions = merged.sort((a, b) => {
+        // Filter out webmentions from own Bluesky handle
+        const filtered = merged.filter((item) => {
+          const authorUrl = item.author && item.author.url ? item.author.url : '';
+          // Bluesky profile URLs can be at:// or https://bsky.app/profile/ or handle
+          return !(
+            authorUrl.includes('svemagie.bsky.social') ||
+            (item.author && item.author.name && item.author.name.toLowerCase() === 'svemagie.bsky.social')
+          );
+        });
+
+        this.mentions = filtered.sort((a, b) => {
           return new Date(b.published || b['wm-received'] || 0) - new Date(a.published || a['wm-received'] || 0);
         });
       } catch (e) {
