@@ -47,7 +47,7 @@
       <p class="p-job-title text-sm text-surface-600 dark:text-surface-400" itemprop="jobTitle">{{ authorTitle }}</p>
       {% endif %}
       {# Structured address #}
-      <p class="p-adr h-adr text-sm text-surface-600 dark:text-surface-400" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <p class="p-adr h-adr text-sm text-surface-700 dark:text-surface-300" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
         {% if authorLocality %}
         <span class="p-locality" itemprop="addressLocality">{{ authorLocality }}</span>{% if authorCountry %}, {% endif %}
         {% endif %}
@@ -83,7 +83,7 @@
     </a>
     {% endif %}
     {% if authorKeyUrl %}
-    <a href="{{ authorKeyUrl }}" class="u-key text-surface-600 dark:text-surface-400 hover:underline" rel="pgpkey">
+    <a href="{{ authorKeyUrl }}" class="u-key text-surface-700 dark:text-surface-300 hover:underline" rel="pgpkey">
       🔐 PGP Key
     </a>
     {% endif %}

@@ -168,7 +168,7 @@
 
   .site-nav > a,
   .site-nav .nav-dropdown-trigger {
-    @apply text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 no-underline transition-colors py-2;
+    @apply text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 no-underline transition-colors py-2;
   }
 
   /* Navigation dropdown */
@@ -187,7 +187,7 @@
   }
 
   .nav-dropdown-menu a {
-    @apply block px-4 py-2.5 text-sm text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-100 no-underline;
+    @apply block px-4 py-2.5 text-sm text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-100 no-underline;
   }
 
   .nav-dropdown-divider {
@@ -196,7 +196,7 @@
 
   /* Mobile menu toggle button */
   .menu-toggle {
-    @apply md:hidden p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors;
+    @apply md:hidden p-2 rounded-lg text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors;
   }
 
   /* Mobile navigation dropdown */
@@ -207,7 +207,7 @@
   }
 
   .mobile-nav a {
-    @apply block px-4 py-3 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100 no-underline transition-colors border-b border-surface-100 dark:border-surface-800 last:border-b-0;
+    @apply block px-4 py-3 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100 no-underline transition-colors border-b border-surface-100 dark:border-surface-800 last:border-b-0;
   }
 
   /* Mobile nav collapsible sections */
@@ -216,7 +216,7 @@
   }
 
   .mobile-nav-toggle {
-    @apply flex items-center justify-between w-full px-4 py-3 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100 transition-colors bg-transparent border-none text-base text-left cursor-pointer;
+    @apply flex items-center justify-between w-full px-4 py-3 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100 transition-colors bg-transparent border-none text-base text-left cursor-pointer;
   }
 
   .mobile-nav-submenu {
@@ -233,7 +233,7 @@
 
   /* Theme toggle button */
   .theme-toggle {
-    @apply p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors;
+    @apply p-2 rounded-lg text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors;
   }
 
   .theme-toggle .sun-icon {
@@ -254,7 +254,7 @@
 
   /* Mobile theme toggle */
   .mobile-theme-toggle {
-    @apply flex items-center justify-between w-full px-4 py-3 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100 transition-colors bg-transparent border-none text-base text-left cursor-pointer border-t border-surface-200 dark:border-surface-700;
+    @apply flex items-center justify-between w-full px-4 py-3 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100 transition-colors bg-transparent border-none text-base text-left cursor-pointer border-t border-surface-200 dark:border-surface-700;
   }
 
   .mobile-theme-toggle .theme-label {
