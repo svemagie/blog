@@ -5,9 +5,7 @@ summary: "I spent a few hours building a bridge between my favourite writing too
 category:
   - indieweb
   - dev
-  - obsidian
-  - digital garden
-visibility: public
+visibility: Public
 webmentionResults:
   sent: 2
   failed: 0
@@ -36,13 +34,14 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T17:24:52.339Z
 webmentionSent: true
-updated: 2026-03-14T17:40:43.104Z
+updated: 2026-03-14T18:02:18.044Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mgzxwpoub627
   - https://blog.giersig.eu/articles/for-the-love-of-obsidian/
 mpSyndicateTo:
   - https://bsky.app/profile/svemagie.bsky.social
   - https://blog.giersig.eu/
+gardenStage: plant
 permalink: https://blog.giersig.eu/articles/for-the-love-of-obsidian/
 ai:
   textLevel: "1"
