@@ -13,6 +13,9 @@ css/style.css
 content/
 uploads/
 
+# Ignore Indiekit plugin data
+content/.indiekit/homepage.json
+
 # Personal overrides (should be in parent repo)
 *.rmendes
 
