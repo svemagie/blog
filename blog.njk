@@ -13,7 +13,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Blog</h1>
     {% set sparklineSvg = collections.listedPosts | postingFrequency %}
     {% if sparklineSvg %}
-    <div class="flex-1 min-w-0 text-amber-600 dark:text-amber-400">{{ sparklineSvg | safe }}</div>
+    <div class="flex-1 min-w-0 text-amber-700 dark:text-amber-300">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -65,7 +65,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-red-600 dark:text-red-400">Liked</span>
+            <span class="font-medium text-red-700 dark:text-red-300">Liked</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -90,7 +90,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-red-600 dark:text-red-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Like from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-red-700 dark:text-red-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Like from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -104,7 +104,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-amber-600 dark:text-amber-400">Bookmarked</span>
+            <span class="font-medium text-amber-700 dark:text-amber-300">Bookmarked</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -134,7 +134,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-amber-600 dark:text-amber-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Bookmark from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-amber-700 dark:text-amber-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Bookmark from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -148,7 +148,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-green-600 dark:text-green-400">Reposted</span>
+            <span class="font-medium text-green-700 dark:text-green-300">Reposted</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -173,7 +173,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-green-600 dark:text-green-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Repost from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-green-700 dark:text-green-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Repost from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -187,7 +187,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-sky-600 dark:text-sky-400">In reply to</span>
+            <span class="font-medium text-sky-700 dark:text-sky-300">In reply to</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -210,7 +210,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
-          <a class="u-url text-sm text-sky-600 dark:text-sky-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Reply from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-sky-700 dark:text-sky-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Reply from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -225,7 +225,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-purple-600 dark:text-purple-400">Photo</span>
+            <span class="font-medium text-purple-700 dark:text-purple-300">Photo</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -257,7 +257,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-purple-600 dark:text-purple-400 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Photo from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-purple-700 dark:text-purple-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Photo from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -265,7 +265,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Article card (unchanged) ── #}
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1">
-          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-indigo-600 dark:hover:text-indigo-400" href="{{ post.url }}">
+          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-indigo-700 dark:hover:text-indigo-300" href="{{ post.url }}">
             {{ post.data.title }}
           </a>
         </h2>
@@ -289,7 +289,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
       </p>
-      <a href="{{ post.url }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline mt-3 inline-block">
+      <a href="{{ post.url }}" class="text-sm text-indigo-700 dark:text-indigo-300 hover:underline mt-3 inline-block">
         Read more &rarr;
       </a>
 
@@ -317,7 +317,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         {{ post.templateContent | safe }}
       </div>
       <div class="post-footer mt-3">
-        <a href="{{ post.url }}" class="text-sm text-teal-600 dark:text-teal-400 hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
+        <a href="{{ post.url }}" class="text-sm text-teal-700 dark:text-teal-300 hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
           Permalink
         </a>
       </div>
@@ -377,9 +377,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
   <p class="text-surface-600 dark:text-surface-400">No posts yet. Create your first post using a Micropub client!</p>
   <p class="mt-4 text-surface-600 dark:text-surface-400">Some popular Micropub clients:</p>
   <ul class="list-disc list-inside mt-2 text-surface-700 dark:text-surface-300 space-y-1">
-    <li><a href="https://quill.p3k.io" class="text-accent-600 dark:text-accent-400 hover:underline">Quill</a> - Web-based</li>
-    <li><a href="https://indiepass.app" class="text-accent-600 dark:text-accent-400 hover:underline">IndiePass</a> - Mobile app</li>
-    <li><a href="https://micropublish.net" class="text-accent-600 dark:text-accent-400 hover:underline">Micropublish</a> - Web-based</li>
+    <li><a href="https://quill.p3k.io" class="text-accent-700 dark:text-accent-300 hover:underline">Quill</a> - Web-based</li>
+    <li><a href="https://indiepass.app" class="text-accent-700 dark:text-accent-300 hover:underline">IndiePass</a> - Mobile app</li>
+    <li><a href="https://micropublish.net" class="text-accent-700 dark:text-accent-300 hover:underline">Micropublish</a> - Web-based</li>
   </ul>
   {% endif %}
 </div>

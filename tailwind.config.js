@@ -70,13 +70,13 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            "--tw-prose-links": theme("colors.accent.600"),
+            "--tw-prose-links": theme("colors.accent.700"),
             maxWidth: "none",
           },
         },
         invert: {
           css: {
-            "--tw-prose-links": theme("colors.accent.400"),
+            "--tw-prose-links": theme("colors.accent.300"),
           },
         },
       }),

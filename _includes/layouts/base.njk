@@ -333,45 +333,45 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
         {# Navigate #}
         <div>
-          <p class="text-sm font-semibold uppercase tracking-wider text-surface-600 dark:text-surface-400 mb-3" role="heading" aria-level="2">Navigate</p>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-3">Navigate</h2>
           <ul class="space-y-2">
-            <li><a href="/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Home</a></li>
-            <li><a href="/about/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">About</a></li>
-            <li><a href="/cv/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">CV</a></li>
-            <li x-data="{ show: false }" x-show="show" x-cloak @indiekit:auth.window="show = $event.detail.loggedIn"><a href="/posts" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Dashboard</a></li>
+            <li><a href="/" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Home</a></li>
+            <li><a href="/about/" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">About</a></li>
+            <li><a href="/cv/" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">CV</a></li>
+            <li x-data="{ show: false }" x-show="show" x-cloak @indiekit:auth.window="show = $event.detail.loggedIn"><a href="/posts" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Dashboard</a></li>
           </ul>
         </div>
         {# Content #}
         <div>
-          <p class="text-sm font-semibold uppercase tracking-wider text-surface-600 dark:text-surface-400 mb-3" role="heading" aria-level="2">Content</p>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-3">Content</h2>
           <ul class="space-y-2">
-            <li><a href="/blog/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Blog</a></li>
+            <li><a href="/blog/" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Blog</a></li>
             {% for pt in enabledPostTypes %}
-            <li><a href="{{ pt.path }}" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">{{ pt.label }}</a></li>
+            <li><a href="{{ pt.path }}" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">{{ pt.label }}</a></li>
             {% endfor %}
-            <li><a href="/digest/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Digest</a></li>
+            <li><a href="/digest/" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Digest</a></li>
           </ul>
         </div>
         {# Connect #}
         <div>
-          <p class="text-sm font-semibold uppercase tracking-wider text-surface-600 dark:text-surface-400 mb-3" role="heading" aria-level="2">Connect</p>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-3">Connect</h2>
           <ul class="space-y-2">
             {% for social in site.social %}
-            <li><a href="{{ social.url }}" rel="{{ social.rel }}" target="_blank" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline" aria-label="{{ social.name }} (opens in new tab)">{{ social.name }}</a></li>
+            <li><a href="{{ social.url }}" rel="{{ social.rel }}" target="_blank" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline" aria-label="{{ social.name }} (opens in new tab)">{{ social.name }}</a></li>
             {% endfor %}
           </ul>
         </div>
         {# Meta #}
         <div>
-          <p class="text-sm font-semibold uppercase tracking-wider text-surface-600 dark:text-surface-400 mb-3" role="heading" aria-level="2">Meta</p>
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-3">Meta</h2>
           <ul class="space-y-2">
-            <li><a href="/feed.xml" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">RSS Feed</a></li>
-            <li><a href="/feed.json" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">JSON Feed</a></li>
-            <li><a href="/changelog/" class="text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Changelog</a></li>
+            <li><a href="/feed.xml" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">RSS Feed</a></li>
+            <li><a href="/feed.json" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">JSON Feed</a></li>
+            <li><a href="/changelog/" class="text-sm text-surface-700 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Changelog</a></li>
           </ul>
         </div>
       </div>
-      <p class="text-center text-sm text-surface-600 dark:text-surface-400">Powered by <a href="https://getindiekit.com" class="hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Indiekit</a> + <a href="https://11ty.dev" class="hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Eleventy</a></p>
+      <p class="text-center text-sm text-surface-700 dark:text-surface-300">Powered by <a href="https://getindiekit.com" class="hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Indiekit</a> + <a href="https://11ty.dev" class="hover:text-surface-900 dark:hover:text-surface-100 hover:underline">Eleventy</a></p>
     </div>
   </footer>
   <script>
