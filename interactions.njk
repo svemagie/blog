@@ -530,6 +530,12 @@ function interactionsApp() {
         if (seen.has(wmKey)) continue;
         if (item.url && convUrls.has(item.url)) continue;
 
+        // Filter out self-webmentions from own syndicated Bluesky posts
+        if (item.url && (
+          item.url.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+          item.url.includes('bsky.app/profile/svemagie.bsky.social')
+        )) continue;
+
         if (!item.platform) {
           const detected = this.detectPlatform(item);
           if (detected) item.platform = detected;
