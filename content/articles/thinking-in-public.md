@@ -19,10 +19,12 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-15T08:35:08.793Z
 webmentionSent: true
-updated: 2026-03-15T11:46:10.028Z
+updated: 2026-03-15T12:50:40.573Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/articles/thinking-in-public/
 ai:
   textLevel: "1"
