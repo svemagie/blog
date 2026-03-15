@@ -2,12 +2,10 @@
 date: 2024-11-07T18:00:00.000Z
 title: Söders Tweet zu Trumps Wahl
 category:
-  - people
-  - politics
-  - fascism
-  - lang:de
+  - on/politics/fascism
+  - lang/de
 visibility: public
-updated: 2026-03-12T08:09:39.663Z
+updated: 2026-03-15T09:53:42.996Z
 webmentionResults:
   sent: 0
   failed: 0
