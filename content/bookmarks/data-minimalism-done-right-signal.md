@@ -2,7 +2,7 @@
 date: 2026-03-12T13:39:01.584Z
 title: "Data minimalism done right: Signal"
 bookmarkOf: https://signal.org/bigbrother/district-of-columbia/
-category: privacy
+category: on/privacy
 webmentionResults:
   sent: 1
   failed: 0
@@ -47,7 +47,7 @@ webmentionResults:
 webmentionSent: true
 syndication:
   - https://blog.giersig.eu/bookmarks/data-minimalism-done-right-signal/
-updated: 2026-03-13T04:39:07.222Z
+updated: 2026-03-15T09:26:56.472Z
 permalink: https://blog.giersig.eu/bookmarks/data-minimalism-done-right-signal/
 ---
 
