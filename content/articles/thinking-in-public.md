@@ -7,6 +7,17 @@ category:
   - indie-web
 gardenStage: plant
 visibility: Public
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-15T08:35:08.793Z
+webmentionSent: true
+updated: 2026-03-15T08:37:45.406Z
 permalink: https://blog.giersig.eu/articles/thinking-in-public/
 ai:
   textLevel: "0"
@@ -304,7 +315,7 @@ It’s a **synthesis**:
 
 ## Examples in the Wild
 
-*   [For the Love of Obsidian and IndieWeb](app://obsidian.md/For%20the%20Love%20of%20Obsidian%20and%20IndieWeb) was published as `#garden/cultivate` at first, then updated to `#garden/evergreen`
+*   [For the Love of Obsidian and IndieWeb](https://blog.giersig.eu/articles/for-the-love-of-obsidian/) was published as `#garden/cultivate` at first, then updated to `#garden/evergreen`
 *   Some posts on IndieKit might be `#garden/evergreen` – foundational documentation
 *   Explorations of **Digital Garden** metaphor are themselves thinking-in-public
 *   IndieKit debugging posts are likely `#garden/question` – “Here’s what I’m stuck on”
@@ -313,15 +324,15 @@ It’s a **synthesis**:
 
 ## Connection to Other Concepts
 
-### [MYOG](app://obsidian.md/MYOG)
+### MYOG
 
 Thinking in Public requires **infrastructure you control**. Can’t do this on Medium or Twitter (no garden stages, no update control). Need your own site. Yes, you could use elaborate tagging system on Mastodon like some do, but thats too confusing imho.
 
-### [Resonance-Driven Publishing](app://obsidian.md/Resonance-Driven%20Publishing)
+### Resonance-Driven Publishing
 
 Thinking in Public **creates resonance**. Public thinking invites response. Response informs next iteration. Best thinking crystallizes into evergreen material. Loop.
 
-### [For the Love of Obsidian and IndieWeb](app://obsidian.md/For%20the%20Love%20of%20Obsidian%20and%20IndieWeb)
+### [For the Love of Obsidian and IndieWeb](https://blog.giersig.eu/articles/for-the-love-of-obsidian/)
 
 The plugin removes friction that would prevent thinking-in-public. If publishing took 10 steps, you’d only publish “finished” work. Frictionless → more plants, more gardens, more evergreens over time.
 
@@ -342,7 +353,7 @@ The plugin removes friction that would prevent thinking-in-public. If publishing
 
 ## Status
 
-**[#garden/cultivate](app://obsidian.md/index.html#garden/cultivate)** – Actively exploring the evergreen concept. The stage ladder is becoming clearer through practice.
+**#garden/cultivate** – Actively exploring the evergreen concept. The stage ladder is becoming clearer through practice.
 
 * * *
 
