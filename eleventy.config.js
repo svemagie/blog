@@ -1,5 +1,6 @@
 import pluginWebmentions from "@chrisburnell/eleventy-cache-webmentions";
 import pluginRss from "@11ty/eleventy-plugin-rss";
+import pluginMermaid from "@kevingimbel/eleventy-plugin-mermaid";
 import embedEverything from "eleventy-plugin-embed-everything";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
@@ -149,6 +150,9 @@ export default function (eleventyConfig) {
   // RSS plugin for feed filters (dateToRfc822, absoluteUrl, etc.)
   // Custom feed templates in feed.njk and feed-json.njk use these filters
   eleventyConfig.addPlugin(pluginRss);
+
+  // Mermaid diagram support — renders ```mermaid code blocks as diagrams
+  eleventyConfig.addPlugin(pluginMermaid);
 
   // Post graph — GitHub-style contribution grid for posting frequency
   eleventyConfig.addPlugin(postGraph, {
