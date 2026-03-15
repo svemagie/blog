@@ -142,11 +142,23 @@ document.addEventListener("alpine:init", () => {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     },
 
-    redirectToInstance(domain) {
+    async redirectToInstance(domain) {
       if (this.mode === "share") {
         window.location.href = `https://${domain}/share?text=${encodeURIComponent(this.targetUrl)}`;
       } else {
-        window.location.href = `https://${domain}/authorize_interaction?uri=${encodeURIComponent(this.targetUrl)}`;
+        // Resolve the blog post URL to its Fedify-served AP object URL.
+        // Fedify URLs (/activitypub/objects/…) are always routed to Node.js,
+        // ensuring reliable AP content negotiation when the remote instance
+        // fetches the URI to process authorize_interaction.
+        let interactUrl = this.targetUrl;
+        try {
+          const resp = await fetch(`/activitypub/api/ap-url?post=${encodeURIComponent(this.targetUrl)}`);
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data.apUrl) interactUrl = data.apUrl;
+          }
+        } catch { /* network error — fall back to blog post URL */ }
+        window.location.href = `https://${domain}/authorize_interaction?uri=${encodeURIComponent(interactUrl)}`;
       }
     },
   }));
