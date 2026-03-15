@@ -1,7 +1,9 @@
 ---
 date: 2024-07-15T18:00:00.000Z
 title: Murnauer Dialektik
-category: on/covid19
+category:
+  - on/covid19
+  - on/politics/fascism
 visibility: public
 webmentionResults:
   sent: 0
@@ -15,7 +17,7 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-09T19:18:11.979Z
 webmentionSent: true
-updated: 2026-03-15T09:52:39.495Z
+updated: 2026-03-15T09:53:07.770Z
 permalink: https://blog.giersig.eu/articles/murnauer-dialektik/
 ai:
   textLevel: "0"
