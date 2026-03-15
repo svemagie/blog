@@ -1,13 +1,12 @@
 ---
 date: 2026-03-09T23:15:13.793Z
 category:
-  - dev
-  - indieweb
   - til
-  - freebsd
+  - smallweb/dev
+  - smallweb/indieweb
 syndication:
   - https://blog.giersig.eu/notes/8ca9b/
-updated: 2026-03-13T09:00:01.299Z
+updated: 2026-03-15T09:50:04.139Z
 webmentionResults:
   sent: 1
   failed: 0
