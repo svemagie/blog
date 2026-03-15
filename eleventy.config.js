@@ -23,6 +23,23 @@ const postGraph = esmRequire("@rknightuk/eleventy-plugin-post-graph");
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = process.env.SITE_URL || "https://example.com";
 
+// Slugify each path segment, preserving "/" separators for nested tags (e.g. "tech/programming")
+const nestedSlugify = (str) => {
+  if (!str) return "";
+  return str
+    .split("/")
+    .map((s) =>
+      s
+        .trim()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+        .replace(/^-+|-+$/g, ""),
+    )
+    .filter(Boolean)
+    .join("/");
+};
+
 export default function (eleventyConfig) {
   // Don't use .gitignore for determining what to process
   // (content/ is in .gitignore because it's a symlink, but we need to process it)
@@ -618,6 +635,61 @@ export default function (eleventyConfig) {
       .replace(/^-+|-+$/g, "");
   });
 
+  // Nested tag filters (Obsidian-style hierarchical tags using "/" separator)
+
+  // Like slugify but preserves "/" so "tech/programming" → "tech/programming" (not "techprogramming")
+  eleventyConfig.addFilter("nestedSlugify", nestedSlugify);
+
+  // Returns true if postCategories (string or array) contains an exact or ancestor match for category.
+  // e.g. post tagged "tech/js" matches category page "tech" (ancestor) and "tech/js" (exact).
+  eleventyConfig.addFilter("categoryMatches", (postCategories, category) => {
+    if (!postCategories || !category) return false;
+    const cats = Array.isArray(postCategories) ? postCategories : [postCategories];
+    const target = String(category).replace(/^#/, "").trim();
+    return cats.some((cat) => {
+      const clean = String(cat).replace(/^#/, "").trim();
+      return clean === target || clean.startsWith(target + "/");
+    });
+  });
+
+  // Returns breadcrumb array for a nested category path.
+  // "tech/programming/js" → [{ label:"tech", path:"tech", isLast:false }, ...]
+  eleventyConfig.addFilter("categoryBreadcrumb", (category) => {
+    if (!category) return [];
+    const parts = String(category).split("/");
+    return parts.map((part, i) => ({
+      label: part,
+      path: parts.slice(0, i + 1).join("/"),
+      isLast: i === parts.length - 1,
+    }));
+  });
+
+  // Groups a flat sorted categories array by root for the index tree view.
+  // Returns [{ root, children: ["tech/js", "tech/python", ...] }, ...]
+  eleventyConfig.addFilter("categoryGroupByRoot", (categories) => {
+    if (!categories) return [];
+    const groups = new Map();
+    for (const cat of categories) {
+      const root = cat.split("/")[0];
+      if (!groups.has(root)) groups.set(root, { root, children: [] });
+      if (cat !== root) groups.get(root).children.push(cat);
+    }
+    return [...groups.values()].sort((a, b) => a.root.localeCompare(b.root));
+  });
+
+  // Returns direct children of a parent category from the full categories array.
+  // Parent "tech" + ["tech", "tech/js", "tech/python", "tech/js/react"] → ["tech/js", "tech/python"]
+  eleventyConfig.addFilter("categoryDirectChildren", (allCategories, parent) => {
+    if (!allCategories || !parent) return [];
+    const parentSlug = nestedSlugify(parent);
+    return allCategories.filter((cat) => {
+      const catSlug = nestedSlugify(cat);
+      if (!catSlug.startsWith(parentSlug + "/")) return false;
+      const remainder = catSlug.slice(parentSlug.length + 1);
+      return !remainder.includes("/");
+    });
+  });
+
   eleventyConfig.addFilter("stripTrailingSlash", (url) => {
     if (!url || typeof url !== "string") return url || "";
     return url.endsWith("/") ? url.slice(0, -1) : url;
@@ -1061,30 +1133,35 @@ export default function (eleventyConfig) {
 
   // Categories collection - deduplicated by slug to avoid duplicate permalinks
   eleventyConfig.addCollection("categories", function (collectionApi) {
-    const categoryMap = new Map(); // slug -> original name (first seen)
-    const slugify = (str) => str.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "");
+    const categoryMap = new Map(); // nestedSlug -> display name (first seen)
 
     collectionApi.getAll().filter(isPublished).forEach((item) => {
       if (item.data.category) {
         const cats = Array.isArray(item.data.category) ? item.data.category : [item.data.category];
         cats.forEach((cat) => {
-          if (cat && typeof cat === 'string' && cat.trim()) {
+          if (cat && typeof cat === "string" && cat.trim()) {
             // Exclude garden/* tags — they're rendered as garden badges, not categories
             if (cat.replace(/^#/, "").startsWith("garden/")) return;
-            const slug = slugify(cat.trim());
-            if (slug && !categoryMap.has(slug)) {
-              categoryMap.set(slug, cat.trim());
+            const trimmed = cat.trim().replace(/^#/, "");
+            const slug = nestedSlugify(trimmed);
+            if (slug && !categoryMap.has(slug)) categoryMap.set(slug, trimmed);
+            // Auto-create ancestor pages for nested tags (e.g. "tech/js" → also register "tech")
+            const parts = trimmed.split("/");
+            for (let i = 1; i < parts.length; i++) {
+              const parentPath = parts.slice(0, i).join("/");
+              const parentSlug = nestedSlugify(parentPath);
+              if (parentSlug && !categoryMap.has(parentSlug)) categoryMap.set(parentSlug, parentPath);
             }
           }
         });
       }
     });
-    return [...categoryMap.values()].sort();
+    return [...categoryMap.values()].sort((a, b) => a.localeCompare(b));
   });
 
   // Category feeds — pre-grouped posts for per-category RSS/JSON feeds
   eleventyConfig.addCollection("categoryFeeds", function (collectionApi) {
-    const slugify = (str) => str.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "");
+    const slugify = nestedSlugify;
     const grouped = new Map(); // slug -> { name, slug, posts[] }
 
     collectionApi

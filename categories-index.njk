@@ -16,12 +16,34 @@ eleventyImport:
   </p>
 
   {% if collections.categories.length > 0 %}
-  <ul class="flex flex-wrap gap-3">
-    {% for cat in collections.categories %}
+  {% set grouped = collections.categories | categoryGroupByRoot %}
+  <ul class="space-y-4">
+    {% for group in grouped %}
     <li>
-      <a href="/categories/{{ cat | slugify }}/" class="inline-block px-4 py-2 bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg hover:bg-accent-100 dark:hover:bg-accent-900 hover:text-accent-700 dark:hover:text-accent-300 transition-colors">
-        {{ cat }}
-      </a>
+      {# Root tag #}
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="/categories/{{ group.root | nestedSlugify }}/"
+           class="inline-block px-4 py-2 bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg font-medium hover:bg-accent-100 dark:hover:bg-accent-900 hover:text-accent-700 dark:hover:text-accent-300 transition-colors">
+          {{ group.root }}
+        </a>
+        {% if group.children.length > 0 %}
+        <span class="text-xs text-surface-400 dark:text-surface-500">{{ group.children.length }} sub-tag{% if group.children.length != 1 %}s{% endif %}</span>
+        {% endif %}
+      </div>
+
+      {# Child tags indented beneath root #}
+      {% if group.children.length > 0 %}
+      <ul class="mt-2 ml-4 pl-4 border-l border-surface-200 dark:border-surface-700 flex flex-wrap gap-2">
+        {% for child in group.children %}
+        <li>
+          <a href="/categories/{{ child | nestedSlugify }}/"
+             class="inline-block px-3 py-1 bg-surface-50 dark:bg-surface-800/60 text-surface-700 dark:text-surface-300 rounded-md text-sm hover:bg-accent-100 dark:hover:bg-accent-900 hover:text-accent-700 dark:hover:text-accent-300 transition-colors">
+            {{ child }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>

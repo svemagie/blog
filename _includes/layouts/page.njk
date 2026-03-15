@@ -88,12 +88,12 @@ withSidebar: true
   <footer class="mt-8 pt-6 border-t border-surface-200 dark:border-surface-700">
     <div class="flex flex-wrap gap-2">
       {% if category is string %}
-      <a href="/categories/{{ category | slugify }}/" class="p-category text-sm px-3 py-1 bg-surface-100 dark:bg-surface-800 rounded-full hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors">
+      <a href="/categories/{{ category | nestedSlugify }}/" class="p-category text-sm px-3 py-1 bg-surface-100 dark:bg-surface-800 rounded-full hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors">
         {{ category }}
       </a>
       {% else %}
       {% for cat in category %}
-      <a href="/categories/{{ cat | slugify }}/" class="p-category text-sm px-3 py-1 bg-surface-100 dark:bg-surface-800 rounded-full hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors">
+      <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category text-sm px-3 py-1 bg-surface-100 dark:bg-surface-800 rounded-full hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors">
         {{ cat }}
       </a>
       {% endfor %}

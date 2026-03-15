@@ -72,10 +72,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% if post.data.category | withoutGardenTags %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+              <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in (post.data.category | withoutGardenTags) %}
-              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+              <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -112,10 +112,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% if post.data.category | withoutGardenTags %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+              <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in (post.data.category | withoutGardenTags) %}
-              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+              <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -157,10 +157,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% if post.data.category | withoutGardenTags %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+              <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in (post.data.category | withoutGardenTags) %}
-              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+              <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -197,10 +197,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% if post.data.category | withoutGardenTags %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+              <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in (post.data.category | withoutGardenTags) %}
-              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+              <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -236,10 +236,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% if post.data.category | withoutGardenTags %}
             <span class="post-categories">
               {% if post.data.category is string %}
-              <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+              <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
               {% else %}
               {% for cat in (post.data.category | withoutGardenTags) %}
-              <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+              <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
               {% endfor %}
               {% endif %}
             </span>
@@ -281,10 +281,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           {% if post.data.category | withoutGardenTags %}
           <span class="post-categories">
             {% if post.data.category is string %}
-            <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+            <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
             {% else %}
             {% for cat in (post.data.category | withoutGardenTags) %}
-            <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+            <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
             {% endfor %}
             {% endif %}
           </span>
@@ -310,10 +310,10 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         {% if post.data.category | withoutGardenTags %}
         <span class="post-categories ml-2">
           {% if post.data.category is string %}
-          <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
+          <a href="/categories/{{ post.data.category | nestedSlugify }}/" class="p-category">{{ post.data.category }}</a>
           {% else %}
           {% for cat in (post.data.category | withoutGardenTags) %}
-          <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
+          <a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a>
           {% endfor %}
           {% endif %}
         </span>

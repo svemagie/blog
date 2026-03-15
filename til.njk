@@ -55,7 +55,7 @@ eleventyImport:
           {% endif %}
           {% for cat in cats %}
             {% if cat != "til" %}
-            <a href="/categories/{{ cat | slugify }}/" class="text-amber-600 dark:text-amber-400 hover:underline">#{{ cat }}</a>{% if not loop.last %} {% endif %}
+            <a href="/categories/{{ cat | nestedSlugify }}/" class="text-amber-600 dark:text-amber-400 hover:underline">#{{ cat }}</a>{% if not loop.last %} {% endif %}
             {% endif %}
           {% endfor %}
           {% endif %}
