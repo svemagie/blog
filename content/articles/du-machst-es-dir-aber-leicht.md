@@ -1,14 +1,10 @@
 ---
 date: 2025-07-06T18:00:00.000Z
 title: Du machst es Dir aber leicht!
-updated: 2026-03-10T09:51:10.880Z
+updated: 2026-03-15T09:54:37.786Z
 category:
-  - people
-  - lang:de
-  - polyamorie
-  - autonomie
-  - reziprozität
-  - präfiguration
+  - lang/de
+  - on/polymory
 visibility: public
 webmentionResults:
   sent: 0
@@ -18,9 +14,14 @@ webmentionResults:
     sent: []
     failed: []
     skipped: []
-  timestamp: 2026-03-09T19:18:12.756Z
+  timestamp: 2026-03-14T08:44:02.698Z
 webmentionSent: true
 permalink: https://blog.giersig.eu/articles/du-machst-es-dir-aber-leicht/
+ai:
+  textLevel: "0"
+  codeLevel: "0"
+  # aiTools: "Claude, ChatGPT, Copilot"
+  # aiDescription: "Optional disclosure about how AI was used"
 ---
 
 Es gibt zwei Standards, wie viele Menschen reagieren, wenn sie zum ersten Mal von meiner Art, Beziehung zu definieren und zu leben, hören:
