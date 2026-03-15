@@ -4,8 +4,8 @@ title: Thinking in Public
 summary: Thinking in Public is the practice of making your thinking process – not just finished conclusions – visible.
 category:
   - on/phil
-  - memex
   - indieweb
+  - on/memex
 gardenStage: plant
 visibility: Public
 webmentionResults:
@@ -18,7 +18,7 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-15T08:35:08.793Z
 webmentionSent: true
-updated: 2026-03-15T09:03:51.730Z
+updated: 2026-03-15T09:10:26.687Z
 permalink: https://blog.giersig.eu/articles/thinking-in-public/
 ai:
   textLevel: "1"
