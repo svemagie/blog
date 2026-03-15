@@ -878,7 +878,17 @@ export default function (eleventyConfig) {
       authorActions.add(key);
       deduped.push(wm);
     }
-    return deduped;
+
+    // Filter out self-interactions from own Bluesky account
+    const isSelfBsky = (wm) => {
+      const u = (wm.url || "").toLowerCase();
+      const a = (wm.author?.url || "").toLowerCase();
+      return u.includes("bsky.app/profile/svemagie.bsky.social") ||
+             u.includes("did:plc:g4utqyolpyb5zpwwodmm3hht") ||
+             a.includes("bsky.app/profile/svemagie.bsky.social") ||
+             a.includes("did:plc:g4utqyolpyb5zpwwodmm3hht");
+    };
+    return deduped.filter((wm) => !isSelfBsky(wm));
   });
 
   eleventyConfig.addFilter("webmentionsByType", function (mentions, type) {

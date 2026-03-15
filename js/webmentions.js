@@ -52,12 +52,21 @@
     }
   }
 
+  function isSelfBsky(wm) {
+    var u = (wm.url || '').toLowerCase();
+    var a = ((wm.author && wm.author.url) || '').toLowerCase();
+    return u.includes('bsky.app/profile/svemagie.bsky.social') ||
+           u.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+           a.includes('bsky.app/profile/svemagie.bsky.social') ||
+           a.includes('did:plc:g4utqyolpyb5zpwwodmm3hht');
+  }
+
   function processWebmentions(allChildren) {
     if (!allChildren || !allChildren.length) return;
 
     // Separate owner replies (threaded under parent) from regular interactions
     var ownerReplies = allChildren.filter(function(wm) { return wm.is_owner && wm.parent_url; });
-    var regularItems = allChildren.filter(function(wm) { return !wm.is_owner; });
+    var regularItems = allChildren.filter(function(wm) { return !wm.is_owner && !isSelfBsky(wm); });
 
     let mentionsToShow;
     if (hasBuildTimeSection) {
