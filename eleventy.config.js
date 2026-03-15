@@ -950,6 +950,18 @@ export default function (eleventyConfig) {
     return stages[stage] || null;
   });
 
+  // Strip garden/* tags from a category list so they don't render as
+  // plain category pills alongside the garden badge.
+  eleventyConfig.addFilter("withoutGardenTags", (categories) => {
+    if (!categories) return categories;
+    const arr = Array.isArray(categories) ? categories : [categories];
+    const filtered = arr.filter(
+      (c) => !String(c).replace(/^#/, "").startsWith("garden/"),
+    );
+    if (!Array.isArray(categories)) return filtered[0] ?? null;
+    return filtered;
+  });
+
   // Collections for different post types
   // Note: content path is content/ due to symlink structure
   // "posts" shows ALL content types combined
@@ -1057,6 +1069,8 @@ export default function (eleventyConfig) {
         const cats = Array.isArray(item.data.category) ? item.data.category : [item.data.category];
         cats.forEach((cat) => {
           if (cat && typeof cat === 'string' && cat.trim()) {
+            // Exclude garden/* tags — they're rendered as garden badges, not categories
+            if (cat.replace(/^#/, "").startsWith("garden/")) return;
             const slug = slugify(cat.trim());
             if (slug && !categoryMap.has(slug)) {
               categoryMap.set(slug, cat.trim());

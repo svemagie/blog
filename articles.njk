@@ -37,12 +37,12 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
         <time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
           {{ post.date | dateDisplay }}
         </time>
-        {% if post.data.category %}
+        {% if post.data.category | withoutGardenTags %}
         <span class="post-categories">
           {% if post.data.category is string %}
           <a href="/categories/{{ post.data.category | slugify }}/" class="p-category">{{ post.data.category }}</a>
           {% else %}
-          {% for cat in post.data.category %}
+          {% for cat in (post.data.category | withoutGardenTags) %}
           <a href="/categories/{{ cat | slugify }}/" class="p-category">{{ cat }}</a>
           {% endfor %}
           {% endif %}
