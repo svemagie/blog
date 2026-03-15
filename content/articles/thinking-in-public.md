@@ -18,7 +18,7 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-15T08:35:08.793Z
 webmentionSent: true
-updated: 2026-03-15T09:10:26.687Z
+updated: 2026-03-15T09:12:45.585Z
 permalink: https://blog.giersig.eu/articles/thinking-in-public/
 ai:
   textLevel: "1"
@@ -79,7 +79,7 @@ Readers don’t just see “the result”, but also “how people actually devel
 
 ## The Garden Metaphor
 
-Implemented with [Digital Garden](app://obsidian.md/Digital%20Garden)  stages:
+Implemented with [Digital Garden](https://maggieappleton.com/garden-history)  stages:
 
 ```
 🌱 #garden/plant      → Brand new thought, just emerged
