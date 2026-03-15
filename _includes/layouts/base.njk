@@ -184,10 +184,10 @@
               </svg>
             </a>
             <div class="nav-dropdown-menu" x-show="open" x-transition x-cloak role="menu">
+              <a href="/garden/" role="menuitem">Garden</a>
               {% if blogrollStatus and blogrollStatus.source == "indiekit" %}<a href="/blogroll/" role="menuitem">Blogroll</a>{% endif %}
               {% if podrollStatus and podrollStatus.source == "indiekit" %}<a href="/podroll/" role="menuitem">Podroll</a>{% endif %}
               {% if newsActivity and newsActivity.source == "indiekit" %}<a href="/news/" role="menuitem">News</a>{% endif %}
-              <a href="/where/" role="menuitem">Where</a>
               <a href="/slashes/" role="menuitem">All Pages</a>
             </div>
           </div>
@@ -251,10 +251,10 @@
           </svg>
         </button>
         <div id="mobile-pages-submenu" class="mobile-nav-submenu" x-show="pagesOpen" x-collapse>
+          <a href="/garden/">Garden</a>
           {% if blogrollStatus and blogrollStatus.source == "indiekit" %}<a href="/blogroll/">Blogroll</a>{% endif %}
           {% if podrollStatus and podrollStatus.source == "indiekit" %}<a href="/podroll/">Podroll</a>{% endif %}
           {% if newsActivity and newsActivity.source == "indiekit" %}<a href="/news/">News</a>{% endif %}
-          <a href="/where/">Where</a>
           <a href="/slashes/">All Pages</a>
         </div>
       </div>
