@@ -5,20 +5,20 @@
    Include in sidebar widgets, author cards, etc.
 #}
 {% set id = homepageConfig.identity if (homepageConfig and homepageConfig.identity) else {} %}
-{% set authorName = id.name if (id.name is defined) else site.author.name %}
-{% set authorAvatar = id.avatar if (id.avatar is defined) else site.author.avatar %}
-{% set authorTitle = id.title if (id.title is defined) else site.author.title %}
-{% set authorBio = id.bio if (id.bio is defined) else site.author.bio %}
-{% set authorUrl = id.url if (id.url is defined and id.url) else site.author.url %}
-{% set authorPronoun = id.pronoun if (id.pronoun is defined) else site.author.pronoun %}
-{% set authorLocality = id.locality if (id.locality is defined) else site.author.locality %}
-{% set authorCountry = id.country if (id.country is defined) else site.author.country %}
-{% set authorLocation = id.location if (id.location is defined) else site.author.location %}
-{% set authorOrg = id.org if (id.org is defined) else site.author.org %}
-{% set authorEmail = id.email if (id.email is defined) else site.author.email %}
-{% set authorKeyUrl = id.keyUrl if (id.keyUrl is defined) else site.author.keyUrl %}
-{% set authorCategories = id.categories if (id.categories is defined) else site.author.categories %}
-{% set socialLinks = id.social if (id.social is defined) else site.social %}
+{% set authorName = id.name or site.author.name %}
+{% set authorAvatar = id.avatar or site.author.avatar %}
+{% set authorTitle = id.title or site.author.title %}
+{% set authorBio = id.bio or site.author.bio %}
+{% set authorUrl = id.url or site.author.url %}
+{% set authorPronoun = id.pronoun or site.author.pronoun %}
+{% set authorLocality = id.locality or site.author.locality %}
+{% set authorCountry = id.country or site.author.country %}
+{% set authorLocation = site.author.location %}
+{% set authorOrg = id.org or site.author.org %}
+{% set authorEmail = id.email or site.author.email %}
+{% set authorKeyUrl = id.keyUrl or site.author.keyUrl %}
+{% set authorCategories = id.categories if (id.categories and id.categories.length) else site.author.categories %}
+{% set socialLinks = id.social if (id.social and id.social.length) else site.social %}
 
 <div class="h-card p-author" itemscope itemtype="http://schema.org/Person">
   {# Hidden u-photo for reliable microformat parsing (some parsers struggle with img inside links) #}
@@ -37,17 +37,15 @@
       >
     </a>
     <div>
-      <a href="{{ authorUrl }}" class="u-url p-name font-bold text-lg block hover:text-accent-700 dark:hover:text-accent-300" itemprop="name">
+      <a href="{{ authorUrl }}" class="u-url p-name font-bold text-lg block hover:text-accent-600 dark:hover:text-accent-400" itemprop="name">
         {{ authorName }}
       </a>
       {% if authorPronoun %}
       <span class="p-pronoun text-xs text-surface-600 dark:text-surface-400">({{ authorPronoun }})</span>
       {% endif %}
-      {% if authorTitle %}
       <p class="p-job-title text-sm text-surface-600 dark:text-surface-400" itemprop="jobTitle">{{ authorTitle }}</p>
-      {% endif %}
       {# Structured address #}
-      <p class="p-adr h-adr text-sm text-surface-700 dark:text-surface-300" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <p class="p-adr h-adr text-sm text-surface-600 dark:text-surface-400" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
         {% if authorLocality %}
         <span class="p-locality" itemprop="addressLocality">{{ authorLocality }}</span>{% if authorCountry %}, {% endif %}
         {% endif %}
@@ -63,9 +61,7 @@
   </div>
 
   {# Bio #}
-  {% if authorBio %}
   <p class="p-note mt-3 text-sm text-surface-700 dark:text-surface-300" itemprop="description">{{ authorBio }}</p>
-  {% endif %}
 
   {# Organization #}
   {% if authorOrg %}
@@ -78,12 +74,12 @@
   <div class="mt-2 flex flex-wrap gap-3 text-sm">
     {% if authorEmail %}
     {# Display text obfuscated to deter spam harvesters; href kept plain for browser compatibility #}
-    <a href="mailto:{{ authorEmail }}" class="u-email text-accent-700 dark:text-accent-300 hover:underline" itemprop="email" aria-label="Email {{ authorEmail }}">
+    <a href="mailto:{{ authorEmail }}" class="u-email text-accent-600 dark:text-accent-400 hover:underline" itemprop="email" aria-label="Email {{ authorEmail }}">
       ✉️ {{ authorEmail | obfuscateEmail | safe }}
     </a>
     {% endif %}
     {% if authorKeyUrl %}
-    <a href="{{ authorKeyUrl }}" class="u-key text-surface-700 dark:text-surface-300 hover:underline" rel="pgpkey">
+    <a href="{{ authorKeyUrl }}" class="u-key text-surface-600 dark:text-surface-400 hover:underline" rel="pgpkey">
       🔐 PGP Key
     </a>
     {% endif %}
@@ -106,7 +102,7 @@
     <a
       href="{{ link.url }}"
       rel="{{ link.rel }} noopener"
-      class="u-url text-surface-600 dark:text-surface-400 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+      class="u-url text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
       aria-label="{{ link.name }} (opens in new tab)"
       target="_blank">
       {{ socialIcon(link.icon, "w-5 h-5") }}

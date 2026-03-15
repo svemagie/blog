@@ -68,7 +68,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-accent-700 dark:text-accent-300 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
         </div>
       </div>
 
@@ -89,7 +89,7 @@
           </div>
           {% if post.data.title %}
           <h3 class="p-name font-semibold mt-1">
-            <a class="text-surface-900 dark:text-surface-100 hover:text-accent-700 dark:hover:text-accent-300 hover:underline" href="{{ post.url }}">{{ post.data.title }}</a>
+            <a class="text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400 hover:underline" href="{{ post.url }}">{{ post.data.title }}</a>
           </h3>
           {% endif %}
           {{ bookmarkedUrl | unfurlCard | safe }}
@@ -101,7 +101,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-accent-700 dark:text-accent-300 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
         </div>
       </div>
 
@@ -129,7 +129,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-accent-700 dark:text-accent-300 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
         </div>
       </div>
 
@@ -157,7 +157,7 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-accent-700 dark:text-accent-300 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
         </div>
       </div>
 
@@ -193,14 +193,14 @@
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-xs text-accent-700 dark:text-accent-300 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
+          <a class="u-url text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">Permalink</a>
         </div>
       </div>
 
       {% elif post.data.title %}
       {# ── Article/Page card ── #}
       <h3 class="p-name font-semibold mb-1">
-        <a href="{{ post.url }}" class="u-url text-surface-900 dark:text-surface-100 hover:text-accent-700 dark:hover:text-accent-300 hover:underline">
+        <a href="{{ post.url }}" class="u-url text-surface-900 dark:text-surface-100 hover:text-accent-600 dark:hover:text-accent-400 hover:underline">
           {{ post.data.title }}
         </a>
       </h3>
@@ -239,7 +239,7 @@
         {{ post.templateContent | safe }}
       </div>
       {% endif %}
-      <a href="{{ post.url }}" class="text-xs text-accent-700 dark:text-accent-300 hover:underline mt-2 inline-block" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">
+      <a href="{{ post.url }}" class="text-xs text-accent-600 dark:text-accent-400 hover:underline mt-2 inline-block" aria-label="Permalink: {{ post.data.title or (post.date | dateDisplay) }}">
         Permalink
       </a>
       {% endif %}
@@ -250,7 +250,7 @@
 
   {% if collections.featuredPosts.length > maxItems %}
   <div class="mt-4 text-center">
-    <a href="/featured/" class="inline-flex items-center gap-1 text-sm text-accent-700 dark:text-accent-300 hover:underline font-medium">
+    <a href="/featured/" class="inline-flex items-center gap-1 text-sm text-accent-600 dark:text-accent-400 hover:underline font-medium">
       View all {{ collections.featuredPosts.length }} featured posts &rarr;
     </a>
   </div>

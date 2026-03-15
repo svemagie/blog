@@ -301,7 +301,12 @@ export default function (eleventyConfig) {
   // Custom transform to convert YouTube links to lite-youtube embeds
   // Catches bare YouTube links in Markdown that the embed plugin misses
   eleventyConfig.addTransform("youtube-link-to-embed", function (content, outputPath) {
-    if (!outputPath || !outputPath.endsWith(".html")) {
+    if (typeof outputPath !== "string" || !outputPath.endsWith(".html")) {
+      return content;
+    }
+    // Single substring check — "youtu" covers both youtube.com/watch and youtu.be/
+    // Avoids scanning large HTML twice (was two includes() calls on 15-50KB per page)
+    if (!content.includes("youtu")) {
       return content;
     }
     // Match <a> tags where href contains youtube.com/watch or youtu.be
@@ -370,6 +375,21 @@ export default function (eleventyConfig) {
     return content;
   });
 
+  // Cache: directory listing built once per build instead of existsSync calls per page
+  let _ogFileSet = null;
+  eleventyConfig.on("eleventy.before", () => { _ogFileSet = null; });
+  function hasOgImage(ogSlug) {
+    if (!_ogFileSet) {
+      const ogDir = resolve(__dirname, ".cache", "og");
+      try {
+        _ogFileSet = new Set(readdirSync(ogDir));
+      } catch {
+        _ogFileSet = new Set();
+      }
+    }
+    return _ogFileSet.has(`${ogSlug}.png`);
+  }
+
   // Fix OG image meta tags post-rendering — bypasses Eleventy 3.x race condition (#3183).
   // page.url is unreliable during parallel rendering, but outputPath IS correct
   // since files are written to the correct location. Derives the OG slug from
@@ -388,7 +408,7 @@ export default function (eleventyConfig) {
       const pageUrlPath = `/${type}/${year}/${month}/${day}/${slug}/`;
       const correctFullUrl = `${siteUrl}${pageUrlPath}`;
       const ogSlug = `${year}-${month}-${day}-${slug}`;
-      const hasOg = existsSync(resolve(__dirname, ".cache", "og", `${ogSlug}.png`));
+      const hasOg = hasOgImage(ogSlug);
       const ogImageUrl = hasOg
         ? `${siteUrl}/og/${ogSlug}.png`
         : `${siteUrl}/images/og-default.png`;
@@ -518,21 +538,34 @@ export default function (eleventyConfig) {
      key: "children",
   });
 
-  // Date formatting filter
+  // Date formatting filter — memoized (same dates repeat across pages in sidebars/pagination)
+  const _dateDisplayCache = new Map();
+  eleventyConfig.on("eleventy.before", () => { _dateDisplayCache.clear(); });
   eleventyConfig.addFilter("dateDisplay", (dateObj) => {
     if (!dateObj) return "";
-    const date = new Date(dateObj);
-    return date.toLocaleDateString("en-GB", {
+    const key = dateObj instanceof Date ? dateObj.getTime() : dateObj;
+    const cached = _dateDisplayCache.get(key);
+    if (cached !== undefined) return cached;
+    const result = new Date(dateObj).toLocaleDateString("en-GB", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
+    _dateDisplayCache.set(key, result);
+    return result;
   });
 
-  // ISO date filter
+  // ISO date filter — memoized
+  const _isoDateCache = new Map();
+  eleventyConfig.on("eleventy.before", () => { _isoDateCache.clear(); });
   eleventyConfig.addFilter("isoDate", (dateObj) => {
     if (!dateObj) return "";
-    return new Date(dateObj).toISOString();
+    const key = dateObj instanceof Date ? dateObj.getTime() : dateObj;
+    const cached = _isoDateCache.get(key);
+    if (cached !== undefined) return cached;
+    const result = new Date(dateObj).toISOString();
+    _isoDateCache.set(key, result);
+    return result;
   });
 
   // Digest-to-HTML filter for RSS feed descriptions
@@ -1306,24 +1339,42 @@ export default function (eleventyConfig) {
     return digests;
   });
 
-  // Generate OpenGraph images for posts without photos
-  // Runs on every build (including watcher rebuilds) — manifest caching makes it fast
-  // for incremental: only new posts without an OG image get generated (~200ms each)
+  // Generate OpenGraph images for posts without photos.
+  // Uses batch spawning: each invocation generates up to BATCH_SIZE images then exits,
+  // fully releasing WASM native memory (Satori Yoga + Resvg Rust) between batches.
+  // Exit code 2 = batch complete, more work remains → re-spawn.
+  // Manifest caching makes incremental builds fast (only new posts get generated).
   eleventyConfig.on("eleventy.before", () => {
     const contentDir = resolve(__dirname, "content");
     const cacheDir = resolve(__dirname, ".cache");
     const siteName = process.env.SITE_NAME || "My IndieWeb Blog";
+    const BATCH_SIZE = 100;
     try {
-      execFileSync(process.execPath, [
-        "--max-old-space-size=768",
-        resolve(__dirname, "lib", "og-cli.js"),
-        contentDir,
-        cacheDir,
-        siteName,
-      ], {
-        stdio: "inherit",
-        env: { ...process.env, NODE_OPTIONS: "" },
-      });
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        try {
+          execFileSync(process.execPath, [
+            "--max-old-space-size=512",
+            "--expose-gc",
+            resolve(__dirname, "lib", "og-cli.js"),
+            contentDir,
+            cacheDir,
+            siteName,
+            String(BATCH_SIZE),
+          ], {
+            stdio: "inherit",
+            env: { ...process.env, NODE_OPTIONS: "" },
+          });
+          // Exit code 0 = all done
+          break;
+        } catch (err) {
+          if (err.status === 2) {
+            // Exit code 2 = batch complete, more images remain
+            continue;
+          }
+          throw err;
+        }
+      }
 
       // Sync new OG images to output directory.
       // During incremental builds, .cache/og is in watchIgnores so Eleventy's
@@ -1377,8 +1428,26 @@ export default function (eleventyConfig) {
     walk(contentDir);
 
     if (urls.size === 0) return;
-    console.log(`[unfurl] Pre-fetching ${urls.size} interaction URLs...`);
-    await Promise.all([...urls].map((url) => prefetchUrl(url)));
+
+    // Free parsed markdown content before starting network-heavy prefetch
+    if (typeof global.gc === "function") global.gc();
+
+    const urlArray = [...urls];
+    const UNFURL_BATCH = 50;
+    const totalBatches = Math.ceil(urlArray.length / UNFURL_BATCH);
+    console.log(`[unfurl] Pre-fetching ${urlArray.length} interaction URLs (${totalBatches} batches of ${UNFURL_BATCH})...`);
+    let fetched = 0;
+    for (let i = 0; i < urlArray.length; i += UNFURL_BATCH) {
+      const batch = urlArray.slice(i, i + UNFURL_BATCH);
+      const batchNum = Math.floor(i / UNFURL_BATCH) + 1;
+      await Promise.all(batch.map((url) => prefetchUrl(url)));
+      fetched += batch.length;
+      if (typeof global.gc === "function") global.gc();
+      if (batchNum === 1 || batchNum % 5 === 0 || batchNum === totalBatches) {
+        const rss = (process.memoryUsage.rss() / 1024 / 1024).toFixed(0);
+        console.log(`[unfurl] Batch ${batchNum}/${totalBatches} (${fetched}/${urlArray.length}) | RSS: ${rss} MB`);
+      }
+    }
     console.log(`[unfurl] Pre-fetch complete.`);
   });
 
@@ -1560,6 +1629,19 @@ export default function (eleventyConfig) {
       } catch (err) {
         console.error(`[websub] Hub notification failed for ${feedUrl}:`, err.message);
       }
+    }
+
+    // Force garbage collection after post-build work completes.
+    // V8 doesn't return freed heap pages to the OS without GC pressure.
+    // In watch mode the watcher sits idle after its initial full build,
+    // so without this, ~2 GB of build-time allocations stay resident.
+    // Requires --expose-gc in NODE_OPTIONS (set in start.sh for the watcher).
+    if (typeof global.gc === "function") {
+      const before = process.memoryUsage();
+      global.gc();
+      const after = process.memoryUsage();
+      const freed = ((before.heapUsed - after.heapUsed) / 1024 / 1024).toFixed(0);
+      console.log(`[gc] Post-build GC freed ${freed} MB (heap: ${(after.heapUsed / 1024 / 1024).toFixed(0)} MB)`);
     }
   });
 

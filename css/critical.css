@@ -48,6 +48,12 @@ main.container{padding-top:1.5rem;padding-bottom:1.5rem}
 /* Reserve sidebar space on desktop to prevent CLS when Alpine.js hydrates collapsible widgets */
 @media(min-width:1024px){.sidebar{min-height:600px}}
 
+/* Font faces — in critical CSS so fonts begin downloading immediately.
+   font-display:optional prevents FOUT/CLS: font either loads in time or fallback is kept. */
+@font-face{font-family:'Inter';font-style:normal;font-display:optional;font-weight:400;src:url(/fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-display:optional;font-weight:600;src:url(/fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-display:optional;font-weight:700;src:url(/fonts/inter-latin-700-normal.woff2) format('woff2')}
+
 /* Basic typography — prevent FOUT */
 h1,h2,h3,h4{margin:0;line-height:1.25}
 a{color:#b45309}
