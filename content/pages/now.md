@@ -3,7 +3,7 @@ date: 2026-03-08T01:32:42.024Z
 title: now
 summary: a page that tells you what I'm focused on at this point in my life
 category: slashpage/now
-updated: 2026-03-15T10:30:05.340Z
+updated: 2026-03-15T10:31:07.916Z
 webmentionResults:
   sent: 0
   failed: 0
@@ -27,7 +27,7 @@ This page is a [now page](https://nownownow.com/about), you should consider addi
 - William Gibson - Idoru (audiobook)
 
 ## tech
-- Integrating Obsidian, Digital Garden and IndieWeb
+- Integrating [Obsidian, Digital Garden](https://blog.giersig.eu/articles/thinking-in-public/) and IndieWeb
 - exploring the Indieweb
 - Ghost blogging on [ferals.eu](https://www.ferals.eu)
 
