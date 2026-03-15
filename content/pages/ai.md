@@ -2,13 +2,27 @@
 date: 2026-03-09T13:48:01.251Z
 title: AI Transparency
 category:
-  - dev
-  - AI
+  - smallweb/dev
+  - on/ai
 syndication:
   - https://blog.giersig.eu/ai/
-updated: 2026-03-09T18:11:01.322Z
+updated: 2026-03-15T10:00:59.506Z
 summary: How AI is used on this blog, with structured disclosure levels for text and code.
 visibility: public
+webmentionResults:
+  sent: 1
+  failed: 0
+  skipped: 0
+  details:
+    sent:
+      - target: https://rmendes.net/ai/
+        endpoint: https://webmention.io/rmendes.net/webmention
+        type: webmention
+        status: 201
+    failed: []
+    skipped: []
+  timestamp: 2026-03-09T19:53:51.643Z
+webmentionSent: true
 permalink: https://blog.giersig.eu/ai/
 ---
 
