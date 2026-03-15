@@ -2,10 +2,8 @@
 date: 2026-03-08T01:32:42.024Z
 title: now
 summary: a page that tells you what I'm focused on at this point in my life
-category:
-  - now
-  - slashpage
-updated: 2026-03-13T19:48:53.783Z
+category: slashpage/now
+updated: 2026-03-15T10:10:15.526Z
 webmentionResults:
   sent: 0
   failed: 0
