@@ -990,7 +990,7 @@ body[data-indiekit-auth="true"] .share-post-btn:hover {
 /* ============================================================
    Digital Garden — stage badges
    Used by _includes/components/garden-badge.njk
-   Stages: plant · cultivate · question · repot · revitalize · revisit
+   Stages: plant · cultivate · evergreen · question · repot · revitalize · revisit
    ============================================================ */
 @layer components {
   .garden-badge {
@@ -1003,6 +1003,10 @@ body[data-indiekit-auth="true"] .share-post-btn:hover {
   .garden-badge--cultivate {
     @apply bg-emerald-100 text-emerald-800 border-emerald-200 hover:bg-emerald-200
            dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800 dark:hover:bg-emerald-900/50;
+  }
+  .garden-badge--evergreen {
+    @apply bg-teal-100 text-teal-800 border-teal-200 hover:bg-teal-200
+           dark:bg-teal-900/30 dark:text-teal-300 dark:border-teal-800 dark:hover:bg-teal-900/50;
   }
   .garden-badge--question {
     @apply bg-yellow-100 text-yellow-800 border-yellow-200 hover:bg-yellow-200

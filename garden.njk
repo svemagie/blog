@@ -19,7 +19,7 @@ pagefindIgnore: true
     </p>
     {# Stage legend #}
     <div class="mt-4 flex flex-wrap gap-2">
-      {% set _allStages = ["plant", "cultivate", "question", "repot", "revitalize", "revisit"] %}
+      {% set _allStages = ["plant", "cultivate", "evergreen", "question", "repot", "revitalize", "revisit"] %}
       {% for _s in _allStages %}
         {% set _info = _s | gardenStageInfo %}
         {% if _info %}
@@ -33,7 +33,7 @@ pagefindIgnore: true
   </div>
 
   {# ── Posts grouped by stage ──────────────────────────────────────────── #}
-  {% set _stages = ["plant", "cultivate", "question", "repot", "revitalize", "revisit"] %}
+  {% set _stages = ["plant", "cultivate", "evergreen", "question", "repot", "revitalize", "revisit"] %}
 
   {% for _stage in _stages %}
 

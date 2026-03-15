@@ -941,6 +941,7 @@ export default function (eleventyConfig) {
     const stages = {
       plant:      { label: "Seedling",      emoji: "🌱", description: "Newly planted idea" },
       cultivate:  { label: "Growing",       emoji: "🌿", description: "Being actively developed" },
+      evergreen:  { label: "Evergreen",     emoji: "🌳", description: "Mature and reasonably complete, still growing" },
       question:   { label: "Open Question", emoji: "❓", description: "Open for exploration" },
       repot:      { label: "Repotting",     emoji: "🪴", description: "Being restructured" },
       revitalize: { label: "Revitalizing",  emoji: "✨", description: "Being refreshed and updated" },
