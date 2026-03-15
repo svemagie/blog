@@ -11,11 +11,9 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-15T12:37:10.272Z
 webmentionSent: true
-updated: 2026-03-15T13:44:19.713Z
+updated: 2026-03-15T14:04:50.751Z
 syndication:
   - https://blog.giersig.eu/replies/bd78a/
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 permalink: https://blog.giersig.eu/replies/bd78a/
 ---
 
