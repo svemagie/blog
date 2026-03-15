@@ -219,7 +219,7 @@ export default {
       startDate: "2007",
       endDate: "2018",
       educationType: "work",
-      description: "Academic training in sociology with a strong methodological and social-theory foundation. Minor Subjects: Politics and Administration, Gender Studies",
+      description: "Academic training in sociology with a strong methodological and social-theory foundation. Specialized in Luhmann's Systems theory as societal theory and Berger/Luckmann The Social Construction of Reality.Minor Subjects: Politics and Administration & Gender Studies.",
     },
     {
       degree: "A Level / Abitur",
