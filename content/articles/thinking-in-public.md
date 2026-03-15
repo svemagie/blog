@@ -6,6 +6,7 @@ category:
   - on/phil
   - on/memex
   - smallweb/dev
+  - on/writing
 gardenStage: plant
 visibility: Public
 webmentionResults:
@@ -18,7 +19,7 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-15T08:35:08.793Z
 webmentionSent: true
-updated: 2026-03-15T09:57:33.319Z
+updated: 2026-03-15T11:46:10.028Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
