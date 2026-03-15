@@ -53,6 +53,7 @@ permalink: "reposts/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNum
               {% endif %}
             </span>
             {% endif %}
+            {% include "components/garden-badge.njk" %}
           </div>
           {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
           {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
@@ -92,6 +93,7 @@ permalink: "reposts/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNum
         Previous
       </span>
       {% endif %}
+      {% include "components/garden-badge.njk" %}
 
       {% if pagination.href.next %}
       <a href="{{ pagination.href.next }}" class="pagination-link" aria-label="Next page">
@@ -104,6 +106,7 @@ permalink: "reposts/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNum
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>
       {% endif %}
+      {% include "components/garden-badge.njk" %}
     </div>
   </nav>
   {% endif %}

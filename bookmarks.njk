@@ -50,6 +50,7 @@ permalink: "bookmarks/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageN
           {% endif %}
         </span>
         {% endif %}
+        {% include "components/garden-badge.njk" %}
       </div>
       {# Support both camelCase (Indiekit Eleventy preset) and underscore (legacy) property names #}
       {% set bookmarkedUrl = post.data.bookmarkOf or post.data.bookmark_of %}
@@ -86,6 +87,7 @@ permalink: "bookmarks/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageN
         Previous
       </span>
       {% endif %}
+      {% include "components/garden-badge.njk" %}
 
       {% if pagination.href.next %}
       <a href="{{ pagination.href.next }}" class="pagination-link" aria-label="Next page">
@@ -98,6 +100,7 @@ permalink: "bookmarks/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageN
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>
       {% endif %}
+      {% include "components/garden-badge.njk" %}
     </div>
   </nav>
   {% endif %}

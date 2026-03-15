@@ -72,6 +72,7 @@
               {% endif %}
             </span>
             {% endif %}
+            {% include "components/garden-badge.njk" %}
           </div>
           {{ likedUrl | unfurlCard | safe }}
           <a class="u-like-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
@@ -111,6 +112,7 @@
               {% endif %}
             </span>
             {% endif %}
+            {% include "components/garden-badge.njk" %}
           </div>
           {% if post.data.title %}
           <h3 class="p-name text-lg font-semibold text-surface-900 dark:text-surface-100 mt-2">
@@ -155,6 +157,7 @@
               {% endif %}
             </span>
             {% endif %}
+            {% include "components/garden-badge.njk" %}
           </div>
           {{ repostedUrl | unfurlCard | safe }}
           <a class="u-repost-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ repostedUrl }}">
@@ -194,6 +197,7 @@
               {% endif %}
             </span>
             {% endif %}
+            {% include "components/garden-badge.njk" %}
           </div>
           {{ replyToUrl | unfurlCard | safe }}
           <a class="u-in-reply-to text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ replyToUrl }}">
@@ -234,6 +238,7 @@
               {% endif %}
             </span>
             {% endif %}
+            {% include "components/garden-badge.njk" %}
           </div>
           <div class="photo-gallery mt-3">
             {% for img in post.data.photo | head(2) %}
@@ -278,6 +283,7 @@
             {% endif %}
           </span>
           {% endif %}
+          {% include "components/garden-badge.njk" %}
         </div>
       </div>
       {% if showSummary and post.templateContent %}
@@ -308,6 +314,7 @@
           {% endif %}
         </span>
         {% endif %}
+        {% include "components/garden-badge.njk" %}
       </div>
       <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
         {% if post.content and post.content.html %}

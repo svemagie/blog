@@ -48,6 +48,7 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
           {% endif %}
         </span>
         {% endif %}
+        {% include "components/garden-badge.njk" %}
       </div>
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
@@ -77,6 +78,7 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
         Previous
       </span>
       {% endif %}
+      {% include "components/garden-badge.njk" %}
 
       {% if pagination.href.next %}
       <a href="{{ pagination.href.next }}" class="pagination-link" aria-label="Next page">
@@ -89,6 +91,7 @@ permalink: "articles/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNu
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
       </span>
       {% endif %}
+      {% include "components/garden-badge.njk" %}
     </div>
   </nav>
   {% endif %}
