@@ -1,7 +1,7 @@
 ---
 date: 2026-03-12T11:56:07.826Z
 likeOf: https://mastodon.ie/@michaelflanagan/116215956434019328
-category: memex
+category: on/memex
 webmentionResults:
   sent: 1
   failed: 0
@@ -46,7 +46,7 @@ webmentionResults:
 webmentionSent: true
 syndication:
   - https://blog.giersig.eu/likes/f2ca9/
-updated: 2026-03-13T06:21:06.280Z
+updated: 2026-03-15T09:21:35.131Z
 permalink: https://blog.giersig.eu/likes/f2ca9/
 ---
 
