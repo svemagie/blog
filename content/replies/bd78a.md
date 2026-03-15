@@ -1,6 +1,19 @@
 ---
 date: 2026-03-15T12:33:51.277Z
 inReplyTo: https://rmendes.net/notes/2026/03/15/fbb7d
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-15T12:37:10.272Z
+webmentionSent: true
+mpSyndicateTo:
+  - https://blog.giersig.eu/
+updated: 2026-03-15T12:48:42.433Z
 permalink: https://blog.giersig.eu/replies/bd78a/
 ---
 
