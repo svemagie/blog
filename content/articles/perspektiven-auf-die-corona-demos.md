@@ -2,12 +2,23 @@
 date: 2020-08-06T18:00:00.000Z
 title: Perspektiven auf die Corona-Demos
 category:
-  - people
-  - covid19
-  - lang:de
+  - lang/de
+  - on/covid19
 visibility: public
-updated: 2026-03-08T07:50:18.987Z
+updated: 2026-03-15T09:54:04.949Z
 summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 1
+  details:
+    sent: []
+    failed: []
+    skipped:
+      - target: https://de.wikipedia.org/wiki/Fear%2C_Uncertainty_and_Doubt
+        reason: No webmention endpoint found
+  timestamp: 2026-03-09T19:18:11.904Z
+webmentionSent: true
 permalink: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
 ai:
   textLevel: "0"
