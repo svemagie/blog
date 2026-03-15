@@ -1,12 +1,12 @@
 ---
 date: 2026-03-09T23:15:13.793Z
 category:
-  - til
   - smallweb/dev
   - smallweb/indieweb
+  - slashpage/til
 syndication:
   - https://blog.giersig.eu/notes/8ca9b/
-updated: 2026-03-15T09:50:04.139Z
+updated: 2026-03-15T10:37:24.455Z
 webmentionResults:
   sent: 1
   failed: 0
