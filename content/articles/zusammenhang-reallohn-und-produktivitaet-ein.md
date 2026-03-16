@@ -4,6 +4,7 @@ title: Zusammenhang Reallohn und Produktivität - Ein strukturelles Rätsel der 
 summary: Das Paradox des Auseinanderfallens von Reallohn und Produktivität ist ein Indikator für fehlgeschlagene Reflexivität in der zweiten Moderne.
 category: soziologie
 gardenStage: plant
+updated: 2026-03-16T20:58:15.603Z
 mpUrl: https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
 permalink: /articles/zusammenhang-reallohn-und-produktivitaet-ein/
 ai:
@@ -13,7 +14,7 @@ ai:
   # aiDescription: "Optional disclosure about how AI was used"
 ---
 
-Die Frage “Wohin geht die Differenz zwischen Produktivität und Reallöhnen?” treibt mich schon eine lange Zeit um. Es ist schon gar nicht so einfach, dafür valide Zahlen als Grundlage zu finden, schon weil es unterschiedliche Definitionen zu den Begriffen gibt. Dennoch, im Sinne [Thinking in Public](https://blog.giersig.eu/articles/thinking-in-public/) - mache ich die ersten Ideen zur theoretischen Annäherung an das Paradox hier öffentlich und lade ein, mitzudenken und zu recherchieren.
+Die Frage “Wohin geht die Differenz zwischen Produktivität und Reallöhnen?” treibt mich schon eine lange Zeit um. Es ist schon gar nicht so einfach, dafür valide Zahlen als Grundlage zu finden, schon weil es unterschiedliche Definitionen zu den Begriffen gibt. Dennoch, im Geiste von [Thinking in Public](https://blog.giersig.eu/articles/thinking-in-public/), mache ich die ersten Ideen zur theoretischen Annäherung an das Paradox hier öffentlich und lade ein, mitzudenken und zu recherchieren.
 
 ## TL;DR
 
