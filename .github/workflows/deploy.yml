@@ -108,13 +108,14 @@ jobs:
           FUNKWHALE_FETCH_CACHE_DURATION: ${{ secrets.FUNKWHALE_FETCH_CACHE_DURATION }}
           LASTFM_FETCH_CACHE_DURATION: ${{ secrets.LASTFM_FETCH_CACHE_DURATION }}
 
-      - name: Deploy via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: 222
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "_site/*,.env"
-          target: "/usr/local/bastille/jails/web/root/usr/local/www/blog"
-          strip_components: 1
+      - name: Deploy via rsync
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 222 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+          cp .env _site/.env
+          rsync -avz --delete \
+            -e "ssh -p 222" \
+            _site/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/usr/local/bastille/jails/web/root/usr/local/www/blog/
