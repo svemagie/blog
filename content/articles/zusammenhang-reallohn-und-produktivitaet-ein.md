@@ -6,7 +6,7 @@ category:
   - sociology
   - lang/de
 gardenStage: plant
-updated: 2026-03-16T21:18:05.508Z
+updated: 2026-03-16T21:20:55.181Z
 webmentionResults:
   sent: 0
   failed: 0
@@ -17,13 +17,15 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-16T21:03:58.762Z
 webmentionSent: true
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 mpUrl: https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
 permalink: /articles/zusammenhang-reallohn-und-produktivitaet-ein/
 ai:
-  textLevel: "1"
+  textLevel: "0"
   codeLevel: "0"
   # aiTools: "Claude, ChatGPT, Copilot"
-  aiDescription: "AI helped to find possible connections in my Obsidian Vault"
+  aiDescription: "AI helped to find possible connections in my Obsidian Vault."
 ---
 
 Die Frage “Wohin geht die Differenz zwischen Produktivität und Reallöhnen?” treibt mich schon eine lange Zeit um. Es ist schon gar nicht so einfach, dafür valide Zahlen als Grundlage zu finden, schon weil es unterschiedliche Definitionen zu den Begriffen gibt. Dennoch, im Geiste von [Thinking in Public](https://blog.giersig.eu/articles/thinking-in-public/), mache ich die ersten Ideen zur theoretischen Annäherung an das Paradox hier öffentlich und lade ein, mitzudenken und zu recherchieren.
