@@ -6,7 +6,7 @@ category:
   - sociology
   - lang/de
 gardenStage: plant
-updated: 2026-03-16T21:20:55.181Z
+updated: 2026-03-16T21:43:18.077Z
 webmentionResults:
   sent: 0
   failed: 0
@@ -17,8 +17,8 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-16T21:03:58.762Z
 webmentionSent: true
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+syndication:
+  - https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
 mpUrl: https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
 permalink: /articles/zusammenhang-reallohn-und-produktivitaet-ein/
 ai:
