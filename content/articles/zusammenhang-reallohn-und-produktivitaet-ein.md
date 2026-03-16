@@ -2,9 +2,21 @@
 date: 2026-03-16T00:00:00.000Z
 title: Zusammenhang Reallohn und Produktivität - Ein strukturelles Rätsel der Zweiten Moderne
 summary: Das Paradox des Auseinanderfallens von Reallohn und Produktivität ist ein Indikator für fehlgeschlagene Reflexivität in der zweiten Moderne.
-category: soziologie
+category:
+  - sociology
+  - lang/de
 gardenStage: plant
-updated: 2026-03-16T21:02:36.887Z
+updated: 2026-03-16T21:18:05.508Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-16T21:03:58.762Z
+webmentionSent: true
 mpUrl: https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
 permalink: /articles/zusammenhang-reallohn-und-produktivitaet-ein/
 ai:
