@@ -4,22 +4,33 @@ title: Reallohn-Produktivität - Ein strukturelles Rätsel der Zweiten Moderne
 category: soziologie
 gardenStage: plant
 visibility: unlisted
-updated: 2026-03-16T19:53:01.900Z
+updated: 2026-03-16T19:58:38.974Z
 photo:
   - url: /images/75cd63d1-f32c-4134-bf5b-7d171f6e8a5c-1-105-c-reallohn-produktivita-t-2025-11-14.jpg
+    alt: Grafik "Durchschnittliches Wachstum der Arbeitsproduktivität und der Reallöhne zwischen 1951 und 1980"
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-16T19:53:56.345Z
+webmentionSent: true
 mpUrl: https://blog.giersig.eu/photos/reallohn-produktivitaet-ein-strukturelles-raetsel/
 permalink: /photos/reallohn-produktivitaet-ein-strukturelles-raetsel/
 ---
 
 ## TL;DR
 
-**Reallohn-Produktivität** ist nicht nur Ökonomie – es ist ein **Indikator für fehlgeschlagene Reflexivität in der zweiten Moderne**. Das System hat sich transformiert, aber wir haben keine neuen Spielregeln für Verteilung geschaffen. Das Paradox ist nicht technisch lösbar, sondern politisch.
+Das Paradox des Auseinanderfallens von **Reallohn und Produktivität** ist nicht nur Ökonomie, es ist ein **Indikator für fehlgeschlagene Reflexivität in der zweiten Moderne**. Das System hat sich transformiert, aber wir haben keine neuen Spielregeln für Verteilung geschaffen. Das Paradox ist nicht technisch lösbar, sondern politisch.
 
 ## Die zentrale Verknüpfung: Das Paradox der Reflexiven Modernisierung
 
 ![75CD63D1-F32C-4134-BF5B-7D171F6E8A5C_1_105_c-Reallohn-Produktivität-2025-11-14.png](https://blog.giersig.eu/images/75cd63d1-f32c-4134-bf5b-7d171f6e8a5c-1-105-c-reallohn-produktivita-t-2025-11-14.jpg)
 
-Reallohn-Produktivität **Entkopplung**: Seit den 1970ern wächst die Arbeitsproduktivität, aber die Reallöhne stagnieren. Das ist nicht einfach ein ökonomisches Problem – es ist ein **Phänomen der Reflexiven Modernisierung**.
+Reallohn-Produktivität-s**Entkopplung**: Seit den 1970ern wächst die Arbeitsproduktivität, aber die Reallöhne stagnieren. Das ist nicht einfach ein ökonomisches Problem – es ist ein **Phänomen der Reflexiven Modernisierung**.
 
 ### Warum?
 
