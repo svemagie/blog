@@ -630,8 +630,8 @@
     section.setAttribute('aria-label', 'Webmentions');
 
     const header = document.createElement('h2');
-    header.className = 'text-xl font-bold text-surface-900 dark:text-surface-100 mb-6';
-    header.textContent = 'Webmentions (0)';
+    header.className = 'text-lg font-semibold text-surface-700 dark:text-surface-300 mb-6';
+    header.textContent = 'Interactions (0)';
 
     section.appendChild(header);
     webmentionForm.parentNode.insertBefore(section, webmentionForm);
