@@ -4,6 +4,7 @@ title: Reallohn-Produktivität - Ein strukturelles Rätsel der Zweiten Moderne
 category: soziologie
 gardenStage: plant
 visibility: unlisted
+updated: 2026-03-16T19:49:36.278Z
 mpUrl: https://blog.giersig.eu/articles/reallohn-produktivitaet-ein-strukturelles-raetsel/
 permalink: /articles/reallohn-produktivitaet-ein-strukturelles-raetsel/
 ai:
@@ -36,11 +37,10 @@ In der **zweiten Moderne** (Individualisierung, Globalisierung):
 
 Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verhandelt.
 
-* * *
 
 ## Verknüpfungen zu anderen Konzepten
 
-### 1. [[Digitale Entfremdung]] / Alienation 2.0
+### 1. Digitale Entfremdung / Alienation 2.0
 
 **Connection**: Reallohn-Stagnation bei steigender Produktivität ist ein Mechanismus der digitalen Entfremdung:
 
@@ -50,7 +50,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Frage**: Ist das noch Marx’sche Entfremdung oder etwas Neues?
 
-### 2. [[Risikogesellschaft]] (Beck)
+### 2. Risikogesellschaft (Beck)
 
 **Connection**: Die Produktivitätssteigerung ist teilweise **Externalisierung von Risiken**, nicht echter Mehrwert:
 
@@ -60,7 +60,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Reallohn-Stagnation ist die sichtbare Seite der Risikoverlagerung.**
 
-### 3. [[Prekarität]] und neue Klassenformationen
+### 3. Prekarität und neue Klassenformationen
 
 **Connection**: Reallohn-Stagnation + Flexibilisierung = neue Prekarität
 
@@ -70,7 +70,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Das ist eine strukturelle Klassenproblematik der zweiten Moderne.**
 
-### 4. [[Suffizient-Wachstum]] / Post-Growth
+### 4. Suffizient-Wachstum / Post-Growth
 
 **Connection**: Reallohn-Stagnation könnte auch **Symptom eines falschen Produktivitätsbegriffs** sein:
 
@@ -80,7 +80,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Relevante Frage**: Brauchen wir in der zweiten Moderne völlig neue Produktivitätsmetriken?
 
-### 5. [[Macht und Verteilung]]
+### 5. Macht und Verteilung
 
 **Connection**: Das eigentliche Problem ist politisch, nicht technisch
 
@@ -91,9 +91,8 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **In der reflexiven Modernisierung werden alte Machtverhältnisse ins Digitale übersetzt.**
 
-* * *
 
-## Das tiefe Problem: Dekopplung der Reflexion
+## Dekopplung der Reflexion
 
 Beck würde hier sagen: Die **zweite Moderne** hat sich selbst transformiert, aber die **Reflexivität bleibt aus**:
 
@@ -109,13 +108,10 @@ Gesellschaften müssen neu aushandeln:
 *   Wie wird die Automation verteilt (Freizeit vs. Arbeitslosigkeit)?
 *   Welche Produktivität zählt wirklich?
 
-* * *
 
-## Offene Verbindungen im Vault
+## Offene Verbindungen und Fragen
 
-Könnten relevant sein (zum Überprüfen):
-
-*   [[Kapitalismus & Entfremdung]] – Wie hat sich Marx’ Theorie transformiert?
-*   [[Globale Ungleichheit]] – Ist Lohnstagnation im Norden = Lohnsteigerung im Süden?
-*   [[Arbeit & Sinn]] – Wenn Reallohn nicht steigt, muss der Sinn woanders kommen?
-*   [[Technologie & Befreiung]] – Könnte dezentrale Tech (MYOG) neue Verteilungslogiken ermöglichen?
+*   Kapitalismus & Entfremdung – Wie hat sich Marx’ Theorie transformiert?
+*   Globale Ungleichheit – Ist Lohnstagnation im Norden = Lohnsteigerung im Süden?
+*   Arbeit & Sinn – Wenn Reallohn nicht steigt, muss der Sinn woanders kommen?
+*   Technologie & Befreiung – Könnte dezentrale Tech neue Verteilungslogiken ermöglichen?
