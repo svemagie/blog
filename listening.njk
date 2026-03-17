@@ -288,6 +288,9 @@ withSidebar: true
               {% else %}
               {{ listening.track }}
               {% endif %}
+              {% if listening.favorite %}
+              <span class="text-purple-500 ml-1" title="Favorite">&#9829;</span>
+              {% endif %}
             </h3>
             <p class="text-sm text-surface-600 dark:text-surface-400 truncate">{{ listening.artist }}</p>
           </div>

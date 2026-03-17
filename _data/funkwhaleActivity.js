@@ -117,9 +117,18 @@ export default async function () {
       };
     }
 
+    // Mark listenings that appear in favorites
+    const favSet = new Set(
+      (favorites?.favorites || []).map((f) => `${f.track}\0${f.artist}`)
+    );
+    const enrichedListenings = (listenings?.listenings || []).map((l) => ({
+      ...l,
+      favorite: favSet.has(`${l.track}\0${l.artist}`),
+    }));
+
     return {
       nowPlaying: nowPlaying || null,
-      listenings: listenings?.listenings || [],
+      listenings: enrichedListenings,
       favorites: favorites?.favorites || [],
       stats: formattedStats,
       instanceUrl: FUNKWHALE_INSTANCE,
