@@ -151,14 +151,14 @@ withSidebar: true
                 <p x-show="item.description" class="text-sm text-surface-600 dark:text-surface-400 line-clamp-2 mb-2" x-text="item.description"></p>
                 <div class="flex flex-wrap items-center gap-2 text-xs text-surface-600 dark:text-surface-400">
                   <a
-                    :href="item.sourceUrl || getFeedUrl(item.feedId) || item.link"
+                    :href="item.sourceUrl || item.blog?.siteUrl || getFeedUrl(item.feedId) || item.link"
                     class="inline-flex items-center gap-1 px-2 py-0.5 bg-surface-100 dark:bg-surface-700 rounded-full hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
                     target="_blank"
                     rel="noopener"
-                    :title="item.sourceTitle || item.feedTitle"
-                    x-text="truncate(item.sourceTitle || item.feedTitle, 25)"
+                    :title="item.sourceTitle || item.feedTitle || item.blog?.title"
+                    x-text="truncate(item.sourceTitle || item.feedTitle || item.blog?.title, 25)"
                   ></a>
-                  <span x-show="item.author" x-text="'by ' + item.author"></span>
+                  <span x-show="item.author || item.blog?.title" x-text="'by ' + (item.author || item.blog?.title)"></span>
                   <time class="font-mono text-sm" :datetime="item.pubDate" x-text="formatDate(item.pubDate)"></time>
                   <span class="hidden sm:inline" x-show="item.categories?.length">
                     <template x-for="cat in item.categories.slice(0, 3)" :key="cat">
@@ -216,7 +216,7 @@ withSidebar: true
                 </h2>
                 <p x-show="item.description" class="text-sm text-surface-600 dark:text-surface-400 line-clamp-3 mb-3" x-text="item.description"></p>
                 <div class="flex items-center justify-between text-xs text-surface-600 dark:text-surface-400">
-                  <span class="truncate max-w-[60%]" x-text="truncate(item.sourceTitle || item.feedTitle, 20)"></span>
+                  <span class="truncate max-w-[60%]" x-text="truncate(item.sourceTitle || item.feedTitle || item.blog?.title, 20)"></span>
                   <time class="font-mono text-sm" :datetime="item.pubDate" x-text="formatDate(item.pubDate)"></time>
                 </div>
                 <button
@@ -261,14 +261,14 @@ withSidebar: true
                 {# Meta bar #}
                 <div class="flex flex-wrap items-center gap-3 mb-4 text-sm">
                   <a
-                    :href="item.sourceUrl || getFeedUrl(item.feedId) || item.link"
+                    :href="item.sourceUrl || item.blog?.siteUrl || getFeedUrl(item.feedId) || item.link"
                     class="inline-flex items-center gap-2 px-3 py-1 bg-surface-100 dark:bg-surface-700 rounded-full hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
                     target="_blank"
                     rel="noopener"
                   >
-                    <span class="font-medium text-surface-700 dark:text-surface-300" x-text="item.sourceTitle || item.feedTitle"></span>
+                    <span class="font-medium text-surface-700 dark:text-surface-300" x-text="item.sourceTitle || item.feedTitle || item.blog?.title"></span>
                   </a>
-                  <span x-show="item.author" class="text-surface-600 dark:text-surface-400" x-text="'by ' + item.author"></span>
+                  <span x-show="item.author || item.blog?.title" class="text-surface-600 dark:text-surface-400" x-text="'by ' + (item.author || item.blog?.title)"></span>
                   <time :datetime="item.pubDate" class="font-mono text-sm text-surface-600 dark:text-surface-400" x-text="formatDate(item.pubDate, 'long')"></time>
                 </div>
 
