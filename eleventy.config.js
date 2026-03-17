@@ -968,7 +968,7 @@ export default function (eleventyConfig) {
     ].join("");
   });
 
-  // Filter AI-involved posts (ai-text-level > "0" or aiTextLevel > "0")
+  // Filter AI-involved posts (aiTextLevel > "0")
   const getAiMetadata = (data = {}) => {
     const aiMeta = (data && typeof data.ai === "object" && !Array.isArray(data.ai))
       ? data.ai
@@ -977,7 +977,6 @@ export default function (eleventyConfig) {
     const textLevel = String(
       data.aiTextLevel
       ?? data.ai_text_level
-      ?? data["ai-text-level"]
       ?? aiMeta.textLevel
       ?? aiMeta.aiTextLevel
       ?? "0",
@@ -986,7 +985,6 @@ export default function (eleventyConfig) {
     const codeLevel = String(
       data.aiCodeLevel
       ?? data.ai_code_level
-      ?? data["ai-code-level"]
       ?? aiMeta.codeLevel
       ?? aiMeta.aiCodeLevel
       ?? "0",
