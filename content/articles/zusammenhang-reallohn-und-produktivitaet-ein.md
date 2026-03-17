@@ -5,8 +5,9 @@ summary: Das Paradox des Auseinanderfallens von Reallohn und Produktivität ist 
 category:
   - sociology
   - lang/de
+  - on/economy
 gardenStage: plant
-updated: 2026-03-16T21:43:18.077Z
+updated: 2026-03-17T06:26:24.962Z
 webmentionResults:
   sent: 0
   failed: 0
