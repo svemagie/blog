@@ -28,9 +28,15 @@ withBlogSidebar: true
   {% endif %}
 
   <div class="post-meta mb-4 sm:mb-6">
-    <time-difference><time class="dt-published font-mono text-sm" datetime="{{ date.toISOString() }}">
+    <span class="font-mono text-sm">Planted: </span><time-difference><time class="dt-published font-mono text-sm" datetime="{{ date.toISOString() }}">
       {{ date | dateDisplay }}
     </time></time-difference>
+    {% if updated %}
+    <br>
+    <span class="font-mono text-sm">Tended: </span><time-difference><time class="dt-updated font-mono text-sm" datetime="{{ updated | isoDate }}">
+      {{ updated | dateDisplay }}
+    </time></time-difference>
+    {% endif %}
     {% if category | withoutGardenTags %}
     <ul class="post-categories flex flex-wrap gap-2 list-none p-0 m-0" role="list" aria-label="Categories">
       {# Handle both string and array categories #}
@@ -268,7 +274,7 @@ withBlogSidebar: true
       "@id": "{{ site.url }}{{ page.url }}"
     },
     "datePublished": "{{ date.toISOString() }}",
-    "dateModified": "{{ date.toISOString() }}",
+    "dateModified": "{{ (updated | isoDate) if updated else date.toISOString() }}",
     "author": {
       "@type": "Person",
       "name": "{{ site.author.name }}",
