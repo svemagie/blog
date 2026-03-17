@@ -28,29 +28,32 @@ withBlogSidebar: true
   {% endif %}
 
   <div class="post-meta mb-4 sm:mb-6">
-    <span class="font-mono text-sm">Planted: </span><time-difference><time class="dt-published font-mono text-sm" datetime="{{ date.toISOString() }}">
-      {{ date | dateDisplay }}
-    </time></time-difference>
-    {% if updated %}
-    <br>
-    <span class="font-mono text-sm">Tended: </span><time-difference><time class="dt-updated font-mono text-sm" datetime="{{ updated | isoDate }}">
-      {{ updated | dateDisplay }}
-    </time></time-difference>
-    {% endif %}
-    {% if category | withoutGardenTags %}
-    <ul class="post-categories flex flex-wrap gap-2 list-none p-0 m-0" role="list" aria-label="Categories">
-      {# Handle both string and array categories #}
-      {% if category is string %}
-      <li><a href="/categories/{{ category | nestedSlugify }}/" class="p-category">{{ category }}</a></li>
-      {% else %}
-      {% for cat in (category | withoutGardenTags) %}
-      <li><a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a></li>
-      {% endfor %}
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="font-mono text-sm">Planted: </span><time-difference><time class="dt-published font-mono text-sm" datetime="{{ date.toISOString() }}">
+        {{ date | dateDisplay }}
+      </time></time-difference>
+      {% if category | withoutGardenTags %}
+      <ul class="post-categories flex flex-wrap gap-2 list-none p-0 m-0" role="list" aria-label="Categories">
+        {# Handle both string and array categories #}
+        {% if category is string %}
+        <li><a href="/categories/{{ category | nestedSlugify }}/" class="p-category">{{ category }}</a></li>
+        {% else %}
+        {% for cat in (category | withoutGardenTags) %}
+        <li><a href="/categories/{{ cat | nestedSlugify }}/" class="p-category">{{ cat }}</a></li>
+        {% endfor %}
+        {% endif %}
+      </ul>
       {% endif %}
-    </ul>
+      {# Digital Garden stage badge #}
+      {% include "components/garden-badge.njk" %}
+    </div>
+    {% if updated %}
+    <div>
+      <span class="font-mono text-sm">Tended: </span><time-difference><time class="dt-updated font-mono text-sm" datetime="{{ updated | isoDate }}">
+        {{ updated | dateDisplay }}
+      </time></time-difference>
+    </div>
     {% endif %}
-    {# Digital Garden stage badge #}
-    {% include "components/garden-badge.njk" %}
   </div>
 
   {# Bridgy syndication content - controls what gets posted to social networks #}
