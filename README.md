@@ -1,4 +1,4 @@
-# giersig. — personal blog
+# svemagie and so on — personal blog
 
 Personal IndieWeb blog for [blog.giersig.eu](https://blog.giersig.eu), built with [Eleventy](https://www.11ty.dev/) and [IndieKit](https://getindiekit.com/).
 

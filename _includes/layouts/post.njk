@@ -48,7 +48,7 @@ withBlogSidebar: true
       {% include "components/garden-badge.njk" %}
     </div>
     {% if updated %}
-    <div>
+    <div class="flex items-center gap-2">
       <span class="font-mono text-sm">Tended: </span><time-difference><time class="dt-updated font-mono text-sm" datetime="{{ updated | isoDate }}">
         {{ updated | dateDisplay }}
       </time></time-difference>

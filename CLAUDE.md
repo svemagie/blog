@@ -1,7 +1,7 @@
 # CLAUDE.md — svemagie/blog
 
-This is Sven's personal IndieWeb blog at **blog.giersig.eu**.
-Stack: Eleventy 3 · Tailwind CSS 3 · Alpine.js · IndieKit (Micropub) · Cloudron hosting.
+This is svemagie's personal IndieWeb blog at **blog.giersig.eu**.
+Stack: Eleventy 3 · Tailwind CSS 3 · Alpine.js · IndieKit (Micropub) · Self hosting.
 
 The theme lives in a separate repo (`svemagie/blog-eleventy-indiekit`, tracked as the `theme` remote). This repo is the live site and has diverged significantly from that upstream — treat them as related but independent.
 
@@ -74,7 +74,7 @@ All values come from env vars. The `SITE_SOCIAL` env var uses pipe-and-comma enc
 
 1. Push to `main` on `github.com:svemagie/blog`
 2. GitHub Action runs `npm install && npm run build`
-3. Rsync pushes `_site/` to Cloudron server
+3. Rsync pushes `_site/` to Indiekit server
 4. `content/.indiekit/` is excluded from `--delete` to preserve IndieKit state
 
 The build runs with all env vars injected from GitHub Secrets / Cloudron app settings.
