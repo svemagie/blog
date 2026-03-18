@@ -135,14 +135,26 @@ function webmentionsWidget() {
         const wmData = wmRes?.ok ? await wmRes.json() : { children: [] };
         const convData = convRes?.ok ? await convRes.json() : { children: [] };
 
+        // Skip self-interactions from own Bluesky account
+        const isSelfBsky = (item) => {
+          const u = (item.url || '').toLowerCase();
+          const a = ((item.author && item.author.url) || '').toLowerCase();
+          return u.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+                 u.includes('bsky.app/profile/svemagie.bsky.social') ||
+                 a.includes('did:plc:g4utqyolpyb5zpwwodmm3hht') ||
+                 a.includes('bsky.app/profile/svemagie.bsky.social');
+        };
+
         // Merge: conversations items first (richer metadata), then webmentions
         const seen = new Set();
         const merged = [];
         for (const item of (convData.children || [])) {
+          if (isSelfBsky(item)) continue;
           const key = item['wm-id'] || item.url;
           if (key && !seen.has(key)) { seen.add(key); merged.push(item); }
         }
         for (const item of (wmData.children || [])) {
+          if (isSelfBsky(item)) continue;
           const key = item['wm-id'];
           if (!key || seen.has(key)) continue;
           if (item.url && seen.has(item.url)) continue;
