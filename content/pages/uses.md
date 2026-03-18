@@ -3,7 +3,7 @@ date: 2026-03-10T08:52:56.474Z
 title: uses
 summary: My setup for everyday uses.
 category: slashpage/uses
-updated: 2026-03-15T10:10:54.733Z
+updated: 2026-03-18T17:11:17.099Z
 syndication:
   - https://blog.giersig.eu/uses/
 webmentionResults:
@@ -50,28 +50,28 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-11T20:04:43.534Z
 webmentionSent: true
-permalink: https://blog.giersig.eu/uses/
+mpUrl: https://blog.giersig.eu/uses/
+permalink: /uses/
 ---
 
 ## Hardware
 - MacbookAir M3
-- iPhone
-- RaspberryPI running FreeBSD
+- RaspberryPI4 running FreeBSD
 
 
 ## Editor + Terminal
-- VS Code
+- VSCode
 - iTerm2
 - nvim
 
 ## Desktop + Software
-- Obsidian with LYT framework
-- DevonThink
-- Hookmark
+- [Obsidian](https://obsidian.md) with [LYT framework](https://www.linkingyourthinking.com/)
+- [DevonThink](https://www.devontechnologies.com/de/apps/devonthink)
+- [Hookmark](https://hookproductivity.com)
 - homebrew
 
 ## Backup
-- Timemachine
+- TimeMachine
 - Github ;)
 
 ## Camera
