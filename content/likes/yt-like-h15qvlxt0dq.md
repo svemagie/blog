@@ -7,9 +7,9 @@ youtubeVideoId: h15QVLXt0DQ
 youtubeChannel: Barry's Economics
 youtubeThumbnail: https://i.ytimg.com/vi/h15QVLXt0DQ/mqdefault.jpg
 category: on/propaganda
-updated: 2026-03-18T22:23:29.852Z
+updated: 2026-03-18T23:21:27.385Z
 syndication:
-  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mheieauf5w27
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhemv2fugo2k
   - https://blog.giersig.eu/likes/yt-like-h15qvlxt0dq/
 webmentionResults:
   sent: 0
