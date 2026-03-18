@@ -1,8 +1,9 @@
 ---
 date: 2026-03-18T18:28:38.863Z
 category: dev
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+syndication:
+  - https://blog.giersig.eu/notes/0bb9d/
+updated: 2026-03-18T18:30:10.111Z
 mpUrl: https://blog.giersig.eu/notes/0bb9d/
 permalink: /notes/0bb9d/
 ai:
