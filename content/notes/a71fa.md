@@ -28,7 +28,17 @@ location:
 syndicateTo:
   - https://blog.giersig.eu/
   - https://blog.giersig.eu/
-updated: 2026-03-18T05:26:06.891Z
+updated: 2026-03-18T18:51:01.796Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-18T17:33:43.436Z
+webmentionSent: true
 mpUrl: https://blog.giersig.eu/notes/a71fa/
 permalink: /notes/a71fa/
 ai:
