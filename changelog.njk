@@ -155,7 +155,7 @@ function changelogApp() {
 
     async fetchChangelog(days) {
       try {
-        const response = await fetch('/githubapi/api/changelog?days=' + days);
+        const response = await fetch('/github/api/changelog?days=' + days);
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         this.commits = data.commits || [];
