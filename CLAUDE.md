@@ -43,6 +43,9 @@ Posts declare AI involvement level in front matter (e.g. `aiCode: T1/C2`). Rende
 ### Nested tags
 Categories use Obsidian-style path notation (`lang/de`, `tech/programming`). The `nestedSlugify()` function in `eleventy.config.js` preserves `/` separators during slug generation. Slugification is applied per segment.
 
+### Changelog
+`changelog.njk` — public page at `/changelog/` showing development activity. Uses Alpine.js to fetch commits from the IndieKit server's GitHub endpoint (`/github/api/changelog`). Commits are categorised by commit-message prefix (`feat:` → Features, `fix:` → Fixes, `perf:` → Performance, `a11y:` → Accessibility, `docs:` → Docs, everything else → Other). The server-side categorisation is applied by the postinstall patch `patch-endpoint-github-changelog-categories.mjs` in `indiekit-blog`. Tabs, labels, and colours in `changelog.njk` must stay in sync with that patch.
+
 ### Unfurl shortcode
 `{% unfurl url %}` generates a rich link preview card with caching. Cache lives in `.cache/unfurl/`. The shortcode is registered from `lib/unfurl-shortcode.js`.
 
@@ -131,4 +134,5 @@ BLUESKY_HANDLE    svemagie
 - **Webmention self-filter** — own Bluesky account filtered from interactions
 - **Markdown Agents** — clean Markdown served to AI crawlers
 - **Mermaid diagrams** — `eleventy-plugin-mermaid` integrated
+- **Changelog page** — commit-type tabs (feat/fix/perf/a11y/docs) via IndieKit GitHub endpoint
 - **Upstream drift check script** — `scripts/check-upstream-widget-drift.mjs`

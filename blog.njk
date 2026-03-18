@@ -37,6 +37,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     {% set repostedUrl = post.data.repostOf or post.data.repost_of %}
     {% set replyToUrl = post.data.inReplyTo or post.data.in_reply_to %}
     {% set hasPhotos = post.data.photo and post.data.photo.length %}
+    {% set postCW = post.data.contentWarning or post.data.content_warning %}
     {% set borderClass = "" %}
     {% if likedUrl %}
       {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
@@ -86,7 +87,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           <a class="u-like-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ likedUrl }}">
             {{ likedUrl }}
           </a>
-          {% if post.templateContent %}
+          {% if postCW %}
+          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          {% elif post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
@@ -131,7 +134,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           <a class="u-bookmark-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ bookmarkedUrl }}">
             {{ bookmarkedUrl }}
           </a>
-          {% if post.templateContent %}
+          {% if postCW %}
+          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          {% elif post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
@@ -171,7 +176,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           <a class="u-repost-of text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ repostedUrl }}">
             {{ repostedUrl }}
           </a>
-          {% if post.templateContent %}
+          {% if postCW %}
+          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          {% elif post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
@@ -211,9 +218,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           <a class="u-in-reply-to text-xs text-surface-600 dark:text-surface-400 hover:underline break-all mt-1 inline-block" href="{{ replyToUrl }}">
             {{ replyToUrl }}
           </a>
+          {% if postCW %}
+          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          {% else %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
+          {% endif %}
           <a class="u-url text-sm text-sky-700 dark:text-sky-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Reply from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
@@ -246,6 +257,9 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% endif %}
             {% include "components/garden-badge.njk" %}
           </div>
+          {% if postCW %}
+          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          {% else %}
           <div class="photo-gallery mt-3">
             {% for img in post.data.photo %}
               {% set photoUrl = img.url %}
@@ -257,7 +271,8 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
               </a>
             {% endfor %}
           </div>
-          {% if post.templateContent %}
+          {% endif %}
+          {% if not postCW and post.templateContent %}
           <div class="e-content photo-caption prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
@@ -292,12 +307,16 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           {% include "components/garden-badge.njk" %}
         </div>
       </div>
+      {% if postCW %}
+      <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+      {% else %}
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
       </p>
       <a href="{{ post.url }}" class="text-sm text-indigo-700 dark:text-indigo-300 hover:underline mt-3 inline-block">
         Read more &rarr;
       </a>
+      {% endif %}
 
       {% else %}
       {# ── Note card (unchanged) ── #}
@@ -320,9 +339,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         {% endif %}
         {% include "components/garden-badge.njk" %}
       </div>
+      {% if postCW %}
+      <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+      {% else %}
       <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
         {{ post.templateContent | safe }}
       </div>
+      {% endif %}
       <div class="post-footer mt-3">
         <a href="{{ post.url }}" class="text-sm text-teal-700 dark:text-teal-300 hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
           Permalink

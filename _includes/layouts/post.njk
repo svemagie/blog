@@ -80,9 +80,22 @@ withBlogSidebar: true
 
   {% set isInteraction = replyTo or likedUrl or repostedUrl or bookmarkedUrl %}
   {% set hasContent = content and content | striptags | trim %}
+  {% set contentWarning = contentWarning or content_warning %}
+  {% if contentWarning %}
+  <details class="content-warning mb-4">
+    <summary class="cursor-pointer inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 text-sm font-medium">
+      <span>&#9888; {{ contentWarning }}</span>
+      <span class="text-xs text-amber-600 dark:text-amber-400">(click to show)</span>
+    </summary>
+    <div class="e-content prose prose-surface dark:prose-invert max-w-none mt-4{% if isInteraction and hasContent %} border-l-[3px] border-l-accent-500 dark:border-l-accent-400 pl-4{% endif %}">
+      {{ content | safe }}
+    </div>
+  </details>
+  {% else %}
   <div class="e-content prose prose-surface dark:prose-invert max-w-none{% if isInteraction and hasContent %} border-l-[3px] border-l-accent-500 dark:border-l-accent-400 pl-4{% endif %}">
     {{ content | safe }}
   </div>
+  {% endif %}
 
   {# Rich reply context with h-cite microformat #}
   {% include "components/reply-context.njk" %}

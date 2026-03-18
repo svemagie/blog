@@ -1028,7 +1028,7 @@ export default function (eleventyConfig) {
   });
 
   // Helper: exclude drafts from collections
-  const isPublished = (item) => !item.data.draft;
+  const isPublished = (item) => !item.data.draft && !item.data.deleted;
 
   // Helper: exclude unlisted/private visibility from public listing surfaces
   const isListed = (item) => {
