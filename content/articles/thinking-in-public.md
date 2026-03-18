@@ -3,12 +3,18 @@ date: 2026-03-15T00:00:00.000Z
 title: Thinking in Public
 summary: Thinking in Public is the practice of making your thinking process – not just finished conclusions – visible.
 category:
-  - on/phil
+  - indieweb
   - on/memex
-  - smallweb/dev
-  - on/writing
+  - on/philosophy
+  - dev
 gardenStage: plant
 visibility: Public
+updated: 2026-03-18T10:27:52.110Z
+syndication:
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
+  - https://blog.giersig.eu/articles/thinking-in-public/
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 webmentionResults:
   sent: 0
   failed: 0
@@ -17,15 +23,10 @@ webmentionResults:
     sent: []
     failed: []
     skipped: []
-  timestamp: 2026-03-15T08:35:08.793Z
+  timestamp: 2026-03-18T09:02:36.647Z
 webmentionSent: true
-updated: 2026-03-15T12:50:40.573Z
-syndication:
-  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
-  - https://blog.giersig.eu/articles/thinking-in-public/
-mpSyndicateTo:
-  - https://blog.giersig.eu/
-permalink: https://blog.giersig.eu/articles/thinking-in-public/
+mpUrl: https://blog.giersig.eu/articles/thinking-in-public/
+permalink: /articles/thinking-in-public/
 ai:
   textLevel: "1"
   codeLevel: "1"
@@ -85,7 +86,7 @@ Readers don’t just see “the result”, but also “how people actually devel
 
 ## The Garden Metaphor
 
-Implemented with [Digital Garden](app://obsidian.md/Digital%20Garden)  stages:
+Implemented with [Digital Garden](https://maggieappleton.com/garden-history)  stages:
 
 ```
 🌱 #garden/plant      → Brand new thought, just emerged
