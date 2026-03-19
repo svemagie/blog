@@ -1457,10 +1457,28 @@ export default function (eleventyConfig) {
       return;
     }
 
+    // Manifest skip: only prefetch URLs not seen in previous builds.
+    // prefetchUrl() already caches responses on disk; re-calling it for known URLs
+    // is pure overhead. Writing [...urls] (not [...seen, ...newUrls]) intentionally
+    // prunes URLs from soft-deleted posts, preventing unbounded manifest growth.
+    const manifestPath = resolve(__dirname, ".cache", "unfurl-manifest.json");
+    let seen = new Set();
+    try {
+      seen = new Set(JSON.parse(readFileSync(manifestPath, "utf-8")));
+    } catch { /* first build or corrupted manifest — full prefetch */ }
+
+    const newUrls = [...urls].filter(u => !seen.has(u));
+
+    if (newUrls.length === 0) {
+      console.log("[unfurl] No new URLs — skipping prefetch");
+      console.timeEnd("[unfurl] prefetch");
+      return;
+    }
+
     // Free parsed markdown content before starting network-heavy prefetch
     if (typeof global.gc === "function") global.gc();
 
-    const urlArray = [...urls];
+    const urlArray = newUrls;
     const UNFURL_BATCH = 50;
     const totalBatches = Math.ceil(urlArray.length / UNFURL_BATCH);
     console.log(`[unfurl] Pre-fetching ${urlArray.length} interaction URLs (${totalBatches} batches of ${UNFURL_BATCH})...`);
@@ -1477,6 +1495,11 @@ export default function (eleventyConfig) {
       }
     }
     console.log(`[unfurl] Pre-fetch complete.`);
+
+    // Update manifest with full current URL set
+    mkdirSync(resolve(__dirname, ".cache"), { recursive: true });
+    writeFileSync(manifestPath, JSON.stringify([...urls]));
+
     console.timeEnd("[unfurl] prefetch");
   });
 
