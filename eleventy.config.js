@@ -525,6 +525,17 @@ export default function (eleventyConfig) {
     "node_modules/@fontsource/inter/files/inter-latin-*-normal.woff2": "fonts",
     "node_modules/@fontsource/inter/files/inter-latin-ext-*-normal.woff2": "fonts",
   });
+  // Copy Lora font files (latin + latin-ext, weights 400/700, normal + italic)
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@fontsource/lora/files/lora-latin-400-normal.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-ext-400-normal.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-400-italic.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-ext-400-italic.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-700-normal.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-ext-700-normal.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-700-italic.woff2": "fonts",
+    "node_modules/@fontsource/lora/files/lora-latin-ext-700-italic.woff2": "fonts",
+  });
 
   // Watch for content changes
   eleventyConfig.addWatchTarget("./content/");

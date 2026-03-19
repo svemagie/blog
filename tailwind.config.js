@@ -18,7 +18,7 @@ export default {
       colors: {
         // Gruvbox-inspired warm cream/brown — surfaces, text, structure
         surface: {
-          50: "#fbf1c7",
+          50: "#fefcf0",
           100: "#f2e5bc",
           200: "#d5c4a1",
           300: "#bdae93",
@@ -47,6 +47,7 @@ export default {
       },
       fontFamily: {
         serif: [
+          '"Lora"',
           '"Iowan Old Style"',
           '"Palatino Linotype"',
           '"URW Palladio L"',

@@ -21,6 +21,7 @@
     "@atproto/api": "^0.12.0",
     "@chrisburnell/eleventy-cache-webmentions": "^2.2.7",
     "@fontsource/inter": "^5.2.8",
+    "@fontsource/lora": "^5.2.8",
     "@kevingimbel/eleventy-plugin-mermaid": "^3.0.1",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
     "@resvg/resvg-js": "^2.6.2",

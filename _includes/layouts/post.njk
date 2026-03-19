@@ -87,12 +87,12 @@ withBlogSidebar: true
       <span>&#9888; {{ contentWarning }}</span>
       <span class="text-xs text-amber-600 dark:text-amber-400">(click to show)</span>
     </summary>
-    <div class="e-content prose prose-surface dark:prose-invert max-w-none mt-4{% if isInteraction and hasContent %} border-l-[3px] border-l-accent-500 dark:border-l-accent-400 pl-4{% endif %}">
+    <div class="e-content prose prose-lg prose-surface dark:prose-invert max-w-none mt-4{% if isInteraction and hasContent %} border-l-[3px] border-l-accent-500 dark:border-l-accent-400 pl-4{% endif %}">
       {{ content | safe }}
     </div>
   </details>
   {% else %}
-  <div class="e-content prose prose-surface dark:prose-invert max-w-none{% if isInteraction and hasContent %} border-l-[3px] border-l-accent-500 dark:border-l-accent-400 pl-4{% endif %}">
+  <div class="e-content prose prose-lg prose-surface dark:prose-invert max-w-none{% if isInteraction and hasContent %} border-l-[3px] border-l-accent-500 dark:border-l-accent-400 pl-4{% endif %}">
     {{ content | safe }}
   </div>
   {% endif %}
