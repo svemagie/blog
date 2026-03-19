@@ -40,6 +40,14 @@ Posts carry a `gardenStage` front-matter value: `seedling`, `budding`, `cultivat
 ### AI Disclosure
 Posts declare AI involvement level in front matter (e.g. `aiCode: T1/C2`). Rendered as a badge below post content and as a hidden `.p-ai-code-level` span in list cards.
 
+### Soft-delete filtering
+Posts with `deleted: true` in frontmatter are excluded from all Eleventy collections by the `isPublished()` helper in `eleventy.config.js`. This supports ActivityPub soft-delete — when a post is deleted via the AP admin, it disappears from the blog without removing the file.
+
+### Content warnings
+Posts with `contentWarning` or `content_warning` in frontmatter are handled in two contexts:
+- **Single post page** (`post.njk`): Content is wrapped in a collapsible `<details>` element with an amber warning banner. The user must click to reveal the content.
+- **Listing pages** (`blog.njk`): All 7 card types (like, bookmark, repost, reply, photo, article, note) replace content with a warning label + "View post" link. Photo cards also hide the gallery.
+
 ### Nested tags
 Categories use Obsidian-style path notation (`lang/de`, `tech/programming`). The `nestedSlugify()` function in `eleventy.config.js` preserves `/` separators during slug generation. Slugification is applied per segment.
 
@@ -135,4 +143,6 @@ BLUESKY_HANDLE    svemagie
 - **Markdown Agents** — clean Markdown served to AI crawlers
 - **Mermaid diagrams** — `eleventy-plugin-mermaid` integrated
 - **Changelog page** — commit-type tabs (feat/fix/perf/a11y/docs) via IndieKit GitHub endpoint
+- **Soft-delete filtering** — posts with `deleted: true` excluded from all collections
+- **Content-warning support** — collapsible content on post pages, hidden content on listings
 - **Upstream drift check script** — `scripts/check-upstream-widget-drift.mjs`

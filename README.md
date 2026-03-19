@@ -87,6 +87,14 @@ Posts declare their AI involvement level in front matter. The AI badge renders b
 ### Nested tags
 Categories support Obsidian-style path notation (`lang/de`, `tech/programming`). The `nestedSlugify` function in `eleventy.config.js` preserves `/` separators during slug generation.
 
+### Soft-delete filtering
+Posts with `deleted: true` in frontmatter are excluded from all Eleventy collections. This supports ActivityPub soft-delete — the post disappears from the blog without the file being removed.
+
+### Content warnings
+Posts with `contentWarning` or `content_warning` in frontmatter get special handling:
+- **Post page**: content is behind a collapsible `<details>` with an amber warning label
+- **Listing pages**: content (and photos) replaced by a warning + "View post" link
+
 ### Upstream drift check
 ```bash
 npm run check:upstream-widgets         # Report widget drift vs theme remote
