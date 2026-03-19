@@ -7,24 +7,14 @@ category:
   - on/memex
   - on/philosophy
   - dev
-gardenStage: plant
+gardenStage: cultivate
 visibility: Public
-updated: 2026-03-18T10:27:52.110Z
+updated: 2026-03-19T18:55:41.391Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
 mpSyndicateTo:
   - https://blog.giersig.eu/
-webmentionResults:
-  sent: 0
-  failed: 0
-  skipped: 0
-  details:
-    sent: []
-    failed: []
-    skipped: []
-  timestamp: 2026-03-18T09:02:36.647Z
-webmentionSent: true
 mpUrl: https://blog.giersig.eu/articles/thinking-in-public/
 permalink: /articles/thinking-in-public/
 ai:
