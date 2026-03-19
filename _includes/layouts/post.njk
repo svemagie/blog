@@ -27,7 +27,7 @@ withBlogSidebar: true
   </div>
   {% endif %}
 
-  <div class="post-meta mb-4 sm:mb-6 flex flex-col gap-1">
+  <div class="post-meta mb-4 sm:mb-6 flex flex-col gap-1 items-start">
     <div class="flex flex-wrap items-center gap-2">
       <span class="font-mono text-sm">Planted: </span><time-difference><time class="dt-published font-mono text-sm" datetime="{{ date.toISOString() }}">
         {{ date | dateDisplay }}
