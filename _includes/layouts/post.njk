@@ -21,7 +21,7 @@ withBlogSidebar: true
   <h1 class="p-name text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100 mb-3 sm:mb-4">{{ title }}</h1>
   {% else %}
   <div class="flex items-center gap-2 mb-1">
-    <span class="text-sm font-medium text-surface-600 dark:text-surface-400">
+    <span class="text-base font-medium text-surface-600 dark:text-surface-400">
       {% if replyTo %}&#8617; Reply{% elif likedUrl %}&#9829; Like{% elif repostedUrl %}&#9851; Repost{% elif bookmarkedUrl %}&#128278; Bookmark{% else %}&#9998; Note{% endif %}
     </span>
   </div>
