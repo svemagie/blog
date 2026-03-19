@@ -735,7 +735,7 @@
 /* Pagefind UI theme overrides — outside @layer for higher specificity over Pagefind's :root defaults */
 #search .pagefind-ui {
   --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: #b57614;
+  --pagefind-ui-primary: #076678;
   --pagefind-ui-text: #282828;
   --pagefind-ui-background: #fffef5;
   --pagefind-ui-border: #d5c4a1;
@@ -747,7 +747,7 @@
 }
 
 .dark #search .pagefind-ui {
-  --pagefind-ui-primary: #fabd2f;
+  --pagefind-ui-primary: #83a598;
   --pagefind-ui-text: #fbf1c7;
   --pagefind-ui-background: #1d2021;
   --pagefind-ui-border: #504945;
@@ -769,14 +769,14 @@
 }
 
 #search .pagefind-ui__search-input:focus {
-  outline: 2px solid #b57614;
+  outline: 2px solid #076678;
   outline-offset: 2px;
-  border-color: #b57614;
+  border-color: #076678;
 }
 
 .dark #search .pagefind-ui__search-input:focus {
-  outline-color: #fabd2f;
-  border-color: #fabd2f;
+  outline-color: #83a598;
+  border-color: #83a598;
 }
 
 /* Search clear button */
@@ -800,7 +800,7 @@
 
 /* Result links */
 #search .pagefind-ui__result-link {
-  color: #b57614;
+  color: #076678;
 }
 
 #search .pagefind-ui__result-link:hover {
@@ -808,7 +808,7 @@
 }
 
 .dark #search .pagefind-ui__result-link {
-  color: #fabd2f;
+  color: #83a598;
 }
 
 /* Result excerpts */
@@ -832,7 +832,7 @@
 .dark #search .pagefind-ui__result-excerpt mark,
 .dark #search mark {
   background-color: #504945;
-  color: #fabd2f;
+  color: #83a598;
 }
 
 /* Message (result count) */
@@ -846,7 +846,7 @@
 
 /* "Load more" button */
 #search .pagefind-ui__button {
-  color: #b57614;
+  color: #076678;
   background-color: #fffef5;
   border-color: #d5c4a1;
   cursor: pointer;
@@ -854,18 +854,18 @@
 
 #search .pagefind-ui__button:hover {
   background-color: #f2e5bc;
-  border-color: #b57614;
+  border-color: #076678;
 }
 
 .dark #search .pagefind-ui__button {
-  color: #fabd2f;
+  color: #83a598;
   background-color: #1d2021;
   border-color: #504945;
 }
 
 .dark #search .pagefind-ui__button:hover {
   background-color: #282828;
-  border-color: #fabd2f;
+  border-color: #83a598;
 }
 
 /* Filter panel labels */
