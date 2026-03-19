@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+# Add additional rules as needed
+# Example: Disallow: /private/
