@@ -740,14 +740,17 @@ export default function (eleventyConfig) {
     return url.endsWith("/") ? url.slice(0, -1) : url;
   });
 
-  // Hash filter for cache busting - generates MD5 hash of file content
+  // Hash filter for cache busting — memoized (same paths repeat across every page render)
+  const _hashCache = new Map();
+  eleventyConfig.on("eleventy.before", () => { _hashCache.clear(); });
   eleventyConfig.addFilter("hash", (filePath) => {
+    if (_hashCache.has(filePath)) return _hashCache.get(filePath);
     try {
       const fullPath = resolve(__dirname, filePath.startsWith("/") ? `.${filePath}` : filePath);
-      const content = readFileSync(fullPath);
-      return createHash("md5").update(content).digest("hex").slice(0, 8);
+      const result = createHash("md5").update(readFileSync(fullPath)).digest("hex").slice(0, 8);
+      _hashCache.set(filePath, result);
+      return result;
     } catch {
-      // Return timestamp as fallback if file not found
       return Date.now().toString(36);
     }
   });
