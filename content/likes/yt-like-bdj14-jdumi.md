@@ -6,12 +6,11 @@ visibility: public
 youtubeVideoId: Bdj14_jdumI
 youtubeChannel: pagemelt
 youtubeThumbnail: https://i.ytimg.com/vi/Bdj14_jdumI/mqdefault.jpg
-category: dev
+category: indieweb
 mpSyndicateTo:
   - https://bsky.app/profile/svemagie.bsky.social
   - https://blog.giersig.eu/
-updated: 2026-03-19T06:44:17.968Z
-draft: true
+updated: 2026-03-19T21:48:03.541Z
 mpUrl: https://blog.giersig.eu/likes/yt-like-bdj14-jdumi/
 permalink: /likes/yt-like-bdj14-jdumi/
 ---
