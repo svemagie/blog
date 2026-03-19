@@ -7,10 +7,10 @@ youtubeVideoId: Bdj14_jdumI
 youtubeChannel: pagemelt
 youtubeThumbnail: https://i.ytimg.com/vi/Bdj14_jdumI/mqdefault.jpg
 category: indieweb
-mpSyndicateTo:
-  - https://bsky.app/profile/svemagie.bsky.social
-  - https://blog.giersig.eu/
-updated: 2026-03-19T21:48:03.541Z
+updated: 2026-03-19T21:49:49.075Z
+syndication:
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhgya4az5g2x
+  - https://blog.giersig.eu/likes/yt-like-bdj14-jdumi/
 mpUrl: https://blog.giersig.eu/likes/yt-like-bdj14-jdumi/
 permalink: /likes/yt-like-bdj14-jdumi/
 ---
