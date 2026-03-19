@@ -3,7 +3,7 @@ date: 2026-03-08T01:32:42.024Z
 title: now
 summary: a page that tells you what I'm focused on at this point in my life
 category: slashpage/now
-updated: 2026-03-19T16:26:51.989Z
+updated: 2026-03-19T19:02:01.726Z
 webmentionResults:
   sent: 0
   failed: 0
@@ -31,7 +31,7 @@ This page is a [now page](https://nownownow.com/about), you should consider addi
 ## tech
 - Integrating [Obsidian, Digital Garden](https://blog.giersig.eu/articles/thinking-in-public/) and IndieWeb
 - exploring the Indieweb
-- Ghost blogging on [ferals.eu](https://www.ferals.eu)
+- Ghost blogging
 - upgrading skills from FreeBSD 3 to FreeBSD 15
 
 ... and I like ice in the sunhine!
