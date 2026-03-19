@@ -1361,6 +1361,7 @@ export default function (eleventyConfig) {
   // Exit code 2 = batch complete, more work remains → re-spawn.
   // Manifest caching makes incremental builds fast (only new posts get generated).
   eleventyConfig.on("eleventy.before", () => {
+    console.time("[og] image generation");
     const contentDir = resolve(__dirname, "content");
     const cacheDir = resolve(__dirname, ".cache");
     const siteName = process.env.SITE_NAME || "My IndieWeb Blog";
@@ -1413,14 +1414,19 @@ export default function (eleventyConfig) {
     } catch (err) {
       console.error("[og] Image generation failed:", err.message);
     }
+    console.timeEnd("[og] image generation");
   });
 
   // Pre-fetch unfurl metadata for all interaction URLs in content files.
   // Populates the disk cache BEFORE templates render, so the synchronous
   // unfurlCard filter (used in nested includes like recent-posts) has data.
   eleventyConfig.on("eleventy.before", async () => {
+    console.time("[unfurl] prefetch");
     const contentDir = resolve(__dirname, "content");
-    if (!existsSync(contentDir)) return;
+    if (!existsSync(contentDir)) {
+      console.timeEnd("[unfurl] prefetch");
+      return;
+    }
 
     const urls = new Set();
     const interactionProps = [
@@ -1443,7 +1449,10 @@ export default function (eleventyConfig) {
     };
     walk(contentDir);
 
-    if (urls.size === 0) return;
+    if (urls.size === 0) {
+      console.timeEnd("[unfurl] prefetch");
+      return;
+    }
 
     // Free parsed markdown content before starting network-heavy prefetch
     if (typeof global.gc === "function") global.gc();
@@ -1465,6 +1474,7 @@ export default function (eleventyConfig) {
       }
     }
     console.log(`[unfurl] Pre-fetch complete.`);
+    console.timeEnd("[unfurl] prefetch");
   });
 
   // Post-build hook: pagefind indexing + WebSub notification
