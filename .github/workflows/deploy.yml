@@ -32,6 +32,14 @@ jobs:
             "sudo bastille cmd node cat /usr/local/indiekit/content/.indiekit/homepage.json" \
             > content/.indiekit/homepage.json
             
+      - name: Cache Eleventy fetch cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: eleventy-fetch-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            eleventy-fetch-${{ runner.os }}-
+
       - name: Build CSS
         run: npm run build:css
 
