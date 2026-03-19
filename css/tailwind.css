@@ -1062,34 +1062,69 @@ body[data-indiekit-auth="true"] .share-post-btn:hover {
   .garden-badge {
     @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border no-underline transition-colors;
   }
+  /* Garden badge stages — Gruvbox muted palette */
   .garden-badge--plant {
-    @apply bg-green-100 text-green-800 border-green-200 hover:bg-green-200
-           dark:bg-green-900/30 dark:text-green-300 dark:border-green-800 dark:hover:bg-green-900/50;
+    background-color: rgb(152 151 26 / 0.12);
+    color: #79740e;
+    border-color: rgb(152 151 26 / 0.3);
   }
+  .garden-badge--plant:hover { background-color: rgb(152 151 26 / 0.2); }
+  .dark .garden-badge--plant { background-color: rgb(184 187 38 / 0.15); color: #b8bb26; border-color: rgb(184 187 38 / 0.35); }
+  .dark .garden-badge--plant:hover { background-color: rgb(184 187 38 / 0.25); }
+
   .garden-badge--cultivate {
-    @apply bg-emerald-100 text-emerald-800 border-emerald-200 hover:bg-emerald-200
-           dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800 dark:hover:bg-emerald-900/50;
+    background-color: rgb(104 157 106 / 0.12);
+    color: #427b58;
+    border-color: rgb(104 157 106 / 0.3);
   }
+  .garden-badge--cultivate:hover { background-color: rgb(104 157 106 / 0.2); }
+  .dark .garden-badge--cultivate { background-color: rgb(142 192 124 / 0.15); color: #8ec07c; border-color: rgb(142 192 124 / 0.35); }
+  .dark .garden-badge--cultivate:hover { background-color: rgb(142 192 124 / 0.25); }
+
   .garden-badge--evergreen {
-    @apply bg-teal-100 text-teal-800 border-teal-200 hover:bg-teal-200
-           dark:bg-teal-900/30 dark:text-teal-300 dark:border-teal-800 dark:hover:bg-teal-900/50;
+    background-color: rgb(66 123 88 / 0.12);
+    color: #427b58;
+    border-color: rgb(66 123 88 / 0.3);
   }
+  .garden-badge--evergreen:hover { background-color: rgb(66 123 88 / 0.2); }
+  .dark .garden-badge--evergreen { background-color: rgb(142 192 124 / 0.12); color: #8ec07c; border-color: rgb(142 192 124 / 0.3); }
+  .dark .garden-badge--evergreen:hover { background-color: rgb(142 192 124 / 0.22); }
+
   .garden-badge--question {
-    @apply bg-yellow-100 text-yellow-800 border-yellow-200 hover:bg-yellow-200
-           dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-800 dark:hover:bg-yellow-900/50;
+    background-color: rgb(215 153 33 / 0.12);
+    color: #b57614;
+    border-color: rgb(215 153 33 / 0.3);
   }
+  .garden-badge--question:hover { background-color: rgb(215 153 33 / 0.2); }
+  .dark .garden-badge--question { background-color: rgb(250 189 47 / 0.15); color: #fabd2f; border-color: rgb(250 189 47 / 0.35); }
+  .dark .garden-badge--question:hover { background-color: rgb(250 189 47 / 0.25); }
+
   .garden-badge--repot {
-    @apply bg-orange-100 text-orange-800 border-orange-200 hover:bg-orange-200
-           dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800 dark:hover:bg-orange-900/50;
+    background-color: rgb(214 93 14 / 0.12);
+    color: #af3a03;
+    border-color: rgb(214 93 14 / 0.3);
   }
+  .garden-badge--repot:hover { background-color: rgb(214 93 14 / 0.2); }
+  .dark .garden-badge--repot { background-color: rgb(254 128 25 / 0.15); color: #fe8019; border-color: rgb(254 128 25 / 0.35); }
+  .dark .garden-badge--repot:hover { background-color: rgb(254 128 25 / 0.25); }
+
   .garden-badge--revitalize {
-    @apply bg-purple-100 text-purple-800 border-purple-200 hover:bg-purple-200
-           dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800 dark:hover:bg-purple-900/50;
+    background-color: rgb(177 98 134 / 0.12);
+    color: #8f3f71;
+    border-color: rgb(177 98 134 / 0.3);
   }
+  .garden-badge--revitalize:hover { background-color: rgb(177 98 134 / 0.2); }
+  .dark .garden-badge--revitalize { background-color: rgb(211 134 155 / 0.15); color: #d3869b; border-color: rgb(211 134 155 / 0.35); }
+  .dark .garden-badge--revitalize:hover { background-color: rgb(211 134 155 / 0.25); }
+
   .garden-badge--revisit {
-    @apply bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-200
-           dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800 dark:hover:bg-blue-900/50;
+    background-color: rgb(69 133 136 / 0.12);
+    color: #076678;
+    border-color: rgb(69 133 136 / 0.3);
   }
+  .garden-badge--revisit:hover { background-color: rgb(69 133 136 / 0.2); }
+  .dark .garden-badge--revisit { background-color: rgb(131 165 152 / 0.15); color: #83a598; border-color: rgb(131 165 152 / 0.35); }
+  .dark .garden-badge--revisit:hover { background-color: rgb(131 165 152 / 0.25); }
 }
 
 /* Digital Garden index page — post card in garden listing */

@@ -13,7 +13,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     <h1 class="text-2xl sm:text-3xl font-bold text-surface-900 dark:text-surface-100">Blog</h1>
     {% set sparklineSvg = collections.listedPosts | postingFrequency %}
     {% if sparklineSvg %}
-    <div class="flex-1 min-w-0 text-amber-700 dark:text-amber-300">{{ sparklineSvg | safe }}</div>
+    <div class="flex-1 min-w-0 text-[#b57614] dark:text-[#fabd2f]">{{ sparklineSvg | safe }}</div>
     {% endif %}
   </div>
   <p class="text-surface-600 dark:text-surface-400 mb-6 sm:mb-8">
@@ -40,19 +40,19 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
     {% set postCW = post.data.contentWarning or post.data.content_warning %}
     {% set borderClass = "" %}
     {% if likedUrl %}
-      {% set borderClass = "border-l-[3px] border-l-red-400 dark:border-l-red-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#cc241d] dark:border-l-[#fb4934]" %}
     {% elif bookmarkedUrl %}
-      {% set borderClass = "border-l-[3px] border-l-amber-400 dark:border-l-amber-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#d79921] dark:border-l-[#fabd2f]" %}
     {% elif repostedUrl %}
-      {% set borderClass = "border-l-[3px] border-l-green-400 dark:border-l-green-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#98971a] dark:border-l-[#b8bb26]" %}
     {% elif replyToUrl %}
-      {% set borderClass = "border-l-[3px] border-l-sky-400 dark:border-l-sky-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#689d6a] dark:border-l-[#8ec07c]" %}
     {% elif hasPhotos %}
-      {% set borderClass = "border-l-[3px] border-l-purple-400 dark:border-l-purple-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#b16286] dark:border-l-[#d3869b]" %}
     {% elif post.data.title %}
-      {% set borderClass = "border-l-[3px] border-l-indigo-400 dark:border-l-indigo-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#458588] dark:border-l-[#83a598]" %}
     {% else %}
-      {% set borderClass = "border-l-[3px] border-l-teal-400 dark:border-l-teal-500" %}
+      {% set borderClass = "border-l-[3px] border-l-[#427b58] dark:border-l-[#8ec07c]" %}
     {% endif %}
     <li class="h-entry post-card {{ borderClass }}">
 
@@ -60,13 +60,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Like card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-[#cc241d] dark:text-[#fb4934]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-red-700 dark:text-red-300">Liked</span>
+            <span class="font-medium text-[#9d0006] dark:text-[#fb4934]">Liked</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -88,13 +88,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ likedUrl }}
           </a>
           {% if postCW %}
-          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
           {% elif post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-red-700 dark:text-red-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Like from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-[#9d0006] dark:text-[#fb4934] hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Like from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -102,13 +102,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Bookmark card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-[#d79921] dark:text-[#fabd2f]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-amber-700 dark:text-amber-300">Bookmarked</span>
+            <span class="font-medium text-[#b57614] dark:text-[#fabd2f]">Bookmarked</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -127,7 +127,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
           </div>
           {% if post.data.title %}
           <h2 class="p-name text-lg font-semibold text-surface-900 dark:text-surface-100 mt-2">
-            <a class="hover:text-amber-600 dark:hover:text-amber-400" href="{{ post.url }}">{{ post.data.title }}</a>
+            <a class="hover:text-[#b57614] dark:hover:text-[#d79921]" href="{{ post.url }}">{{ post.data.title }}</a>
           </h2>
           {% endif %}
           {% unfurl bookmarkedUrl %}
@@ -135,13 +135,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ bookmarkedUrl }}
           </a>
           {% if postCW %}
-          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
           {% elif post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-amber-700 dark:text-amber-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Bookmark from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-[#b57614] dark:text-[#fabd2f] hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Bookmark from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -149,13 +149,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Repost card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-[#98971a] dark:text-[#b8bb26]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-green-700 dark:text-green-300">Reposted</span>
+            <span class="font-medium text-[#79740e] dark:text-[#b8bb26]">Reposted</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -177,13 +177,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ repostedUrl }}
           </a>
           {% if postCW %}
-          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
           {% elif post.templateContent %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-green-700 dark:text-green-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Repost from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-[#79740e] dark:text-[#b8bb26] hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Repost from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -191,13 +191,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Reply card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-[#689d6a] dark:text-[#8ec07c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-sky-700 dark:text-sky-300">In reply to</span>
+            <span class="font-medium text-[#427b58] dark:text-[#8ec07c]">In reply to</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -219,13 +219,13 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ replyToUrl }}
           </a>
           {% if postCW %}
-          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
           {% else %}
           <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-sky-700 dark:text-sky-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Reply from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-[#427b58] dark:text-[#8ec07c] hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Reply from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -233,14 +233,14 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Photo card ── #}
       <div class="post-header flex items-start gap-3">
         <div class="flex-shrink-0 mt-1">
-          <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-[#b16286] dark:text-[#d3869b]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
         </div>
         <div class="flex-1 min-w-0">
           <div class="post-meta">
-            <span class="font-medium text-purple-700 dark:text-purple-300">Photo</span>
+            <span class="font-medium text-[#8f3f71] dark:text-[#d3869b]">Photo</span>
             <time-difference><time class="dt-published font-mono text-sm" datetime="{{ post.date | isoDate }}">
               {{ post.date | dateDisplay }}
             </time></time-difference>
@@ -258,7 +258,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {% include "components/garden-badge.njk" %}
           </div>
           {% if postCW %}
-          <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+          <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
           {% else %}
           <div class="photo-gallery mt-3">
             {% for img in post.data.photo %}
@@ -277,7 +277,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
             {{ post.templateContent | safe }}
           </div>
           {% endif %}
-          <a class="u-url text-sm text-purple-700 dark:text-purple-300 hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Photo from ' + (post.date | dateDisplay)) }}">Permalink</a>
+          <a class="u-url text-sm text-[#8f3f71] dark:text-[#d3869b] hover:underline mt-3 inline-block" href="{{ post.url }}" aria-label="Permalink: {{ post.data.title or ('Photo from ' + (post.date | dateDisplay)) }}">Permalink</a>
         </div>
       </div>
 
@@ -285,7 +285,7 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
       {# ── Article card (unchanged) ── #}
       <div class="post-header">
         <h2 class="text-xl font-semibold mb-1">
-          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-indigo-700 dark:hover:text-indigo-300" href="{{ post.url }}">
+          <a class="p-name u-url text-surface-900 dark:text-surface-100 hover:text-[#076678] dark:hover:text-[#83a598]" href="{{ post.url }}">
             {{ post.data.title }}
           </a>
         </h2>
@@ -308,12 +308,12 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         </div>
       </div>
       {% if postCW %}
-      <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+      <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
       {% else %}
       <p class="p-summary text-surface-700 dark:text-surface-300 mt-3">
         {{ post.templateContent | striptags | truncate(250) }}
       </p>
-      <a href="{{ post.url }}" class="text-sm text-indigo-700 dark:text-indigo-300 hover:underline mt-3 inline-block">
+      <a href="{{ post.url }}" class="text-sm text-[#458588] dark:text-[#83a598] hover:underline mt-3 inline-block">
         Read more &rarr;
       </a>
       {% endif %}
@@ -340,14 +340,14 @@ permalink: "blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber
         {% include "components/garden-badge.njk" %}
       </div>
       {% if postCW %}
-      <p class="mt-3 text-sm text-amber-700 dark:text-amber-300">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
+      <p class="mt-3 text-sm text-[#b57614] dark:text-[#fabd2f]">&#9888; {{ postCW }} — <a href="{{ post.url }}" class="underline">View post</a></p>
       {% else %}
       <div class="e-content prose dark:prose-invert prose-sm mt-3 max-w-none">
         {{ post.templateContent | safe }}
       </div>
       {% endif %}
       <div class="post-footer mt-3">
-        <a href="{{ post.url }}" class="text-sm text-teal-700 dark:text-teal-300 hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
+        <a href="{{ post.url }}" class="text-sm text-[#427b58] dark:text-[#8ec07c] hover:underline" aria-label="Permalink: {{ post.data.title or ('Note from ' + (post.date | dateDisplay)) }}">
           Permalink
         </a>
       </div>
