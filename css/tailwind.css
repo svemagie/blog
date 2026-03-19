@@ -457,7 +457,7 @@
 
   /* Widget cards */
   .widget {
-    @apply p-4 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden;
+    @apply p-4 bg-surface-100 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden;
   }
 
   .widget-title {
@@ -494,7 +494,7 @@
 
   /* Post cards */
   .post-card {
-    @apply p-5 bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden;
+    @apply p-5 bg-surface-100 dark:bg-surface-800 rounded-lg border border-surface-200 dark:border-surface-700 shadow-sm overflow-hidden;
   }
 
   .post-header {
@@ -737,7 +737,7 @@
   --pagefind-ui-scale: 1;
   --pagefind-ui-primary: #076678;
   --pagefind-ui-text: #282828;
-  --pagefind-ui-background: #fefcf0;
+  --pagefind-ui-background: #fffef5;
   --pagefind-ui-border: #d5c4a1;
   --pagefind-ui-tag: #f2e5bc;
   --pagefind-ui-border-width: 1px;
@@ -756,7 +756,7 @@
 
 /* Search input */
 #search .pagefind-ui__search-input {
-  background-color: #fefcf0;
+  background-color: #fffef5;
   color: #282828;
   border-color: #d5c4a1;
   font-weight: 400;
@@ -782,7 +782,7 @@
 /* Search clear button */
 #search .pagefind-ui__search-clear {
   color: #665c54;
-  background-color: #fefcf0;
+  background-color: #fffef5;
 }
 
 .dark #search .pagefind-ui__search-clear {
@@ -847,7 +847,7 @@
 /* "Load more" button */
 #search .pagefind-ui__button {
   color: #076678;
-  background-color: #fefcf0;
+  background-color: #fffef5;
   border-color: #d5c4a1;
   cursor: pointer;
 }

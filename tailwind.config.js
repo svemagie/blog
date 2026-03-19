@@ -18,7 +18,7 @@ export default {
       colors: {
         // Gruvbox-inspired warm cream/brown — surfaces, text, structure
         surface: {
-          50: "#fefcf0",
+          50: "#fffef5",
           100: "#f2e5bc",
           200: "#d5c4a1",
           300: "#bdae93",
@@ -80,6 +80,12 @@ export default {
           css: {
             "--tw-prose-links": theme("colors.accent.500"),
             maxWidth: "none",
+          },
+        },
+        lg: {
+          css: {
+            fontSize: "1.175rem",
+            lineHeight: "1.8",
           },
         },
         invert: {

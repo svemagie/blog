@@ -5,14 +5,14 @@
 body{margin:0;font-family:"Lora","Iowan Old Style","Palatino Linotype","URW Palladio L",P052,serif;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
 /* Dark mode base — Gruvbox-inspired warm palette */
-body{background-color:#fefcf0;color:#282828}
+body{background-color:#fffef5;color:#282828}
 .dark body{background-color:#1d2021;color:#fbf1c7}
 
 /* Container */
 .container{max-width:64rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
 
 /* Header — sticky, visible immediately */
-.site-header{background-color:#fefcf0;border-bottom:1px solid #d5c4a1;padding-top:1rem;padding-bottom:1rem;position:sticky;top:0;z-index:50}
+.site-header{background-color:#fffef5;border-bottom:1px solid #d5c4a1;padding-top:1rem;padding-bottom:1rem;position:sticky;top:0;z-index:50}
 .dark .site-header{background-color:#282828;border-bottom-color:#504945}
 .header-container{display:flex;align-items:center;justify-content:space-between}
 .site-title{font-size:1.25rem;font-weight:700;color:#282828;text-decoration:none}
