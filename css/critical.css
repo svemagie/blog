@@ -2,30 +2,30 @@
 /* Covers: layout shell, header, dark mode toggle, font display, basic typography */
 
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:"Iowan Old Style","Palatino Linotype","URW Palladio L",P052,serif;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
-/* Dark mode base — warm stone palette */
-body{background-color:#faf8f5;color:#1c1b19}
-.dark body{background-color:#0f0e0d;color:#faf8f5}
+/* Dark mode base — Gruvbox-inspired warm palette */
+body{background-color:#fbf1c7;color:#282828}
+.dark body{background-color:#1d2021;color:#fbf1c7}
 
 /* Container */
 .container{max-width:64rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
 
 /* Header — sticky, visible immediately */
-.site-header{background-color:#faf8f5;border-bottom:1px solid #e8e5df;padding-top:1rem;padding-bottom:1rem;position:sticky;top:0;z-index:50}
-.dark .site-header{background-color:#1c1b19;border-bottom-color:#3f3b35}
+.site-header{background-color:#fbf1c7;border-bottom:1px solid #d5c4a1;padding-top:1rem;padding-bottom:1rem;position:sticky;top:0;z-index:50}
+.dark .site-header{background-color:#282828;border-bottom-color:#504945}
 .header-container{display:flex;align-items:center;justify-content:space-between}
-.site-title{font-size:1.25rem;font-weight:700;color:#1c1b19;text-decoration:none}
-.dark .site-title{color:#faf8f5}
+.site-title{font-size:1.25rem;font-weight:700;color:#282828;text-decoration:none}
+.dark .site-title{color:#fbf1c7}
 
 /* Header actions — hidden on mobile */
 .header-actions{display:none}
 @media(min-width:768px){.header-actions{display:flex;align-items:center;gap:1rem}}
 
 /* Mobile menu toggle */
-.menu-toggle{display:block;padding:0.5rem;border-radius:0.5rem;background:none;border:none;color:#5c5750;cursor:pointer}
+.menu-toggle{display:block;padding:0.5rem;border-radius:0.5rem;background:none;border:none;color:#665c54;cursor:pointer}
 @media(min-width:768px){.menu-toggle{display:none}}
-.dark .menu-toggle{color:#a09a90}
+.dark .menu-toggle{color:#a89984}
 
 /* Hidden utility */
 .hidden{display:none!important}
@@ -48,42 +48,46 @@ main.container{padding-top:1.5rem;padding-bottom:1.5rem}
 /* Reserve sidebar space on desktop to prevent CLS when Alpine.js hydrates collapsible widgets */
 @media(min-width:1024px){.sidebar{min-height:600px}}
 
-/* Font faces — in critical CSS so fonts begin downloading immediately.
+/* Font faces — keep Inter available for UI elements that use font-sans.
    font-display:optional prevents FOUT/CLS: font either loads in time or fallback is kept. */
 @font-face{font-family:'Inter';font-style:normal;font-display:optional;font-weight:400;src:url(/fonts/inter-latin-400-normal.woff2) format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-display:optional;font-weight:600;src:url(/fonts/inter-latin-600-normal.woff2) format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-display:optional;font-weight:700;src:url(/fonts/inter-latin-700-normal.woff2) format('woff2')}
 
-/* Basic typography — prevent FOUT */
-h1,h2,h3,h4{margin:0;line-height:1.25}
-a{color:#b45309}
-.dark a{color:#fbbf24}
+/* Basic typography */
+h1,h2,h3,h4{margin:0;line-height:1.25;font-weight:900}
+a{color:#076678}
+.dark a{color:#83a598}
 
 /* Prevent flash of unstyled content for nav */
 .site-nav{display:flex;align-items:center;gap:1rem}
-.site-nav>a,.site-nav .nav-dropdown-trigger{color:#5c5750;text-decoration:none;padding-top:0.5rem;padding-bottom:0.5rem}
-.dark .site-nav>a,.dark .site-nav .nav-dropdown-trigger{color:#a09a90}
+.site-nav>a,.site-nav .nav-dropdown-trigger{color:#665c54;text-decoration:none;padding-top:0.5rem;padding-bottom:0.5rem}
+.dark .site-nav>a,.dark .site-nav .nav-dropdown-trigger{color:#a89984}
 
 /* Prevent FOUC — constrain images and SVG icons before Tailwind loads */
 img{max-width:100%;height:auto}
 svg:not(:root):not([width]){width:1.25rem;height:1.25rem}
 
 /* Focus indicators — visible in critical CSS before Tailwind loads */
-a:focus-visible{outline:2px solid #b45309;outline-offset:2px;border-radius:2px}
-.dark a:focus-visible{outline-color:#fbbf24}
-button:focus-visible,[type="button"]:focus-visible{outline:2px solid #b45309;outline-offset:2px;border-radius:4px}
-.dark button:focus-visible,.dark [type="button"]:focus-visible{outline-color:#fbbf24}
+a:focus-visible{outline:2px solid #076678;outline-offset:2px;border-radius:2px}
+.dark a:focus-visible{outline-color:#83a598}
+button:focus-visible,[type="button"]:focus-visible{outline:2px solid #076678;outline-offset:2px;border-radius:4px}
+.dark button:focus-visible,.dark [type="button"]:focus-visible{outline-color:#83a598}
 
 /* Skip link */
-.skip-link{position:absolute;top:-100%;left:0;z-index:100;background:#b45309;color:#fff;padding:0.5rem 1rem;font-weight:600;text-decoration:none}
+.skip-link{position:absolute;top:-100%;left:0;z-index:100;background:#076678;color:#fbf1c7;padding:0.5rem 1rem;font-weight:600;text-decoration:none}
 .skip-link:focus{top:0;outline:none}
+
+/* Selection colors — Gruvbox orange highlight */
+::selection{background:#d65d0e;color:#fbf1c7}
+.dark ::selection{background:#fe8019;color:#1d2021}
 
 /* Skeleton loader — visible until Tailwind stylesheet loads */
 html.loading main.container>.page-content{display:none}
 html:not(.loading) .page-skeleton{display:none}
 @keyframes skel-pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.skel-bone{background:#e8e5df;border-radius:.5rem;animation:skel-pulse 1.5s ease-in-out infinite}
-.dark .skel-bone{background:#3f3b35}
+.skel-bone{background:#d5c4a1;border-radius:.5rem;animation:skel-pulse 1.5s ease-in-out infinite}
+.dark .skel-bone{background:#504945}
 .skel-circle{border-radius:50%}
 
 /* Reduced motion — disable animations for users who prefer it */

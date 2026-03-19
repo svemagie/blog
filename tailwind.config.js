@@ -16,36 +16,43 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warm stone — surfaces, text, structure
+        // Gruvbox-inspired warm cream/brown — surfaces, text, structure
         surface: {
-          50: "#faf8f5",
-          100: "#f4f2ee",
-          200: "#e8e5df",
-          300: "#d5d0c8",
-          400: "#a09a90",
-          500: "#7a746a",
-          600: "#5c5750",
-          700: "#3f3b35",
-          800: "#2a2722",
-          900: "#1c1b19",
-          950: "#0f0e0d",
+          50: "#fbf1c7",
+          100: "#f2e5bc",
+          200: "#d5c4a1",
+          300: "#bdae93",
+          400: "#a89984",
+          500: "#7c6f64",
+          600: "#665c54",
+          700: "#504945",
+          800: "#3c3836",
+          900: "#282828",
+          950: "#1d2021",
         },
-        // Warm amber — default interactive, CTAs, focus rings
+        // Gruvbox blue — links, interactive, CTAs, focus rings
         accent: {
-          50: "#fffbeb",
-          100: "#fef3c7",
-          200: "#fde68a",
-          300: "#fcd34d",
-          400: "#fbbf24",
-          500: "#f59e0b",
-          600: "#d97706",
-          700: "#b45309",
-          800: "#92400e",
-          900: "#78350f",
-          950: "#451a03",
+          50: "#e8f4f6",
+          100: "#c8dfe4",
+          200: "#97c5cf",
+          300: "#6aabb9",
+          400: "#458588",
+          500: "#076678",
+          600: "#065a6b",
+          700: "#054d5c",
+          800: "#04404d",
+          900: "#03333e",
+          950: "#022730",
         },
       },
       fontFamily: {
+        serif: [
+          '"Iowan Old Style"',
+          '"Palatino Linotype"',
+          '"URW Palladio L"',
+          "P052",
+          "serif",
+        ],
         sans: [
           '"Inter"',
           "system-ui",
@@ -70,7 +77,7 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            "--tw-prose-links": theme("colors.accent.600"),
+            "--tw-prose-links": theme("colors.accent.500"),
             maxWidth: "none",
           },
         },

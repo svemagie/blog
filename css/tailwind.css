@@ -103,10 +103,10 @@
   }
 }
 
-/* Body background — warm stone canvas */
+/* Body — Gruvbox-inspired warm cream canvas with serif typography */
 @layer base {
   body {
-    @apply bg-surface-50 dark:bg-surface-950 text-surface-900 dark:text-surface-100;
+    @apply bg-surface-50 dark:bg-surface-950 text-surface-900 dark:text-surface-100 font-serif;
   }
 
   /* P1: Date typography — all <time> elements get monospace for technical texture */
@@ -118,7 +118,7 @@
   button:focus-visible,
   [role="button"]:focus-visible,
   summary:focus-visible {
-    @apply outline-none ring-2 ring-amber-500/70 ring-offset-2 ring-offset-surface-50 rounded-sm;
+    @apply outline-none ring-2 ring-accent-400/70 ring-offset-2 ring-offset-surface-50 rounded-sm;
   }
 
   .dark button:focus-visible,
@@ -130,11 +130,11 @@
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    @apply outline-none ring-2 ring-amber-500/70 border-transparent;
+    @apply outline-none ring-2 ring-accent-400/70 border-transparent;
   }
 
   a:focus-visible {
-    @apply outline-none ring-2 ring-amber-500/70 ring-offset-1 ring-offset-surface-50 rounded-sm;
+    @apply outline-none ring-2 ring-accent-400/70 ring-offset-1 ring-offset-surface-50 rounded-sm;
   }
 
   .dark a:focus-visible {
@@ -669,72 +669,72 @@
 /* Pagefind UI theme overrides — outside @layer for higher specificity over Pagefind's :root defaults */
 #search .pagefind-ui {
   --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: #b45309;
-  --pagefind-ui-text: #1c1b19;
-  --pagefind-ui-background: #faf8f5;
-  --pagefind-ui-border: #e8e5df;
-  --pagefind-ui-tag: #f4f2ee;
+  --pagefind-ui-primary: #076678;
+  --pagefind-ui-text: #282828;
+  --pagefind-ui-background: #fbf1c7;
+  --pagefind-ui-border: #d5c4a1;
+  --pagefind-ui-tag: #f2e5bc;
   --pagefind-ui-border-width: 1px;
   --pagefind-ui-border-radius: 8px;
   --pagefind-ui-image-border-radius: 8px;
-  --pagefind-ui-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pagefind-ui-font: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, serif;
 }
 
 .dark #search .pagefind-ui {
-  --pagefind-ui-primary: #fbbf24;
-  --pagefind-ui-text: #faf8f5;
-  --pagefind-ui-background: #0f0e0d;
-  --pagefind-ui-border: #5c5750;
-  --pagefind-ui-tag: #2a2722;
+  --pagefind-ui-primary: #83a598;
+  --pagefind-ui-text: #fbf1c7;
+  --pagefind-ui-background: #1d2021;
+  --pagefind-ui-border: #504945;
+  --pagefind-ui-tag: #3c3836;
 }
 
 /* Search input */
 #search .pagefind-ui__search-input {
-  background-color: #faf8f5;
-  color: #1c1b19;
-  border-color: #e8e5df;
+  background-color: #fbf1c7;
+  color: #282828;
+  border-color: #d5c4a1;
   font-weight: 400;
 }
 
 .dark #search .pagefind-ui__search-input {
-  background-color: #1c1b19;
-  color: #faf8f5;
-  border-color: #5c5750;
+  background-color: #282828;
+  color: #fbf1c7;
+  border-color: #504945;
 }
 
 #search .pagefind-ui__search-input:focus {
-  outline: 2px solid #d97706;
+  outline: 2px solid #076678;
   outline-offset: 2px;
-  border-color: #d97706;
+  border-color: #076678;
 }
 
 .dark #search .pagefind-ui__search-input:focus {
-  outline-color: #fbbf24;
-  border-color: #fbbf24;
+  outline-color: #83a598;
+  border-color: #83a598;
 }
 
 /* Search clear button */
 #search .pagefind-ui__search-clear {
-  color: #5c5750;
-  background-color: #faf8f5;
+  color: #665c54;
+  background-color: #fbf1c7;
 }
 
 .dark #search .pagefind-ui__search-clear {
-  color: #a09a90;
-  background-color: #1c1b19;
+  color: #a89984;
+  background-color: #282828;
 }
 
 #search .pagefind-ui__search-clear:hover {
-  color: #1c1b19;
+  color: #282828;
 }
 
 .dark #search .pagefind-ui__search-clear:hover {
-  color: #faf8f5;
+  color: #fbf1c7;
 }
 
 /* Result links */
 #search .pagefind-ui__result-link {
-  color: #b45309;
+  color: #076678;
 }
 
 #search .pagefind-ui__result-link:hover {
@@ -742,64 +742,64 @@
 }
 
 .dark #search .pagefind-ui__result-link {
-  color: #fbbf24;
+  color: #83a598;
 }
 
 /* Result excerpts */
 #search .pagefind-ui__result-excerpt {
-  color: #5c5750;
+  color: #665c54;
 }
 
 .dark #search .pagefind-ui__result-excerpt {
-  color: #a09a90;
+  color: #a89984;
 }
 
 /* Highlighted search terms in results */
 #search .pagefind-ui__result-excerpt mark,
 #search mark {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: #f2e5bc;
+  color: #9d0006;
   padding: 0.1em 0.2em;
   border-radius: 2px;
 }
 
 .dark #search .pagefind-ui__result-excerpt mark,
 .dark #search mark {
-  background-color: #78350f;
-  color: #fde68a;
+  background-color: #504945;
+  color: #fabd2f;
 }
 
 /* Message (result count) */
 #search .pagefind-ui__message {
-  color: #5c5750;
+  color: #665c54;
 }
 
 .dark #search .pagefind-ui__message {
-  color: #a09a90;
+  color: #a89984;
 }
 
 /* "Load more" button */
 #search .pagefind-ui__button {
-  color: #b45309;
-  background-color: #faf8f5;
-  border-color: #e8e5df;
+  color: #076678;
+  background-color: #fbf1c7;
+  border-color: #d5c4a1;
   cursor: pointer;
 }
 
 #search .pagefind-ui__button:hover {
-  background-color: #fffbeb;
-  border-color: #b45309;
+  background-color: #f2e5bc;
+  border-color: #076678;
 }
 
 .dark #search .pagefind-ui__button {
-  color: #fbbf24;
-  background-color: #0f0e0d;
-  border-color: #3f3b35;
+  color: #83a598;
+  background-color: #1d2021;
+  border-color: #504945;
 }
 
 .dark #search .pagefind-ui__button:hover {
-  background-color: #1c1b19;
-  border-color: #fbbf24;
+  background-color: #282828;
+  border-color: #83a598;
 }
 
 /* Filter panel labels */

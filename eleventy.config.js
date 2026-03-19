@@ -161,12 +161,12 @@ export default function (eleventyConfig) {
     dayBoxTitle: true,
     selectorLight: ":root",
     selectorDark: ".dark",
-    boxColorLight: "#e7e5e4",      // surface-200 (warm stone)
-    highlightColorLight: "#d97706", // amber-600 (accent)
-    textColorLight: "#1c1917",      // surface-900
-    boxColorDark: "#292524",        // surface-800
-    highlightColorDark: "#fbbf24",  // amber-400
-    textColorDark: "#fafaf9",       // surface-50
+    boxColorLight: "#d5c4a1",       // surface-200 (gruvbox)
+    highlightColorLight: "#076678", // gruvbox blue (accent)
+    textColorLight: "#282828",      // surface-900
+    boxColorDark: "#3c3836",        // surface-800
+    highlightColorDark: "#83a598",  // gruvbox blue light
+    textColorDark: "#fbf1c7",       // surface-50
   });
 
   // JSON encode filter for JSON feed
