@@ -18,8 +18,8 @@ export default {
       colors: {
         // Gruvbox-inspired warm cream/brown — surfaces, text, structure
         surface: {
-          50: "#fffef5",
-          100: "#f2e5bc",
+          50: "#faf8f4",
+          100: "#f0ebe0",
           200: "#d5c4a1",
           300: "#bdae93",
           400: "#a89984",
