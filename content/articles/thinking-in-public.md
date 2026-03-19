@@ -9,7 +9,7 @@ category:
   - dev
 gardenStage: cultivate
 visibility: Public
-updated: 2026-03-19T18:55:41.391Z
+updated: 2026-03-19T21:39:32.950Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
@@ -18,7 +18,7 @@ mpSyndicateTo:
 mpUrl: https://blog.giersig.eu/articles/thinking-in-public/
 permalink: /articles/thinking-in-public/
 ai:
-  textLevel: "1"
+  textLevel: "0"
   codeLevel: "1"
   aiTools: "Claude"
   aiDescription: "Claude read/edited my Changelog and helped me to compile this Note as an editorial assistant"
