@@ -136,7 +136,10 @@
   {# CSS is synchronous (Leaflet requires CSS before map init); JS is non-deferred (inline init script runs synchronously in body) #}
   {% if leafletMap %}
   <link rel="stylesheet" href="/css/leaflet.css?v={{ '/css/leaflet.css' | hash }}">
+  <link rel="stylesheet" href="/css/markercluster.css?v={{ '/css/markercluster.css' | hash }}">
+  <link rel="stylesheet" href="/css/markercluster.default.css?v={{ '/css/markercluster.default.css' | hash }}">
   <script src="/js/vendor/leaflet.js?v={{ '/js/vendor/leaflet.js' | hash }}"></script>
+  <script src="/js/vendor/leaflet.markercluster.js?v={{ '/js/vendor/leaflet.markercluster.js' | hash }}"></script>
   {% endif %}
 </head>
 <body{% if pagefindIgnore %} data-pagefind-ignore="all"{% endif %}>

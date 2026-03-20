@@ -43,6 +43,7 @@ leafletMap: true
       function escHtml(s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       }
+      var cluster = L.markerClusterGroup({ maxClusterRadius: 40 });
       var markers = checkinPoints.map(function(p) {
         var safeName = escHtml(p.name);
         var safeUrl = (p.url && p.url.indexOf('https://') === 0) ? p.url : '';
@@ -51,9 +52,9 @@ leafletMap: true
           : safeName;
         return L.marker([p.lat, p.lng]).bindPopup(popup);
       });
-      markers.forEach(function(m) { m.addTo(map); });
-      var group = L.featureGroup(markers);
-      map.fitBounds(group.getBounds().pad(0.2), { maxZoom: 13 });
+      markers.forEach(function(m) { cluster.addLayer(m); });
+      map.addLayer(cluster);
+      map.fitBounds(cluster.getBounds().pad(0.2), { maxZoom: 13 });
     })();
   </script>
   {% endif %}
