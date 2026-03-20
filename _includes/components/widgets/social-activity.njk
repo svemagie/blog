@@ -96,6 +96,9 @@
       {% for post in mastodonFeed | head(5) %}
       <li class="border-b border-surface-200 dark:border-surface-700 pb-3 last:border-0">
         <a href="{{ post.url }}" target="_blank" rel="noopener" class="block group">
+          {% if post.isBoost %}
+          <p class="text-xs text-surface-500 dark:text-surface-400 mb-1">boosted from @{{ post.author.username }}</p>
+          {% endif %}
           <p class="text-sm text-surface-700 dark:text-surface-300 group-hover:text-[#a730b8] transition-colors">
             {{ post.text | truncate(140) }}
           </p>

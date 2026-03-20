@@ -43,8 +43,8 @@ export default async function () {
       return [];
     }
 
-    // Fetch recent statuses (excluding replies and boosts for cleaner feed)
-    const statusesUrl = `https://${instance}/api/v1/accounts/${account.id}/statuses?limit=10&exclude_replies=true&exclude_reblogs=true`;
+    // Fetch recent statuses (excluding replies; boosts included since that's primary activity)
+    const statusesUrl = `https://${instance}/api/v1/accounts/${account.id}/statuses?limit=10&exclude_replies=true`;
 
     const statuses = await EleventyFetch(statusesUrl, {
       duration: "15m", // Cache for 15 minutes
@@ -61,32 +61,37 @@ export default async function () {
       return [];
     }
 
-    // Transform statuses into a simpler format
-    return statuses.map((status) => ({
-      id: status.id,
-      url: status.url,
-      text: stripHtml(status.content),
-      htmlContent: status.content,
-      createdAt: status.created_at,
-      author: {
-        username: status.account.username,
-        displayName: status.account.display_name || status.account.username,
-        avatar: status.account.avatar,
-        url: status.account.url,
-      },
-      favouritesCount: status.favourites_count || 0,
-      reblogsCount: status.reblogs_count || 0,
-      repliesCount: status.replies_count || 0,
-      // Media attachments
-      media: status.media_attachments
-        ? status.media_attachments.map((m) => ({
-            type: m.type,
-            url: m.url,
-            previewUrl: m.preview_url,
-            description: m.description,
-          }))
-        : [],
-    }));
+    // Transform statuses into a simpler format; for boosts use the reblogged post's content
+    return statuses.map((status) => {
+      const isBoost = !!status.reblog;
+      const source = isBoost ? status.reblog : status;
+      return {
+        id: status.id,
+        url: source.url,
+        text: stripHtml(source.content),
+        htmlContent: source.content,
+        createdAt: status.created_at,
+        isBoost,
+        author: {
+          username: source.account.username,
+          displayName: source.account.display_name || source.account.username,
+          avatar: source.account.avatar,
+          url: source.account.url,
+        },
+        favouritesCount: source.favourites_count || 0,
+        reblogsCount: source.reblogs_count || 0,
+        repliesCount: source.replies_count || 0,
+        // Media attachments
+        media: source.media_attachments
+          ? source.media_attachments.map((m) => ({
+              type: m.type,
+              url: m.url,
+              previewUrl: m.preview_url,
+              description: m.description,
+            }))
+          : [],
+      };
+    });
   } catch (error) {
     console.error("Error fetching Mastodon feed:", error.message);
     return [];
