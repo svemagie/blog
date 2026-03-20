@@ -60,14 +60,19 @@ leafletMap: true
   {% endif %}
 
   {% if checkins.length %}
+  {% set grouped = checkins | groupby("name") %}
   <ul class="divide-y divide-surface-200 dark:divide-surface-700" aria-label="Past check-ins">
-    {% for checkin in checkins %}
+    {% for group in grouped %}
+    {% set checkin = group.list[0] %}
     <li class="py-3">
       <div class="font-medium text-surface-900 dark:text-surface-100">
         {% if checkin.venueWebsiteUrl %}
         <a href="{{ checkin.venueWebsiteUrl }}" target="_blank" rel="noopener" class="hover:underline">{{ checkin.name }}</a>
         {% else %}
         {{ checkin.name }}
+        {% endif %}
+        {% if group.list | length > 1 %}
+        <span class="ml-2 text-xs font-normal text-surface-500 dark:text-surface-400">{{ group.list | length }}×</span>
         {% endif %}
         {% if checkin.isPrivate %}<span class="ml-2 text-xs text-amber-700 dark:text-amber-400">(private)</span>{% endif %}
       </div>
