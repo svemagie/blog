@@ -38,7 +38,7 @@ leafletMap: true
     var checkinPoints = {{ mapPoints | dump | safe }};
   </script>
   <script>
-    (function() {
+    window.addEventListener('load', function() {
       L.Icon.Default.mergeOptions({
         iconUrl: '/css/images/marker-icon.png',
         iconRetinaUrl: '/css/images/marker-icon-2x.png',
@@ -65,7 +65,7 @@ leafletMap: true
       markers.forEach(function(m) { cluster.addLayer(m); });
       map.addLayer(cluster);
       map.fitBounds(cluster.getBounds().pad(0.2), { maxZoom: 13 });
-    })();
+    });
   </script>
   {% endif %}
 
