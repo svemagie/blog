@@ -13,7 +13,8 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T08:54:04.177Z
 webmentionSent: true
-category: on/smallweb
-updated: 2026-03-15T09:26:35.634Z
-permalink: https://blog.giersig.eu/likes/d8b6c/
+category: smallweb
+updated: 2026-03-20T05:45:07.894Z
+mpUrl: https://blog.giersig.eu/likes/d8b6c/
+permalink: /likes/d8b6c/
 ---
