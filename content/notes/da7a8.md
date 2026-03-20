@@ -19,7 +19,10 @@ location:
   locality: Murnau am Staffelsee
   region: Bayern
   countryName: Deutschland
-syndicateTo: https://blog.giersig.eu/
+syndicateTo:
+  - https://blog.giersig.eu/
+  - https://blog.giersig.eu/
+updated: 2026-03-20T20:10:06.392Z
 mpUrl: https://blog.giersig.eu/notes/da7a8/
 permalink: /notes/da7a8/
 ---
