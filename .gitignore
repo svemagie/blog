@@ -12,6 +12,7 @@ css/style.css
 # Content (symlinked at runtime)
 content/
 uploads/
+docs/
 
 # Ignore Indiekit plugin data
 content/.indiekit/homepage.json
