@@ -29,16 +29,22 @@ leafletMap: true
   </script>
   <script>
     (function() {
-      L.Icon.Default.imagePath = 'https://unpkg.com/leaflet@1.9.4/dist/images/';
+      L.Icon.Default.mergeOptions({
+        iconUrl: '/css/images/marker-icon.png',
+        iconRetinaUrl: '/css/images/marker-icon-2x.png',
+        shadowUrl: '/css/images/marker-shadow.png'
+      });
       var map = L.map('checkin-map');
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
       }).addTo(map);
       var markers = checkinPoints.map(function(p) {
-        var popup = p.url
-          ? '<a href="' + p.url + '" target="_blank" rel="noopener">' + p.name + '</a>'
-          : p.name;
+        var safeName = L.Util.escape(p.name);
+        var safeUrl = (p.url && p.url.indexOf('https://') === 0) ? p.url : '';
+        var popup = safeUrl
+          ? '<a href="' + safeUrl + '" target="_blank" rel="noopener">' + safeName + '</a>'
+          : safeName;
         return L.marker([p.lat, p.lng]).bindPopup(popup);
       });
       markers.forEach(function(m) { m.addTo(map); });
