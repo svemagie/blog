@@ -24,7 +24,10 @@ location:
   region: Bayern
   countryName: Deutschland
   postalCode: "82467"
-syndicateTo: https://blog.giersig.eu/
+syndicateTo:
+  - https://blog.giersig.eu/
+  - https://blog.giersig.eu/
+updated: 2026-03-20T15:35:53.203Z
 mpUrl: https://blog.giersig.eu/notes/77ecb/
 permalink: /notes/77ecb/
 ---
