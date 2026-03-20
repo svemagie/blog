@@ -1,9 +1,10 @@
 ---
 date: 2026-03-20T10:45:39.890Z
 likeOf: https://mastodon.social/@fromjason/116257390164713720
-mpSyndicateTo:
-  - https://bsky.app/profile/svemagie.bsky.social
-  - https://blog.giersig.eu/
+syndication:
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhidrwwpxc2k
+  - https://blog.giersig.eu/likes/9acc3/
+updated: 2026-03-20T10:49:18.570Z
 mpUrl: https://blog.giersig.eu/likes/9acc3/
 permalink: /likes/9acc3/
 ---
