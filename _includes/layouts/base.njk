@@ -131,6 +131,13 @@
   {% for social in site.social %}
   <link rel="{{ social.rel }}" href="{{ social.url }}">
   {% endfor %}
+
+  {# Leaflet map — loaded only on pages that set leafletMap: true in front matter #}
+  {# CSS is synchronous (Leaflet requires CSS before map init); JS is non-deferred (inline init script runs synchronously in body) #}
+  {% if leafletMap %}
+  <link rel="stylesheet" href="/css/leaflet.css?v={{ '/css/leaflet.css' | hash }}">
+  <script src="/js/vendor/leaflet.js?v={{ '/js/vendor/leaflet.js' | hash }}"></script>
+  {% endif %}
 </head>
 <body{% if pagefindIgnore %} data-pagefind-ignore="all"{% endif %}>
   <script>
