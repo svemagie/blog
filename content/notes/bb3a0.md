@@ -1,11 +1,13 @@
 ---
 date: 2026-03-20T13:43:25.182Z
-category: on/mutualaid
-aiTextLevel: "0"
-aiCodeLevel: "0"
+category:
+  - on/mutualaid
+  - loc/gapa
 mpSyndicateTo:
   - https://blog.giersig.eu/
-updated: 2026-03-20T13:46:45.078Z
+aiTextLevel: "0"
+updated: 2026-03-20T14:13:29.068Z
+aiCodeLevel: "0"
 mpUrl: https://blog.giersig.eu/notes/bb3a0/
 permalink: /notes/bb3a0/
 ---
