@@ -2,6 +2,7 @@
 layout: layouts/been.njk
 title: Been
 permalink: /been/
+description: All past check-ins captured by this site via Micropub.
 withSidebar: true
 leafletMap: true
 ---
@@ -39,8 +40,11 @@ leafletMap: true
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
       }).addTo(map);
+      function escHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
       var markers = checkinPoints.map(function(p) {
-        var safeName = L.Util.escape(p.name);
+        var safeName = escHtml(p.name);
         var safeUrl = (p.url && p.url.indexOf('https://') === 0) ? p.url : '';
         var popup = safeUrl
           ? '<a href="' + safeUrl + '" target="_blank" rel="noopener">' + safeName + '</a>'
