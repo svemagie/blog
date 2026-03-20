@@ -4,15 +4,17 @@ category:
   - on/mutualaid
   - loc/gapa
 aiTextLevel: "0"
-updated: 2026-03-20T14:14:54.264Z
+updated: 2026-03-20T14:16:14.742Z
 aiCodeLevel: "0"
 syndication:
   - https://blog.giersig.eu/notes/bb3a0/
+mpSyndicateTo:
+  - https://blog.giersig.eu/
 mpUrl: https://blog.giersig.eu/notes/bb3a0/
 permalink: /notes/bb3a0/
 ---
 
-Eine liebe Freundin eröffnet nun bald ihr Traum-Café und würde sich sehr freuen, wenn Ihr ihr helfen könntet:
+Eine liebe Freundin eröffnet nun bald ihr Traum-Café "Lu53" in Garmisch-Partenkirchen und würde sich sehr freuen, wenn Ihr ihr helfen könntet:
 
 Wie es halt so ist, werden aus kleinen Baustellen schnell mehr kleine Baustellen und das Budget für die ersten Monate ist sehr geschrumpt.
 
