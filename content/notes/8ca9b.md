@@ -6,7 +6,7 @@ category:
   - slashpage/til
 syndication:
   - https://blog.giersig.eu/notes/8ca9b/
-updated: 2026-03-15T10:37:24.455Z
+updated: 2026-03-21T06:44:22.263Z
 webmentionResults:
   sent: 1
   failed: 0
@@ -47,14 +47,10 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-11T19:54:28.566Z
 webmentionSent: true
-mpSyndicateTo:
-  - https://blog.giersig.eu/
-permalink: https://blog.giersig.eu/notes/8ca9b/
-ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  # aiDescription: "Optional disclosure about how AI was used"
+aiCodeLevel: "0"
+aiTextLevel: "0"
+mpUrl: https://blog.giersig.eu/notes/8ca9b/
+permalink: /notes/8ca9b/
 ---
 
 remember, indiekit on FreeBSD needs 
