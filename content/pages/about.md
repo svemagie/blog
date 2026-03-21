@@ -3,7 +3,7 @@ date: 2026-03-08T06:15:00.000Z
 title: about
 summary: About me page
 category: slashpage/about
-updated: 2026-03-19T15:41:53.720Z
+updated: 2026-03-21T19:32:58.123Z
 webmentionResults:
   sent: 1
   failed: 0
@@ -50,6 +50,8 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-11T19:54:14.589Z
 webmentionSent: true
+aiTextLevel: "0"
+aiCodeLevel: "0"
 mpUrl: https://blog.giersig.eu/about/
 permalink: /about/
 ---
@@ -63,4 +65,3 @@ This blog is where those threads come together.
 
 ---
 PGP: svemagie@anche.no  🔐 PGP Key [Download](https://keys.openpgp.org/vks/v1/by-fingerprint/38180708ACB8A61A1C53D170B9867870D8871475)
-Fingerprint: 3818 0708 ACB8 A61A 1C53  D170 B986 7870 D887 1475
