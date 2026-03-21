@@ -7,11 +7,11 @@ youtubeVideoId: Q0yL2GezneU
 youtubeChannel: Dr Geoff Lindsey
 youtubeThumbnail: https://i.ytimg.com/vi/Q0yL2GezneU/mqdefault.jpg
 category: on/speech
-mpSyndicateTo:
-  - https://bsky.app/profile/svemagie.bsky.social
-  - https://blog.giersig.eu/
 aiTextLevel: "0"
-updated: 2026-03-21T12:51:01.768Z
+updated: 2026-03-21T12:52:20.223Z
+syndication:
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhl34u63me2x
+  - https://blog.giersig.eu/likes/yt-like-q0yl2gezneu/
 mpUrl: https://blog.giersig.eu/likes/yt-like-q0yl2gezneu/
 permalink: /likes/yt-like-q0yl2gezneu/
 ---
