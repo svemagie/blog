@@ -9,7 +9,7 @@ category:
   - dev
 gardenStage: cultivate
 visibility: Public
-updated: 2026-03-21T13:19:49.931Z
+updated: 2026-03-21T16:48:18.034Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
@@ -33,6 +33,7 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-20T21:07:23.496Z
 webmentionSent: true
+pinned: "true"
 mpUrl: https://blog.giersig.eu/articles/thinking-in-public/
 permalink: /articles/thinking-in-public/
 ---
@@ -204,6 +205,7 @@ This isn’t just technically different. It’s **culturally** different:
 ## Practical Mechanics
 
 ### In Obsidian + obsidian-micropub
+I wrote a [Obsidian Plugin](https://blog.giersig.eu/articles/memex-chat-obsidian-plugin-i/) which helps me publish from Obsidian to this micropub blog. 
 
 ```yaml
 ---
