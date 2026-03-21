@@ -6,6 +6,9 @@ category:
   - on/memex
   - smallweb/dev
 visibility: Public
+ai:
+  - - 'textLevel: "0"'
+    - 'codeLevel: "0"'
 webmentionResults:
   sent: 2
   failed: 0
@@ -34,19 +37,17 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T17:24:52.339Z
 webmentionSent: true
-updated: 2026-03-15T10:08:28.963Z
+updated: 2026-03-21T06:41:15.420Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh22kjy5d227
   - https://blog.giersig.eu/articles/for-the-love-of-obsidian/
 gardenStage: evergreen
-mpSyndicateTo:
-  - https://blog.giersig.eu/
-permalink: https://blog.giersig.eu/articles/for-the-love-of-obsidian/
-ai:
-  textLevel: "1"
-  codeLevel: "2"
-  aiTools: "Claude"
-  aiDescription: "Claude built the Obsidian Plugin"
+aiCodeLevel: "2"
+aiDescription: Claude built the Obsidian Plugin
+aiTextLevel: "1"
+aiTools: Claude
+mpUrl: https://blog.giersig.eu/articles/for-the-love-of-obsidian/
+permalink: /articles/for-the-love-of-obsidian/
 ---
 
 There is a version of the web that most people never see. No algorithms, no growth hacking, no engagement metrics. Just people writing on their own domains, linking to each other, publishing in open formats that anyone can read. It has a name **the IndieWeb** and once you find it, it is very hard to go back to anything else.
