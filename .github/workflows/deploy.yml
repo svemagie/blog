@@ -132,20 +132,24 @@ jobs:
       - name: Trigger syndication webhook
         env:
           SECRET: ${{ secrets.SECRET }}
-          INDIEKIT_URL: ${{ secrets.INDIEKIT_URL }}
+          SITE_URL: ${{ secrets.SITE_URL }}
         run: |
           npm install --no-save jsonwebtoken
           TOKEN=$(node --input-type=commonjs <<'EOF'
           const jwt = require('jsonwebtoken');
           const token = jwt.sign(
-            { me: process.env.INDIEKIT_URL, scope: 'update' },
+            { me: process.env.SITE_URL, scope: 'update' },
             process.env.SECRET,
             { expiresIn: '10m' }
           );
           process.stdout.write(token);
           EOF
           )
-          curl -sf -X POST \
+          RESPONSE=$(curl -sS -w "\n%{http_code}" -X POST \
             -H "Content-Type: application/json" \
             -d "{\"access_token\": \"$TOKEN\"}" \
-            "$INDIEKIT_URL/syndicate"
+            "$SITE_URL/syndicate")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          echo "HTTP $HTTP_CODE: $BODY"
+          [ "$HTTP_CODE" -lt 400 ]
