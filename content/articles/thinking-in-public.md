@@ -9,19 +9,32 @@ category:
   - smallweb
 gardenStage: cultivate
 visibility: Public
-updated: 2026-03-20T05:48:17.213Z
+updated: 2026-03-21T06:41:05.083Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+aiTextLevel: "1"
+aiCodeLevel: "1"
+aiDescription: Claude read/edited my Changelog and helped me to compile this Note as an editorial assistant
+aiTools: Claude
+webmentionResults:
+  sent: 1
+  failed: 0
+  skipped: 1
+  details:
+    sent:
+      - target: https://maggieappleton.com/garden-history
+        endpoint: https://webmention.io/maggieappleton.com/webmention
+        type: webmention
+        status: 201
+    failed: []
+    skipped:
+      - target: https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
+        reason: No webmention endpoint found
+  timestamp: 2026-03-20T21:07:23.496Z
+webmentionSent: true
 mpUrl: https://blog.giersig.eu/articles/thinking-in-public/
 permalink: /articles/thinking-in-public/
-ai:
-  textLevel: "0"
-  codeLevel: "1"
-  aiTools: "Claude"
-  aiDescription: "Claude read/edited my Changelog and helped me to compile this Note as an editorial assistant"
 ---
 
 ## Core Concept
