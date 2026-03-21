@@ -5,8 +5,6 @@ bookmarkOf: https://tante.cc/
 category:
   - on/activism
   - on/writing
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 webmentionResults:
   sent: 1
   failed: 0
@@ -47,8 +45,13 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-11T20:04:50.412Z
 webmentionSent: true
-updated: 2026-03-15T09:44:43.344Z
-permalink: https://blog.giersig.eu/bookmarks/smashing-frames/
+updated: 2026-03-21T06:43:14.770Z
+aiCodeLevel: "0"
+aiTextLevel: "0"
+syndication:
+  - https://blog.giersig.eu/bookmarks/smashing-frames/
+mpUrl: https://blog.giersig.eu/bookmarks/smashing-frames/
+permalink: /bookmarks/smashing-frames/
 ---
 
 > Sociotechnologist, writer and speaker working on tech and its social impact. Communist. Feminist. Antifascist. Luddite.
