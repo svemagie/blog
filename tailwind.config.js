@@ -82,6 +82,10 @@ export default {
             "--tw-prose-headings": "#3c3836",
             "--tw-prose-links": theme("colors.accent.500"),
             maxWidth: "none",
+            li: {
+              marginTop: "0.2em",
+              marginBottom: "0.2em",
+            },
           },
         },
         lg: {
