@@ -92,6 +92,18 @@ export default {
           css: {
             fontSize: "1.175rem",
             lineHeight: "1.8",
+            li: {
+              marginTop: "0.2em",
+              marginBottom: "0.2em",
+            },
+          },
+        },
+        xl: {
+          css: {
+            li: {
+              marginTop: "0.2em",
+              marginBottom: "0.2em",
+            },
           },
         },
         invert: {
