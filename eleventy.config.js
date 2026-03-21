@@ -670,6 +670,21 @@ export default function (eleventyConfig) {
     return array.slice(0, n);
   });
 
+  // Merge Funkwhale listenings and Last.fm scrobbles into a single sorted timeline
+  eleventyConfig.addFilter("mergeListens", (listenings, scrobbles) => {
+    const fw = (listenings || []).map((l) => ({
+      ...l,
+      _source: "funkwhale",
+      _ts: new Date(l.listenedAt || l.creation_date || l.listened_at || 0).getTime(),
+    }));
+    const lfm = (scrobbles || []).map((s) => ({
+      ...s,
+      _source: "lastfm",
+      _ts: new Date(s.scrobbledAt || 0).getTime(),
+    }));
+    return [...fw, ...lfm].sort((a, b) => b._ts - a._ts);
+  });
+
   // Slugify filter
   eleventyConfig.addFilter("slugify", (str) => {
     if (!str) return "";
