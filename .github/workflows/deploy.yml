@@ -128,3 +128,24 @@ jobs:
             -e "ssh -p 222" \
             _site/ \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/usr/local/bastille/jails/web/root/usr/local/www/blog/
+
+      - name: Trigger syndication webhook
+        env:
+          SECRET: ${{ secrets.SECRET }}
+          INDIEKIT_URL: ${{ secrets.INDIEKIT_URL }}
+        run: |
+          npm install --no-save jsonwebtoken
+          TOKEN=$(node --input-type=commonjs <<'EOF'
+          const jwt = require('jsonwebtoken');
+          const token = jwt.sign(
+            { me: process.env.INDIEKIT_URL, scope: 'update' },
+            process.env.SECRET,
+            { expiresIn: '10m' }
+          );
+          process.stdout.write(token);
+          EOF
+          )
+          curl -sf -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"access_token\": \"$TOKEN\"}" \
+            "$INDIEKIT_URL/syndicate"
