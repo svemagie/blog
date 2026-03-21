@@ -5,8 +5,6 @@ bookmarkOf: https://blog.elenarossini.com/the-rebellion-will-be-federated-2025-e
 category:
   - smallweb
   - on/activism
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 webmentionResults:
   sent: 2
   failed: 0
@@ -49,8 +47,13 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-11T20:04:51.931Z
 webmentionSent: true
-updated: 2026-03-15T09:44:00.223Z
-permalink: https://blog.giersig.eu/bookmarks/the-rebellion-will-be-federated/
+updated: 2026-03-21T06:43:09.500Z
+aiCodeLevel: "0"
+aiTextLevel: "0"
+syndication:
+  - https://blog.giersig.eu/bookmarks/the-rebellion-will-be-federated/
+mpUrl: https://blog.giersig.eu/bookmarks/the-rebellion-will-be-federated/
+permalink: /bookmarks/the-rebellion-will-be-federated/
 ---
 
 > Over the span of the past 12 months I have taken crucial steps in freeing myself from Big Tech platforms and advocating for alternatives.
