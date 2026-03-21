@@ -3,8 +3,6 @@ date: 2026-03-12T08:54:45.173Z
 title: annalist
 bookmarkOf: https://annalist.noblogs.org/
 category: on/activism
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 webmentionResults:
   sent: 1
   failed: 1
@@ -61,8 +59,13 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-12T08:58:35.394Z
 webmentionSent: true
-updated: 2026-03-15T10:00:12.485Z
-permalink: https://blog.giersig.eu/bookmarks/annalist/
+updated: 2026-03-21T06:41:25.788Z
+aiCodeLevel: "0"
+aiTextLevel: "0"
+syndication:
+  - https://blog.giersig.eu/bookmarks/annalist/
+mpUrl: https://blog.giersig.eu/bookmarks/annalist/
+permalink: /bookmarks/annalist/
 ---
 
 > Willkommen
