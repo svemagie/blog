@@ -4,8 +4,6 @@ likeOf: https://videos.elenarossini.com/w/64VuNCccZNrP4u9MfgbhkN?ref=blog.elenar
 category:
   - smallweb
   - on/activism
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 webmentionResults:
   sent: 1
   failed: 0
@@ -46,8 +44,11 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-11T20:04:53.590Z
 webmentionSent: true
-updated: 2026-03-15T09:43:45.396Z
-permalink: https://blog.giersig.eu/likes/e64fc/
+updated: 2026-03-21T06:43:03.743Z
+syndication:
+  - https://blog.giersig.eu/likes/e64fc/
+mpUrl: https://blog.giersig.eu/likes/e64fc/
+permalink: /likes/e64fc/
 ---
 
 > This video is a colorful introduction to the Fediverse, guided by filmmaker & Fediverse advocate Elena Rossini. Watch now to discover a whole new world of social media, one where privacy is respected, users are empowered, and Big Tech has no say.
