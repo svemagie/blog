@@ -5,6 +5,8 @@ summary: "I spent a few hours building a bridge between my favourite writing too
 category:
   - on/memex
   - smallweb/dev
+  - indieweb
+  - dev
 visibility: Public
 ai:
   - - 'textLevel: "0"'
@@ -37,7 +39,7 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T17:24:52.339Z
 webmentionSent: true
-updated: 2026-03-21T06:41:15.420Z
+updated: 2026-03-21T13:19:54.058Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh22kjy5d227
   - https://blog.giersig.eu/articles/for-the-love-of-obsidian/
