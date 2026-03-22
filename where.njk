@@ -39,11 +39,6 @@ leafletMap: true
   </script>
   <script>
     window.addEventListener('load', function() {
-      L.Icon.Default.mergeOptions({
-        iconUrl: '/css/images/marker-icon.png',
-        iconRetinaUrl: '/css/images/marker-icon-2x.png',
-        shadowUrl: '/css/images/marker-shadow.png'
-      });
       var map = L.map('checkin-map');
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -60,7 +55,13 @@ leafletMap: true
         var popup = safeUrl
           ? '<a href="' + safeUrl + '" target="_blank" rel="noopener">' + safeName + '</a>'
           : safeName;
-        return L.marker([p.lat, p.lng]).bindPopup(popup);
+        return L.circleMarker([p.lat, p.lng], {
+          radius: 7,
+          color: '#fff',
+          weight: 2,
+          fillColor: '#3b82f6',
+          fillOpacity: 0.9
+        }).bindPopup(popup);
       });
       markers.forEach(function(m) { cluster.addLayer(m); });
       map.addLayer(cluster);
