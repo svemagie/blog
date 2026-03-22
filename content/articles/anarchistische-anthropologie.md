@@ -4,15 +4,17 @@ title: Anarchistische Anthropologie
 category: on/politics/anarchism
 gardenStage: cultivate
 visibility: private
+mpSyndicateTo:
+  - https://blog.giersig.eu/
+aiTextLevel: "0"
+updated: 2026-03-22T09:57:35.164Z
 mpUrl: https://blog.giersig.eu/articles/anarchistische-anthropologie/
 permalink: /articles/anarchistische-anthropologie/
 ---
 
-~ [[Works]]
-
 ## Anarchistische Anthropologie: Warum der Vorwurf der Naivität fehlgeht
 
-Anarchistinnen und Anarchisten werden gemeinhin als weltfremd wahrgenommen, als Träumer, die glauben, Menschen könnten ohne Gesetze und Polizei, Staaten und Hierarchien friedlich koexistieren. Dieses Bild hält jedoch einer genaueren Betrachtung nicht stand. Die bedeutendsten Vordenker des Anarchismus – [[Michail Bakunin]], [[Peter Kropotkin]], [[Errico Malatesta]] und viele andere – entwickelten früh ein erstaunlich realistisches Menschenbild: geprägt durch Bedürfnisse, Umwelt und Veränderungsfähigkeit. Nicht nur zeitgenössische Anarchisten, sondern auch Wissenschaftler verschiedener Disziplinen untermauern dieses Menschenbild.
+Anarchistinnen und Anarchisten werden gemeinhin als weltfremd wahrgenommen, als Träumer, die glauben, Menschen könnten ohne Gesetze und Polizei, Staaten und Hierarchien friedlich koexistieren. Dieses Bild hält jedoch einer genaueren Betrachtung nicht stand. Die bedeutendsten Vordenker des Anarchismus – Michail Bakunin, Peter Kropotkin, Errico Malatesta und viele andere – entwickelten früh ein erstaunlich realistisches Menschenbild: geprägt durch Bedürfnisse, Umwelt und Veränderungsfähigkeit. Nicht nur zeitgenössische Anarchisten, sondern auch Wissenschaftler verschiedener Disziplinen untermauern dieses Menschenbild.
 
 ## Was Anarchist:innen über den Menschen dachten
 
