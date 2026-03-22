@@ -5,7 +5,7 @@ category: on/politics/anarchism
 gardenStage: cultivate
 visibility: private
 aiTextLevel: "0"
-updated: 2026-03-22T09:57:39.377Z
+updated: 2026-03-22T09:58:53.052Z
 syndication:
   - https://blog.giersig.eu/articles/anarchistische-anthropologie/
 mpUrl: https://blog.giersig.eu/articles/anarchistische-anthropologie/
@@ -33,11 +33,11 @@ Die anarchistische Perspektive auf die menschliche Natur ist nicht idealistisch.
 
 Charlotte Wilson und andere anarchistische Theoretiker:innen betonten bereits Ende des 19. Jahrhunderts, dass selbst autoritäre Gesellschaftssysteme auf Kooperation beruhen. Wilson (1887) argumentiert, dass jede Form autoritärer Herrschaft aktive Zusammenarbeit voraussetzt, um bestehende Machtstrukturen aufrechtzuerhalten. Kooperation bildet somit nicht nur ein anarchistisches Ideal, sondern die fundamentale Bedingung jeder sozialen Ordnung – autoritäre Systeme zentralisieren sie, während freiheitliche Gesellschaften sie autonom entfalten lassen. Auch Hannah Arendt hebt hervor, dass Macht auf kollektiver Unterstützung beruht und nicht allein durch Zwang existiert:
 
-> “Macht entsteht nur dort, wo Menschen sich zusammenschließen und gemeinsam handeln“ (Arendt, 1970).
+> Macht entsteht nur dort, wo Menschen sich zusammenschließen und gemeinsam handeln (Arendt, 1970).
 
 David Graeber hebt dazu hervor, dass viele Formen von sozialer Ordnung historisch ohne zentrale Autorität oder staatliche Gewalt existierten, was die Flexibilität und Vielfalt menschlicher Organisationsformen unterstreicht (Graeber, 2011). Auch James C. Scott betont in „The Art of Not Being Governed“ (2009), dass Gesellschaften oft bewusst dezentral organisiert werden, um staatlicher Kontrolle zu entgehen
 
-> „Die Abwesenheit des Staates ist nicht gleichbedeutend mit Chaos, sondern kann eine bewusste soziale Strategie sein“ (Scott, 2009).
+> Die Abwesenheit des Staates ist nicht gleichbedeutend mit Chaos, sondern kann eine bewusste soziale Strategie sein (Scott, 2009).
 
 Diese Perspektiven verdeutlichen, dass Kooperation und Organisation grundlegende Merkmale des menschlichen Zusammenlebens sind, die in unterschiedlichsten politischen und sozialen Kontexten zum Tragen kommen. Robert Sapolsky liefert in „Behave: The Biology of Humans at Our Best and Worst“ (2017) fundierte Argumente, die diese Thesen stützen. Sapolsky betont den Einfluss von Umweltfaktoren auf biologische Grundlagen, was die Wechselwirkung von Genetik und sozialem Umfeld unterstreicht. Seine Analysen zur Neurobiologie von Aggression und Fürsorge zeigen, dass Menschen sowohl zu positiven als auch negativen Handlungen fähig sind – abhängig vom Kontext und den sozialen Strukturen.
 
