@@ -3,13 +3,13 @@ date: 2026-03-15T00:00:00.000Z
 title: Thinking in Public
 summary: Thinking in Public is the practice of making your thinking process – not just finished conclusions – visible.
 category:
+  - indieweb
   - on/memex
   - on/philosophy
   - dev
-  - smallweb/indieweb
 gardenStage: cultivate
 visibility: Public
-updated: 2026-03-22T08:53:08.047Z
+updated: 2026-03-22T09:14:51.507Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
@@ -205,7 +205,6 @@ This isn’t just technically different. It’s **culturally** different:
 ## Practical Mechanics
 
 ### In Obsidian + obsidian-micropub
-I wrote a [Obsidian Plugin](https://blog.giersig.eu/articles/memex-chat-obsidian-plugin-i/) which helps me publish from Obsidian to this micropub blog. 
 
 ```yaml
 ---
