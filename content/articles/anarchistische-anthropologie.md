@@ -3,9 +3,9 @@ date: 2025-05-02T00:00:00.000Z
 title: Anarchistische Anthropologie
 category: on/politics/anarchism
 gardenStage: cultivate
-visibility: private
+visibility: public
 aiTextLevel: "0"
-updated: 2026-03-22T09:58:53.052Z
+updated: 2026-03-22T09:59:29.281Z
 syndication:
   - https://blog.giersig.eu/articles/anarchistische-anthropologie/
 mpUrl: https://blog.giersig.eu/articles/anarchistische-anthropologie/
