@@ -4,6 +4,7 @@
  */
 
 import EleventyFetch from "@11ty/eleventy-fetch";
+import { cacheCoverUrls, cacheFunkwhaleImage, gcFunkwhaleImages } from "../lib/cache-funkwhale-image.js";
 
 const INDIEKIT_URL =
   process.env.INDIEKIT_URL || process.env.SITE_URL || "https://example.com";
@@ -126,10 +127,20 @@ export default async function () {
       favorite: favSet.has(`${l.track}\0${l.artist}`),
     }));
 
+    // Cache cover images locally to avoid serving expiring presigned S3 URLs
+    const [cachedNowPlaying, cachedListenings, cachedFavorites] = await Promise.all([
+      nowPlaying ? { ...nowPlaying, coverUrl: await cacheFunkwhaleImage(nowPlaying.coverUrl) } : null,
+      cacheCoverUrls(enrichedListenings),
+      cacheCoverUrls(favorites?.favorites || []),
+    ]);
+
+    // Remove cached images that are no longer referenced by any current item
+    gcFunkwhaleImages();
+
     return {
-      nowPlaying: nowPlaying || null,
-      listenings: enrichedListenings,
-      favorites: favorites?.favorites || [],
+      nowPlaying: cachedNowPlaying,
+      listenings: cachedListenings,
+      favorites: cachedFavorites,
       stats: formattedStats,
       instanceUrl: FUNKWHALE_INSTANCE,
       source: "indiekit",

@@ -513,6 +513,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("interactive");
   eleventyConfig.addPassthroughCopy({ ".cache/og": "og" });
+  eleventyConfig.addPassthroughCopy({ ".cache/funkwhale-images": "images/funkwhale-cache" });
 
   // Copy vendor web components from node_modules
   eleventyConfig.addPassthroughCopy({
