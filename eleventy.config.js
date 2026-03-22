@@ -513,7 +513,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("interactive");
   eleventyConfig.addPassthroughCopy({ ".cache/og": "og" });
-  eleventyConfig.addPassthroughCopy({ ".cache/funkwhale-images": "images/funkwhale-cache" });
+  // Funkwhale images are copied in eleventy.after (after data files download them)
 
   // Copy vendor web components from node_modules
   eleventyConfig.addPassthroughCopy({
@@ -1577,6 +1577,21 @@ export default function (eleventyConfig) {
         console.log(`[markdown-agents] Generated ${mdCount} article .md files`);
       } catch (err) {
         console.error("[markdown-agents] Error generating .md files:", err.message);
+      }
+    }
+
+    // Funkwhale cover images — copy from cache to output after data files have downloaded them
+    {
+      const fwSrc = resolve(__dirname, ".cache/funkwhale-images");
+      const fwDest = resolve(directories?.output || dir.output, "images/funkwhale-cache");
+      if (existsSync(fwSrc)) {
+        mkdirSync(fwDest, { recursive: true });
+        let copied = 0;
+        for (const file of readdirSync(fwSrc)) {
+          copyFileSync(resolve(fwSrc, file), resolve(fwDest, file));
+          copied++;
+        }
+        if (copied > 0) console.log(`[funkwhale-images] Copied ${copied} cover image(s) to output`);
       }
     }
 
