@@ -15,7 +15,7 @@ The theme lives in a separate repo (`svemagie/blog-eleventy-indiekit`, tracked a
 - `_data/*.js` — individual data files for feeds (GitHub, Bluesky, Mastodon, Last.fm, etc.)
 - `_includes/layouts/` — page layout templates (`base.njk`, `post.njk`, etc.)
 - `_includes/components/` — reusable Nunjucks partials
-- `lib/` — build-time JS utilities (`og.js`, `unfurl-shortcode.js`, `data-fetch.js`)
+- `lib/` — build-time JS utilities (`og.js`, `unfurl-shortcode.js`, `data-fetch.js`, `cache-funkwhale-image.js`)
 - `scripts/` — maintenance scripts (`check-upstream-widget-drift.mjs`)
 
 ### Content
@@ -59,6 +59,19 @@ Categories use Obsidian-style path notation (`lang/de`, `tech/programming`). The
 
 ### OG image generation
 `lib/og.js` + `lib/og-cli.js` — generates Open Graph images at build time using Satori and resvg-js. Avatar is pulled from `AUTHOR_AVATAR` env var.
+
+### Funkwhale cover image cache
+Funkwhale stores album art on Wasabi S3 with presigned URLs that expire after ~1 hour. Serving those URLs directly causes broken images on the listening page after the first hour.
+
+`lib/cache-funkwhale-image.js` downloads cover art at build time and serves it from a stable local path:
+- **Cache dir:** `.cache/funkwhale-images/` (gitignored, persisted between CI runs via `actions/cache`)
+- **Public path:** `/images/funkwhale-cache/<md5-of-url-path>.<ext>`
+- **Cache key:** MD5 of the URL *path* (stable across re-signings — query params are stripped)
+- **No TTL:** files are kept forever; `gcFunkwhaleImages()` deletes any file not referenced by the current build's data
+
+**Why `eleventy.after`, not `addPassthroughCopy`:** passthrough copy runs before the data cascade, so `.cache/funkwhale-images/` is empty when Eleventy scans it. The copy to `_site/images/funkwhale-cache/` is done explicitly in the `eleventy.after` hook, after `_data/funkwhaleActivity.js` has finished downloading.
+
+**Edge case:** if `FUNKWHALE_FETCH_CACHE_DURATION` is longer than ~1 hour, a new track appearing between builds will try to download using an expired presigned URL from the EleventyFetch cache, fall back to the original URL, and break after an hour. Keep the duration under `55m` to avoid this.
 
 ### Upstream drift check
 ```bash
