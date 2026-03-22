@@ -3,7 +3,7 @@ date: 2026-03-08T06:15:00.000Z
 title: about
 summary: About me page
 category: slashpage/about
-updated: 2026-03-21T19:32:58.123Z
+updated: 2026-03-22T09:13:31.401Z
 webmentionResults:
   sent: 1
   failed: 0
@@ -56,7 +56,7 @@ mpUrl: https://blog.giersig.eu/about/
 permalink: /about/
 ---
 
-My path has been anything but straight. I started out as a Unix administrator, spent some time DJing minimal techno, studied Sociology in Constance, and somehow ended up managing a mountaineering gear shop. For nearly a decade I ran a communication agency - writing, editing, advising clients across industries. Then came years as a social worker, helping young people and refugees find their footing in Germany. These days I work in public relations for a district office, with a focus on social issues.
+My path (see [my CV](https://blog.giersig.eu/cv/)) has been anything but straight. I started out as a Unix administrator, spent some time DJing minimal techno, studied Sociology in Constance, and somehow ended up managing a mountaineering gear shop. For nearly a decade I ran a communication agency - writing, editing, advising clients across industries, implementing digital tools to facilitate strategies. Then came years as a social worker, helping young people and refugees find their footing in Germany. These days I work in public relations for a district office, with a focus on social issues.
 
 I tell you all this not to impress, but because the zigzag matters. It shaped how I pay attention.
 
