@@ -5,9 +5,10 @@ category: on/politics/anarchism
 gardenStage: cultivate
 visibility: public
 aiTextLevel: "0"
-updated: 2026-03-22T10:09:10.098Z
+updated: 2026-03-22T10:10:37.035Z
 syndication:
   - https://blog.giersig.eu/articles/anarchistische-anthropologie/
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhnckm474u2v
 webmentionResults:
   sent: 0
   failed: 0
@@ -18,9 +19,6 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-22T10:01:21.597Z
 webmentionSent: true
-mpSyndicateTo:
-  - https://bsky.app/profile/svemagie.bsky.social
-  - https://blog.giersig.eu/
 mpUrl: https://blog.giersig.eu/articles/anarchistische-anthropologie/
 permalink: /articles/anarchistische-anthropologie/
 ---
