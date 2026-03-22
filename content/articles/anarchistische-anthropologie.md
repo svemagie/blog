@@ -4,10 +4,10 @@ title: Anarchistische Anthropologie
 category: on/politics/anarchism
 gardenStage: cultivate
 visibility: private
-mpSyndicateTo:
-  - https://blog.giersig.eu/
 aiTextLevel: "0"
-updated: 2026-03-22T09:57:35.164Z
+updated: 2026-03-22T09:57:39.377Z
+syndication:
+  - https://blog.giersig.eu/articles/anarchistische-anthropologie/
 mpUrl: https://blog.giersig.eu/articles/anarchistische-anthropologie/
 permalink: /articles/anarchistische-anthropologie/
 ---
