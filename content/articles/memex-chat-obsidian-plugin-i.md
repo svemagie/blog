@@ -7,7 +7,7 @@ category:
   - on/memex
 gardenStage: revisit
 visibility: Public
-aiTextLevel: "0"
+aiTextLevel: "2"
 aiCodeLevel: "2"
 aiTools: Claude
 webmentionResults:
@@ -20,7 +20,7 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-21T20:20:27.043Z
 webmentionSent: true
-updated: 2026-03-22T09:01:50.824Z
+updated: 2026-03-22T09:14:22.055Z
 mpUrl: https://blog.giersig.eu/articles/memex-chat-obsidian-plugin-i/
 permalink: /articles/memex-chat-obsidian-plugin-i/
 ---
