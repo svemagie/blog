@@ -1,23 +1,27 @@
 ---
 date: 2025-05-02T00:00:00.000Z
 title: Anarchistische Anthropologie
-category: on/politics/anarchism
+category:
+  - on/politics/anarchism
+  - on/mutualaid
 gardenStage: cultivate
 visibility: public
 aiTextLevel: "0"
-updated: 2026-03-22T10:10:37.035Z
+updated: 2026-03-22T13:02:42.539Z
 syndication:
   - https://blog.giersig.eu/articles/anarchistische-anthropologie/
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhnckm474u2v
 webmentionResults:
   sent: 0
   failed: 0
-  skipped: 0
+  skipped: 1
   details:
     sent: []
     failed: []
-    skipped: []
-  timestamp: 2026-03-22T10:01:21.597Z
+    skipped:
+      - target: https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhnckm474u2v
+        reason: No webmention endpoint found
+  timestamp: 2026-03-22T10:44:13.275Z
 webmentionSent: true
 mpUrl: https://blog.giersig.eu/articles/anarchistische-anthropologie/
 permalink: /articles/anarchistische-anthropologie/
