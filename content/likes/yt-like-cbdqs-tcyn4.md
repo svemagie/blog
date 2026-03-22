@@ -10,11 +10,11 @@ category:
   - on/sociology
   - on/economy
   - on/propaganda
-mpSyndicateTo:
-  - https://bsky.app/profile/svemagie.bsky.social
-  - https://blog.giersig.eu/
 aiTextLevel: "0"
-updated: 2026-03-22T13:41:43.778Z
+updated: 2026-03-22T13:43:14.500Z
+syndication:
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhnogsn2ms2o
+  - https://blog.giersig.eu/likes/yt-like-cbdqs-tcyn4/
 mpUrl: https://blog.giersig.eu/likes/yt-like-cbdqs-tcyn4/
 permalink: /likes/yt-like-cbdqs-tcyn4/
 ---
