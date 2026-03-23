@@ -5,8 +5,19 @@ summary: "Das ist wohl das Gefährlichste, was gesellschaftlich passieren konnte
 category:
   - on/covid19
   - lang/de
-visibility: Public
-updated: 2026-03-23T16:05:09.251Z
+visibility: public
+updated: 2026-03-23T16:17:15.962Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-23T16:06:16.555Z
+webmentionSent: true
+aiTextLevel: "0"
 mpUrl: https://blog.giersig.eu/articles/zur-nomadisierung-der-deutschen-post/
 permalink: /articles/zur-nomadisierung-der-deutschen-post/
 ---
