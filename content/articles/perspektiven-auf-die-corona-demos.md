@@ -1,11 +1,11 @@
 ---
-date: 2025-07-17T00:00:00.000Z
+date: 2020-08-06T00:00:00.000Z
 title: Perspektiven auf die Corona-Demos
 category:
   - lang/de
   - on/covid19
 visibility: Public
-updated: 2026-03-23T18:02:22.310Z
+updated: 2026-03-23T18:19:42.879Z
 summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
 webmentionResults:
   sent: 0
@@ -23,7 +23,7 @@ aiCodeLevel: "0"
 aiTextLevel: "0"
 gardenStage: evergreen
 related: https://blog.giersig.eu/articles/murnauer-dialektik/
-evergreeSince: 2026-03-23
+evergreeSince: 2020-08-06
 mpUrl: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
 permalink: /articles/perspektiven-auf-die-corona-demos/
 ---
@@ -36,7 +36,7 @@ Mich aber treibt um, dass ich persönlich und im Grundsatz mit den “Skeptikern
 
 Dieser Preis ist grundsätzlich und vor allem durch die vom Staate zugestandene Freiheit bemessen. In pandemischen Zeiten jedoch steigt dieser Preis, wie wir lernen konnten. Die Regierung bat höflichst darum, sich nicht mehr außer Haus aufzuhalten - die Wörter Ausgangssperre, Ausnahmezustand u.ä. wohlwissend vermeidend, denn das wären rechtliche Kategorien, auf die sich im Gegenzug dann auch die Mensch berufen könnte. Den Sinn dahinter, warum man vermeiden wollte, dass sich Menschen, und eben nicht nur die Repressionsorgane, auf das Recht berufen können, werden wir gleich sehen.
 
-Es gab im Großen und Ganzen zwei Ausnahmen von dieser als Ausgangsbeschränkung getarnten Ausgangssperre: die Versorgung mit Lebensmitteln - und die Arbeit. Nur ein gut genährter Arbeiter kann Mehrwert erzeugen. Über die Befriedigung der Grundbedürfnisse hinausreichend arbeitete man seit über einem Jahrhundert[^1] daran, das Einkaufen und Shopping zu einer freiheitlichen Betätigungen zu machen. Recht erfolgreich, möchte ich an dieser Stelle anmerken. {SIDENOTE: Darauf werden wir beim Versuch, den Begriff der Freiheit zu fassen, welcher im Zusammenhang mit diesen Corona-Demos immer wieder aufblitzt, noch zurück kommen.}
+Es gab im Großen und Ganzen zwei Ausnahmen von dieser als Ausgangsbeschränkung getarnten Ausgangssperre: die Versorgung mit Lebensmitteln - und die Arbeit. Nur ein gut genährter Arbeiter kann Mehrwert erzeugen. Über die Befriedigung der Grundbedürfnisse hinausreichend arbeitete man seit über einem Jahrhundert[^1] daran, das Einkaufen und Shopping zu einer freiheitlichen Betätigungen zu machen. Recht erfolgreich, möchte ich an dieser Stelle anmerken. Darauf werden wir beim Versuch, den Begriff der Freiheit zu fassen, welcher im Zusammenhang mit diesen Corona-Demos immer wieder aufblitzt, noch zurück kommen.
 
 Während also die Wenigen, die Wohlhabenden, sich überhaupt nicht um die Ausgangsbeschränkung scherten, und während der ständig um Aufstieg bemühte Mittelstand und Teile des akademischen Prekariats sich im Homeoffice einrichtete und sich zuvorderst mit der verschlafenen Digitalisierung herumschlug, ging der Großteil der Menschen von der Pandemie völlig unbeeinträchtigt ihrer Arbeit nach. Gerade so, als ob das Virus vor den Werken und Büros Halt mache. Erste zögerliche Stimmen aus der Wissenschaft meldeten, dass sich das Virus nun, da alle Zuhause blieben, wohl über die Landkreisgrenzen vor allem durch Pendler verbreite. Wissend, dass die Maschine auch in pandemischen Zeiten laufen muss und es dazu eben Menschen und vor allem das ihm wohlbekannte “Blut, Schweiß und Tränen” braucht, um die Räder und Rädchen der Maschine zu schmieren, nahm die Regierung möglichst wenig Kenntnis von der Erkenntnis, dass womöglich gerade die tägliche Arbeit ein Verbreitungsweg des Virus sei.
 
