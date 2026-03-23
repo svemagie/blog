@@ -1,5 +1,5 @@
 ---
-date: 2024-10-31T00:00:00.000Z
+date: 2024-07-15T00:00:00.000Z
 title: Murnauer Dialektik
 category:
   - lang/de
@@ -18,7 +18,7 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-09T19:18:11.979Z
 webmentionSent: true
-updated: 2026-03-23T18:12:39.046Z
+updated: 2026-03-23T18:22:45.031Z
 aiCodeLevel: "0"
 aiTextLevel: "0"
 gardenStage: evergreen
