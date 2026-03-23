@@ -3,11 +3,16 @@ date: 2026-03-16T00:00:00.000Z
 title: Zusammenhang Reallohn und Produktivität - Ein strukturelles Rätsel der Zweiten Moderne
 summary: Das Paradox des Auseinanderfallens von Reallohn und Produktivität ist ein Indikator für fehlgeschlagene Reflexivität in der zweiten Moderne.
 category:
-  - sociology
   - lang/de
   - on/economy
+  - sociology
 gardenStage: plant
-updated: 2026-03-17T06:26:24.962Z
+updated: 2026-03-23T17:48:03.725Z
+aiTextLevel: "1"
+aiDescription: AI helped to find possible connections in my Obsidian Vault
+syndication:
+  - https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
+aiCodeLevel: "0"
 webmentionResults:
   sent: 0
   failed: 0
@@ -16,17 +21,11 @@ webmentionResults:
     sent: []
     failed: []
     skipped: []
-  timestamp: 2026-03-16T21:03:58.762Z
+  timestamp: 2026-03-22T10:44:13.315Z
 webmentionSent: true
-syndication:
-  - https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
+related: https://blog.giersig.eu/articles/repraesentation-und-responsivitaet/
 mpUrl: https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
 permalink: /articles/zusammenhang-reallohn-und-produktivitaet-ein/
-ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  aiDescription: "AI helped to find possible connections in my Obsidian Vault."
 ---
 
 Die Frage “Wohin geht die Differenz zwischen Produktivität und Reallöhnen?” treibt mich schon eine lange Zeit um. Es ist schon gar nicht so einfach, dafür valide Zahlen als Grundlage zu finden, schon weil es unterschiedliche Definitionen zu den Begriffen gibt. Dennoch, im Geiste von [Thinking in Public](https://blog.giersig.eu/articles/thinking-in-public/), mache ich die ersten Ideen zur theoretischen Annäherung an das Paradox hier öffentlich und lade ein, mitzudenken und zu recherchieren.
@@ -56,7 +55,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 ## Verknüpfungen zu anderen Konzepten und Themen
 
-### 1. [[Digitale Entfremdung]] / Alienation 2.0
+### 1. Digitale Entfremdung / Alienation 2.0
 
 **Connection**: Reallohn-Stagnation bei steigender Produktivität ist ein Mechanismus der digitalen Entfremdung:
 
@@ -66,7 +65,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Frage**: Ist das noch Marx’sche Entfremdung oder etwas Neues?
 
-### 2. [[Risikogesellschaft]] (Beck)
+### 2. Risikogesellschaft (Beck)
 
 **Connection**: Die Produktivitätssteigerung ist teilweise **Externalisierung von Risiken**, nicht echter Mehrwert:
 
@@ -76,7 +75,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Reallohn-Stagnation ist die sichtbare Seite der Risikoverlagerung.**
 
-### 3. [[Prekarität]] und neue Klassenformationen
+### 3. Prekarität und neue Klassenformationen
 
 **Connection**: Reallohn-Stagnation + Flexibilisierung = neue Prekarität
 
@@ -86,7 +85,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Das ist eine strukturelle Klassenproblematik der zweiten Moderne.**
 
-### 4. [[Suffizient-Wachstum]] / Post-Growth
+### 4. Suffizient-Wachstum / Post-Growth
 
 **Connection**: Reallohn-Stagnation könnte auch **Symptom eines falschen Produktivitätsbegriffs** sein:
 
@@ -96,7 +95,7 @@ Das System transformiert sich, aber die Verteilungsregeln werden nicht neu verha
 
 **Relevante Frage**: Brauchen wir in der zweiten Moderne völlig neue Produktivitätsmetriken?
 
-### 5. [[Macht und Verteilung]]
+### 5. Macht und Verteilung
 
 **Connection**: Das eigentliche Problem ist politisch, nicht technisch
 
@@ -127,7 +126,7 @@ Gesellschaften müssen neu aushandeln:
 
 Könnten relevant sein (zum Überprüfen):
 
-*   [[Kapitalismus & Entfremdung]]: Wie hat sich Marx’ Theorie transformiert?
-*   [[Globale Ungleichheit]]: Ist Lohnstagnation im Norden = Lohnsteigerung im Süden?
-*   [[Arbeit & Sinn]]: Wenn Reallohn nicht steigt, muss der Sinn woanders kommen?
-*   [[Technologie & Befreiung]]: Könnte dezentrale Tech neue Verteilungslogiken ermöglichen?
+*   Kapitalismus & Entfremdung: Wie hat sich Marx’ Theorie transformiert?
+*   Globale Ungleichheit: Ist Lohnstagnation im Norden = Lohnsteigerung im Süden?
+*   Arbeit & Sinn: Wenn Reallohn nicht steigt, muss der Sinn woanders kommen?
+*   Technologie & Befreiung: Könnte dezentrale Tech neue Verteilungslogiken ermöglichen?
