@@ -32,6 +32,50 @@ pagefindIgnore: true
     </div>
   </div>
 
+  {# ── Recently Evergreened ─────────────────────────────────────────────── #}
+  {% if collections.recentEvergreens and collections.recentEvergreens.length > 0 %}
+  <section class="mb-10">
+    <div class="flex items-baseline gap-3 mb-1">
+      <h2 class="text-xl font-bold text-surface-900 dark:text-surface-100 flex items-center gap-2">
+        <span>🌳</span>
+        <span>Recently Evergreened</span>
+      </h2>
+      <span class="text-sm text-surface-500 dark:text-surface-400">
+        reached maturity in the last 90 days
+      </span>
+    </div>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mb-4 italic">
+      These notes have grown into stable, reference-worthy pieces.
+    </p>
+    <ul class="space-y-3 list-none p-0 m-0">
+      {% for post in collections.recentEvergreens | head(5) %}
+      <li class="h-entry garden-evergreen-celebration">
+        <div class="flex items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-medium text-surface-900 dark:text-surface-100 mb-0.5">
+              <a class="u-url p-name hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+                 href="{{ post.url }}">
+                {{ post.data.title or (post.templateContent | striptags | truncate(80)) or "Untitled" }}
+              </a>
+            </h3>
+            <div class="flex items-center gap-3 text-xs text-surface-500 dark:text-surface-400">
+              <span>🌳 Evergreen since
+                <time datetime="{{ post.data.evergreeSince }}">{{ post.data.evergreeSince }}</time>
+              </span>
+            </div>
+            {% if post.data.summary or post.data.description %}
+            <p class="p-summary text-sm text-surface-600 dark:text-surface-400 mt-1 line-clamp-2">
+              {{ post.data.summary or post.data.description }}
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   {# ── Posts grouped by stage ──────────────────────────────────────────── #}
   {% set _stages = ["plant", "cultivate", "evergreen", "question", "repot", "revitalize", "revisit"] %}
 

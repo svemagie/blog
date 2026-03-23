@@ -1288,6 +1288,26 @@ export default function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  // Posts that recently reached evergreen status (within the last 90 days).
+  // Requires evergreeSince frontmatter field, written by the Micropub plugin on first evergreen publish.
+  eleventyConfig.addCollection("recentEvergreens", function (collectionApi) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 90);
+    return collectionApi
+      .getFilteredByGlob("content/**/*.md")
+      .filter(isPublished)
+      .filter((item) => {
+        if (item.data.gardenStage !== "evergreen") return false;
+        if (!item.data.evergreeSince) return false;
+        const d = new Date(item.data.evergreeSince);
+        return !isNaN(d.getTime()) && d >= cutoff;
+      })
+      .sort(
+        (a, b) =>
+          new Date(b.data.evergreeSince) - new Date(a.data.evergreeSince),
+      );
+  });
+
   // Weekly digests — posts grouped by ISO week for digest pages and RSS feed
   eleventyConfig.addCollection("weeklyDigests", function (collectionApi) {
     const allPosts = collectionApi
