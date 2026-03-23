@@ -3,7 +3,7 @@ date: 2026-01-17T00:00:00.000Z
 title: Repräsentation und Responsivität
 gardenStage: plant
 visibility: Public
-updated: 2026-03-23T17:39:12.464Z
+updated: 2026-03-23T17:41:37.316Z
 webmentionResults:
   sent: 0
   failed: 0
@@ -14,6 +14,7 @@ webmentionResults:
     skipped: []
   timestamp: 2026-03-23T17:36:20.152Z
 webmentionSent: true
+category: lang/de
 mpUrl: https://blog.giersig.eu/articles/repraesentation-und-responsivitaet/
 permalink: /articles/repraesentation-und-responsivitaet/
 ---
