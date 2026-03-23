@@ -20,6 +20,7 @@ import { fileURLToPath } from "url";
 
 const esmRequire = createRequire(import.meta.url);
 const postGraph = esmRequire("@rknightuk/eleventy-plugin-post-graph");
+const pluginFootnotes = esmRequire("eleventy-plugin-footnotes");
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = process.env.SITE_URL || "https://example.com";
@@ -153,6 +154,10 @@ export default function (eleventyConfig) {
 
   // Mermaid diagram support — renders ```mermaid code blocks as diagrams
   eleventyConfig.addPlugin(pluginMermaid);
+
+  // Accessible footnotes — {% footnoteref "id" "note text" %}…{% endfootnoteref %}
+  // Render collected footnotes with {% footnotes %} in the post layout.
+  eleventyConfig.addPlugin(pluginFootnotes);
 
   // Post graph — GitHub-style contribution grid for posting frequency
   eleventyConfig.addPlugin(postGraph, {
