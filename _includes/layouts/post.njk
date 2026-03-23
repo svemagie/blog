@@ -128,12 +128,13 @@ withBlogSidebar: true
   </details>
   {% endif %}
 
-  {# See Also — related posts from frontmatter (resolved wikilinks → URLs) #}
-  {% if related and related.length > 0 %}
+  {# See Also — explicit related: frontmatter + in-text links to other blog posts #}
+  {% set _seeAlso = page.inputPath | seeAlsoLinks(related) %}
+  {% if _seeAlso.length > 0 %}
   <section class="post-related mt-6 pt-5 border-t border-surface-200 dark:border-surface-700">
     <h2 class="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-widest mb-3">See Also</h2>
     <ul class="space-y-1.5 list-none p-0 m-0">
-      {% for relUrl in related %}
+      {% for relUrl in _seeAlso %}
       {% set _relPost = collections.posts | postByUrl(relUrl) %}
       <li>
         <a href="{{ relUrl }}" class="text-sm text-accent-700 dark:text-accent-300 hover:underline">

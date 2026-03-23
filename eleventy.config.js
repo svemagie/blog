@@ -1119,6 +1119,26 @@ export default function (eleventyConfig) {
     return (posts || []).find((p) => p.url === path || p.url === `${path}/`);
   });
 
+  // Collect all internal blog links from a post's raw markdown and merge with
+  // the explicit `related` frontmatter URLs. Returns a deduplicated list.
+  eleventyConfig.addFilter("seeAlsoLinks", function (inputPath, relatedUrls) {
+    const seen = new Set();
+    const result = [];
+    const add = (url) => {
+      const key = String(url).replace(/\/$/, "");
+      if (!seen.has(key)) { seen.add(key); result.push(String(url)); }
+    };
+    for (const url of (relatedUrls || [])) add(url);
+    try {
+      const content = readFileSync(inputPath, "utf-8");
+      const escaped = siteUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const re = new RegExp(`\\]\\((${escaped}/[^)\\s]+)\\)`, "g");
+      let m;
+      while ((m = re.exec(content)) !== null) add(m[1]);
+    } catch { /* ignore */ }
+    return result;
+  });
+
   // Strip garden/* tags from a category list so they don't render as
   // plain category pills alongside the garden badge.
   eleventyConfig.addFilter("withoutGardenTags", (categories) => {
