@@ -6,10 +6,9 @@ category:
   - indieweb
   - on/memex
   - on/philosophy
-  - dev
-gardenStage: cultivate
+gardenStage: question
 visibility: Public
-updated: 2026-03-22T09:14:51.507Z
+updated: 2026-03-23T16:59:09.493Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh3mbhauf42o
   - https://blog.giersig.eu/articles/thinking-in-public/
@@ -376,6 +375,6 @@ The plugin removes friction that would prevent thinking-in-public. If publishing
 *   [ ] Add garden view to RSS feed (with stage indicators)
 *   [ ] Document which posts are actively cultivated vs. dormant vs. evergreen
 *   [ ] Public “Thinking in Progress” dashboard (with evergreen section)
-*   [ ] Consider “promotion ceremony” for posts moving to evergreen
+*   [x] Consider “promotion ceremony” for posts moving to evergreen ✅ 2026-03-23
 *   [ ] Revisit: Does the plant/cultivate/question/repot/revitalize/evergreen vocabulary fit?
-*   [ ] Track post lifecycle: when was it planted? When promoted to evergreen?
+*   [x] Track post lifecycle: when was it planted? When promoted to evergreen? ✅ 2026-03-23
