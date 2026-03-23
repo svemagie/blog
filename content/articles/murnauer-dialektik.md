@@ -18,9 +18,10 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-09T19:18:11.979Z
 webmentionSent: true
-updated: 2026-03-23T16:14:09.330Z
+updated: 2026-03-23T18:10:44.709Z
 aiCodeLevel: "0"
 aiTextLevel: "0"
+gardenStage: evergreen
 mpUrl: https://blog.giersig.eu/articles/murnauer-dialektik/
 permalink: /articles/murnauer-dialektik/
 ---
@@ -33,11 +34,11 @@ Um 18:30 Uhr ist es schon etwas dämmerig. Es verspricht eine seltsame Veranstal
 
 Der Ankündigung ist zu entnehmen, dass der Reichsbürger und Holocaustrelativierer mit der Rechtsaußenideologin Ringelreihen spielen und die Plätze an der Front getauscht haben. Nachdem UE mitsamt GS bei Presse, Lokalpolitik und Exekutive under Beschuss geraten sind, treten sie, aus der zweiten Reihe, zwar noch auf, aber nicht mehr namentlich also Veranstalter. Dies übernimmt nun die Phänomenologin MBH, die locker aus der Hüfte den Atlantiskult bemüht, um Vergleiche zur “Coronazeit” zu ziehen. Und so ihren Kopf aus der Schlinge zu ziehen, falls nötig. So war das alles ja nicht gemeint. Kennt man.
 
-[[Magdalena Börsig-Hover]] begrüßt die Teilnehmer, nach wenigen Minuten stellt sie klar, die Verwalterregierung habe die Pandemie beschlossen. Offenbar überhören die Zuhörer diese Punkte. Geschickt schwenkt sie wieder auf Liebe, Freiheit.
+Magdalena Börsig-Hover begrüßt die Teilnehmer, nach wenigen Minuten stellt sie klar, die Verwalterregierung habe die Pandemie beschlossen. Offenbar überhören die Zuhörer diese Punkte. Geschickt schwenkt sie wieder auf Liebe, Freiheit.
 
 Sie streut hin und wieder ihre Rechtsaußenthemen, übliches Reichsbürgergewäsch, schwenkt dann aber im nächsten Satz wieder auf Freiheit, Friede, Liebe, wir sind Erwacht und ähnliches Zeug. So klatschen die Zuhörer, manchmal dann auch an der falschen Stelle. Die eindeutig rechten Talkingpoints werden nicht so sehr euphorisch bejubelt, es macht sich, wenn überhaupt, eher beschämt-gespannte Stimmung breit, die sich dann mit den Stichworten “Wir”, “Liebe”, “Freiheit” kathartisch bricht und erleichtert beklatscht wird. Ein übles Spiel, das die studierte Philosophin und wohl geübte Rednerin da spielt. Offenkundig hat sie ihr Training am Studienzentrum Weikersheim mit der Note 3+ absolviert.
 
-Danach kommt der pensionierte Polizist [[Karl Hilz]] aus München, zünftig in Lodenmantel, Hut etc, der die Menge auf Bayrisch begrüßt, dem daraufhin sofort die Sympathien zufliegen. Kunstvoll lässt er Beifallpausen, ähnlich wie schon MBH. Diese Leute sind es gewohnt zu beeinflussen; jedenfalls sind sie gewohnt, vor Menschen zu sprechen. Der Polizist muss noch etwas üben, und ich fürchte, dass er noch genug Gelegenheit dazu haben wird.
+Danach kommt der pensionierte Polizist Karl Hilz aus München, zünftig in Lodenmantel, Hut etc, der die Menge auf Bayrisch begrüßt, dem daraufhin sofort die Sympathien zufliegen. Kunstvoll lässt er Beifallpausen, ähnlich wie schon MBH. Diese Leute sind es gewohnt zu beeinflussen; jedenfalls sind sie gewohnt, vor Menschen zu sprechen. Der Polizist muss noch etwas üben, und ich fürchte, dass er noch genug Gelegenheit dazu haben wird.
 
 Seine Argumentationslinie zieht sich über das Grundgesetz, die Menschenwürde ziemlich direkt zur Maskenpflicht, die ja ein Verbrechen gegen die Menschen ist, wiederum direkt zum Artikel 20, dem Widerstandsrecht. Juristisch nicht unbeleckt, stellt er aber klar, dass der einzige legale Weg des Widerstands über eine Besetzung der Basis der Parteien sei. Direkt nach diesen Ausführungen halluziniert er über die Demokratiehalluzination, in der wir leben, und referiert über Organisierte Kriminalität. Er reißt an, stellt in den Raum - ohne allzu konkret zu werden. Das Gesamtbild seiner Argumentation entsteht in den Köpfen der Zuhörer.
 
