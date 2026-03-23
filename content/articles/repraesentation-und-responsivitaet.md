@@ -3,7 +3,17 @@ date: 2026-01-17T00:00:00.000Z
 title: Repräsentation und Responsivität
 gardenStage: plant
 visibility: Public
-updated: 2026-03-23T17:32:39.738Z
+updated: 2026-03-23T17:39:12.464Z
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-23T17:36:20.152Z
+webmentionSent: true
 mpUrl: https://blog.giersig.eu/articles/repraesentation-und-responsivitaet/
 permalink: /articles/repraesentation-und-responsivitaet/
 ---
@@ -33,9 +43,9 @@ Schlussfolgerung: Die USA seien eher eine Plutokratie bzw. eine Oligarchie, denn
 
 Diese Monographie zeigt, dass in der US-Politik fast ausschließlich die Wünsche der oberen Einkommensschichten umgesetzt werden – und dass insbesondere bei verteilungs- oder umverteilungspolitischen Fragen die Präferenzen der unteren Einkommensgruppen kaum berücksichtigt werden.
 
-## 3. Armin Schäfer (Deutschland): Responsivität und [[soziale Ungleichheit]]
+## 3. Armin Schäfer (Deutschland): Responsivität und soziale Ungleichheit
 
-Auch für Deutschland gibt es belastbare Hinweise auf eine ungleiche Responsivität: Schäfer & Streeck (Hg.): „Politics in the Age of [[Austerität|Austerity]]“ (2013) sowie Schäfer & Zürn: „Die demokratische Regression“ (2021)
+Auch für Deutschland gibt es belastbare Hinweise auf eine ungleiche Responsivität: Schäfer & Streeck (Hg.): „Politics in the Age of Austerity“ (2013) sowie Schäfer & Zürn: „Die demokratische Regression“ (2021)
 
 Schäfer analysierte Bundestagsabstimmungen und Parteipositionen in Deutschland und stellte fest:
 
@@ -56,7 +66,7 @@ In der Folge stellen sich zentrale Fragen zur Legitimität demokratischer System
 *   Wie können Demokratien aufrecht erhalten werden, wenn massive Repräsentationslücken bestehen?
 *   Welche Rolle spielen Lobbyismus, Medienmacht und politische Apathie?
 *   Führt die Erfahrung, dass der eigene Wille politisch irrelevant ist, zu Politikverdrossenheit, Populismus oder gar zu autoritären Tendenzen?
-*   Hier spielen auch handfeste ökonomische Wahrnehmungen mit hinein: [[Zusammenhang Reallohn und Produktivität - Ein strukturelles Rätsel der Zweiten Moderne]]
+*   Hier spielen auch handfeste ökonomische Wahrnehmungen mit hinein: [Zusammenhang Reallohn und Produktivität - Ein strukturelles Rätsel der Zweiten Moderne](https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/)
 
 ## Weitere empirische Hinweise
 
