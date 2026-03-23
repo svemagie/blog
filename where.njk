@@ -2,7 +2,7 @@
 layout: layouts/been.njk
 title: Where
 permalink: /where/
-description: All past check-ins.
+description: AMy past check-ins.
 withSidebar: true
 leafletMap: true
 ---
@@ -12,7 +12,7 @@ leafletMap: true
   <header class="mb-6 sm:mb-8">
     <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">Where</h1>
     <p class="p-summary text-lg text-surface-600 dark:text-surface-400">
-      All past check-ins captured by this site via Micropub.
+      My past check-ins.
     </p>
   </header>
 
@@ -71,6 +71,7 @@ leafletMap: true
   {% endif %}
 
   {% if checkins.length %}
+     <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-surface-900 dark:text-surface-100 mb-2">/Been</h2>
   {% set grouped = checkins | groupby("name") %}
   <ul class="divide-y divide-surface-200 dark:divide-surface-700" aria-label="Past check-ins">
     {% for groupName, groupItems in grouped %}
