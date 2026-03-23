@@ -1,11 +1,11 @@
 ---
-date: 2020-08-06T18:00:00.000Z
+date: 2025-07-17T00:00:00.000Z
 title: Perspektiven auf die Corona-Demos
 category:
   - lang/de
   - on/covid19
-visibility: public
-updated: 2026-03-15T09:54:04.949Z
+visibility: Public
+updated: 2026-03-23T16:09:09.318Z
 summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
 webmentionResults:
   sent: 0
@@ -19,17 +19,17 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-09T19:18:11.904Z
 webmentionSent: true
-permalink: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
-ai:
-  textLevel: "0"
-  codeLevel: "0"
-  # aiTools: "Claude, ChatGPT, Copilot"
-  # aiDescription: "Optional disclosure about how AI was used"
+aiCodeLevel: "0"
+aiTextLevel: "0"
+gardenStage: plant
+mpUrl: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
+permalink: /articles/perspektiven-auf-die-corona-demos/
 ---
 
 Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit. Hier und da wird zwar darauf hingewiesen, dass der Terminus “Covidioten” ableistisch ist und dass das Wort Verschwörungstheorie den falschen Anschein von Wissenschaftlichkeit erwecken kann und man darum besser “-ideologie” oder “-erzählung” nutzen sollte. Das sind fraglos wichtige Beiträge zu dieser Debatte. Aber um den Kern der Frage, nämlich, was so viele Menschen dazu bringt, solch offensichtlich unwissenschaftlichen Unfug zu vertreten, und aus jeglicher logischen Lebensführung herauszutreten und in die pure Emotion einzutreten, wird sich nichtwissenwollend und nichtinteressierend ausgeschwiegen. Diese Menschen werden kurzerhand als Verirrte stigmatisiert, und das Thema wird mit dieser breit geteilten und allseits anerkannten Erkenntnis schleunig abgeschlossen.
 
 ## Pandemische Zustände
+
 Mich aber treibt um, dass ich persönlich und im Grundsatz mit den “Skeptikern” übereinstimme: der Staat will uns ganz grundsätzlich nichts Gutes. Der Staat will das kapitalistische Gesellschaftssystem und seine Macht erhalten. Das nimmt er als seine ureigenen Aufgaben wahr. Er schützt die Minderheit der Reichen um jeden Preis. Dieser Preis ist für den Staat mal mehr, mal weniger hoch. Wenn die Maschine rund läuft, kostet der Schutz der Wenigen nicht sehr viel, denn die Vielen haben die Machtpraktiken und Sicherheitsdispositive verinnerlicht und in ihre Leben eingebunden.
 
 Dieser Preis ist grundsätzlich und vor allem durch die vom Staate zugestandene Freiheit bemessen. In pandemischen Zeiten jedoch steigt dieser Preis, wie wir lernen konnten. Die Regierung bat höflichst darum, sich nicht mehr außer Haus aufzuhalten - die Wörter Ausgangssperre, Ausnahmezustand u.ä. wohlwissend vermeidend, denn das wären rechtliche Kategorien, auf die sich im Gegenzug dann auch die Mensch berufen könnte. Den Sinn dahinter, warum man vermeiden wollte, dass sich Menschen, und eben nicht nur die Repressionsorgane, auf das Recht berufen können, werden wir gleich sehen.
@@ -51,13 +51,14 @@ Ein besonderes Augenmerk bei den großen Erzählungen um Schließungen und Öffn
 Wieder standen die Menschen am Rande und das wirtschaftliche Funktionieren des zerbrechlichen Systems im Zentrum der Regierungshandelns. Währenddessen fragte sich die NZZ, wie man die [[2020-04-03 Die NZZ will wissen “Wie senkt man die Kosten pro Leben?”|Kosten pro Leben senken könnte]].
 
 ## CoronaSkeptiker, Leugner und Demonstranten
+
 Warum also gehen so viele auf die Straße und demonstrieren gegen die “Corona-Diktatur”? Zwei Punkte fallen hier besonders auf: deren tiefe Skepsis gegenüber den den Repräsentanten dieses Staates, personifiziert von “Politikern”, vorzugsweise von bestimmten PolitikerInnen, und zweitens die Rechtslastigkeit mitsamt der ihr typischen Anbiederung an die Staatsgewalt. Gerade letzteres scheint mir doch sehr paradox: die Politiker sind korrumpiert und gehören abgeschafft, aber die Polizei, deren ureigenste Aufgabe es ist, den Staatsapparat zu schützen, auf dessen Befehl diese gegen aufmüpfige Bürger vorgehen, soll “Freund” sein? Wir erinnern uns: aufmüpfig war zu Beginn der Pandemie schon ein Bürger, der alleine Bücherlesend auf einer Parkbank saß!
 
 Wir dürfen bei all der vielschichtigen Betrachtung einiges nicht vergessen: die Menschen sind es gewohnt, von Politikern belogen zu werden. Nicht nur in Zeiten des Wahlkampfes, sondern täglich. Jeder einzelne Skandal und jedes Skandälchen aktualisiert dieses Wissen auf’s Neue. Darüberhinaus wissen wir, dass Konzerne aller Art uns, also den Staat, betrügen, wo sie nur können - und dass Politiker sie lassen, dabei gerne helfen, vertuschen, und wie selbstverständlich die eigenen Taschen aufhalten. Die sorgsam gezüchtete und gehütete Lobbykratie ist undurchsichtig. Das stärkt das Gefühl, betrogen und manipuliert zu werden.
 
 Die Presse, die vierte Macht im Staat, unterliegt dem Druck der Sensationen, des News-Wertes, anstatt bedächtig über diese und andere unschöne Verquickungen aufzuklären. Entsprechend ergab eine [[2020-09-04 Medienkompetenz von Lehrerinnen Erstaunliche Vorstellungen|Umfrage unter Lehrern]] eine besorgniserregend große Skepsis gegenüber den Medien. Die Wissenschaft wiederum verspürt einen ganz ähnlichen Druck und steht einerseits unter Publikationszwang, andererseits müssen Ergebnisse wirtschaftlich verwertbar sein - was natürlich schon ganz am Anfang des wissenschaftlichen Prozesses, im Forschungsantrag und im werben um Drittmittel eine Rolle spielt. Alle zusammen spielen bei [FUD-Kampagnen](https://de.wikipedia.org/wiki/Fear%2C_Uncertainty_and_Doubt) mehr oder weniger gerne mit - schließlich sind sie alle dem Zwang unterworfen, Geld verdienen zu müssen. Zu guter Letzt werden für jeden Adressaten und Interessierten die passenden Informationen und die passenden alternativen Fakten für’s Internet produziert. Viele alternative Fakten sind spitzfindig gewobene Manipulationen - andere wiederum einfach nur Dummheiten. Medienkompetenz wird allerdings als Anhängsel der Digitalisierung, also irgendwas mit Internet, verstanden. Es bleibt jedem selbst überlassen, ob er die Bild-Zeitung oder obskure Internetquellen liest oder sich mit Zusammenhängen und Fakten befassen will. Das Wissen um Quellenkritik spielt in außeruniversitären Zusammenhänge keine Rolle. Nur so konnte es wohl geschehen, dass es seit dem Jahr 2020 nicht nur Fakten gibt, sondern eben auch “alternative Fakten”.
 
-<blockquote class="alignleft">Die Bourgeoisie könnte ihre eigene Welt sprengen und ruinieren, bevor sie die Bühne der Geschichte verlässt. -- Buenaventura Durruti</blockquote>
+> Die Bourgeoisie könnte ihre eigene Welt sprengen und ruinieren, bevor sie die Bühne der Geschichte verlässt. -- Buenaventura Durruti
 
 Auf diese unschöne Gemengelage treffen nun Menschen, die in ein Bildungsund Wertesystem hineingezwungen sind, das Konkurrenz und Egoismus statt Solidarität und Empathie fordert, fördert und für den größten Teil der Gesellschaft gleichsam erzwingt. Den pandemiebedingten und plötzlichen “Systemrelevanten” wird in großen Worten Dankbarkeit versprochen. Dankbarkeit drückt sich in diesem System vorwiegend durch Geld aus. Noch während der Krise lernen wir: leere Versprechungen. Für die Helden der Pandemie, den systemrelevanten Alltagshelden, gibt es keine Lohnerhöhung, sondern eine Tafel Schokolade - gespendet vom Schokoladenhersteller, der seine Propagandachance witterte.
 
@@ -65,9 +66,8 @@ Eine gesellschaftliche Großwetterlage mit so vielen negativen Gewissheiten, und
 
 Die Rechten, theoretisch, technisch und medial seit Jahrzehnten gut aufgestellt und vernetzt, kalkulieren, verstärken und nutzen diese Unzufriedenheit, diese Emotionen und diese Wut. Wenn man die jüngsten Aufdeckungen zu den Nazi-Netzwerken verallgemeinert, gibt es eine politische, bürgerlich getarnte Rechte, die im Zweifel (am “Tag X”) von Polizei und Militär euphorisch unterstützt werden. Nicht unerhebliche Teile der Bevölkerung sind sowieso rechtsoffen, und die Corona-Demos werden ganz offensichtlich als Vehikel genutzt, um neonazistische Denke weiter zugänglich zu machen.
 
-<blockquote class="alignright">Keine Regierung kämpft gegen den Faschismus, um ihn zu zerstören. Wenn die Bourgeoisie sieht, dass ihr die Macht aus den Händen gleitet, erhebt sie den Faschismus, um an ihren Privilegien festzuhalten. -- Buenaventura Durruti</blockquote>
+> Keine Regierung kämpft gegen den Faschismus, um ihn zu zerstören. Wenn die Bourgeoisie sieht, dass ihr die Macht aus den Händen gleitet, erhebt sie den Faschismus, um an ihren Privilegien festzuhalten. -- Buenaventura Durruti
 
 ## Literatur
 
 [^1]: König, Gudrun M. “Modus Der Moderne. Die Permanente Erfindung Der Konsumenten,” In Transformationen Des Konsums, 99–107. Nomos, 2019.
-
