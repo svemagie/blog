@@ -1094,6 +1094,31 @@ export default function (eleventyConfig) {
     return stages[stage] || null;
   });
 
+  // Backlinks — find all published posts whose raw source links to the given URL path.
+  // Reads each file once per build and caches it to avoid repeated disk I/O.
+  {
+    const contentCache = new Map();
+    eleventyConfig.addFilter("backlinksWith", function (posts, currentUrl) {
+      const fullUrl = `${siteUrl}${currentUrl}`;
+      return (posts || []).filter((post) => {
+        if (post.url === currentUrl) return false;
+        let content = contentCache.get(post.inputPath);
+        if (content === undefined) {
+          try { content = readFileSync(post.inputPath, "utf-8"); }
+          catch { content = ""; }
+          contentCache.set(post.inputPath, content);
+        }
+        return content.includes(fullUrl);
+      });
+    });
+  }
+
+  // Look up a post by its absolute blog URL — used to show titles in related-links lists.
+  eleventyConfig.addFilter("postByUrl", function (posts, url) {
+    const path = url.replace(siteUrl, "");
+    return (posts || []).find((p) => p.url === path || p.url === `${path}/`);
+  });
+
   // Strip garden/* tags from a category list so they don't render as
   // plain category pills alongside the garden badge.
   eleventyConfig.addFilter("withoutGardenTags", (categories) => {
