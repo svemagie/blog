@@ -5,7 +5,7 @@ category:
   - lang/de
   - on/covid19
 visibility: Public
-updated: 2026-03-23T16:09:09.318Z
+updated: 2026-03-23T16:20:40.087Z
 summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
 webmentionResults:
   sent: 0
@@ -21,7 +21,7 @@ webmentionResults:
 webmentionSent: true
 aiCodeLevel: "0"
 aiTextLevel: "0"
-gardenStage: plant
+gardenStage: evergreen
 mpUrl: https://blog.giersig.eu/articles/perspektiven-auf-die-corona-demos/
 permalink: /articles/perspektiven-auf-die-corona-demos/
 ---
