@@ -3,11 +3,12 @@ date: 2026-01-17T00:00:00.000Z
 title: Repräsentation und Responsivität
 gardenStage: plant
 visibility: Public
+updated: 2026-03-23T17:32:39.738Z
 mpUrl: https://blog.giersig.eu/articles/repraesentation-und-responsivitaet/
 permalink: /articles/repraesentation-und-responsivitaet/
 ---
 
-Die Notiz “Repräsentation und Responsivität” fasst zentrale empirische und theoretische Kritikpunkte an der Funktionsweise repräsentativer Demokratien zusammen. Der Kernbefund ist, dass politische Entscheidungen systematisch nicht den Präferenzen der breiten Bevölkerung folgen, sondern vorrangig die Interessen ökonomischer Eliten und organisierter Lobbygruppen bedienen. Dieser Nachweis einer “ungleichen Responsivität” wird durch einflussreiche Studien wie die von Gilens & Page (USA) und Schäfer (Deutschland) belegt. Das Konzept der “Postdemokratie” (Crouch) bietet einen theoretischen Rahmen für diese Entwicklung, in dem demokratische Institutionen formal bestehen bleiben, aber ihre Substanz verlieren. Die Notiz verbindet diese Befunde mit einer anarchistischen Perspektive, die in der repräsentativen Demokratie selbst eine strukturelle Ursache der Machtkonzentration sieht und dezentrale, partizipative Entscheidungsstrukturen als Ausweg propagiert.
+Wir fassen zentrale empirische und theoretische Kritikpunkte an der Funktionsweise repräsentativer Demokratien zusammen. Der Kernbefund ist, dass politische Entscheidungen systematisch nicht den Präferenzen der breiten Bevölkerung folgen, sondern vorrangig die Interessen ökonomischer Eliten und organisierter Lobbygruppen bedienen. Dieser Nachweis einer “ungleichen Responsivität” wird durch einflussreiche Studien wie die von Gilens & Page (USA) und Schäfer (Deutschland) belegt. Das Konzept der “Postdemokratie” (Crouch) bietet einen theoretischen Rahmen für diese Entwicklung, in dem demokratische Institutionen formal bestehen bleiben, aber ihre Substanz verlieren. Die Notiz verbindet diese Befunde mit einer anarchistischen Perspektive, die in der repräsentativen Demokratie selbst eine strukturelle Ursache der Machtkonzentration sieht und dezentrale, partizipative Entscheidungsstrukturen als Ausweg propagiert.
 
 * * *
 
