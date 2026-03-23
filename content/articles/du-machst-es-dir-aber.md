@@ -7,6 +7,17 @@ category:
 gardenStage: evergreen
 evergreeSince: 2024-03-03
 visibility: Public
+webmentionResults:
+  sent: 0
+  failed: 0
+  skipped: 0
+  details:
+    sent: []
+    failed: []
+    skipped: []
+  timestamp: 2026-03-23T19:16:24.363Z
+webmentionSent: true
+updated: 2026-03-23T19:18:24.793Z
 mpUrl: https://blog.giersig.eu/articles/du-machst-es-dir-aber/
 permalink: /articles/du-machst-es-dir-aber/
 ---
@@ -63,9 +74,9 @@ Während wir diesen Weg beschreiten, gestalten wir aktiv eine Zukunft, in der Be
 *   [https://de.wikipedia.org/wiki/Polyamorie](https://de.wikipedia.org/wiki/Polyamorie)
 *   [https://queer-lexikon.net/uebersichtsseiten/poly/](https://queer-lexikon.net/uebersichtsseiten/poly/)
 *   [https://mono-poly-co.letscast.fm/](https://mono-poly-co.letscast.fm/)
-*   Jessica Fern (2020) [Polysecure. Bindung, Trauma und konsensuelle Nicht-Monogamie](https://amzn.to/49VBmIb). (Jessica Fern - Polysecure)
-*   Veaux, Rickert, Hardy & Fern (2022) [More than two - A practical Guide to ethical Polyamory](https://amzn.to/49BcENC).
-*   Eva Illouz (2007) [Gefühle in Zeiten des Kapitalismus](https://amzn.to/49CNKgn). (Eva Illouz - Gefühle in Zeiten des Kapitalismus)
-*   Seyda Kurt (2021) [Radikale Zärtlichkeit. Warum Liebe politisch ist](https://amzn.to/42Yw7Fx). (Seyda Kurt - Radikale Zärtlichkeit Warum Liebe politisch ist)
-*   Friedemann Karig (2017) [Wie wir lieben. Vom Ende der Monogamie](https://amzn.to/49BhdaG). (Friedemann Karig - Wie wir lieben)
-*   Liv Strömquist (2018) [Der Ursprung der Liebe](https://amzn.to/430NhCd).
+*   Jessica Fern (2020) Polysecure. Bindung, Trauma und konsensuelle Nicht-Monogamie
+*   Veaux, Rickert, Hardy & Fern (2022) More than two - A practical Guide to ethical Polyamory
+*   Eva Illouz (2007) Gefühle in Zeiten des Kapitalismus
+*   Seyda Kurt (2021) Radikale Zärtlichkeit. Warum Liebe politisch ist
+*   Friedemann Karig (2017) Wie wir lieben. Vom Ende der Monogamie
+*   Liv Strömquist (2018) Der Ursprung der Liebe
