@@ -18,10 +18,11 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-09T19:18:11.979Z
 webmentionSent: true
-updated: 2026-03-23T18:10:44.709Z
+updated: 2026-03-23T18:12:39.046Z
 aiCodeLevel: "0"
 aiTextLevel: "0"
 gardenStage: evergreen
+evergreeSince: 2024-12-31
 mpUrl: https://blog.giersig.eu/articles/murnauer-dialektik/
 permalink: /articles/murnauer-dialektik/
 ---
