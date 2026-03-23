@@ -128,6 +128,40 @@ withBlogSidebar: true
   </details>
   {% endif %}
 
+  {# See Also — related posts from frontmatter (resolved wikilinks → URLs) #}
+  {% if related and related.length > 0 %}
+  <section class="post-related mt-6 pt-5 border-t border-surface-200 dark:border-surface-700">
+    <h2 class="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-widest mb-3">See Also</h2>
+    <ul class="space-y-1.5 list-none p-0 m-0">
+      {% for relUrl in related %}
+      {% set _relPost = collections.posts | postByUrl(relUrl) %}
+      <li>
+        <a href="{{ relUrl }}" class="text-sm text-accent-700 dark:text-accent-300 hover:underline">
+          {{ _relPost.data.title if _relPost else relUrl }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {# Linked From — posts that link to this one, computed from raw source files #}
+  {% set _backlinks = collections.posts | backlinksWith(page.url) %}
+  {% if _backlinks and _backlinks.length > 0 %}
+  <section class="post-backlinks mt-6 pt-5 border-t border-surface-200 dark:border-surface-700">
+    <h2 class="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-widest mb-3">Linked From</h2>
+    <ul class="space-y-1.5 list-none p-0 m-0">
+      {% for post in _backlinks %}
+      <li>
+        <a href="{{ post.url }}" class="text-sm text-accent-700 dark:text-accent-300 hover:underline">
+          {{ post.data.title or "Untitled" }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   {# Pending syndication targets (for services like IndieNews that require u-syndication before webmention) #}
   {% if mpSyndicateTo %}
   <div class="hidden">
@@ -337,40 +371,6 @@ withBlogSidebar: true
   </template>
 </article>
 
-
-{# See Also — related posts from frontmatter (resolved wikilinks → URLs) #}
-{% if related and related.length > 0 %}
-<section class="post-related mt-8 pt-6 border-t border-surface-200 dark:border-surface-700">
-  <h2 class="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-widest mb-3">See Also</h2>
-  <ul class="space-y-1.5 list-none p-0 m-0">
-    {% for relUrl in related %}
-    {% set _relPost = collections.posts | postByUrl(relUrl) %}
-    <li>
-      <a href="{{ relUrl }}" class="text-sm text-accent-700 dark:text-accent-300 hover:underline">
-        {{ _relPost.data.title if _relPost else relUrl }}
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
-
-{# Linked From — posts that link to this one, computed from raw source files #}
-{% set _backlinks = collections.posts | backlinksWith(page.url) %}
-{% if _backlinks and _backlinks.length > 0 %}
-<section class="post-backlinks mt-6 pt-6 border-t border-surface-200 dark:border-surface-700">
-  <h2 class="text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-widest mb-3">Linked From</h2>
-  <ul class="space-y-1.5 list-none p-0 m-0">
-    {% for post in _backlinks %}
-    <li>
-      <a href="{{ post.url }}" class="text-sm text-accent-700 dark:text-accent-300 hover:underline">
-        {{ post.data.title or "Untitled" }}
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
 
 {# Comments section #}
 {% include "components/comments.njk" %}
