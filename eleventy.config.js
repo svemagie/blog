@@ -1128,7 +1128,8 @@ export default function (eleventyConfig) {
       const key = String(url).replace(/\/$/, "");
       if (!seen.has(key)) { seen.add(key); result.push(String(url)); }
     };
-    for (const url of (relatedUrls || [])) add(url);
+    const relArray = !relatedUrls ? [] : Array.isArray(relatedUrls) ? relatedUrls : [relatedUrls];
+    for (const url of relArray) add(url);
     try {
       const content = readFileSync(inputPath, "utf-8");
       const escaped = siteUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
