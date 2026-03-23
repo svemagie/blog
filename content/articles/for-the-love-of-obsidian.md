@@ -4,9 +4,8 @@ title: For the Love of Obsidian and IndieWeb
 summary: "I spent a few hours building a bridge between my favourite writing tool and my self-hosted corner of the web. Here is what came out of it: an Obsidian Micropub plugin with IndieAuth, and a Digital Garden living alongside my blog."
 category:
   - on/memex
-  - smallweb/dev
-  - indieweb
   - dev
+  - smallweb/indieweb
 visibility: Public
 ai:
   - - 'textLevel: "0"'
@@ -39,7 +38,7 @@ webmentionResults:
         reason: No webmention endpoint found
   timestamp: 2026-03-14T17:24:52.339Z
 webmentionSent: true
-updated: 2026-03-21T13:19:54.058Z
+updated: 2026-03-22T08:52:13.966Z
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mh22kjy5d227
   - https://blog.giersig.eu/articles/for-the-love-of-obsidian/
