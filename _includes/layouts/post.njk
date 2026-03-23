@@ -100,9 +100,6 @@ withBlogSidebar: true
   {# Rich reply context with h-cite microformat #}
   {% include "components/reply-context.njk" %}
 
-  {# Footnotes collected from {% footnoteref %} shortcodes in the content #}
-  {% footnotes %}
-
   {# AI usage disclosure — articles and notes only #}
   {% if '/articles/' in page.url or '/notes/' in page.url %}
   <details class="mt-4 text-xs text-surface-700 dark:text-surface-300">

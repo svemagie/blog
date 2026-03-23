@@ -6,6 +6,7 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
+import markdownItFootnote from "markdown-it-footnote";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
 import { minify as minifyJS } from "terser";
@@ -20,7 +21,6 @@ import { fileURLToPath } from "url";
 
 const esmRequire = createRequire(import.meta.url);
 const postGraph = esmRequire("@rknightuk/eleventy-plugin-post-graph");
-const pluginFootnotes = esmRequire("eleventy-plugin-footnotes");
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteUrl = process.env.SITE_URL || "https://example.com";
@@ -99,6 +99,7 @@ export default function (eleventyConfig) {
     linkify: true,  // Auto-convert URLs to clickable links
     typographer: true,
   });
+  md.use(markdownItFootnote);
   md.use(markdownItAnchor, {
     permalink: markdownItAnchor.permalink.headerLink(),
     slugify: (s) => s.toLowerCase().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, ""),
@@ -155,9 +156,7 @@ export default function (eleventyConfig) {
   // Mermaid diagram support — renders ```mermaid code blocks as diagrams
   eleventyConfig.addPlugin(pluginMermaid);
 
-  // Accessible footnotes — {% footnoteref "id" "note text" %}…{% endfootnoteref %}
-  // Render collected footnotes with {% footnotes %} in the post layout.
-  eleventyConfig.addPlugin(pluginFootnotes);
+  // markdown-it-footnote handles standard [^1] Markdown footnote syntax
 
   // Post graph — GitHub-style contribution grid for posting frequency
   eleventyConfig.addPlugin(postGraph, {
