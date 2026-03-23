@@ -60,8 +60,8 @@ withSidebar: false
               <div class="flex flex-wrap items-center gap-2 mt-2">
                 <span
                   class="text-xs px-2 py-0.5 rounded-full font-medium"
-                  :class="categoryColors[commit.category]"
-                  x-text="categoryLabels[commit.category] || commit.category"
+                  :class="categoryColors[commit.commitCategory]"
+                  x-text="categoryLabels[commit.commitCategory] || commit.commitCategory"
                 ></span>
                 <a :href="commit.repoUrl" target="_blank" rel="noopener"
                    class="text-xs px-2 py-0.5 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400"
@@ -179,12 +179,12 @@ function changelogApp() {
 
     filteredCommits() {
       if (this.activeTab === 'all') return this.commits;
-      return this.commits.filter(c => c.category === this.activeTab);
+      return this.commits.filter(c => c.commitCategory === this.activeTab);
     },
 
     getCount(tabKey) {
       if (tabKey === 'all') return this.commits.length;
-      return this.commits.filter(c => c.category === tabKey).length;
+      return this.commits.filter(c => c.commitCategory === tabKey).length;
     },
 
     formatDate(dateStr) {
