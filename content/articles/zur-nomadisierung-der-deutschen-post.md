@@ -2,8 +2,11 @@
 date: 2021-07-12T00:00:00.000Z
 title: Zur Nomadisierung der deutschen Post-Corona Gesellschaft
 summary: "Das ist wohl das Gefährlichste, was gesellschaftlich passieren konnte: die Leute hatten - vielleicht zum ersten Mal - Zeit, Gelegenheit und Grund, die Normalität ihres Alltags zu hinterfragen."
-category: on/covid19
+category:
+  - on/covid19
+  - lang/de
 visibility: Public
+updated: 2026-03-23T16:05:09.251Z
 mpUrl: https://blog.giersig.eu/articles/zur-nomadisierung-der-deutschen-post/
 permalink: /articles/zur-nomadisierung-der-deutschen-post/
 ---
@@ -27,5 +30,3 @@ Wir sehen den Beginn einer längst überfällige Demokratisierung der Arbeit. Di
 Die Propagandawelle, die versuchen wird, diese Gefahr, diesen Ausbruch der Menschen aus dem Denkkorsett der Leistungsgesellschaft, wieder einzuhegen, rollt schon an. Die zunehmende Fixierung auf finanzielle Kosten der Pandemie baut Druck auf das Individuum auf. Wenn es ganz schlimm läuft, wird dies dann in Form von Angst kollektiviert, und sozialer Druck führt dazu, sich der Angst zu beugen. Wozu sozial kollektivierte finanzielle Deprivation führt, welche die Staaten sodann mit “Konjunkturprogrammen” auffangen wollen, haben wir in der Geschichten schon oft erlebt.
 
 Wenn wir dann bald [Austerität](https://de.wikipedia.org/wiki/Austerit%C3%A4t) fahren “müssen”, bezahlen wir nicht in erster Linie die finanziellen Kosten der Pandemie, sondern vor allem die Gewinne, die dadurch erst entstehen werden.
-
-*(Artikelbild: “Das neue Verhältnis zwischen Arbeiter und Unternehmer” Karikatur aus dem «Neuen Postillon», Schweiz 1896, Public Domain)*
