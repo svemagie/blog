@@ -286,10 +286,10 @@ function podrollApp() {
           fetch('/podrollapi/api/status').then(r => r.json())
         ]);
 
-        this.episodes = episodesRes.items || [];
+        this.episodes = (episodesRes.items || []).map(ep => this.decodeEpisode(ep));
         this.hasMore = episodesRes.hasMore || false;
         this.offset = 0;
-        this.sources = sourcesRes.items || [];
+        this.sources = (sourcesRes.items || []).map(s => ({ ...s, title: this.decodeHtml(s.title) }));
         this.status = statusRes;
       } catch (err) {
         this.error = 'Failed to load podcasts: ' + err.message;
@@ -310,7 +310,7 @@ function podrollApp() {
           url += `&source=${encodeURIComponent(this.filterPodcast)}`;
         }
         const res = await fetch(url).then(r => r.json());
-        this.episodes = res.items || [];
+        this.episodes = (res.items || []).map(ep => this.decodeEpisode(ep));
         this.hasMore = res.hasMore || false;
       } catch (err) {
         this.error = 'Failed to load episodes: ' + err.message;
@@ -329,7 +329,7 @@ function podrollApp() {
           url += `&source=${encodeURIComponent(this.filterPodcast)}`;
         }
         const res = await fetch(url).then(r => r.json());
-        this.episodes = [...this.episodes, ...(res.items || [])];
+        this.episodes = [...this.episodes, ...(res.items || []).map(ep => this.decodeEpisode(ep))];
         this.hasMore = res.hasMore || false;
         this.offset = newOffset;
       } catch (err) {
@@ -372,6 +372,21 @@ function podrollApp() {
       if (!bytes) return '';
       const mb = bytes / (1024 * 1024);
       return mb.toFixed(1) + ' MB';
+    },
+
+    decodeHtml(str) {
+      if (!str) return str;
+      const div = document.createElement('div');
+      div.innerHTML = str;
+      return div.textContent;
+    },
+
+    decodeEpisode(ep) {
+      return {
+        ...ep,
+        title: this.decodeHtml(ep.title),
+        podcast: ep.podcast ? { ...ep.podcast, title: this.decodeHtml(ep.podcast.title) } : ep.podcast
+      };
     },
 
     stripHtml(html) {
