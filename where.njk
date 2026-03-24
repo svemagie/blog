@@ -26,9 +26,17 @@ leafletMap: true
   {% endif %}
 
   {% set mapPoints = [] %}
+  {% set homeSeenNames = [] %}
   {% for c in checkins %}
     {% if c.latitude and c.longitude %}
-      {% set mapPoints = (mapPoints.push({name: c.name, lat: c.latitude, lng: c.longitude, url: c.venueWebsiteUrl}), mapPoints) %}
+      {% if "Murnau" in (c.locality or "") or "Garmisch" in (c.locality or "") %}
+        {% if c.name not in homeSeenNames %}
+          {% set mapPoints = (mapPoints.push({name: c.name, lat: c.latitude, lng: c.longitude, url: c.venueWebsiteUrl}), mapPoints) %}
+          {% set homeSeenNames = (homeSeenNames.push(c.name), homeSeenNames) %}
+        {% endif %}
+      {% else %}
+        {% set mapPoints = (mapPoints.push({name: c.name, lat: c.latitude, lng: c.longitude, url: c.venueWebsiteUrl}), mapPoints) %}
+      {% endif %}
     {% endif %}
   {% endfor %}
 
