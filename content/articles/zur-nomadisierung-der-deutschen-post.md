@@ -5,8 +5,8 @@ summary: "Das ist wohl das Gefährlichste, was gesellschaftlich passieren konnte
 category:
   - on/covid19
   - lang/de
-visibility: public
-updated: 2026-03-23T16:17:15.962Z
+visibility: Public
+updated: 2026-03-24T06:41:05.225Z
 webmentionResults:
   sent: 0
   failed: 0
@@ -18,6 +18,9 @@ webmentionResults:
   timestamp: 2026-03-23T16:06:16.555Z
 webmentionSent: true
 aiTextLevel: "0"
+related:
+  - https://blog.giersig.eu/articles/zusammenhang-reallohn-und-produktivitaet-ein/
+  - https://blog.giersig.eu/articles/anarchistische-anthropologie/
 mpUrl: https://blog.giersig.eu/articles/zur-nomadisierung-der-deutschen-post/
 permalink: /articles/zur-nomadisierung-der-deutschen-post/
 ---
