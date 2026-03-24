@@ -20,7 +20,7 @@ leafletMap: true
   {% set newest = checkins[0] %}
   <div class="mb-6 p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
     <p class="text-sm font-medium text-emerald-800 dark:text-emerald-300">
-      I'm currently in <strong>{% if newest.venueWebsiteUrl %}<a href="{{ newest.venueWebsiteUrl }}" target="_blank" rel="noopener" class="underline hover:opacity-80">{{ newest.name }}</a>{% else %}{{ newest.name }}{% endif %}</strong>{% if newest.locationText %}, {{ newest.locationText }}{% endif %}
+      I'm currently in <strong>{% if newest.venueWebsiteUrl %}<a href="{{ newest.venueWebsiteUrl }}" target="_blank" rel="noopener" class="underline hover:opacity-80">{{ newest.name }}</a>{% else %}{{ newest.name }}{% endif %}</strong>{% if newest.locality %}, {{ newest.locality }}{% elif newest.locationText %}, {{ newest.locationText }}{% endif %}
     </p>
   </div>
   {% endif %}
