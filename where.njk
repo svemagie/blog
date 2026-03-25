@@ -29,7 +29,7 @@ leafletMap: true
   {% set homeSeenNames = [] %}
   {% for c in checkins %}
     {% if c.latitude and c.longitude %}
-      {% if c.locationName == "Murnau" or c.locationName == "Garmisch-Partenkirchen" %}
+      {% if c.name == "Murnau" or c.name == "Garmisch-Partenkirchen" %}
         {% if c.name not in homeSeenNames %}
           {% set mapPoints = (mapPoints.push({name: c.name, lat: c.latitude, lng: c.longitude, url: c.venueWebsiteUrl}), mapPoints) %}
           {% set homeSeenNames = (homeSeenNames.push(c.name), homeSeenNames) %}
@@ -91,7 +91,7 @@ leafletMap: true
         {% else %}
         {{ checkin.name }}
         {% endif %}
-        {% if groupItems | length > 1 and checkin.locationName != "Murnau" and checkin.locationName != "Garmisch-Partenkirchen" %}
+        {% if groupItems | length > 1 and checkin.name != "Murnau" and checkin.name != "Garmisch-Partenkirchen" %}
         <span class="ml-2 text-xs font-normal text-surface-500 dark:text-surface-400">{{ groupItems | length }}×</span>
         {% endif %}
         {% if checkin.isPrivate %}<span class="ml-2 text-xs text-amber-700 dark:text-amber-400">(private)</span>{% endif %}

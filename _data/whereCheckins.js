@@ -345,7 +345,6 @@ function normalizeCheckin(frontmatter, relativePath) {
       ? `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`
       : "";
 
-  const locationName = asText(first(asArray(locationProps.name)));
   const locationText = joinLocation(locality, region, country);
   const timestamp = published ? Date.parse(published) || 0 : 0;
   const permalink = asText(frontmatter.permalink);
@@ -368,7 +367,6 @@ function normalizeCheckin(frontmatter, relativePath) {
     venueWebsiteUrl,
     venueSocialUrl,
     locality,
-    locationName,
     region,
     country,
     postalCode,
