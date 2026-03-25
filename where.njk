@@ -48,11 +48,28 @@ leafletMap: true
   <script>
     window.addEventListener('load', function() {
       var map = L.map('checkin-map');
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19,
-        crossOrigin: 'anonymous'
-      }).addTo(map);
+      var tiles = {
+        light: {
+          url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        },
+        dark: {
+          url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        }
+      };
+      function isDark() { return document.documentElement.classList.contains('dark'); }
+      function makeTileLayer(scheme) {
+        return L.tileLayer(tiles[scheme].url, { attribution: tiles[scheme].attribution, maxZoom: 19 });
+      }
+      var tileLayer = makeTileLayer(isDark() ? 'dark' : 'light');
+      tileLayer.addTo(map);
+      new MutationObserver(function() {
+        var next = isDark() ? 'dark' : 'light';
+        map.removeLayer(tileLayer);
+        tileLayer = makeTileLayer(next);
+        tileLayer.addTo(map);
+      }).observe(document.documentElement, { attributeFilter: ['class'] });
       function escHtml(s) {
         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       }
@@ -65,10 +82,10 @@ leafletMap: true
           : safeName;
         return L.circleMarker([p.lat, p.lng], {
           radius: 7,
-          color: '#fff',
+          color: isDark() ? '#504945' : '#fff',
           weight: 2,
-          fillColor: '#3b82f6',
-          fillOpacity: 0.9
+          fillColor: '#83a598',
+          fillOpacity: 0.85
         }).bindPopup(popup);
       });
       markers.forEach(function(m) { cluster.addLayer(m); });
