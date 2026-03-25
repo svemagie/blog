@@ -1,35 +1,87 @@
 <!DOCTYPE html>
 <html lang="{{ site.locale | default('en') }}" class="loading">
 <head>
-<script defer src="https://blog.giersig.eu/svemagie.js" data-host-url="https://blog.giersig.eu" data-website-id="b36ecc62-79df-4961-9bf3-71aed36c6bb2"></script>
+<script 
+  defer 
+  src="https://blog.giersig.eu/svemagie.js" 
+  data-host-url="https://blog.giersig.eu" 
+  data-website-id="b36ecc62-79df-4961-9bf3-71aed36c6bb2"
+  id="umami"
+></script>
+
 <script>
 (function () {
-  function track() {
-    if (typeof umami === 'undefined') { setTimeout(track, 200); return; }
-    var ref = document.referrer;
-    var host = ref ? new URL(ref).hostname.replace(/^www\./, '') : '';
-    var segment;
-    var searches = ['google.com','bing.com','duckduckgo.com','yahoo.com','kagi.com','yandex.com','baidu.com','ecosia.org','startpage.com','search.brave.com'];
-    var fediInstances = ['mastodon.social','fosstodon.org','hachyderm.io','infosec.exchange','chaos.social','ruby.social','indieweb.social','social.lol','octodon.social','mas.to','mstdn.social','techhub.social','universeodon.com','kolektiva.social','scholar.social','mathstodon.xyz','social.coop','functional.cafe','c.im','aus.social','social.tchncs.de','masto.ai','sigmoid.social'];
-    var fediPatterns = [/^mastodon\./,/\.mastodon\./,/^lemmy\./,/^kbin\./,/^pixelfed\./,/^pleroma\./,/^misskey\./,/^friendica\./,/^diaspora\./,/^hometown\./];
-    var indieDomains = ['indienews.org','indieblog.page','news.indieweb.org','indieweb.org','micro.blog','telegraph.p3k.io'];
-    if (!host) {
-      segment = 'direct';
-    } else if (searches.some(function (d) { return host === d || host.slice(-(d.length + 1)) === '.' + d; })) {
-      segment = 'search';
-    } else if (host === 'bsky.app') {
-      segment = 'bluesky';
-    } else if (fediInstances.indexOf(host) !== -1 || fediPatterns.some(function (p) { return p.test(host); })) {
-      segment = 'fediverse';
-    } else if (indieDomains.some(function (d) { return host === d || host.slice(-(d.length + 1)) === '.' + d; })) {
-      segment = 'indieweb';
-    } else {
-      segment = 'web';
+
+  // Derive post type from URL path (content lives at /notes/, /articles/, etc.)
+  function getPostType() {
+    var typeMap = {
+      articles: 'article', notes: 'note', bookmarks: 'bookmark',
+      photos: 'photo', replies: 'reply', reposts: 'repost', likes: 'like'
+    };
+    var path = window.location.pathname;
+    for (var dir in typeMap) {
+      if (path.indexOf('/' + dir + '/') === 0) return typeMap[dir];
     }
-    umami.track('reader-source', { segment: segment, ref: host || 'direct' });
+    return null;
   }
-  track();
-}());
+
+  // Classify referrer into a named source segment
+  function getSourceSegment(host) {
+    var searches     = ['google.com','bing.com','duckduckgo.com','yahoo.com','kagi.com','yandex.com','baidu.com','ecosia.org','startpage.com','search.brave.com'];
+    var fediHosts    = ['mastodon.social','fosstodon.org','hachyderm.io','infosec.exchange','chaos.social','ruby.social','indieweb.social','social.lol','octodon.social','mas.to','mstdn.social','techhub.social','universeodon.com','kolektiva.social','scholar.social','mathstodon.xyz','social.coop','functional.cafe','c.im','aus.social','social.tchncs.de','masto.ai','sigmoid.social'];
+    var fediPatterns = [/^mastodon\./,/\.mastodon\./,/^lemmy\./,/^kbin\./,/^pixelfed\./,/^pleroma\./,/^misskey\./,/^friendica\./,/^diaspora\./,/^hometown\./];
+    var indieHosts   = ['indienews.org','indieblog.page','news.indieweb.org','indieweb.org','micro.blog','telegraph.p3k.io'];
+    if (!host)                                                                                             return 'direct';
+    if (searches.some(function (d)  { return host === d || host.slice(-(d.length+1)) === '.'+d; }))       return 'search';
+    if (host === 'bsky.app')                                                                               return 'bluesky';
+    if (fediHosts.indexOf(host) !== -1 || fediPatterns.some(function (p) { return p.test(host); }))       return 'fediverse';
+    if (indieHosts.some(function (d) { return host === d || host.slice(-(d.length+1)) === '.'+d; }))      return 'indieweb';
+    return 'web';
+  }
+
+  function run() {
+    var path = window.location.pathname;
+
+    // 1. Content type tracking — derived from URL path
+    var postType = getPostType();
+    if (postType) {
+      umami.track('content-view', { type: postType });
+    }
+
+    // 2. Reader source segmentation
+    var ref     = document.referrer;
+    var host    = ref ? new URL(ref).hostname.replace(/^www\./, '') : '';
+    var segment = getSourceSegment(host);
+    umami.track('reader-source', { segment: segment, ref: host || 'direct' });
+
+    // 3. Webmention tracking
+    fetch('/webmentions/api/mentions?target=' + encodeURIComponent(window.location.href))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var count = data.children ? data.children.length : 0;
+        if (count > 0) {
+          umami.track('webmention-received', { count: count, path: path });
+        }
+      })
+      .catch(function () {});
+
+    // 4. Outbound link tracking
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href]');
+      if (!link) return;
+      try {
+        var url = new URL(link.href);
+        if (url.hostname !== window.location.hostname) {
+          umami.track('outbound-click', { host: url.hostname, path: path });
+        }
+      } catch (ex) {}
+    });
+  }
+
+  // Wait for Umami to load before firing any events
+  document.getElementById('umami').addEventListener('load', run);
+
+})();
 </script>
   {# OG image resolution handled by og-fix transform in eleventy.config.js
      to bypass Eleventy 3.x parallel rendering race condition (#3183).
