@@ -50,7 +50,8 @@ eleventyImport:
       "id": "{{ absolutePostUrl }}",
       "url": "{{ absolutePostUrl }}",
       "title": {% if post.data.title %}{{ post.data.title | jsonEncode | safe }}{% else %}null{% endif %},
-      "content_html": {{ post.content | htmlToAbsoluteUrls(absolutePostUrl) | jsonEncode | safe }},
+      {%- set _jsonPixel = '<img src="https://cloud.umami.is/noscript.gif?website-id=bbaa63e7-6dd2-4a4e-bbb2-68e9e75600f0&amp;url=/rss' + post.url + '" width="1" height="1" alt="" style="display:none">' %}
+      "content_html": {{ (post.content | htmlToAbsoluteUrls(absolutePostUrl) + _jsonPixel) | jsonEncode | safe }},
       "content_text": {{ post.content | striptags | jsonEncode | safe }},
       "date_published": "{{ post.date | dateToRfc3339 }}",
       "date_modified": "{{ (post.data.updated or post.date) | dateToRfc3339 }}"

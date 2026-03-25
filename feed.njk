@@ -35,7 +35,8 @@ eleventyImport:
       <link>{{ absolutePostUrl }}</link>
       <guid isPermaLink="true">{{ absolutePostUrl }}</guid>
       <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
-      <description>{{ post.content | htmlToAbsoluteUrls(absolutePostUrl) | escape }}</description>
+      {%- set _rssPixel = '<img src="https://cloud.umami.is/noscript.gif?website-id=bbaa63e7-6dd2-4a4e-bbb2-68e9e75600f0&url=/rss' + post.url + '" width="1" height="1" alt="" style="display:none">' %}
+      <description>{{ (post.content | htmlToAbsoluteUrls(absolutePostUrl) + _rssPixel) | escape }}</description>
       {%- if postImage and postImage != "" and (postImage | length) > 10 %}
       {%- set imageUrl = postImage | url | absoluteUrl(site.url) %}
       <enclosure url="{{ imageUrl }}" type="image/jpeg" length="0"/>

@@ -2,6 +2,35 @@
 <html lang="{{ site.locale | default('en') }}" class="loading">
 <head>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="bbaa63e7-6dd2-4a4e-bbb2-68e9e75600f0"></script>
+<script>
+(function () {
+  function track() {
+    if (typeof umami === 'undefined') { setTimeout(track, 200); return; }
+    var ref = document.referrer;
+    var host = ref ? new URL(ref).hostname.replace(/^www\./, '') : '';
+    var segment;
+    var searches = ['google.com','bing.com','duckduckgo.com','yahoo.com','kagi.com','yandex.com','baidu.com','ecosia.org','startpage.com','search.brave.com'];
+    var fediInstances = ['mastodon.social','fosstodon.org','hachyderm.io','infosec.exchange','chaos.social','ruby.social','indieweb.social','social.lol','octodon.social','mas.to','mstdn.social','techhub.social','universeodon.com','kolektiva.social','scholar.social','mathstodon.xyz','social.coop','functional.cafe','c.im','aus.social','social.tchncs.de','masto.ai','sigmoid.social'];
+    var fediPatterns = [/^mastodon\./,/\.mastodon\./,/^lemmy\./,/^kbin\./,/^pixelfed\./,/^pleroma\./,/^misskey\./,/^friendica\./,/^diaspora\./,/^hometown\./];
+    var indieDomains = ['indienews.org','indieblog.page','news.indieweb.org','indieweb.org','micro.blog','telegraph.p3k.io'];
+    if (!host) {
+      segment = 'direct';
+    } else if (searches.some(function (d) { return host === d || host.slice(-(d.length + 1)) === '.' + d; })) {
+      segment = 'search';
+    } else if (host === 'bsky.app') {
+      segment = 'bluesky';
+    } else if (fediInstances.indexOf(host) !== -1 || fediPatterns.some(function (p) { return p.test(host); })) {
+      segment = 'fediverse';
+    } else if (indieDomains.some(function (d) { return host === d || host.slice(-(d.length + 1)) === '.' + d; })) {
+      segment = 'indieweb';
+    } else {
+      segment = 'web';
+    }
+    umami.track('reader-source', { segment: segment, ref: host || 'direct' });
+  }
+  track();
+}());
+</script>
   {# OG image resolution handled by og-fix transform in eleventy.config.js
      to bypass Eleventy 3.x parallel rendering race condition (#3183).
      Template outputs __OG_IMAGE_PLACEHOLDER__ and __TWITTER_CARD_PLACEHOLDER__
