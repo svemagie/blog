@@ -4,9 +4,9 @@ bookmarkOf: https://social.wildeboer.net/@jwildeboer/116273248633937500
 category: on/politics
 aiTextLevel: "0"
 syndication:
-  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhwuybosx52d
+  - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhwweiwda32j
   - https://blog.giersig.eu/bookmarks/de90b/
-updated: 2026-03-26T05:34:21.241Z
+updated: 2026-03-26T05:59:05.622Z
 mpUrl: https://blog.giersig.eu/bookmarks/de90b/
 permalink: /bookmarks/de90b/
 ---
