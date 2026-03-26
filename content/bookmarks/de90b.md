@@ -6,7 +6,10 @@ aiTextLevel: "0"
 syndication:
   - https://bsky.app/profile/did:plc:g4utqyolpyb5zpwwodmm3hht/post/3mhwweiwda32j
   - https://blog.giersig.eu/bookmarks/de90b/
-updated: 2026-03-26T05:59:05.622Z
+updated: 2026-03-26T05:59:51.811Z
+mpSyndicateTo:
+  - https://bsky.app/profile/svemagie.bsky.social
+  - https://blog.giersig.eu/
 mpUrl: https://blog.giersig.eu/bookmarks/de90b/
 permalink: /bookmarks/de90b/
 ---
