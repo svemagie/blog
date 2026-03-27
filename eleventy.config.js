@@ -496,8 +496,7 @@ export default function (eleventyConfig) {
     // Fast bail-outs
     if (typeof outputPath !== "string" || !outputPath.endsWith(".html")) return content;
     if (!content.includes('class="footnote-ref"')) return content;
-    const isPostPage = ["/articles/", "/notes/", "/bookmarks/", "/photos/", "/replies/", "/reposts/", "/likes/", "/pages/"]
-      .some(p => outputPath.includes(p));
+    const isPostPage = /\/(articles|notes|bookmarks|photos|replies|reposts|likes|pages)\/[^/]+\/index\.html$/.test(outputPath);
     if (!isPostPage) return content;
 
     const result = await posthtml([
@@ -540,11 +539,12 @@ export default function (eleventyConfig) {
             const fnId = href.replace(/^#/, "");   // e.g. "fn1"
             const refId = anchor.attrs?.id || "";   // e.g. "fnref1"
 
-            // Extract numeric label from anchor text e.g. "[1]" → "1"
+            // Extract numeric label from anchor text e.g. "[1]" → "1" or "[1:1]" → "1"
             const rawLabel = (anchor.content || []).find(c => typeof c === "string") || "";
-            const label = rawLabel.replace(/[\[\]]/g, "").trim();
+            const label = rawLabel.replace(/[\[\]]/g, "").replace(/:.*$/, "").trim();
 
             const noteContent = fnMap[fnId] || [];
+            if (!noteContent.length) return node;  // Skip orphan refs with no definition
             hasSidenotes = true;
 
             return {
