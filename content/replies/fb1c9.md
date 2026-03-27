@@ -1,8 +1,9 @@
 ---
 date: 2026-03-27T18:26:21.763Z
 inReplyTo: https://mastodon.social/users/captainfutura/statuses/116302500434678178
-mpSyndicateTo:
-  - https://blog.giersig.eu/
+syndication:
+  - https://blog.giersig.eu/replies/fb1c9/
+updated: 2026-03-27T18:27:18.993Z
 mpUrl: https://blog.giersig.eu/replies/fb1c9/
 permalink: /replies/fb1c9/
 ---
