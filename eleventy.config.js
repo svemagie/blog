@@ -587,6 +587,17 @@ export default function (eleventyConfig) {
             }
             return node;
           });
+
+          // 5. Inject positioning script before </body>
+          // Sets each sidenote's top relative to .e-content, with overlap prevention.
+          const posScript = `(function(){function p(){if(window.innerWidth<1440)return;var a=document.querySelector('article.has-sidenotes');if(!a)return;var e=a.querySelector('.e-content');if(!e)return;var cr=e.getBoundingClientRect();var lb=0;a.querySelectorAll('.sidenote').forEach(function(s){var h=s.parentElement;var hr=h.getBoundingClientRect();var t=Math.max(hr.top-cr.top,lb);s.style.top=t+'px';lb=t+s.offsetHeight+8;});}document.addEventListener('DOMContentLoaded',p);window.addEventListener('load',p);window.addEventListener('resize',p);})();`;
+          tree.walk(node => {
+            if (node.tag === "body") {
+              node.content = node.content || [];
+              node.content.push({ tag: "script", content: [posScript] });
+            }
+            return node;
+          });
         }
       },
     ]).process(content, { sync: false });

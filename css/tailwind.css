@@ -1176,22 +1176,25 @@ body[data-indiekit-auth="true"] .share-post-btn:hover {
   font-variant-numeric: tabular-nums;
 }
 
-/* Wide (xl+): left gutter + floating sidenotes */
-@media (min-width: 1280px) {
-  /* Cancel the overflow:clip BFC so the float can escape the content box
-     into the padding gutter. The !important overrides Tailwind prose resets. */
+/* Wide (1440px+): sidenotes float into the left page margin — text width unchanged */
+@media (min-width: 1440px) {
+  /* Override overflow-x:hidden on .main-content so sidenotes can paint in the margin */
+  .main-content:has(article.has-sidenotes) {
+    overflow-x: visible;
+  }
+
+  /* .e-content is the positioning context; cancel overflow:clip so children can escape */
   article.has-sidenotes .e-content {
+    position: relative;
     overflow-x: visible !important;
-    padding-left: 210px !important;
   }
 
   article.has-sidenotes .sidenote {
     display: block;
-    float: left;
-    clear: left;
+    position: absolute;
+    right: calc(100% + 20px); /* 20px gap; extends left into page margin */
+    top: 0; /* overridden by JS */
     width: 190px;
-    margin-left: -210px; /* pull into the 210px padding gutter */
-    margin-top: 0.15em;  /* subtle optical alignment with line */
     font-size: 0.8rem;
     font-style: italic;
     line-height: 1.5;
