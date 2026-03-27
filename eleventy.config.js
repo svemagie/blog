@@ -588,12 +588,13 @@ export default function (eleventyConfig) {
             return node;
           });
 
-          // 5. Inject positioning script before </body>
-          // Sets each sidenote's top relative to .e-content, with overlap prevention.
-          // offsetTop is measured from .e-content's padding edge because .e-content
-          // is position:relative — its offsetParent. Script is injected at end of
-          // <body> so DOM is ready; call p() immediately (rAF for paint stability).
-          const posScript = `(function(){function p(){if(window.innerWidth<1440)return;var a=document.querySelector('article.has-sidenotes');if(!a)return;var e=a.querySelector('.e-content');if(!e)return;var lb=0;a.querySelectorAll('.sidenote').forEach(function(s){var h=s.parentElement;var t=Math.max(h.offsetTop,lb);s.style.top=t+'px';lb=t+s.offsetHeight+8;});}requestAnimationFrame(p);window.addEventListener('load',p);window.addEventListener('resize',p);})();`;
+          // 5. Inject positioning script before </body>.
+          // JS sets position:relative and overflow on .e-content/.main-content directly
+          // (more reliable than relying on CSS cascade/media-query ordering).
+          // getBoundingClientRect() is viewport-relative; subtracting eRect.top from
+          // hRect.top gives the distance of the host from .e-content top, which equals
+          // the CSS `top` value needed for an absolute child of .e-content.
+          const posScript = `(function(){var a,e,mc;function p(){if(window.innerWidth<1440){if(e){e.style.position='';e.style.overflowX='';}if(mc)mc.style.overflowX='';return;}if(!a)a=document.querySelector('article.has-sidenotes');if(!a)return;if(!e)e=a.querySelector('.e-content');if(!e)return;if(!mc)mc=a.closest('.main-content');e.style.position='relative';e.style.overflowX='visible';if(mc)mc.style.overflowX='visible';var er=e.getBoundingClientRect();var lb=0;a.querySelectorAll('.sidenote').forEach(function(s){var h=s.parentElement;var hr=h.getBoundingClientRect();var t=Math.max(hr.top-er.top,lb);s.style.top=t+'px';lb=t+s.offsetHeight+8;});}requestAnimationFrame(p);window.addEventListener('load',p);window.addEventListener('resize',p);})();`;
           tree.walk(node => {
             if (node.tag === "body") {
               node.content = node.content || [];
