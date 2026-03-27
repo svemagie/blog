@@ -525,10 +525,15 @@ export default function (eleventyConfig) {
           return node;
         });
 
-        // 2. Track whether any sidenotes were injected
+        // 2. Track sidenotes and collect aside nodes for later insertion into .e-content.
+        //    Putting <aside> (block) inside <span> (phrasing) is invalid HTML — browsers
+        //    re-parent the aside, splitting the surrounding <p> and creating a visual gap.
+        //    Instead: inline host gets only the superscript span; asides are appended
+        //    as block children of .e-content where they're valid and don't break text flow.
         let hasSidenotes = false;
+        const sidenoteAsides = [];
 
-        // 3. Replace each <sup class="footnote-ref"> with sidenote-host + aside
+        // 3. Replace each <sup class="footnote-ref"> with a plain inline sidenote-host
         tree.walk(node => {
           if (node.tag === "sup" && node.attrs?.class?.includes("footnote-ref")) {
             // Find the child <a> to get href and id
@@ -547,6 +552,22 @@ export default function (eleventyConfig) {
             if (!noteContent.length) return node;  // Skip orphan refs with no definition
             hasSidenotes = true;
 
+            // Collect aside for insertion into .e-content (not inline — avoids block-in-inline)
+            sidenoteAsides.push({
+              tag: "aside",
+              attrs: {
+                class: "sidenote",
+                "aria-label": `Sidenote ${label}`,
+                "data-fn-ref": refId,
+              },
+              content: [
+                { tag: "span", attrs: { class: "sidenote-number" }, content: [label] },
+                " ",
+                ...noteContent,
+              ],
+            });
+
+            // Inline host: only the superscript number — no block child
             return {
               tag: "span",
               attrs: { class: "sidenote-host" },
@@ -556,28 +577,22 @@ export default function (eleventyConfig) {
                   attrs: { class: "footnote-ref-num", id: refId },
                   content: [label],
                 },
-                {
-                  tag: "aside",
-                  attrs: {
-                    class: "sidenote",
-                    "aria-label": `Sidenote ${label}`,
-                    "data-fn-ref": refId,
-                  },
-                  content: [
-                    {
-                      tag: "span",
-                      attrs: { class: "sidenote-number" },
-                      content: [label],
-                    },
-                    " ",
-                    ...noteContent,
-                  ],
-                },
               ],
             };
           }
           return node;
         });
+
+        // 3b. Append collected asides as block children of .e-content
+        if (sidenoteAsides.length > 0) {
+          tree.walk(node => {
+            // Only match the article body .e-content (has prose-lg), not sidebar card divs
+            if (node.tag === "div" && node.attrs?.class?.includes("e-content") && node.attrs?.class?.includes("prose-lg")) {
+              node.content = [...(node.content || []), ...sidenoteAsides];
+            }
+            return node;
+          });
+        }
 
         // 4. Add has-sidenotes class to <article> if any sidenotes were injected
         if (hasSidenotes) {
