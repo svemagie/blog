@@ -3,7 +3,7 @@ date: 2026-03-10T08:52:56.474Z
 title: uses
 summary: My setup for everyday uses.
 category: slashpage/uses
-updated: 2026-03-27T09:51:28.248Z
+updated: 2026-03-27T09:54:44.522Z
 syndication:
   - https://blog.giersig.eu/uses/
 webmentionResults:
@@ -56,7 +56,7 @@ mpUrl: https://blog.giersig.eu/uses/
 permalink: /uses/
 ---
 
-<img src="https://blog.giersig.eu/images/500px-daemon-phk-svg.png" alt="FreeBSD" style="float: right; margin: 0 0 15px 15px;">
+<img src="https://blog.giersig.eu/images/500px-daemon-phk-svg.png" alt="FreeBSD" style="float: right; margin: 0 0 15px 15px max-width: "300px;";">
 ## Hardware
 - MacbookAir M3
 - RaspberryPI4 running FreeBSD
