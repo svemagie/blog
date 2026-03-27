@@ -9,6 +9,7 @@ import markdownItAnchor from "markdown-it-anchor";
 import markdownItFootnote from "markdown-it-footnote";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { minify } from "html-minifier-terser";
+import posthtml from "posthtml";
 import { minify as minifyJS } from "terser";
 import registerUnfurlShortcode, { getCachedCard, prefetchUrl } from "./lib/unfurl-shortcode.js";
 import matter from "gray-matter";
@@ -487,6 +488,110 @@ export default function (eleventyConfig) {
     }
 
     return result;
+  });
+
+  // Sidenotes — convert markdown-it-footnote output into margin sidenotes.
+  // Wide screens (xl+): sidenotes float left. Narrow: footnote section at bottom.
+  eleventyConfig.addTransform("sidenotes", async function (content, outputPath) {
+    // Fast bail-outs
+    if (typeof outputPath !== "string" || !outputPath.endsWith(".html")) return content;
+    if (!content.includes('class="footnote-ref"')) return content;
+    const isPostPage = /\/(articles|notes|bookmarks|photos|replies|reposts|likes|pages)\/[^/]+\/index\.html$/.test(outputPath);
+    if (!isPostPage) return content;
+
+    const result = await posthtml([
+      (tree) => {
+        // 1. Build map: fnId → inline HTML (backref stripped, <p> wrappers stripped)
+        const fnMap = {};
+        tree.walk(node => {
+          if (
+            node.tag === "li" &&
+            node.attrs?.class?.includes("footnote-item") &&
+            node.attrs?.id
+          ) {
+            const fnId = node.attrs.id;
+            // Collect children, skip <a class="footnote-backref">
+            const children = (node.content || []).flatMap(child => {
+              if (child.tag === "p") {
+                // Strip outer <p>, keep inner content (excluding backref <a>)
+                return (child.content || []).filter(c =>
+                  !(c.tag === "a" && c.attrs?.class?.includes("footnote-backref"))
+                );
+              }
+              return [child];
+            });
+            fnMap[fnId] = children;
+          }
+          return node;
+        });
+
+        // 2. Track whether any sidenotes were injected
+        let hasSidenotes = false;
+
+        // 3. Replace each <sup class="footnote-ref"> with sidenote-host + aside
+        tree.walk(node => {
+          if (node.tag === "sup" && node.attrs?.class?.includes("footnote-ref")) {
+            // Find the child <a> to get href and id
+            const anchor = (node.content || []).find(c => c.tag === "a");
+            if (!anchor) return node;
+
+            const href = anchor.attrs?.href || ""; // e.g. "#fn1"
+            const fnId = href.replace(/^#/, "");   // e.g. "fn1"
+            const refId = anchor.attrs?.id || "";   // e.g. "fnref1"
+
+            // Extract numeric label from anchor text e.g. "[1]" → "1" or "[1:1]" → "1"
+            const rawLabel = (anchor.content || []).find(c => typeof c === "string") || "";
+            const label = rawLabel.replace(/[\[\]]/g, "").replace(/:.*$/, "").trim();
+
+            const noteContent = fnMap[fnId] || [];
+            if (!noteContent.length) return node;  // Skip orphan refs with no definition
+            hasSidenotes = true;
+
+            return {
+              tag: "span",
+              attrs: { class: "sidenote-host" },
+              content: [
+                {
+                  tag: "span",
+                  attrs: { class: "footnote-ref-num", id: refId },
+                  content: [label],
+                },
+                {
+                  tag: "aside",
+                  attrs: {
+                    class: "sidenote",
+                    "aria-label": `Sidenote ${label}`,
+                  },
+                  content: [
+                    {
+                      tag: "span",
+                      attrs: { class: "sidenote-number" },
+                      content: [label],
+                    },
+                    " ",
+                    ...noteContent,
+                  ],
+                },
+              ],
+            };
+          }
+          return node;
+        });
+
+        // 4. Add has-sidenotes class to <article> if any sidenotes were injected
+        if (hasSidenotes) {
+          tree.walk(node => {
+            if (node.tag === "article") {
+              const existing = node.attrs?.class || "";
+              node.attrs = { ...node.attrs, class: (existing + " has-sidenotes").trim() };
+            }
+            return node;
+          });
+        }
+      },
+    ]).process(content, { sync: false });
+
+    return result.html;
   });
 
   // HTML minification — only during initial build, skip during watch rebuilds
