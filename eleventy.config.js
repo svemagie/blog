@@ -561,6 +561,7 @@ export default function (eleventyConfig) {
                   attrs: {
                     class: "sidenote",
                     "aria-label": `Sidenote ${label}`,
+                    "data-fn-ref": refId,
                   },
                   content: [
                     {
@@ -594,7 +595,10 @@ export default function (eleventyConfig) {
           // getBoundingClientRect() is viewport-relative; subtracting eRect.top from
           // hRect.top gives the distance of the host from .e-content top, which equals
           // the CSS `top` value needed for an absolute child of .e-content.
-          const posScript = `(function(){var a,e,mc;function p(){if(window.innerWidth<1440){if(e){e.style.position='';e.style.overflowX='';}if(mc)mc.style.overflowX='';return;}if(!a)a=document.querySelector('article.has-sidenotes');if(!a)return;if(!e)e=a.querySelector('.e-content');if(!e)return;if(!mc)mc=a.closest('.main-content');e.style.position='relative';e.style.overflowX='visible';if(mc)mc.style.overflowX='visible';var er=e.getBoundingClientRect();var lb=0;a.querySelectorAll('.sidenote').forEach(function(s){var h=s.parentElement;var hr=h.getBoundingClientRect();var t=Math.max(hr.top-er.top,lb);s.style.top=t+'px';lb=t+s.offsetHeight+8;});}requestAnimationFrame(p);window.addEventListener('load',p);window.addEventListener('resize',p);})();`;
+          // Browsers re-parent <aside> out of <span> (invalid block-in-inline nesting),
+          // so s.parentElement is .e-content, not .sidenote-host. We use data-fn-ref
+          // to find the corresponding .footnote-ref-num element by its id attribute.
+          const posScript = `(function(){var a,e,mc;function p(){if(window.innerWidth<1440){if(e){e.style.position='';e.style.overflowX='';}if(mc)mc.style.overflowX='';return;}if(!a)a=document.querySelector('article.has-sidenotes');if(!a)return;if(!e)e=a.querySelector('.e-content');if(!e)return;if(!mc)mc=a.closest('.main-content');e.style.position='relative';e.style.overflowX='visible';if(mc)mc.style.overflowX='visible';var er=e.getBoundingClientRect();var lb=0;a.querySelectorAll('.sidenote').forEach(function(s){var refId=s.getAttribute('data-fn-ref');var ref=refId?document.getElementById(refId):null;if(!ref)return;var hr=ref.getBoundingClientRect();var t=Math.max(hr.top-er.top,lb);s.style.top=t+'px';lb=t+s.offsetHeight+8;});}requestAnimationFrame(p);window.addEventListener('load',p);window.addEventListener('resize',p);})();`;
           tree.walk(node => {
             if (node.tag === "body") {
               node.content = node.content || [];
