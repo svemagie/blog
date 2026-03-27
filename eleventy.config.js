@@ -1502,6 +1502,7 @@ export default function (eleventyConfig) {
     const allPosts = collectionApi
       .getFilteredByGlob("content/**/*.md")
       .filter(isPublished)
+      .filter(isListed)
       .filter((item) => {
         // Exclude replies
         return !(item.data.inReplyTo || item.data.in_reply_to);
