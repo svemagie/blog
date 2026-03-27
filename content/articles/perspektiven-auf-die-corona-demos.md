@@ -5,7 +5,7 @@ category:
   - lang/de
   - on/covid19
 visibility: Public
-updated: 2026-03-23T18:19:42.879Z
+updated: 2026-03-27T18:33:23.550Z
 summary: Über den “richtigen” Umgang mit der Corona-Pandemie wird gestritten und debattiert. Über den richtigen Umgang mit den rechtsoffenen Corona-Demos herrscht jedoch eine seltsam anmutende und verstörende Einigkeit.
 webmentionResults:
   sent: 0
@@ -69,7 +69,5 @@ Eine gesellschaftliche Großwetterlage mit so vielen negativen Gewissheiten, und
 Die Rechten, theoretisch, technisch und medial seit Jahrzehnten gut aufgestellt und vernetzt, kalkulieren, verstärken und nutzen diese Unzufriedenheit, diese Emotionen und diese Wut. Wenn man die jüngsten Aufdeckungen zu den Nazi-Netzwerken verallgemeinert, gibt es eine politische, bürgerlich getarnte Rechte, die im Zweifel (am “Tag X”) von Polizei und Militär euphorisch unterstützt werden. Nicht unerhebliche Teile der Bevölkerung sind sowieso rechtsoffen, und die [Corona-Demos](https://blog.giersig.eu/articles/murnauer-dialektik/) werden ganz offensichtlich als Vehikel genutzt, um neonazistische Denke weiter zugänglich zu machen.
 
 > Keine Regierung kämpft gegen den Faschismus, um ihn zu zerstören. Wenn die Bourgeoisie sieht, dass ihr die Macht aus den Händen gleitet, erhebt sie den Faschismus, um an ihren Privilegien festzuhalten. -- Buenaventura Durruti
-
-## Literatur
 
 [^1]: König, Gudrun M. “Modus Der Moderne. Die Permanente Erfindung Der Konsumenten,” In Transformationen Des Konsums, 99–107. Nomos, 2019.
